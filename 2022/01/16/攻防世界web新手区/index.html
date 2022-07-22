@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <meta name="generator" content="Hexo 5.4.0">
+
+  
+
+  
+
+  
+    <meta name="author" content="tty">
+  
+
+  
+
+  
+
+  <title>攻防世界web新手区Writeup | ttycp3</title>
+
+  
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/atom.xml" title="ttycp3" type="application/atom+xml">
+</head>
+<body>
+  <div class="root-container">
+    
+<!-- header container -->
+<header class="header-container post">
+  
+    <div class="post-image" style="background-image: url(https://ttycp3.oss-cn-beijing.aliyuncs.com/img/preview.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          ttycp3
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/playlist/1.html">歌单</a></li>
+        
+          <li class="navbar-list-item"><a href="/projects/cyb.html">工具</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">攻防世界web新手区Writeup</h1>
+          <h2 class="title-sub-wrap">
+            <strong>tty</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2022-01-16T10:17:23.000Z" itemprop="datePublished">2022-01-16</time>
+          </h2>
+          <ul class="wrap-list dark">
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/tags/Writeup/">🏷️ Writeup</a></li>
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h2 id="1-view-source"><a href="#1-view-source" class="headerlink" title="1.view_source"></a><strong>1.view_source</strong></h2><p>​    打开网址后发现界面是这样的：</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337257429804/c48ca26711041ce6b377a0befa6dcb3a652fd62e.png"></p>
+<p>尝试F12打开开发人员工具查看源代码：</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337266415701/4580b305547d1319884eb4f917e366b855c7ccaa.png"></p>
+<p>正好发现flag藏在这里，结束。</p>
+<hr>
+<h2 id="2-robots"><a href="#2-robots" class="headerlink" title="2.robots"></a>2.robots</h2><p>根据题目提示，尝试在url后添加<code>robots.txt</code></p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337270586804/41af69a2d2ca215fe4d5ebafe4a4ed058fbd3e72.png"></p>
+<p>发现flag藏在<code>f1ag_1s_h3re.php</code>中</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337274176910/66505fc87236a60b7c38486c98d899b6ea3208e2.png"></p>
+<p>END</p>
+<hr>
+<h2 id="3-backup"><a href="#3-backup" class="headerlink" title="3.backup"></a>3.backup</h2><p>题目提示是找到<code>index.php</code>的备份文件，百度查了一下如果网站存在备份文件，常见的备份文件后缀名有：“.git” ，“.svn”，“ .swp” ，“.~”，“.bak”，“.bash_history”，“.bkf”。 在URL后面，依次尝试输入常见的文件备份扩展名。<br>等到输入”.bak”时,弹出提示下载文件：</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337277251854/960900cc7106375ce18ad46c1ecd479a7acd5c2e.png"></p>
+<p>在文本中找到flag，下一个。</p>
+<hr>
+<h2 id="4-cookie"><a href="#4-cookie" class="headerlink" title="4.cookie"></a>4.cookie</h2><p>URL后加上<code>cookie.php</code>后</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337279665584/68420d03034b257110dba633dfeade3e5c00974e.png"></p>
+<p>用Burp Suite连接查看response</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337282095832/0c681ca1ddc74464d96a4d9972c0313a4c346a8d.png"></p>
+<p>找到flag，冲冲冲。</p>
+<hr>
+<h2 id="5-disabled-button"><a href="#5-disabled-button" class="headerlink" title="5.disabled_button"></a>5.disabled_button</h2><p>打开界面发现有个按钮按不下去，F12查看源代码，发现有一个<code>disabled</code>，双击选中删掉后，按一下flag就出来了。</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337284604808/0245a10357484c706bb99ab2381567b960ddb303.png"></p>
+<p>是不是很简单？</p>
+<hr>
+<h2 id="6-weak-auth"><a href="#6-weak-auth" class="headerlink" title="6.weak_auth"></a>6.weak_auth</h2><p>打开网址发现是一个登陆界面，随便输入用户名和密码后，提示我用户名为<code>admin</code>。试了多个万能密码后，都不对，看来只能用字典爆破了，题目说是随便设了个简单密码，假设为6位数字好了，<del>相信玄学</del>。</p>
+<p>用Burp Suite进行连接，在Raw界面下右键选择<code>Send to Intruder</code></p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337288478170/e982cd648b38cfa72ab429afd5335a31f0090c49.png"></p>
+<p>将密码位置处理成爆破点：</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337290502777/5a194cb5c60cffa5e6bd87a87c1a7a5220141b16.png"></p>
+<p>在这里修改爆破字典内容，然后点击<code>start attack</code>:</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337292904553/f56dcae28f1aa856a8619bed1b2085704f04a600.png" alt="image-20220116172329761"></p>
+<p>这里得跑一会了，不要着急</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337295816255/456acab6a5cff4ef9cedec6e1833608e59eca923.png" alt="image-20220116172655564"></p>
+<p> 从大到小排序后发现123456长度与别的不同，找到密码了。回到页面输入账号密码得到flag。</p>
+<hr>
+<h2 id="7-simple-php"><a href="#7-simple-php" class="headerlink" title="7.simple_php"></a>7.simple_php</h2><p>拿到题目后，根据php代码判断需要通过GET方式传入a和b的值，a要求等于0但不为0，b要求不能是数字还要大于1234，然后简单处理一下传入a和b的值就可以了</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643003998280754/8bbe82a308e586c6216c67f90bb45dea23994e66.png" alt="image-20220124135958020"></p>
+<p>bingo！</p>
+<hr>
+<h2 id="8-get-post"><a href="#8-get-post" class="headerlink" title="8.get_post"></a>8.get_post</h2><p>题如其名，就是考基本的get和post，get直接在url后添加就可</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643004410771707/2f5690c734d1401511e07fde43479f79b38fe6f4.png" alt="image-20220124140650625"></p>
+<p>post就需要postman来帮忙了<del><em>火狐的话直接post就好</em></del></p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643004515333934/a2d9c4e9f7fdfa49f5392dc2a4382543a2998218.png" alt="image-20220124140835207"></p>
+<hr>
+<h2 id="9-xff-referer"><a href="#9-xff-referer" class="headerlink" title="9.xff_referer"></a>9.xff_referer</h2><p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643005782270065/c36aa1eb8084da1227115735c9ef2b5959e04a4d.png" alt="image-20220124142942126"></p>
+<p>话不多说，Burpsuite直连</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643005885218603/62a6553fca3bb2b928af859b0099ba4585b530bb.png" alt="image-20220124143125096"></p>
+<p>右键选择Send to Repeater</p>
+<p>这里添加一个X-Forwarded-For值为123.123.123.123</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006290936597/03ed8bb4b85a6e88d8298ee9ab853cbda3f66670.png" alt="image-20220124143810840"></p>
+<p>点击Go,查看相应里多了一行字</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006386292746/d3f008065aed3648868a4f1efa3cde270052d0aa.png" alt="image-20220124143946193"></p>
+<p>再添加个Referer值为<code>https://www.google.com</code></p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006462021974/5155af739e93260e367897dc4018263fd121a4e5.png" alt="image-20220124144101892"></p>
+<p>找到flag。</p>
+<hr>
+<h2 id="10-webshell"><a href="#10-webshell" class="headerlink" title="10.webshell"></a>10.webshell</h2><p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006686797527/28bab5f4d1edcb0d29cafb41df65a8281c8cb69f.png" alt="image-20220124144446656"></p>
+<p>webshell就需要请出来菜刀来解决他了，先用post传一句话木马</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006788105981/a2b8ee1817303705cbb12c93e8978af82489e810.png" alt="image-20220124144627982"></p>
+<p>拿菜刀连一下</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006841616193/a741fdddeb9323ed77d6e671bf1fd3d79bd64377.png" alt="image-20220124144721522"></p>
+<p>有个flag文本，直接搞定</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006902853672/f2d823611f3de38e76c2b9747c8c68dafb2c2214.png" alt="image-20220124144822742"></p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006922808057/a3853337d6a36610c3aff59dd369f3c71129ca0d.png" alt="image-20220124144842696"></p>
+<hr>
+<h2 id="11-command-execution"><a href="#11-command-execution" class="headerlink" title="11.command_execution"></a>11.command_execution</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41617034/article/details/91837257">https://blog.csdn.net/qq_41617034/article/details/91837257</a></p>
+<p>参考这个博客学习一下有关命令执行的知识再来做题</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007333604888/8e758e88b7c42f047127fa598afd7b6189030628.png" alt="image-20220124145533469"></p>
+<p>先试试本地地址127.0.0.1：</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007387089454/1f4508231af64b14a349c24178dee9965b10e57c.png" alt="image-20220124145626953"></p>
+<p>已知flag在flag.txt中了，直接找一下</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007655779380/dfe596a629d226c76b6ed163fb0e99918faf9061.png" alt="image-20220124150055685"></p>
+<p>注意斜杠后要有空格</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007738427800/6d52014e9b3c92d07536f421ac1993af3e23c98e.png" alt="image-20220124150218330"></p>
+<p>找到目录</p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007805389534/29da258dc281f3b05b021c6de3698bb4fd14b583.png" alt="image-20220124150325273"></p>
+<p>搞定</p>
+<hr>
+<h2 id="12-simple-js"><a href="#12-simple-js" class="headerlink" title="12.simple_js"></a>12.simple_js</h2><p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643009372440033/54c62e8f4c327c6e8600e6dac60768967b68418f.png" alt="image-20220124152932298"></p>
+<p>提示输入密码，随便试试，密码不对，F12查看源代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dechiffre</span>(<span class="params">pass_enc</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> pass = <span class="string">&quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;</span>;</span><br><span class="line">    <span class="keyword">var</span> tab  = pass_enc.split(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">            <span class="keyword">var</span> tab2 = pass.split(<span class="string">&#x27;,&#x27;</span>);<span class="keyword">var</span> i,j,k,l=<span class="number">0</span>,m,n,o,p = <span class="string">&quot;&quot;</span>;i = <span class="number">0</span>;j = tab.length;</span><br><span class="line">                    k = j + (l) + (n=<span class="number">0</span>);</span><br><span class="line">                    n = tab2.length;</span><br><span class="line">                    <span class="keyword">for</span>(i = (o=<span class="number">0</span>); i &lt; (k = j = n); i++ )&#123;o = tab[i-l];p += <span class="built_in">String</span>.fromCharCode((o = tab2[i]));</span><br><span class="line">                            <span class="keyword">if</span>(i == <span class="number">5</span>)<span class="keyword">break</span>;&#125;</span><br><span class="line">                    <span class="keyword">for</span>(i = (o=<span class="number">0</span>); i &lt; (k = j = n); i++ )&#123;</span><br><span class="line">                    o = tab[i-l];</span><br><span class="line">                            <span class="keyword">if</span>(i &gt; <span class="number">5</span> &amp;&amp; i &lt; k-<span class="number">1</span>)</span><br><span class="line">                                    p += <span class="built_in">String</span>.fromCharCode((o = tab2[i]));</span><br><span class="line">                    &#125;</span><br><span class="line">    p += <span class="built_in">String</span>.fromCharCode(tab2[<span class="number">17</span>]);</span><br><span class="line">    pass = p;<span class="keyword">return</span> pass;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">String</span>[<span class="string">&quot;fromCharCode&quot;</span>](dechiffre(<span class="string">&quot;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&quot;</span>));</span><br><span class="line"></span><br><span class="line">h = <span class="built_in">window</span>.prompt(<span class="string">&#x27;Enter password&#x27;</span>);</span><br><span class="line">alert( dechiffre(h) );</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>代码审计一波，把16进制的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30</span><br></pre></td></tr></table></figure>
+
+<p>转换为10进制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">55,56,54,79,115,69,114,116,107,49,50</span><br></pre></td></tr></table></figure>
+
+<p>转换为ASCII码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">786OsErtk12</span><br></pre></td></tr></table></figure>
+
+<p>根据题目提示flag格式为Cyberpeace{xxxxxxxxx}，提交Cyberpeace{786OsErtk12}得到正确答案。</p>
+<hr>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2022/01/24/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">实用工具</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+    <div class="valine-container comments-container content-padding--primary soft-size--large soft-style--box">
+      <div id="valine_thread" class="valine-thread"></div>
+    </div>
+    <script type="text/javascript" src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script type="text/javascript" src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script type="text/javascript">
+      new Valine({
+        el: "#valine_thread",
+        appId: "wuMxbnApLLBmk4DIIs2AEALQ-gzGzoHsz",
+        appKey: "SStvunV3BC8FFQNQ6if5tAUc",
+        avatar: "mm",
+        placeholder: "随便说点什么叭～",
+        notify: true,
+        visitor: true,
+        pageSize: 10,
+      });
+    </script>
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1649147966952106/41945c5bb4d50285490e040625ce5e60df9a8ad6.jpg" class="soft-size--round soft-style--box" alt="ttycp3">
+    
+    
+      <h2>ttycp3</h2>
+    
+    
+      <p>Only the strong survive</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>6</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        3
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+<section class="widet-notice widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-notice" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M512 945.02305225v28.15620663a24.27259221 24.27259221 0 0 1-24.27259221 24.27259335H394.0352a48.54518557 48.54518557 0 0 1-41.74885888-23.78714112l-110.68302222-184.47170332a132.04290333 132.04290333 0 0 1-17.47626667-48.54518557h118.4502511a200.97706667 200.97706667 0 0 1 76.21594113 14.56355556l20.38897777 133.49925888a48.54518557 48.54518557 0 0 0 36.40888888 27.67075555l16.01991111 2.91271112a24.27259221 24.27259221 0 0 1 20.38897778 25.72894889zM997.45185223 463.45481443a194.18074112 194.18074112 0 0 1-38.8361489 116.50844445 24.75804445 24.75804445 0 0 1-36.4088889 0l-34.95253333-34.95253333a24.27259221 24.27259221 0 0 1-2.91271111-30.58346667 97.09036999 97.09036999 0 0 0 0-106.79940665 24.27259221 24.27259221 0 0 1 2.91271111-30.58346666l34.95253333-34.95253334a24.75804445 24.75804445 0 0 1 18.93262223-7.28177777 26.2144 26.2144 0 0 1 17.47626667 9.70903665A194.18074112 194.18074112 0 0 1 997.45185223 463.45481443z m-194.18074112-388.36148111v776.72296335a48.54518557 48.54518557 0 0 1-48.54518556 48.54518443h-28.64165888a48.54518557 48.54518557 0 0 1-33.98163001-14.07810332l-145.63555556-143.20829668A291.27111111 291.27111111 0 0 0 342.57730333 657.63555556H172.18370333a145.63555556 145.63555556 0 0 1-145.63555556-145.63555556v-97.09036999a145.63555556 145.63555556 0 0 1 145.63555556-145.63555556h170.3936a291.27111111 291.27111111 0 0 0 206.31703779-85.43952668l145.63555555-143.20829554a48.54518557 48.54518557 0 0 1 33.98162888-14.07810446H754.72592555a48.54518557 48.54518557 0 0 1 48.54518556 48.54518555z" fill="currentColor"></path>
+</svg>
+    <span>NOTICE</span>
+  </div>
+  <div class="widget-body">
+    <p>赛车的终点是赛道的尽头</p>
+  </div>
+</section>
+
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      <a href="/tags/Writeup/" style="font-size: 15px;" class="tags-cloud-5">Writeup</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;" class="tags-cloud-0">工具</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 20px;" class="tags-cloud-10">笔记</a>
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/ttycp3/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+          <a href="https://twitter.com/guanquanhong" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-twitter" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M962.285714 233.142857q-38.285714 56-92.571429 95.428571 0.571429 8 0.571429 24 0 74.285714-21.714286 148.285714t-66 142-105.428571 120.285714-147.428571 83.428571-184.571429 31.142857q-154.857143 0-283.428571-82.857143 20 2.285714 44.571429 2.285714 128.571429 0 229.142857-78.857143-60-1.142857-107.428571-36.857143t-65.142857-91.142857q18.857143 2.857143 34.857143 2.857143 24.571429 0 48.571429-6.285714-64-13.142857-106-63.714286t-42-117.428571l0-2.285714q38.857143 21.714286 83.428571 23.428571-37.714286-25.142857-60-65.714286t-22.285714-88q0-50.285714 25.142857-93.142857 69.142857 85.142857 168.285714 136.285714t212.285714 56.857143q-4.571429-21.714286-4.571429-42.285714 0-76.571429 54-130.571429t130.571429-54q80 0 134.857143 58.285714 62.285714-12 117.142857-44.571429-21.142857 65.714286-81.142857 101.714286 53.142857-5.714286 106.285714-28.571429z"></path>
+</svg>
+          </a>
+        
+      
+    </div>
+     
+    <p>&copy; 2022 <a href="/" target="_blank">tty</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+    </svg>
+  </div>
+
+  
+  <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+</body>
+</html>
