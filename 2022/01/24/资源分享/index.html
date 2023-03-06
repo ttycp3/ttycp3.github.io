@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>实用工具 | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="实用工具 | 甜筒园">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="一、GCDint gcd(int a,int b)&amp;#123;     return b?gcd(b,a%b):a; &amp;#125;  二、高精度加法(洛谷p1601)#include &lt;bits&#x2F;stdc++.h&gt; using namespace std; string a,b,c;int t1,t2; int main()&amp;#123;     cin&gt;&gt;a&gt;&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用简单模板">
+<meta property="og:url" content="http://example.com/2022/10/23/%E5%B8%B8%E7%94%A8%E7%AE%80%E5%8D%95%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:site_name" content="甜筒园">
+<meta property="og:description" content="一、GCDint gcd(int a,int b)&amp;#123;     return b?gcd(b,a%b):a; &amp;#125;  二、高精度加法(洛谷p1601)#include &lt;bits&#x2F;stdc++.h&gt; using namespace std; string a,b,c;int t1,t2; int main()&amp;#123;     cin&gt;&gt;a&gt;&gt;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-10-23T04:17:23.000Z">
+<meta property="article:modified_time" content="2022-11-16T08:29:47.456Z">
+<meta property="article:author" content="ttycp3">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210080023661.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/school-book.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1649147966952106/41945c5bb4d50285490e040625ce5e60df9a8ad6.jpg"/>
+</a>
+<div class="author">
+    <span>ttycp3</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/ttycp3"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="csdn"
+               href="https://blog.csdn.net/qq_33814823"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-csdn"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=1765543783"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="全部文章">全部文章
+            
+                <small>(10)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="Writeup">
+                        
+                        Writeup
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="笔记">
+                        
+                        笔记
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="工具">
+                        
+                        工具
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="算法竞赛专题">
+                        
+                        算法竞赛专题
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="10">
+<input type="hidden" id="yelog_site_word_count" value="12.7k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">全部文章</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="全部文章 算法竞赛专题 "
+           href="/2022/10/23/%E5%B8%B8%E7%94%A8%E7%AE%80%E5%8D%95%E6%A8%A1%E6%9D%BF/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="常用简单模板">常用简单模板</span>
+            <span class="post-date" title="2022-10-23 12:17:23">2022/10/23</span>
+        </a>
+        
+        
+        <a  class="全部文章 算法竞赛专题 "
+           href="/2022/10/20/2022-10-20-%E4%BB%8EC%E5%8D%87%E7%BA%A7C++%E9%80%9F%E6%88%90/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="从c升级到c++速成">从c升级到c++速成</span>
+            <span class="post-date" title="2022-10-20 13:47:23">2022/10/20</span>
+        </a>
+        
+        
+        <a  class="全部文章 Writeup "
+           href="/2022/10/06/NEWSTARCTF2022%E6%96%B0%E7%94%9F%E8%B5%9B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NEWSTARCTF2022-Web">NEWSTARCTF2022-Web</span>
+            <span class="post-date" title="2022-10-06 23:53:26">2022/10/06</span>
+        </a>
+        
+        
+        <a  class="全部文章 Writeup "
+           href="/2022/08/06/ctfshow%E4%B8%83%E5%A4%95%E6%9D%AFwp/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ctfshow七夕杯wp">ctfshow七夕杯wp</span>
+            <span class="post-date" title="2022-08-06 17:17:23">2022/08/06</span>
+        </a>
+        
+        
+        <a  class="全部文章 笔记 "
+           href="/2022/05/13/Webshell%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Webshell笔记">Webshell笔记</span>
+            <span class="post-date" title="2022-05-13 21:17:23">2022/05/13</span>
+        </a>
+        
+        
+        <a  class="全部文章 Writeup "
+           href="/2022/04/16/2022-04-16-CTF2022-Web/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="STARCTF2022-Web">STARCTF2022-Web</span>
+            <span class="post-date" title="2022-04-16 23:53:26">2022/04/16</span>
+        </a>
+        
+        
+        <a  class="全部文章 笔记 "
+           href="/2022/03/30/SSRF%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SSRF笔记">SSRF笔记</span>
+            <span class="post-date" title="2022-03-30 21:47:23">2022/03/30</span>
+        </a>
+        
+        
+        <a  class="全部文章 笔记 "
+           href="/2022/03/24/SQL%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SQL注入笔记">SQL注入笔记</span>
+            <span class="post-date" title="2022-03-24 20:17:23">2022/03/24</span>
+        </a>
+        
+        
+        <a  class="全部文章 工具 "
+           href="/2022/01/24/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="实用工具">实用工具</span>
+            <span class="post-date" title="2022-01-24 18:17:23">2022/01/24</span>
+        </a>
+        
+        
+        <a  class="全部文章 Writeup "
+           href="/2022/01/16/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BA/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="攻防世界web新手区Writeup">攻防世界web新手区Writeup</span>
+            <span class="post-date" title="2022-01-16 18:17:23">2022/01/16</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-资源分享" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">实用工具</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="工具">工具</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2022-10-18 21:26:59'>2022-01-24 18:17</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:54</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-CyberChef"><span class="toc-text">1.CyberChef</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Reverse-Shell-Generator"><span class="toc-text">2.Reverse Shell Generator</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-CyberChef"><a href="#1-CyberChef" class="headerlink" title="1.CyberChef"></a><a target="_blank" rel="noopener" href="https://www.ttycp3.top/cyb/cyb.html">1.CyberChef</a></h2><p>CyberChef是一款强大的编码转换器，集成了多种编码转换的功能，能辅助大家方便快捷地解密出恶意脚本。</p>
+<h2 id="2-Reverse-Shell-Generator"><a href="#2-Reverse-Shell-Generator" class="headerlink" title="2.Reverse Shell Generator"></a><a target="_blank" rel="noopener" href="https://www.ttycp3.top/shell/index.html">2.Reverse Shell Generator</a></h2><p>反弹Shell命令一键生成</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'a51659b180a263664e7c',
+            clientSecret: 'c2299e7fb5e11ee6367a54b8313d0ea170bb6b7e',
+            repo: 'comments',
+            owner: 'ttycp3',
+            admin: ['ttycp3'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2022 ttycp3
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+    .nav-right nav a.hover > span{
+        color: #ffffff !important;
+    }
+    
+
+    /*列表样式*/
+    
+    #post .pjax article .article-entry>ol, #post .pjax article .article-entry>ul, #post .pjax article>ol, #post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    #post .pjax article .article-entry li>ol, #post .pjax article .article-entry li>ul,#post .pjax article li>ol, #post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    #post .pjax article .article-entry>ol>li, #post .pjax article .article-entry>ul>li,#post .pjax article>ol>li, #post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    #post .pjax article .article-entry li>ol>li, #post .pjax article .article-entry li>ul>li,#post .pjax article li>ol>li, #post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
