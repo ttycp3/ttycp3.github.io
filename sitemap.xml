@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ttycp3.top/archives/1a0e10db.html</loc>
+    
+    <lastmod>2023-03-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.ttycp3.top/archives/54488cb7.html</loc>
     
     <lastmod>2023-03-15</lastmod>
@@ -39,15 +48,6 @@
   
   <url>
     <loc>https://www.ttycp3.top/archives/ec3e2815.html</loc>
-    
-    <lastmod>2023-03-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ttycp3.top/archives/1a0e10db.html</loc>
     
     <lastmod>2023-03-15</lastmod>
     
@@ -126,13 +126,6 @@
     <priority>1.0</priority>
   </url>
 
-  
-  <url>
-    <loc>https://www.ttycp3.top/tags/ssrf%E6%BC%8F%E6%B4%9E/</loc>
-    <lastmod>2023-03-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
   <url>
     <loc>https://www.ttycp3.top/tags/grafana/</loc>
