@@ -6,17 +6,27 @@
   <meta name="keywords" content="">
   <meta name="description" content="攻防世界web新手区Writeup | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="XPath注入一、语法选取节点   表达式 描述    nodename 选取此节点的所有子节点。   &#x2F; 从根节点选取（取子节点）。   &#x2F;&#x2F; 从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置（取子孙节点）。   . 选取当前节点。   .. 选取当前节点的父节点。   @ 选取属性。   在下面的表格中，我们已列出了一些路径表达式以及表达式的结果：">
+<meta name="description" content="[GoogleCTF2019 Quals]Bnv考点：通过xml的参数实体的路径爆错读取敏感信息 知识点：参考  这是不同系统本地可能含有的dtd文件，例如linux可能存在&#x2F;usr&#x2F;share&#x2F;yelp&#x2F;dtd&#x2F;docbookx.dtd并且该dtd中引用了一个ISOamsa参数实体，因此我们可以定义ISOamsa的内容进行某些攻击。 做题步骤1.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xpath笔记">
-<meta property="og:url" content="https://www.ttycp3.top/archives/54488cb7.html">
+<meta property="og:title" content="GoogleCTF2019 Quals Bnv">
+<meta property="og:url" content="https://www.ttycp3.top/archives/2e3a56ed.html">
 <meta property="og:site_name" content="甜筒园">
-<meta property="og:description" content="XPath注入一、语法选取节点   表达式 描述    nodename 选取此节点的所有子节点。   &#x2F; 从根节点选取（取子节点）。   &#x2F;&#x2F; 从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置（取子孙节点）。   . 选取当前节点。   .. 选取当前节点的父节点。   @ 选取属性。   在下面的表格中，我们已列出了一些路径表达式以及表达式的结果：">
+<meta property="og:description" content="[GoogleCTF2019 Quals]Bnv考点：通过xml的参数实体的路径爆错读取敏感信息 知识点：参考  这是不同系统本地可能含有的dtd文件，例如linux可能存在&#x2F;usr&#x2F;share&#x2F;yelp&#x2F;dtd&#x2F;docbookx.dtd并且该dtd中引用了一个ISOamsa参数实体，因此我们可以定义ISOamsa的内容进行某些攻击。 做题步骤1.">
 <meta property="og:locale">
-<meta property="article:published_time" content="2023-03-11T13:17:23.000Z">
-<meta property="article:modified_time" content="2023-03-11T14:00:47.584Z">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/016fcf2a5f084804a136fa9e36c91dd2.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230315164343116.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230315165043545.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230315165859864.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230315170000249.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/8e9c8046011b9.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/56f7dc917b9ff.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230315172505069.png">
+<meta property="article:published_time" content="2023-03-15T09:45:23.000Z">
+<meta property="article:modified_time" content="2023-03-15T09:42:40.725Z">
 <meta property="article:author" content="ttycp3">
+<meta property="article:tag" content="xxe漏洞">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/016fcf2a5f084804a136fa9e36c91dd2.png">
 
 
 <link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210080023661.png">
@@ -236,6 +246,10 @@
     <input id="tag-search" />
     <div class="tag-wrapper">
         
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>xxe漏洞</a>
+            </li>
+        
     </div>
 
 </div>
@@ -246,7 +260,7 @@
         
         <a  class="All Writeup "
            href="/archives/2e3a56ed.html"
-           data-tag=""
+           data-tag="xxe漏洞"
            data-author="" >
             <span class="post-title" title="GoogleCTF2019 Quals Bnv">GoogleCTF2019 Quals Bnv</span>
             <span class="post-date" title="2023-03-15 17:45:23">2023/03/15</span>
