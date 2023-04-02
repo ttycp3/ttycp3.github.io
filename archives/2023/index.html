@@ -6,27 +6,34 @@
   <meta name="keywords" content="">
   <meta name="description" content="甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="打开靶机是一个登录界面，先注册一个号，弹窗提示Not Allowed，抓包查看注册界面源码： &lt;html&gt; &lt;head&gt;     &lt;title&gt;Register&lt;&#x2F;title&gt; &lt;&#x2F;head&gt; &lt;body&gt; &lt;script&gt;alert(&#39;Not Allowed&#39;)&lt;&#x2F;script&gt; &amp;">
+<meta name="description" content="[TOC] MISC奇怪的压缩包下载附件后是一个压缩包，解压发现有密码，用010editor打开看看是不是伪加密。全局搜索504B，将后面的09都改为00   修改后保存就可以直接解压缩了。 解压后是一个png图片，黑不溜秋啥也没有，老规矩010editor打开看看，发现文件最后一段内容  很明显这是一个压缩包伪装成的图片文件，这个key看起来像base64，拿去解码一下：  将图片后缀修改为ra">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GKCTF2021 babycat">
-<meta property="og:url" content="https://www.ttycp3.top/archives/fcef946.html">
+<meta property="og:title" content="CTFSHOW第三届愚人杯部分WP">
+<meta property="og:url" content="https://www.ttycp3.top/archives/b85a28bc.html">
 <meta property="og:site_name" content="甜筒园">
-<meta property="og:description" content="打开靶机是一个登录界面，先注册一个号，弹窗提示Not Allowed，抓包查看注册界面源码： &lt;html&gt; &lt;head&gt;     &lt;title&gt;Register&lt;&#x2F;title&gt; &lt;&#x2F;head&gt; &lt;body&gt; &lt;script&gt;alert(&#39;Not Allowed&#39;)&lt;&#x2F;script&gt; &amp;">
+<meta property="og:description" content="[TOC] MISC奇怪的压缩包下载附件后是一个压缩包，解压发现有密码，用010editor打开看看是不是伪加密。全局搜索504B，将后面的09都改为00   修改后保存就可以直接解压缩了。 解压后是一个png图片，黑不溜秋啥也没有，老规矩010editor打开看看，发现文件最后一段内容  很明显这是一个压缩包伪装成的图片文件，这个key看起来像base64，拿去解码一下：  将图片后缀修改为ra">
 <meta property="og:locale">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230331192344361.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230331193038872.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230331193223682.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230331194240058.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230401193946828.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230401194215252.png">
-<meta property="article:published_time" content="2023-04-01T11:45:19.599Z">
-<meta property="article:modified_time" content="2023-04-01T11:44:47.420Z">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402194629271.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402194733371.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402195103120.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402195253818.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402200045673.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402201934183.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402202342033.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402202421559.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402203339581.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402204645329.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402205333768.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402211252933.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402211520701.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402211759758.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402220330667.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402220658803.png">
+<meta property="article:published_time" content="2023-04-02T11:28:10.000Z">
+<meta property="article:modified_time" content="2023-04-02T14:18:11.200Z">
 <meta property="article:author" content="ttycp3">
-<meta property="article:tag" content="文件上传">
-<meta property="article:tag" content="任意文件读取">
-<meta property="article:tag" content="JAVA安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230331192344361.png">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230402194629271.png">
 
 
 <link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210080023661.png">
@@ -124,7 +131,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(16)</small>
+                <small>(17)</small>
             
         </div>
     </li>
@@ -135,7 +142,7 @@
                     <div data-rel="Writeup">
                         
                         Writeup
-                        <small>(9)</small>
+                        <small>(10)</small>
                         
                     </div>
                     
@@ -198,8 +205,8 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="16">
-<input type="hidden" id="yelog_site_word_count" value="19.4k">
+<input type="hidden" id="yelog_site_posts_number" value="17">
+<input type="hidden" id="yelog_site_word_count" value="21.7k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -298,6 +305,15 @@
 
     
     <nav id="title-list-nav">
+        
+        
+        <a  class="All Writeup "
+           href="/archives/b85a28bc.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CTFSHOW第三届愚人杯部分WP">CTFSHOW第三届愚人杯部分WP</span>
+            <span class="post-date" title="2023-04-02 19:28:10">2023/04/02</span>
+        </a>
         
         
         <a  class="All Writeup "
