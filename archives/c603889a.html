@@ -2,13 +2,13 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>\[CISCN2019 华北赛区 Day1 Web2\]ikun | 甜筒园</title>
+  <title>CISCN2019 华北赛区 Day1 ikun | 甜筒园</title>
   <meta name="keywords" content=" pickle反序列化 , jwt伪造 ">
-  <meta name="description" content="\[CISCN2019 华北赛区 Day1 Web2\]ikun | 甜筒园">
+  <meta name="description" content="CISCN2019 华北赛区 Day1 ikun | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="打开靶机后正常注册一个号，尝试注入了几下没反应看来考点不是这个，回到主界面，看到有个比较脑洞的提示：  看到下面有一堆lv等级还可以翻页，猜测是要我们爆破页数找到lv6并买下，浅写一个脚本： import requests import time url&#x3D;&quot;http:&#x2F;&#x2F;2b4cbf8c-b178-413f-9884-976e234b4374.node4.buuoj.cn:81&#x2F;shop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="\[CISCN2019 华北赛区 Day1 Web2\]ikun">
+<meta property="og:title" content="CISCN2019 华北赛区 Day1 ikun">
 <meta property="og:url" content="https://www.ttycp3.top/archives/c603889a.html">
 <meta property="og:site_name" content="甜筒园">
 <meta property="og:description" content="打开靶机后正常注册一个号，尝试注入了几下没反应看来考点不是这个，回到主界面，看到有个比较脑洞的提示：  看到下面有一堆lv等级还可以翻页，猜测是要我们爆破页数找到lv6并买下，浅写一个脚本： import requests import time url&#x3D;&quot;http:&#x2F;&#x2F;2b4cbf8c-b178-413f-9884-976e234b4374.node4.buuoj.cn:81&#x2F;shop">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230412154044142.png">
 <meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230412163924993.png">
 <meta property="article:published_time" content="2023-04-12T07:17:10.000Z">
-<meta property="article:modified_time" content="2023-04-12T08:48:52.998Z">
+<meta property="article:modified_time" content="2023-04-12T08:55:23.877Z">
 <meta property="article:author" content="ttycp3">
 <meta property="article:tag" content="pickle反序列化">
 <meta property="article:tag" content="jwt伪造">
@@ -311,7 +311,7 @@
            href="/archives/c603889a.html"
            data-tag="pickle反序列化,jwt伪造"
            data-author="" >
-            <span class="post-title" title="\[CISCN2019 华北赛区 Day1 Web2\]ikun">\[CISCN2019 华北赛区 Day1 Web2\]ikun</span>
+            <span class="post-title" title="CISCN2019 华北赛区 Day1 ikun">CISCN2019 华北赛区 Day1 ikun</span>
             <span class="post-date" title="2023-04-12 15:17:10">2023/04/12</span>
         </a>
         
@@ -488,7 +488,7 @@
     <div class="pjax">
         <article id="post-CISCN2019-华北赛区-Day1-Web2-ikun" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">\[CISCN2019 华北赛区 Day1 Web2\]ikun</h1>
+        <h1 class="article-title">CISCN2019 华北赛区 Day1 ikun</h1>
     
     <div class="article-meta">
         
@@ -515,12 +515,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-04-12 16:48:52'>2023-04-12 15:17</time>
+            发布时间 : <time class="date" title='最后更新: 2023-04-12 16:55:23'>2023-04-12 15:17</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:393</span>
+        <span>字数:394</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -586,7 +586,7 @@ for  i in range(1000):
 <p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230412153537402.png" alt="image-20230412153537402"></p>
 <p>买完后跳转到一个界面，需要admin用户才可以访问。用c-jwt-cracker工具爆破出密码：</p>
 <p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230412153739377.png" alt="image-20230412153739377"></p>
-<p>放到<a href="http://jwt.io中构造JWT：">http://jwt.io中构造JWT：</a></p>
+<p>放到<a target="_blank" rel="noopener" href="https://jwt.io/">JWT解码网站</a>构造JWT：</p>
 <p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230412153925113.png" alt="image-20230412153925113"></p>
 <p>修改cookie后获得源码：</p>
 <p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230412154044142.png" alt="image-20230412154044142"></p>
