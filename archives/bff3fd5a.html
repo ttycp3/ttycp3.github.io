@@ -6,39 +6,21 @@
   <meta name="keywords" content="">
   <meta name="description" content="攻防世界web新手区Writeup | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="一、战队信息战队名称： 508 战队排名： 175 二、解题情况 三、解题过程MISC被加密的生产流量 点击一段TCP流量右键追踪TCP流  发现一些字符，猜测是base32,解密后得到flag flag&amp;#123;c1f_fi1g_1000&amp;#125;  pyshellnc连上靶机后，FUZZ一波发现一次最多只能用7个字符，并且不可以使用&#x3D;号，不过我们可以利用_的特性进行字符串拼接得到： ope">
+<meta name="description" content="sudoku_easy不会用pwntools，那就手做，先写个python解数独脚本： # 定义数独题目 board_str &#x3D; &#39;&#39;&#39;706002008 005076429 009458016 900800105 807190630 300700000 002601900 610230500 400080201&#39;&#39;&#39;  board &#x3D; [[int(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第16届ciscn初赛wp">
-<meta property="og:url" content="https://www.ttycp3.top/archives/1d622977.html">
+<meta property="og:title" content="SYCTF2023wp">
+<meta property="og:url" content="https://www.ttycp3.top/archives/7a95ce38.html">
 <meta property="og:site_name" content="甜筒园">
-<meta property="og:description" content="一、战队信息战队名称： 508 战队排名： 175 二、解题情况 三、解题过程MISC被加密的生产流量 点击一段TCP流量右键追踪TCP流  发现一些字符，猜测是base32,解密后得到flag flag&amp;#123;c1f_fi1g_1000&amp;#125;  pyshellnc连上靶机后，FUZZ一波发现一次最多只能用7个字符，并且不可以使用&#x3D;号，不过我们可以利用_的特性进行字符串拼接得到： ope">
+<meta property="og:description" content="sudoku_easy不会用pwntools，那就手做，先写个python解数独脚本： # 定义数独题目 board_str &#x3D; &#39;&#39;&#39;706002008 005076429 009458016 900800105 807190630 300700000 002601900 610230500 400080201&#39;&#39;&#39;  board &#x3D; [[int(">
 <meta property="og:locale">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528170826181.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/QQ%E6%88%AA%E5%9B%BE20230528084837.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/QQ%E6%88%AA%E5%9B%BE20230528084556.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528172114548.png">
-<meta property="og:image" content="c:\Users\tty\AppData\Roaming\Typora\typora-user-images\image-20230528173902748.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528174630632.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528175518894.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528172827249.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528172614369.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Daylovef/image/image/dongman/20230528171906.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Daylovef/image/image/dongman/20230528172139.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528182304680.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528182434450.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528183702314.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528184433066.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528184813964.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528185743729.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528185830448.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528190452960.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528190404336.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528191335942.png">
-<meta property="article:published_time" content="2023-05-28T10:51:15.658Z">
-<meta property="article:modified_time" content="2023-07-29T09:12:48.539Z">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230610125208139.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230610153042622.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230610153259403.png">
+<meta property="article:published_time" content="2023-06-10T04:48:24.000Z">
+<meta property="article:modified_time" content="2023-07-29T09:13:30.813Z">
 <meta property="article:author" content="ttycp3">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528170826181.png">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230610125208139.png">
 
 
 <link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210080023661.png">
