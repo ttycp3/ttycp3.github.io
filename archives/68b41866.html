@@ -6,21 +6,23 @@
   <meta name="keywords" content="">
   <meta name="description" content="常用简单模板 | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="[TOC] WEB[Week 1] signin页面审查元素发现有个js文件，末尾有一行注释： &#x2F;&#x2F;# sourceMappingURL&#x3D;index-33309f51.js.map  访问后下载打开，Ctrl+F查找字符串0xGame匹配到flag 0xGame&amp;#123;c788fa80-2184-429f-b410-48cb8e2de0ff&amp;#125;   [Week 1] hello_htt">
+<meta name="description" content="logging log4j2 rce (CVE-2021-44228),由于没有参数读入，通过使Spring控制台报错将payload注入日志中，利用header头中的Accept参数实现该过程 题目docker： https:&#x2F;&#x2F;github.com&#x2F;X1cT34m&#x2F;NCTF2023&#x2F;tree&#x2F;main&#x2F;Web&#x2F;logging docker容器搭建： docker build -t loggin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="0xGame2023 wp">
-<meta property="og:url" content="https://www.ttycp3.top/archives/d4f5203b.html">
+<meta property="og:title" content="NCTF2023web（赛后复现">
+<meta property="og:url" content="https://www.ttycp3.top/archives/53f30b58.html">
 <meta property="og:site_name" content="甜筒园">
-<meta property="og:description" content="[TOC] WEB[Week 1] signin页面审查元素发现有个js文件，末尾有一行注释： &#x2F;&#x2F;# sourceMappingURL&#x3D;index-33309f51.js.map  访问后下载打开，Ctrl+F查找字符串0xGame匹配到flag 0xGame&amp;#123;c788fa80-2184-429f-b410-48cb8e2de0ff&amp;#125;   [Week 1] hello_htt">
+<meta property="og:description" content="logging log4j2 rce (CVE-2021-44228),由于没有参数读入，通过使Spring控制台报错将payload注入日志中，利用header头中的Accept参数实现该过程 题目docker： https:&#x2F;&#x2F;github.com&#x2F;X1cT34m&#x2F;NCTF2023&#x2F;tree&#x2F;main&#x2F;Web&#x2F;logging docker容器搭建： docker build -t loggin">
 <meta property="og:locale">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231001142350507.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231005170050253.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231005170247956.png">
-<meta property="article:published_time" content="2023-10-01T06:16:22.000Z">
-<meta property="article:modified_time" content="2023-10-08T03:25:00.723Z">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231164833970.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231165413340.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231165557582.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231170010190.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231170102708.png">
+<meta property="article:published_time" content="2023-12-31T08:31:14.000Z">
+<meta property="article:modified_time" content="2023-12-31T09:01:07.504Z">
 <meta property="article:author" content="ttycp3">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231001142350507.png">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231164833970.png">
 
 
 <link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/logo.png">
@@ -118,7 +120,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(29)</small>
+                <small>(30)</small>
             
         </div>
     </li>
@@ -129,7 +131,7 @@
                     <div data-rel="Writeup">
                         
                         Writeup
-                        <small>(22)</small>
+                        <small>(23)</small>
                         
                     </div>
                     
@@ -192,8 +194,8 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="29">
-<input type="hidden" id="yelog_site_word_count" value="36k">
+<input type="hidden" id="yelog_site_posts_number" value="30">
+<input type="hidden" id="yelog_site_word_count" value="36.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -308,6 +310,15 @@
 
     
     <nav id="title-list-nav">
+        
+        
+        <a  class="All Writeup "
+           href="/archives/53f30b58.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NCTF2023web（赛后复现">NCTF2023web（赛后复现</span>
+            <span class="post-date" title="2023-12-31 16:31:14">2023/12/31</span>
+        </a>
         
         
         <a  class="All Writeup "
@@ -608,12 +619,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-03-15 18:23:10'>2022-10-23 12:17</time>
+            Created At : <time class="date" title='Updated At: 2023-12-01 20:13:11'>2022-10-23 12:17</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:488</span>
+        <span>Count:1.2k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -643,7 +654,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81GCD"><span class="toc-text">一、GCD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%8A%A0%E6%B3%95-%E6%B4%9B%E8%B0%B7p1601"><span class="toc-text">二、高精度加法(洛谷p1601)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%BF%AB%E8%AF%BB%E3%80%81%E5%BF%AB%E5%86%99"><span class="toc-text">三、快读、快写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BF%AB%E9%80%9F%E5%B9%82%EF%BC%88%E6%B4%9B%E8%B0%B7p1226"><span class="toc-text">四、快速幂（洛谷p1226)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%B9%B6%E6%9F%A5%E9%9B%86%EF%BC%88%E6%B4%9B%E8%B0%B7p3367"><span class="toc-text">五、并查集（洛谷p3367)</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF"><span class="toc-text">算法模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81STL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">一、STL常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-string"><span class="toc-text">1.string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-stack"><span class="toc-text">2.stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-queue"><span class="toc-text">3.queue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%B9%B6%E6%9F%A5%E9%9B%86%EF%BC%88%E6%B4%9B%E8%B0%B7p3367"><span class="toc-text">二、并查集（洛谷p3367)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%BF%AB%E9%80%9F%E5%B9%82%EF%BC%88%E6%B4%9B%E8%B0%B7p1226"><span class="toc-text">三、快速幂（洛谷p1226)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%8A%A0%E6%B3%95-%E6%B4%9B%E8%B0%B7p1601"><span class="toc-text">四、高精度加法(洛谷p1601)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81GCD-amp-LCM"><span class="toc-text">五、GCD&amp;LCM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%BF%AB%E8%AF%BB%E3%80%81%E5%BF%AB%E5%86%99"><span class="toc-text">六、快读、快写</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D"><span class="toc-text">第一种</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D"><span class="toc-text">第二种</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%90%9C%E7%B4%A2"><span class="toc-text">七、搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-dfs"><span class="toc-text">1.dfs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-bfs"><span class="toc-text">2.bfs</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E4%BA%8C%E5%88%86"><span class="toc-text">八、二分</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -659,11 +670,68 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、GCD"><a href="#一、GCD" class="headerlink" title="一、GCD"></a>一、GCD</h2><pre><code>int gcd(int a,int b)&#123;
-    return b?gcd(b,a%b):a;
+        <h1 id="算法模板"><a href="#算法模板" class="headerlink" title="算法模板"></a>算法模板</h1><h2 id="一、STL常用函数"><a href="#一、STL常用函数" class="headerlink" title="一、STL常用函数"></a>一、STL常用函数</h2><h3 id="1-string"><a href="#1-string" class="headerlink" title="1.string"></a>1.string</h3><p>头文件<code>cstring</code></p>
+<pre><code>size()//获取字符串长度
+insert()//插入字符串，用法:s.insert(a,b),a是起始下标，b是插入的字符串
+append()//插入字符串，用法:s.append(a),a是插入到原字符串末尾的字符串
+erase()//删除任意字符，用法:s.erase(a,b),a是起始下标，b是从下标a开始删除的长度
+substr()//截取字符字串，用法:s.substr(a,b),a是起始下标，b是从下标a开始截取的长度
+back()//获取最后一个字符
+pop_back()//删除最后一个字符
+empty()//判断是否为空
+clear()//清空字符串
+find()//查找字符串，用法a=s.find(b),b是要查找的子串，返回值a大小是子串的起始下标（-1时表示不存在该子串）
+</code></pre>
+<h3 id="2-stack"><a href="#2-stack" class="headerlink" title="2.stack"></a>2.stack</h3><p>头文件<code>stack</code></p>
+<pre><code>top()//返回一个栈顶元素的引用
+push(const T&amp; obj)//将对象副本压入栈顶
+pop()//弹出栈顶元素
+size()//返回栈中元素的个数
+empty()//在栈中没有元素的情况下返回 true
+</code></pre>
+<h3 id="3-queue"><a href="#3-queue" class="headerlink" title="3.queue"></a>3.queue</h3><p>头文件<code>queue</code></p>
+<pre><code>front()//返回 queue 中第一个元素的引用
+back()//返回 queue 中最后一个元素的引用。
+push(const T&amp; obj)//在 queue 的尾部添加一个元素的副本
+pop()//删除 queue 中的第一个元素。
+size()//返回 queue 中元素的个数。
+empty()//如果 queue 中没有元素的话，返回 true
+</code></pre>
+<h2 id="二、并查集（洛谷p3367"><a href="#二、并查集（洛谷p3367" class="headerlink" title="二、并查集（洛谷p3367)"></a>二、并查集（洛谷p3367)</h2><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+int f[10086];
+int find(int x)&#123;
+    return f[x]==x?x:f[x]=find(f[x]);
+&#125;
+void unity(int x,int y)&#123;
+    f[find(y)]=find(x);
+&#125;
+int main()&#123;
+    int m,n;
+    cin&gt;&gt;n&gt;&gt;m;//n个元素，m组关系
+    for(int i=1;i&lt;=n;i++)
+        f[i]=i;//并查集初始化
+    for(int i=1;i&lt;=m;i++)&#123;
+        int a,b;
+           cin&gt;&gt;a&gt;&gt;b;
+        unity(a,b);//a,b属于同一个集合，初始化存进f数组
+    &#125;
+    int b,c;
+    cin&gt;&gt;b&gt;&gt;c;
+    if(find(b)==find(c))
+       cout&lt;&lt;&quot;True&quot;;//如果find函数返回值相等，说明两数在同一集合
 &#125;
 </code></pre>
-<h2 id="二、高精度加法-洛谷p1601"><a href="#二、高精度加法-洛谷p1601" class="headerlink" title="二、高精度加法(洛谷p1601)"></a>二、高精度加法(洛谷p1601)</h2><pre><code class="c++">#include &lt;bits/stdc++.h&gt;
+<h2 id="三、快速幂（洛谷p1226"><a href="#三、快速幂（洛谷p1226" class="headerlink" title="三、快速幂（洛谷p1226)"></a>三、快速幂（洛谷p1226)</h2><pre><code class="c++">long long pow_mod(long long a,long long b,long long m)
+&#123;
+    if(b==0)return 1;
+    int x=pow_mod(a,b/2,m);
+    long long ans=(long long)x*x%m;
+    if(b%2==1)ans=ans*a%m;
+    return ans;
+&#125;
+</code></pre>
+<h2 id="四、高精度加法-洛谷p1601"><a href="#四、高精度加法-洛谷p1601" class="headerlink" title="四、高精度加法(洛谷p1601)"></a>四、高精度加法(洛谷p1601)</h2><pre><code class="c++">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 string a,b,c;int t1,t2;
 int main()&#123;
@@ -684,78 +752,97 @@ int main()&#123;
     return 0;
 &#125;
 </code></pre>
-<h2 id="三、快读、快写"><a href="#三、快读、快写" class="headerlink" title="三、快读、快写"></a>三、快读、快写</h2><pre><code class="c++">inline int read()
+<h2 id="五、GCD-amp-LCM"><a href="#五、GCD-amp-LCM" class="headerlink" title="五、GCD&amp;LCM"></a>五、GCD&amp;LCM</h2><pre><code>int gcd(int a,int b)&#123;
+    return b?gcd(b,a%b):a;
+&#125;
+int lcm(int a,int b)&#123;
+    return a*b/gcd(a,b);
+&#125;
+</code></pre>
+<h2 id="六、快读、快写"><a href="#六、快读、快写" class="headerlink" title="六、快读、快写"></a>六、快读、快写</h2><h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><pre><code>ios::sync_with_stdio(false);
+cin.tie(0);
+cout.tie(0);
+</code></pre>
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><pre><code>inline int read()
 &#123;
-    int x=0,f=1;
-    char ch=getchar();
-    while(ch&lt;&#39;0&#39;||ch&gt;&#39;9&#39;)
-    &#123;
-        if(ch==&#39;-&#39;)
-            f=-1;
-        ch=getchar();
-    &#125;
-    while(ch&gt;=&#39;0&#39;&amp;&amp;ch&lt;=&#39;9&#39;)
-    &#123;
-        x=x*10+ch-&#39;0&#39;;
-        ch=getchar();
-    &#125;
-    return x*f;
+int x=0,f=1;
+char ch=getchar();
+while(ch&lt;&#39;0&#39;||ch&gt;&#39;9&#39;)
+&#123;
+if(ch==&#39;-&#39;)
+f=-1;
+ch=getchar();
+&#125;
+while(ch&gt;=&#39;0&#39;&amp;&amp;ch&lt;=&#39;9&#39;)
+&#123;
+x=x*10+ch-&#39;0&#39;;
+ch=getchar();
+&#125;
+return x*f;
 &#125;
 
 inline void write(int x)
 &#123;
-    if(x&lt;0)
-    &#123;
-        putchar(&#39;-&#39;);
-        x=-x;
-    &#125;
-    if(x&gt;9)
-        write(x/10);
-    putchar(x%10+&#39;0&#39;);
+if(x&lt;0)
+&#123;
+putchar(&#39;-&#39;);
+x=-x;
+&#125;
+if(x&gt;9)
+write(x/10);
+putchar(x%10+&#39;0&#39;);
 &#125;
 </code></pre>
 <p>使用方法：</p>
-<pre><code class="c++">int main()&#123;
-    int  a,b;
+<pre><code>int main()&#123;
+    int a,b;
     a=read();
     b=read();
     write(a+b);
     return 0;
 &#125;
 </code></pre>
-<p>作用：提高输入输出速度，减少代码运行时间</p>
-<h2 id="四、快速幂（洛谷p1226"><a href="#四、快速幂（洛谷p1226" class="headerlink" title="四、快速幂（洛谷p1226)"></a>四、快速幂（洛谷p1226)</h2><pre><code class="c++">long long pow_mod(long long a,long long b,long long m)
+<h2 id="七、搜索"><a href="#七、搜索" class="headerlink" title="七、搜索"></a>七、搜索</h2><h3 id="1-dfs"><a href="#1-dfs" class="headerlink" title="1.dfs"></a>1.dfs</h3><pre><code>void dfs(int p,int q)
 &#123;
-    if(b==0)return 1;
-    int x=pow_mod(a,b/2,m);
-    long long ans=(long long)x*x%m;
-    if(b%2==1)ans=ans*a%m;
-    return ans;
+    if(p&lt;0||p&gt;=l||q&lt;0||q&gt;=r||a[p][q]==&#39;#&#39;||b[p][q]!=0)return;//边界跳出条件
+    sum++;//结果统计
+    b[p][q]++;//已遍历节点标记
+    for(int i=0;i&lt;4;i++)
+    dfs(p+xx[i],q+yy[i]);//递归
 &#125;
 </code></pre>
-<h2 id="五、并查集（洛谷p3367"><a href="#五、并查集（洛谷p3367" class="headerlink" title="五、并查集（洛谷p3367)"></a>五、并查集（洛谷p3367)</h2><pre><code class="c++">int find(int x)&#123;
-    return f[x]==x?x:f[x]=find(f[x]);
-&#125;
-void unity(int x,int y)&#123;
-    // 这里x和y可以互换位置，不影响最终结果
-    f[find(y)]=find(x);
-&#125;
-</code></pre>
-<p>用法：</p>
-<pre><code class="c++">int main()&#123;
-    int m,n;
-    cin&gt;&gt;n&gt;&gt;m;//n个元素，m组关系
-    for(int i=1;i&lt;=n;i++)
-        f[i]=i;//并查集初始化
-    for(int i=1;i&lt;=m;i++)&#123;
-        int a,b;
-           cin&gt;&gt;a&gt;&gt;b;
-        unity(a,b);//a,b属于同一个集合，初始化存进f数组
+<h3 id="2-bfs"><a href="#2-bfs" class="headerlink" title="2.bfs"></a>2.bfs</h3><pre><code>int bfs(int x,int y)
+&#123;
+    memset(a,0,sizeof(a));//存储当前节点是否被访问过
+    memset(b,0,sizeof(b));//存储当前节点的最小值状态
+    a[x]=1,b[1]=0;//初始节点状态更新
+    queue&lt;int&gt;q;
+    q.push(x);//头节点放入队列
+    while(!q.empty())
+    &#123;
+        int s=q.front();//取队首元素
+        q.pop();//弹出
+        if(s==y)
+        return b[y];//如果队首元素为答案直接返回
+        else
+        &#123;
+            if(!a[s+1]&amp;&amp;s+1&lt;=100000&amp;&amp;s+1&gt;=0)q.push(s+1),a[s+1]=1,b[s+1]=b[s]+1;
+            if(!a[s-1]&amp;&amp;s-1&gt;=0&amp;&amp;s-1&lt;=100000)q.push(s-1),a[s-1]=1,b[s-1]=b[s]+1;
+            if(!a[s*2]&amp;&amp;s*2&lt;=100000&amp;&amp;s*2&gt;=0)q.push(s*2),a[s*2]=1,b[s*2]=b[s]+1;//将队首元素的后续状态放入队列
+        &#125;
     &#125;
-    int b,c;
-    cin&gt;&gt;b&gt;&gt;c;
-    if(find(b)==find(c))
-       cout&lt;&lt;&quot;True&quot;;//如果find函数返回值相等，说明两数在同一集合
+    return 0;
+&#125;
+</code></pre>
+<h2 id="八、二分"><a href="#八、二分" class="headerlink" title="八、二分"></a>八、二分</h2><pre><code>int bsearch(int l, int r)
+&#123;
+    while (l &lt; r)
+    &#123;
+        int mid = (l + r)/2;
+        if (check(mid)) r = mid;    // check()判断mid是否满足性质
+        else l = mid + 1;
+    &#125;
+    return l;
 &#125;
 </code></pre>
 

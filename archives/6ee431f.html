@@ -6,21 +6,23 @@
   <meta name="keywords" content="">
   <meta name="description" content="GDOUCTF2023 | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="[TOC] WEB[Week 1] signin页面审查元素发现有个js文件，末尾有一行注释： &#x2F;&#x2F;# sourceMappingURL&#x3D;index-33309f51.js.map  访问后下载打开，Ctrl+F查找字符串0xGame匹配到flag 0xGame&amp;#123;c788fa80-2184-429f-b410-48cb8e2de0ff&amp;#125;   [Week 1] hello_htt">
+<meta name="description" content="logging log4j2 rce (CVE-2021-44228),由于没有参数读入，通过使Spring控制台报错将payload注入日志中，利用header头中的Accept参数实现该过程 题目docker： https:&#x2F;&#x2F;github.com&#x2F;X1cT34m&#x2F;NCTF2023&#x2F;tree&#x2F;main&#x2F;Web&#x2F;logging docker容器搭建： docker build -t loggin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="0xGame2023 wp">
-<meta property="og:url" content="https://www.ttycp3.top/archives/d4f5203b.html">
+<meta property="og:title" content="NCTF2023web（赛后复现">
+<meta property="og:url" content="https://www.ttycp3.top/archives/53f30b58.html">
 <meta property="og:site_name" content="甜筒园">
-<meta property="og:description" content="[TOC] WEB[Week 1] signin页面审查元素发现有个js文件，末尾有一行注释： &#x2F;&#x2F;# sourceMappingURL&#x3D;index-33309f51.js.map  访问后下载打开，Ctrl+F查找字符串0xGame匹配到flag 0xGame&amp;#123;c788fa80-2184-429f-b410-48cb8e2de0ff&amp;#125;   [Week 1] hello_htt">
+<meta property="og:description" content="logging log4j2 rce (CVE-2021-44228),由于没有参数读入，通过使Spring控制台报错将payload注入日志中，利用header头中的Accept参数实现该过程 题目docker： https:&#x2F;&#x2F;github.com&#x2F;X1cT34m&#x2F;NCTF2023&#x2F;tree&#x2F;main&#x2F;Web&#x2F;logging docker容器搭建： docker build -t loggin">
 <meta property="og:locale">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231001142350507.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231005170050253.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231005170247956.png">
-<meta property="article:published_time" content="2023-10-01T06:16:22.000Z">
-<meta property="article:modified_time" content="2023-10-08T03:25:00.723Z">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231164833970.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231165413340.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231165557582.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231170010190.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231170102708.png">
+<meta property="article:published_time" content="2023-12-31T08:31:14.000Z">
+<meta property="article:modified_time" content="2023-12-31T09:01:07.504Z">
 <meta property="article:author" content="ttycp3">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231001142350507.png">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231164833970.png">
 
 
 <link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/logo.png">
@@ -118,7 +120,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(29)</small>
+                <small>(30)</small>
             
         </div>
     </li>
@@ -129,7 +131,7 @@
                     <div data-rel="Writeup">
                         
                         Writeup
-                        <small>(22)</small>
+                        <small>(23)</small>
                         
                     </div>
                     
@@ -192,8 +194,8 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="29">
-<input type="hidden" id="yelog_site_word_count" value="36k">
+<input type="hidden" id="yelog_site_posts_number" value="30">
+<input type="hidden" id="yelog_site_word_count" value="36.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -308,6 +310,15 @@
 
     
     <nav id="title-list-nav">
+        
+        
+        <a  class="All Writeup "
+           href="/archives/53f30b58.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NCTF2023web（赛后复现">NCTF2023web（赛后复现</span>
+            <span class="post-date" title="2023-12-31 16:31:14">2023/12/31</span>
+        </a>
         
         
         <a  class="All Writeup "
