@@ -6,23 +6,38 @@
   <meta name="keywords" content="">
   <meta name="description" content="甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="logging log4j2 rce (CVE-2021-44228),由于没有参数读入，通过使Spring控制台报错将payload注入日志中，利用header头中的Accept参数实现该过程 题目docker： https:&#x2F;&#x2F;github.com&#x2F;X1cT34m&#x2F;NCTF2023&#x2F;tree&#x2F;main&#x2F;Web&#x2F;logging docker容器搭建： docker build -t loggin">
+<meta name="description" content="XYCTF[TOC] WEBezhttpF12看到有注释提示：  访问&#x2F;robots.txt  继续访问&#x2F;l0g1n.txt,拿到用户名密码： username: XYCTF password: @JOILha!wuigqi123$  然后就是一连串组合技，需要对http协议比较熟悉，抓包修改header头或者用hackbar： POST &#x2F;index.php HTTP&#x2F;1.1 Host: xyc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NCTF2023web（赛后复现）">
-<meta property="og:url" content="https://www.ttycp3.top/archives/53f30b58.html">
+<meta property="og:title" content="XYCTF2024">
+<meta property="og:url" content="https://www.ttycp3.top/archives/e228e2bf.html">
 <meta property="og:site_name" content="甜筒园">
-<meta property="og:description" content="logging log4j2 rce (CVE-2021-44228),由于没有参数读入，通过使Spring控制台报错将payload注入日志中，利用header头中的Accept参数实现该过程 题目docker： https:&#x2F;&#x2F;github.com&#x2F;X1cT34m&#x2F;NCTF2023&#x2F;tree&#x2F;main&#x2F;Web&#x2F;logging docker容器搭建： docker build -t loggin">
+<meta property="og:description" content="XYCTF[TOC] WEBezhttpF12看到有注释提示：  访问&#x2F;robots.txt  继续访问&#x2F;l0g1n.txt,拿到用户名密码： username: XYCTF password: @JOILha!wuigqi123$  然后就是一连串组合技，需要对http协议比较熟悉，抓包修改header头或者用hackbar： POST &#x2F;index.php HTTP&#x2F;1.1 Host: xyc">
 <meta property="og:locale">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231164833970.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231165413340.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231165557582.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231170010190.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231170102708.png">
-<meta property="article:published_time" content="2023-12-31T08:31:14.000Z">
-<meta property="article:modified_time" content="2024-03-05T12:05:30.173Z">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407093914280.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407094427420.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407095632660.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/barry.jpg">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/james.jpg">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407144417875.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407145204544.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407145712408.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407151149503.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407154248240.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240411103549195.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407161339160.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407162003987.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240407162240167.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407171656767.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240408172751357.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240409093342644.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240410145152914.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240410151743029.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240410152100153.png">
+<meta property="article:published_time" content="2024-04-28T06:40:53.553Z">
+<meta property="article:modified_time" content="2024-04-28T06:40:18.048Z">
 <meta property="article:author" content="ttycp3">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231231164833970.png">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407093914280.png">
 
 
 <link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/logo.png">
@@ -118,9 +133,9 @@
 
 <ul>
     <li>
-        <div class="all active" data-rel="全部文章">全部文章
+        <div class="all active" data-rel="All">All
             
-                <small>(30)</small>
+                <small>(31)</small>
             
         </div>
     </li>
@@ -131,7 +146,7 @@
                     <div data-rel="Writeup">
                         
                         Writeup
-                        <small>(23)</small>
+                        <small>(24)</small>
                         
                     </div>
                     
@@ -194,8 +209,8 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="30">
-<input type="hidden" id="yelog_site_word_count" value="36.8k">
+<input type="hidden" id="yelog_site_posts_number" value="31">
+<input type="hidden" id="yelog_site_word_count" value="38.6k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -205,7 +220,7 @@
     <div class="nav-right">
         <div class="friends-area">
     <div class="friends-title">
-        友情链接
+        Links
         <i class="iconfont icon-left"></i>
     </div>
     <div class="friends-content">
@@ -220,7 +235,7 @@
     <div class="right-top">
         <div id="default-panel">
             <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
-            <div class="right-title">全部文章</div>
+            <div class="right-title">All</div>
             <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
         </div>
         <div id="search-panel">
@@ -312,7 +327,16 @@
     <nav id="title-list-nav">
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
+           href="/archives/e228e2bf.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="XYCTF2024">XYCTF2024</span>
+            <span class="post-date" title="2024-04-28 14:40:53">2024/04/28</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
            href="/archives/53f30b58.html"
            data-tag=""
            data-author="" >
@@ -321,7 +345,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/3b79de97.html"
            data-tag=""
            data-author="" >
@@ -330,7 +354,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/d4f5203b.html"
            data-tag=""
            data-author="" >
@@ -339,7 +363,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/83697f53.html"
            data-tag=""
            data-author="" >
@@ -348,7 +372,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/7a95ce38.html"
            data-tag=""
            data-author="" >
@@ -357,7 +381,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/1d622977.html"
            data-tag=""
            data-author="" >
@@ -366,7 +390,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/7dc07b0.html"
            data-tag="流量分析,杂项"
            data-author="" >
@@ -375,7 +399,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/4524613a.html"
            data-tag=""
            data-author="" >
@@ -384,7 +408,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/37321197.html"
            data-tag=""
            data-author="" >
@@ -393,7 +417,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/3527c39a.html"
            data-tag=""
            data-author="" >
@@ -402,7 +426,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/6ee431f.html"
            data-tag=""
            data-author="" >
@@ -411,7 +435,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/e92ae896.html"
            data-tag=""
            data-author="" >
@@ -420,7 +444,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/c603889a.html"
            data-tag="pickle反序列化,jwt伪造"
            data-author="" >
@@ -429,7 +453,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/b85a28bc.html"
            data-tag=""
            data-author="" >
@@ -438,7 +462,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/fcef946.html"
            data-tag="文件上传,任意文件读取,JAVA安全"
            data-author="" >
@@ -447,7 +471,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/56a79676.html"
            data-tag="ssrf漏洞"
            data-author="" >
@@ -456,7 +480,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/f06c7905.html"
            data-tag="ssrf漏洞,gopher协议"
            data-author="" >
@@ -465,7 +489,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/2e3a56ed.html"
            data-tag="xxe漏洞"
            data-author="" >
@@ -474,7 +498,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/32149828.html"
            data-tag="ssrf漏洞,session反序列化,CRLF Injection"
            data-author="" >
@@ -483,7 +507,7 @@
         </a>
         
         
-        <a  class="全部文章 笔记 "
+        <a  class="All 笔记 "
            href="/archives/54488cb7.html"
            data-tag="XPath注入"
            data-author="" >
@@ -492,7 +516,7 @@
         </a>
         
         
-        <a  class="全部文章 算法竞赛专题 "
+        <a  class="All 算法竞赛专题 "
            href="/archives/68b41866.html"
            data-tag=""
            data-author="" >
@@ -501,7 +525,7 @@
         </a>
         
         
-        <a  class="全部文章 算法竞赛专题 "
+        <a  class="All 算法竞赛专题 "
            href="/archives/2bd6ac.html"
            data-tag=""
            data-author="" >
@@ -510,7 +534,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/66731dbe.html"
            data-tag=""
            data-author="" >
@@ -519,7 +543,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/ac4562c6.html"
            data-tag="命令执行"
            data-author="" >
@@ -528,7 +552,7 @@
         </a>
         
         
-        <a  class="全部文章 笔记 "
+        <a  class="All 笔记 "
            href="/archives/ec3e2815.html"
            data-tag="文件上传"
            data-author="" >
@@ -537,7 +561,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/e9530a94.html"
            data-tag="grafana"
            data-author="" >
@@ -546,7 +570,7 @@
         </a>
         
         
-        <a  class="全部文章 笔记 "
+        <a  class="All 笔记 "
            href="/archives/1a0e10db.html"
            data-tag="ssrf漏洞"
            data-author="" >
@@ -555,7 +579,7 @@
         </a>
         
         
-        <a  class="全部文章 笔记 "
+        <a  class="All 笔记 "
            href="/archives/a00344c6.html"
            data-tag="sql注入"
            data-author="" >
@@ -564,7 +588,7 @@
         </a>
         
         
-        <a  class="全部文章 工具 "
+        <a  class="All 工具 "
            href="/archives/7450bfcb.html"
            data-tag=""
            data-author="" >
@@ -573,7 +597,7 @@
         </a>
         
         
-        <a  class="全部文章 Writeup "
+        <a  class="All Writeup "
            href="/archives/bff3fd5a.html"
            data-tag=""
            data-author="" >
