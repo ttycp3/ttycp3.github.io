@@ -6,60 +6,24 @@
   <meta name="keywords" content="">
   <meta name="description" content="从c升级到c++速成 | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="[TOC] 一、RCE1.路由&#x2F;rce&#x2F;runtime&#x2F;exec漏洞代码： @GetMapping(&quot;&#x2F;runtime&#x2F;exec&quot;)     public String CommandExec(String cmd) &amp;#123;         Runtime run &#x3D; Runtime.getRuntime();         StringB">
+<meta name="description" content="反编译jar包后观察路由： @PostMapping(&amp;#123;&quot;&#x2F;index&quot;&amp;#125;)     public String index(@RequestParam(&quot;username&quot;) String username, @RequestParam(&quot;password&quot;) String password, HttpServlet">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java-sec-code靶场学习">
-<meta property="og:url" content="https://www.ttycp3.top/archives/218e91a9.html">
+<meta property="og:title" content="羊城杯2020 a_piece_of_java">
+<meta property="og:url" content="https://www.ttycp3.top/archives/24b70928.html">
 <meta property="og:site_name" content="甜筒园">
-<meta property="og:description" content="[TOC] 一、RCE1.路由&#x2F;rce&#x2F;runtime&#x2F;exec漏洞代码： @GetMapping(&quot;&#x2F;runtime&#x2F;exec&quot;)     public String CommandExec(String cmd) &amp;#123;         Runtime run &#x3D; Runtime.getRuntime();         StringB">
+<meta property="og:description" content="反编译jar包后观察路由： @PostMapping(&amp;#123;&quot;&#x2F;index&quot;&amp;#125;)     public String index(@RequestParam(&quot;username&quot;) String username, @RequestParam(&quot;password&quot;) String password, HttpServlet">
 <meta property="og:locale">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927145407277.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927151028420.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927152514570.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927162828252.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927163939476.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927165141332.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927170714658.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927171602990.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927172317279.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927174250625.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930110431275.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930115111649.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930143648191.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930145400529.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930160113322.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930161505278.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930162139227.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930162620184.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930165613203.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240930142358450.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104016372.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104436572.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104751040.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008104854995.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008110604490.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008110623158.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008105859368.png">
-<meta property="og:image" content="c:\Users\ttycp3\AppData\Roaming\Typora\typora-user-images\image-20241008105829498.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008142315473.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009104055332.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009110131500.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009110238586.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008144233099.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008144612745.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008145950138.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008155935546.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008163207205.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008163241485.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241008181225763.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009100727504.png">
-<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241009102136299.png">
-<meta property="article:published_time" content="2024-09-30T08:59:59.124Z">
-<meta property="article:modified_time" content="2024-10-09T03:35:23.923Z">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112110722088.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112173904158.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112174008338.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112174224603.png">
+<meta property="og:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112174304622.png">
+<meta property="article:published_time" content="2024-11-12T09:46:24.676Z">
+<meta property="article:modified_time" content="2024-11-12T09:46:24.820Z">
 <meta property="article:author" content="ttycp3">
 <meta property="article:tag" content="Java安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240927145407277.png">
+<meta name="twitter:image" content="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112110722088.png">
 
 
 <link rel="icon" href="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/logo.png">
@@ -157,7 +121,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(33)</small>
+                <small>(34)</small>
             
         </div>
     </li>
@@ -168,7 +132,7 @@
                     <div data-rel="Writeup">
                         
                         Writeup
-                        <small>(25)</small>
+                        <small>(26)</small>
                         
                     </div>
                     
@@ -233,8 +197,8 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="33">
-<input type="hidden" id="yelog_site_word_count" value="52.2k">
+<input type="hidden" id="yelog_site_posts_number" value="34">
+<input type="hidden" id="yelog_site_word_count" value="53.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -353,6 +317,15 @@
 
     
     <nav id="title-list-nav">
+        
+        
+        <a  class="All Writeup "
+           href="/archives/24b70928.html"
+           data-tag="Java安全"
+           data-author="" >
+            <span class="post-title" title="羊城杯2020 a_piece_of_java">羊城杯2020 a_piece_of_java</span>
+            <span class="post-date" title="2024-11-12 17:46:24">2024/11/12</span>
+        </a>
         
         
         <a  class="All 笔记 "

